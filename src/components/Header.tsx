@@ -6,7 +6,7 @@ import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
 import type { AccentColor, Theme } from '@/utils/cardStyles';
 import { Menu, X } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
 
 interface HeaderProps {
   currentPage: Page;
@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { id: 'home' as const, label: 'HOME' },
   { id: 'resume' as const, label: 'RESUME' },
   { id: 'about' as const, label: 'BOOKS/INTERESTS' },
+  { id: 'design-system' as const, label: 'DESIGN SYSTEM' },
 ];
 
 function getHeaderTextColor(accentColor: AccentColor, theme: Theme): string {
@@ -30,7 +31,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
   const { theme, accentColor } = useTheme();
   const headerTextColor = getHeaderTextColor(accentColor, theme);
 
-  const handleNavClick = (page: 'home' | 'about' | 'resume') => {
+  const handleNavClick = (page: 'home' | 'about' | 'resume' | 'design-system') => {
     if (page === 'home') {
       setCurrentPage('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });

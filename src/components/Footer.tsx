@@ -4,7 +4,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;

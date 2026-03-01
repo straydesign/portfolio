@@ -34,12 +34,6 @@ export const getBadgeTextColor = (accentColor: AccentColor, theme: Theme): strin
 export const getCardBackground = (theme: Theme): string =>
   theme === 'dark' ? 'rgba(26, 26, 26, 0.3)' : 'rgba(255, 255, 255, 0.3)';
 
-export const getCardBorder = (theme: Theme): string =>
-  theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.18)' : '1px solid rgba(0, 0, 0, 0.12)';
-
-export const getCardShadow = (theme: Theme): string =>
-  theme === 'dark' ? '0 8px 32px 0 rgba(0, 0, 0, 0.37)' : '0 8px 32px 0 rgba(0, 0, 0, 0.1)';
-
 export const getPrimaryColor = (accentColor: AccentColor, theme: Theme): string => {
   const basePrimaryColor = theme === 'dark' ? colorMapDarkMode[accentColor] : colorMap[accentColor];
   return accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;

@@ -7,7 +7,7 @@ import * as cardStyles from '@/utils/cardStyles';
 import MiddlemanLogo from './MiddlemanLogo';
 import LiteYouTube from './LiteYouTube';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;

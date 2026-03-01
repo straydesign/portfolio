@@ -17,8 +17,9 @@ const Resume = dynamic(() => import('@/components/Resume'));
 const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
 const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
 const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
+const DesignSystem = dynamic(() => import('@/components/DesignSystem'));
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
 
 function getPageFromPath(pathname: string): Page {
   const path = pathname.replace(/^\//, '');
@@ -29,6 +30,7 @@ function getPageFromPath(pathname: string): Page {
     case 'middleman': case 'middleman-case-study': return 'middleman-case-study';
     case 'dayone': case 'day-one': case 'day-one-case-study': return 'day-one-case-study';
     case 'doordash': case 'doordash-case-study': return 'doordash-case-study';
+    case 'design-system': return 'design-system';
     default: return 'home';
   }
 }
@@ -42,6 +44,7 @@ function getPathFromPage(page: Page): string {
     case 'middleman-case-study': return '/middleman';
     case 'day-one-case-study': return '/dayone';
     case 'doordash-case-study': return '/doordash';
+    case 'design-system': return '/design-system';
     default: return '/';
   }
 }
@@ -70,6 +73,7 @@ export default function App() {
       'middleman-case-study': 'Merchandising System Case Study | Tom Sesler',
       'day-one-case-study': 'FirstDay.Life Case Study | Tom Sesler',
       'doordash-case-study': 'DoorDash Dasher App Case Study | Tom Sesler',
+      'design-system': 'Design System | Tom Sesler',
     };
     document.title = titles[currentPage];
   }, [currentPage]);
@@ -117,6 +121,7 @@ export default function App() {
           {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
           {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
           {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
+          {currentPage === 'design-system' && <DesignSystem />}
         </div>
       </main>
       <Footer setCurrentPage={setCurrentPage} currentPage={currentPage} />

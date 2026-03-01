@@ -4,7 +4,7 @@ import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import { Download, Mail, ExternalLink } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
 
 interface ResumeProps {
   setCurrentPage?: (page: Page) => void;
@@ -26,7 +26,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 800, color: textColor }}>
+          <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 400, color: textColor }}>
             Thomas Sesler
           </h1>
           <div className="text-xl md:text-2xl mb-2" style={{ color: primaryColor, fontWeight: 600 }}>
