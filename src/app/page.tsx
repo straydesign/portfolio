@@ -1,65 +1,125 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import { useTheme } from '@/context/ThemeContext';
+import { colorMap } from '@/utils/cardStyles';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Home from '@/components/Home';
+
+// Lazy-load heavy canvas animation — nothing to SSR (it's a <canvas>)
+const Waves = dynamic(() => import('@/components/Waves'), { ssr: false });
+
+// Lazy-load pages that aren't the default view
+const About = dynamic(() => import('@/components/About'));
+const Resume = dynamic(() => import('@/components/Resume'));
+const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
+const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
+const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
+
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study';
+
+function getPageFromPath(pathname: string): Page {
+  const path = pathname.replace(/^\//, '');
+  switch (path) {
+    case 'about': return 'about';
+    case 'work': return 'work';
+    case 'resume': return 'resume';
+    case 'middleman': case 'middleman-case-study': return 'middleman-case-study';
+    case 'dayone': case 'day-one': case 'day-one-case-study': return 'day-one-case-study';
+    case 'doordash': case 'doordash-case-study': return 'doordash-case-study';
+    default: return 'home';
+  }
+}
+
+function getPathFromPage(page: Page): string {
+  switch (page) {
+    case 'home': return '/';
+    case 'about': return '/about';
+    case 'work': return '/work';
+    case 'resume': return '/resume';
+    case 'middleman-case-study': return '/middleman';
+    case 'day-one-case-study': return '/dayone';
+    case 'doordash-case-study': return '/doordash';
+    default: return '/';
+  }
+}
+
+export default function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('home');
+  const { theme, accentColor } = useTheme();
+
+  useEffect(() => {
+    setCurrentPage(getPageFromPath(window.location.pathname));
+  }, []);
+
+  useEffect(() => {
+    const newPath = getPathFromPage(currentPage);
+    if (window.location.pathname !== newPath) {
+      window.history.pushState({}, '', newPath);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Update document title for accessibility (WCAG 2.4.2)
+    const titles: Record<Page, string> = {
+      'home': 'Tom Sesler — Product Designer | Portfolio',
+      'about': 'Books & Interests | Tom Sesler',
+      'work': 'My Work | Tom Sesler',
+      'resume': 'Resume | Tom Sesler',
+      'middleman-case-study': 'Merchandising System Case Study | Tom Sesler',
+      'day-one-case-study': 'FirstDay.Life Case Study | Tom Sesler',
+      'doordash-case-study': 'DoorDash Dasher App Case Study | Tom Sesler',
+    };
+    document.title = titles[currentPage];
+  }, [currentPage]);
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPage(getPageFromPath(window.location.pathname));
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const basePrimaryColor = colorMap[accentColor];
+  const primaryColor = accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;
+
+  const isCaseStudy = currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study';
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={`min-h-screen flex flex-col transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      {!isCaseStudy && (
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      )}
+      <main id="main-content" className="flex-1 relative overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none z-0" style={{ background: theme === 'dark' ? '#000000' : '#ffffff' }} />
+        <div className="fixed inset-0 z-[2] pointer-events-none">
+          <Waves
+            lineColor={primaryColor}
+            backgroundColor="rgba(255, 255, 255, 0)"
+            isDarkMode={theme === 'dark'}
+            waveSpeedX={0.02}
+            waveSpeedY={0.01}
+            waveAmpX={40}
+            waveAmpY={20}
+            friction={0.975}
+            tension={0.00125}
+            maxCursorMove={30}
+            xGap={12}
+            yGap={36}
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="relative z-10">
+          {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
+          {currentPage === 'about' && <About />}
+          {currentPage === 'work' && <Home setCurrentPage={setCurrentPage} />}
+          {currentPage === 'resume' && <Resume setCurrentPage={setCurrentPage} />}
+          {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
+          {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
+          {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
         </div>
       </main>
+      <Footer setCurrentPage={setCurrentPage} currentPage={currentPage} />
     </div>
   );
 }
