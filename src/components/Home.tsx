@@ -58,18 +58,15 @@ export default function Home({ setCurrentPage }: HomeProps) {
           <div className="mb-4 md:mb-6">
             <h1 className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black"
               style={{ fontFamily: "var(--font-family-bungee), sans-serif", WebkitTextStroke: `4px ${primaryColor}`, WebkitTextFillColor: 'transparent', color: 'transparent', paintOrder: 'stroke fill' }}>
-              HELLO, I&apos;M TOM!
+              PRODUCT DESIGNER
             </h1>
           </div>
           <div className="mb-6 md:mb-8">
-            <p className="text-[20px] md:text-[24px]" style={{ color: primaryColor }}>UX/UI Product Designer</p>
+            <p className="text-[20px] md:text-[24px]" style={{ color: primaryColor, fontWeight: 600 }}>I design it, then I build it.</p>
           </div>
           <div>
             <p className="text-[15px] md:text-[17px] leading-snug" style={{ color: textColor }}>
-              UX Designer focused on understanding context and solving real problems. I care about creating solutions that drive meaningful change.
-            </p>
-            <p className="text-[14px] md:text-[16px] mt-4 leading-relaxed" style={{ color: primaryColor, fontWeight: 500 }}>
-              If you&apos;re here looking for web design, I can also help create customer-focused visual sites to engage your audience and promote your brand.
+              From ethnographic field research to interactive Figma prototypes to live products. Marketing background means I design for users and business outcomes — closing the gap between design intent and what actually ships.
             </p>
             <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
               Looking for remote positions or in New Hampshire/Massachusetts
