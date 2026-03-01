@@ -161,38 +161,52 @@ export default function DesignSystem() {
             </div>
 
             {/* Type Scale */}
-            <h3 className="text-lg font-semibold mb-4" style={{ color: primaryColor }}>Type Scale</h3>
-            <div className="space-y-4 overflow-hidden">
+            <h3 className="text-lg font-semibold mb-2" style={{ color: primaryColor }}>Type Scale</h3>
+            <p className="text-sm mb-4" style={{ color: secondaryTextColor }}>
+              Every size has a mobile and desktop value. The site uses the <code className="text-xs px-1 py-0.5 rounded" style={{ backgroundColor: chipBg }}>md:</code> breakpoint (768px) to step up.
+            </p>
+            <div className="space-y-0 overflow-hidden">
+              {/* Column headers */}
+              <div className="flex items-center gap-4 pb-2 mb-1" style={{ borderBottom: `2px solid ${dividerColor}` }}>
+                <span className="text-[11px] uppercase tracking-wider font-semibold w-36 shrink-0" style={{ color: secondaryTextColor }}>Role</span>
+                <span className="text-[11px] uppercase tracking-wider font-semibold w-16 shrink-0 text-center" style={{ color: secondaryTextColor }}>Mobile</span>
+                <span className="text-[11px] uppercase tracking-wider font-semibold w-16 shrink-0 text-center" style={{ color: secondaryTextColor }}>Desktop</span>
+                <span className="text-[11px] uppercase tracking-wider font-semibold hidden md:block" style={{ color: secondaryTextColor }}>Preview</span>
+              </div>
               {[
-                { size: '72px', label: 'Hero (desktop)', font: 'bungee', mobileSize: '48px' },
-                { size: '80px', label: 'Section heading (desktop)', font: 'bungee', mobileSize: '48px' },
-                { size: '24–36px', label: 'Card titles', font: 'inter-bold' },
-                { size: '20–24px', label: 'Subtitles', font: 'inter' },
-                { size: '15–17px', label: 'Body', font: 'inter' },
-                { size: '13–15px', label: 'Small / captions', font: 'inter' },
-                { size: '11–14px', label: 'Chips, tags, badges', font: 'inter' },
+                { role: 'Hero heading', mobile: '48px', desktop: '72px', font: 'bungee' },
+                { role: 'Section heading', mobile: '48px', desktop: '80px', font: 'bungee' },
+                { role: 'Case study title', mobile: '36px', desktop: '48px', font: 'bungee' },
+                { role: 'Card title', mobile: '24px', desktop: '30px', font: 'inter-bold' },
+                { role: 'Subtitle', mobile: '20px', desktop: '24px', font: 'inter' },
+                { role: 'Footer heading', mobile: '18px', desktop: '24px', font: 'bungee' },
+                { role: 'Body', mobile: '16px', desktop: '18px', font: 'inter' },
+                { role: 'Body (custom)', mobile: '15px', desktop: '17px', font: 'inter' },
+                { role: 'Small / caption', mobile: '13px', desktop: '15px', font: 'inter' },
+                { role: 'Button text', mobile: '14px', desktop: '14px', font: 'inter-bold' },
+                { role: 'Tags & chips', mobile: '14px', desktop: '14px', font: 'inter' },
+                { role: 'Badge / label', mobile: '12px', desktop: '12px', font: 'inter-bold' },
               ].map((item) => (
-                <div key={item.label} className="flex items-baseline gap-4" style={{ borderBottom: `1px solid ${dividerColor}`, paddingBottom: 8 }}>
-                  <code className="text-xs px-2 py-0.5 rounded shrink-0 w-24 text-center" style={{ backgroundColor: chipBg, color: secondaryTextColor }}>
-                    {item.size}
+                <div key={item.role} className="flex items-center gap-4 py-2" style={{ borderBottom: `1px solid ${dividerColor}` }}>
+                  <span className="text-sm font-medium w-36 shrink-0" style={{ color: textColor }}>{item.role}</span>
+                  <code className="text-[11px] px-1.5 py-0.5 rounded w-16 shrink-0 text-center" style={{ backgroundColor: chipBg, color: secondaryTextColor }}>
+                    {item.mobile}
+                  </code>
+                  <code className="text-[11px] px-1.5 py-0.5 rounded w-16 shrink-0 text-center" style={{ backgroundColor: item.mobile !== item.desktop ? `${primaryColor}22` : chipBg, color: item.mobile !== item.desktop ? primaryColor : secondaryTextColor }}>
+                    {item.desktop}
                   </code>
                   <span
-                    className="truncate"
+                    className="truncate hidden md:block"
                     style={{
-                      fontSize: item.size.includes('–') ? item.size.split('–')[1] : (parseInt(item.size) > 48 ? '36px' : item.size),
+                      fontSize: Math.min(parseInt(item.desktop), 32) + 'px',
                       fontFamily: item.font === 'bungee' ? "var(--font-family-bungee), sans-serif" : 'inherit',
-                      fontWeight: item.font === 'inter-bold' ? 700 : item.font === 'bungee' ? 400 : 400,
+                      fontWeight: item.font === 'inter-bold' ? 700 : 400,
                       color: textColor,
                       lineHeight: 1.2,
                     }}
                   >
-                    {item.label}
+                    Aa
                   </span>
-                  {item.mobileSize && (
-                    <span className="text-xs shrink-0 hidden md:inline" style={{ color: secondaryTextColor }}>
-                      Mobile: {item.mobileSize}
-                    </span>
-                  )}
                 </div>
               ))}
             </div>
