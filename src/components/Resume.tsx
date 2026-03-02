@@ -30,10 +30,10 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             Thomas Sesler
           </h1>
           <div className="text-xl md:text-2xl mb-2" style={{ color: primaryColor, fontWeight: 600 }}>
-            Product Designer | UX/UI Designer
+            Product Designer
           </div>
           <div className="text-base md:text-lg mb-3" style={{ color: secondaryTextColor }}>
-            Open to opportunities full time, remote, and contract, looking for in person in Boston
+            New Hampshire / Massachusetts — open to full-time, contract, or remote
           </div>
           <div className="mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm"
@@ -42,7 +42,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             </span>
           </div>
           <div className="mb-2 text-base" style={{ color: textColor }}>
-            <Mail size={16} className="inline mr-2" />tsesler44@gmail.com
+            <Mail size={16} className="inline mr-2" />tlsesler44@gmail.com
           </div>
           <div className="flex gap-3 flex-wrap mb-6">
             <a href="https://www.linkedin.com/in/tom-sesler/" target="_blank" rel="noopener noreferrer"
@@ -64,7 +64,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
         <section className="mb-8">
           <h2 className="text-2xl mb-4" style={{ color: primaryColor, fontWeight: 700 }}>PROFESSIONAL SUMMARY</h2>
           <p className="text-base leading-relaxed" style={{ color: textColor }}>
-            Product Designer with a marketing background that informs business-centered design decisions. Skilled in translating user research into wireframes, prototypes, and high-fidelity interfaces using Figma while considering both user needs and business goals. Experienced in conducting user interviews, usability testing, and designing within Agile workflows. Strong at balancing user experience with commercial viability, conversion optimization, and strategic business outcomes. Proficient in Figma with expertise in Auto Layout, component libraries, and design systems.
+            Product Designer with a marketing degree and hands-on field experience. I worked 1.5 years as a merchandiser and completed 1,000+ DoorDash deliveries — so my design decisions start with real workflows, not assumptions. Skilled in Figma (Auto Layout, component libraries, design systems), user research, usability testing, and working within Agile teams. I focus on designs that serve both user needs and business goals.
           </p>
         </section>
 
@@ -143,82 +143,31 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
         <section className="mb-8">
           <h2 className="text-2xl mb-4" style={{ color: primaryColor, fontWeight: 700 }}>DESIGN PROJECTS</h2>
 
-          <div className="mb-6">
-            <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <h3 className="text-lg font-semibold" style={{ color: textColor }}>POS-Driven Merchandiser App | Mobile Product Design</h3>
-              <span className="text-sm" style={{ color: secondaryTextColor }}>June 2025 – August 2025</span>
+          {[
+            { title: 'POS-Driven Merchandiser App', subtitle: 'Mobile Product Design', date: 'June 2025 – August 2025', desc: 'Designed a mobile-first app to reduce retail stock-outs using real-time POS data. Built from 1.5 years of firsthand merchandising experience across 15+ accounts. Solo designer: research, IA, interaction design, and 10+ prototype iterations in Figma.', tags: ['User Research', 'Figma Prototyping', 'Design System', 'Usability Testing'], page: 'middleman-case-study' as const },
+            { title: 'DoorDash Dasher App', subtitle: 'UX Heuristic Evaluation', date: '2025', desc: 'Ethnographic field research across 1,000+ deliveries analyzing error recovery failures. Applied Nielsen\u2019s heuristics to evaluate 5 critical flows and proposed business-aware redesigns.', tags: ['Ethnographic Research', 'Heuristic Evaluation', 'Error Recovery', 'Mobile UX'], page: 'doordash-case-study' as const },
+            { title: 'FirstDay.Life', subtitle: 'Responsive Web Application', date: 'June 2025 – August 2025', desc: 'AI-powered goal tracker designed, built, and shipped as a live product. Competitive analysis, user journey mapping, and responsive mobile-first interface with WCAG 2.1 AA compliance.', tags: ['Competitive Analysis', 'Responsive Design', 'Shipped Product'], page: 'day-one-case-study' as const },
+          ].map(({ title, subtitle, date, desc, tags, page }) => (
+            <div key={title} className="mb-6">
+              <div className="flex flex-wrap items-baseline gap-3 mb-2">
+                <h3 className="text-lg font-semibold" style={{ color: textColor }}>{title} | {subtitle}</h3>
+                <span className="text-sm" style={{ color: secondaryTextColor }}>{date}</span>
+              </div>
+              <p className="text-base leading-relaxed mb-3" style={{ color: textColor }}>{desc}</p>
+              <div className="flex flex-wrap gap-2 mb-2">
+                {tags.map(s => (
+                  <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
+                ))}
+              </div>
+              {setCurrentPage && (
+                <button onClick={() => setCurrentPage(page)}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all hover:scale-105"
+                  style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>
+                  View Case Study <ExternalLink size={14} />
+                </button>
+              )}
             </div>
-            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Designed a mobile-first application to reduce retail stock-outs by integrating real-time POS data</li>
-              <li>Conducted user interviews with merchandisers to map existing workflows and identify pain points</li>
-              <li>Created comprehensive user flows and wireframes in Figma, from low-fi to interactive hi-fi prototypes</li>
-              <li>Built a component-based design system ensuring WCAG 2.1 Level AA accessibility compliance</li>
-              <li>Conducted usability testing with target users, iterating on designs to improve task completion</li>
-            </ul>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {['User Research', 'Figma Prototyping', 'Design System', 'Usability Testing'].map(s => (
-                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
-              ))}
-            </div>
-            {setCurrentPage && (
-              <button onClick={() => setCurrentPage('middleman-case-study')}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all hover:scale-105"
-                style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>
-                View Project <ExternalLink size={14} />
-              </button>
-            )}
-          </div>
-
-          <div className="mb-6">
-            <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <h3 className="text-lg font-semibold" style={{ color: textColor }}>Goal Achievement Helper | Responsive Web Application</h3>
-              <span className="text-sm" style={{ color: secondaryTextColor }}>June 2025 – August 2025 | Live Product</span>
-            </div>
-            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Researched competitive productivity tools using comparative analysis to identify market gaps</li>
-              <li>Designed complete user journey maps and task flows emphasizing daily progress tracking</li>
-              <li>Created a responsive, mobile-first interface in Figma with systematic breakpoint considerations</li>
-              <li>Ensured WCAG 2.1 Level AA compliance through proper color contrast and keyboard navigation</li>
-              <li>Successfully launched the application publicly and gathered user feedback</li>
-            </ul>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {['Competitive Analysis', 'User Journey Mapping', 'Responsive Design', 'WCAG 2.1 AA'].map(s => (
-                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
-              ))}
-            </div>
-            {setCurrentPage && (
-              <button onClick={() => setCurrentPage('day-one-case-study')}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:scale-105"
-                style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>
-                View Project <ExternalLink size={14} />
-              </button>
-            )}
-          </div>
-
-          <div className="mb-6">
-            <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <h3 className="text-lg font-semibold" style={{ color: textColor }}>DoorDash Dasher App | UX Heuristic Evaluation</h3>
-              <span className="text-sm" style={{ color: secondaryTextColor }}>2025 | Ethnographic Research</span>
-            </div>
-            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Conducted ethnographic field research across 1,000+ deliveries to identify error recovery failures</li>
-              <li>Applied Nielsen&apos;s Error Prevention & Recovery Heuristics to evaluate 5 critical interaction flows</li>
-              <li>Proposed redesigns that preserve business goals (fraud prevention, completion rates) while reducing driver distraction</li>
-              <li>Documented each issue with real app screenshots, root cause analysis, and business-aware solutions</li>
-            </ul>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {['Ethnographic Research', 'Heuristic Evaluation', 'Error Recovery', 'Mobile UX'].map(s => (
-                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
-              ))}
-            </div>
-            {setCurrentPage && (
-              <button onClick={() => setCurrentPage('doordash-case-study')}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all hover:scale-105"
-                style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>
-                View Project <ExternalLink size={14} />
-              </button>
-            )}
-          </div>
+          ))}
         </section>
 
         <div className="mb-8" style={{ borderTop: `2px solid ${divider}` }} />

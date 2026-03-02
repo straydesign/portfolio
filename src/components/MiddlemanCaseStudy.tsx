@@ -5,7 +5,6 @@ import * as cardStyles from '@/utils/cardStyles';
 import MiddlemanLogo from './MiddlemanLogo';
 import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
 import LiteYouTube from './LiteYouTube';
-import ImageWithSkeleton from './ImageWithSkeleton';
 
 interface MiddlemanCaseStudyProps {
   onBack: () => void;
@@ -84,9 +83,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           {/* THE MOMENT */}
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE MOMENT</h2>
+            <p className="text-base md:text-lg mb-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
+              In beverage distribution, merchandisers visit retail stores daily to restock shelves from backroom inventory. The job is physical, fast-paced, and done across 6–12 stores per shift.
+            </p>
             <p className="text-lg md:text-xl mb-8 leading-relaxed" style={{ color: textColor }}>
-              Sales has the ordering tool, and it helps with placing orders.<br />
-              But the actual in store work is still pen, cardboard, and manual counting with no data helping you decide what to pull.
+              Sales reps have ordering tools to help place orders. But the actual in-store work — deciding what to pull from the backroom, in what priority — is still pen, cardboard, and manual counting with no data to guide decisions.
             </p>
           </div>
 
@@ -116,14 +117,6 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </div>
           </div>
 
-          {/* WHO THIS IS FOR */}
-          <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
-            <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>WHO THIS IS FOR</h2>
-            <p className="text-xl md:text-2xl font-bold" style={{ color: primaryColor }}>
-              Beer route merchandisers running 6 to 12 stores a day.
-            </p>
-          </div>
-
           {/* COMPETITIVE LANDSCAPE */}
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>COMPETITIVE LANDSCAPE</h2>
@@ -147,7 +140,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           {/* THE PROBLEM */}
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE PROBLEM</h2>
-            <p className="text-lg md:text-xl mb-8 leading-relaxed font-bold" style={{ color: textColor }}>In store decisions are slow and guessy:</p>
+            <p className="text-lg md:text-xl mb-8 leading-relaxed font-bold" style={{ color: textColor }}>In-store decisions are slow and based on guesswork:</p>
             <div className="space-y-3 mb-8">
               {['You cannot quickly see what is in backstock', 'You cannot quickly see what is about to stock out', 'So you waste time and still miss pulls'].map(t => (
                 <div key={t} className="flex items-start gap-3">
@@ -160,18 +153,42 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
           {/* TARGETS */}
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
-            <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>WHAT I AIMED TO IMPROVE (TARGETS)</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest mb-4" style={{ color: primaryColor }}>DESIGN HYPOTHESIS</h2>
+            <p className="text-base md:text-lg mb-8 leading-relaxed" style={{ color: textColor }}>
+              If the app surfaces real-time POS data and generates prioritized pull lists, then:
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { icon: Clock, label: 'TIME PER STORE', value: '45 min → 15 min' },
                 { icon: TrendingUp, label: 'STOCKOUTS', value: 'Down 60%' },
                 { icon: Target, label: 'PULL ACCURACY', value: '85%+' },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="text-center">
-                  <Icon className="w-12 h-12 mx-auto mb-4" style={{ color: primaryColor }} />
-                  <p className="text-sm font-bold mb-2" style={{ color: textColor, opacity: 0.7 }}>{label}</p>
-                  <p className="text-2xl md:text-3xl font-bold" style={{ color: primaryColor }}>{value}</p>
-                  <p className="text-sm mt-1" style={{ color: textColor, opacity: 0.6 }}>(target)</p>
+                <div key={label} className="text-center p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
+                  <Icon className="w-8 h-8 mx-auto mb-3" style={{ color: primaryColor }} />
+                  <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: textColor, opacity: 0.7 }}>{label}</p>
+                  <p className="text-lg md:text-xl font-bold" style={{ color: primaryColor }}>{value}</p>
+                  <p className="text-xs mt-1" style={{ color: textColor, opacity: 0.5 }}>untested hypothesis</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* DESIGN PROCESS */}
+          <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
+            <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>DESIGN PROCESS</h2>
+            <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: textColor }}>
+              10+ iterations across 3 months. Each round was informed by the field observations above — I was still working as a merchandiser during the design process, testing mental models against real shifts.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {[
+                { phase: 'TASK ANALYSIS', desc: 'Mapped the actual merchandiser workflow across a full shift: arrive → check backroom → count shelf → decide pulls → restock → confirm → next store' },
+                { phase: 'LOW-FI WIREFRAMES', desc: 'Paper sketches testing two IA approaches: store-first (select store, see pull list) vs. product-first (see all low-stock items across stores)' },
+                { phase: 'MID-FI PROTOTYPE', desc: 'Figma flows testing the store-first approach — which matched the physical workflow better. Iterated on information density for quick in-aisle scanning' },
+                { phase: 'HI-FI INTERACTIVE', desc: 'Full interactive prototype with component system, real data patterns, and the 3-step core flow: pick store → pull list → confirm pulled' },
+              ].map(({ phase, desc }) => (
+                <div key={phase} className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
+                  <p className="text-xs font-bold mb-2 tracking-wider" style={{ color: primaryColor }}>{phase}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: textColor }}>{desc}</p>
                 </div>
               ))}
             </div>

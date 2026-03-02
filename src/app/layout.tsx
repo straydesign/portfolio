@@ -84,10 +84,10 @@ export default function RootLayout({
     alternateName: "Thomas Sesler",
     jobTitle: "Product Designer",
     description:
-      "UX/UI Product Designer focused on understanding context and solving real problems.",
+      "Product Designer — from ethnographic field research to interactive prototypes to live products.",
     url: "https://straydesign.co",
     sameAs: ["https://www.linkedin.com/in/tom-sesler/"],
-    email: "Tlsesler44@gmail.com",
+    email: "tlsesler44@gmail.com",
     knowsAbout: [
       "UX Design",
       "UI Design",

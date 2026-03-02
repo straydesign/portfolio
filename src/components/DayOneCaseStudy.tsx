@@ -104,13 +104,13 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>RESEARCH & COMPETITIVE ANALYSIS</h2>
             <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: textColor }}>
-              Existing productivity tools fall into two camps: task managers that organize what you already know (Todoist, Things), and habit trackers that measure consistency (Habitica, Streaks). Neither bridges the gap between &quot;I want to learn guitar&quot; and &quot;here&apos;s what to do today.&quot;
+              Existing productivity tools fall into two camps: task managers that organize what you already know, and habit trackers that measure consistency. Neither bridges the gap between &quot;I want to learn guitar&quot; and &quot;here&apos;s what to do today.&quot;
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               {[
-                { tool: 'Todoist / Things', finding: 'Great for task management, but requires you to already know what to do. No intelligence about how to break goals into steps.' },
-                { tool: 'Habitica / Streaks', finding: 'Gamifies consistency but doesn\'t generate the plan. You need to define your own habits before tracking them.' },
-                { tool: 'Coach.me / Noom', finding: 'Closest to the vision, but locked to specific domains (fitness, nutrition). Not generalizable to "learn piano" or "save for a house."' },
+                { tool: 'Todoist / Things', finding: 'Onboarding starts with an empty inbox — the user must already know their tasks. No guidance on breaking a goal into steps. The interaction model assumes planning has already happened elsewhere.' },
+                { tool: 'Habitica / Streaks', finding: 'Gamification drives consistency but requires users to define their own habits upfront. The cold-start problem is significant: new users stare at a blank habit list with no help generating one.' },
+                { tool: 'Coach.me / Noom', finding: 'Closest to the vision — they generate structured plans. But they\'re domain-locked (fitness, nutrition). The onboarding flow asks rigid category questions rather than accepting open-ended goals.' },
               ].map(({ tool, finding }) => (
                 <div key={tool} className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
                   <p className="text-base font-bold mb-2" style={{ color: primaryColor }}>{tool}</p>
@@ -120,7 +120,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             </div>
             <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
               <p className="text-base leading-relaxed" style={{ color: textColor }}>
-                <strong style={{ color: primaryColor }}>The gap:</strong> No tool takes a free-form goal and generates a structured, time-bound plan with daily actions. That&apos;s the space FirstDay occupies.
+                <strong style={{ color: primaryColor }}>The gap:</strong> No tool takes a free-form goal and generates a structured, time-bound plan with daily actions. The interaction pattern that&apos;s missing is: natural language input → AI-generated plan → daily action items. That&apos;s the space FirstDay occupies.
               </p>
             </div>
           </div>
@@ -182,18 +182,18 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
 
           {/* THE PIVOT */}
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
-            <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE PIVOT</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE PIVOT — AND WHAT IT CHANGED</h2>
             <p className="text-lg md:text-xl mb-6 leading-relaxed" style={{ color: textColor }}>
-              Originally designed as a native iOS app, I pivoted to a responsive web application after competitive analysis revealed that web-first would reach more users faster and allow rapid iteration without app store approval cycles.
+              Originally designed as a native iOS app. Moving to a responsive web app changed more than the distribution — it changed the design.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
-                <h3 className="text-lg font-bold mb-2" style={{ color: primaryColor }}>Before: Native iOS App</h3>
-                <p className="text-base" style={{ color: textColor, opacity: 0.8 }}>Limited to iOS users, slow iteration, app store approval delays</p>
+                <h3 className="text-lg font-bold mb-2" style={{ color: primaryColor }}>iOS Design</h3>
+                <p className="text-base" style={{ color: textColor, opacity: 0.8 }}>Tab-based navigation, native gesture patterns, system-level notifications for daily reminders, fixed viewport assumptions</p>
               </div>
               <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
-                <h3 className="text-lg font-bold mb-2" style={{ color: primaryColor }}>After: Responsive Web App</h3>
-                <p className="text-base" style={{ color: textColor, opacity: 0.8 }}>Cross-platform, instant updates, broader reach, faster feedback loops</p>
+                <h3 className="text-lg font-bold mb-2" style={{ color: primaryColor }}>Responsive Web</h3>
+                <p className="text-base" style={{ color: textColor, opacity: 0.8 }}>Fluid layout across 6 breakpoints, scroll-based hierarchy instead of tabs, progressive disclosure for mobile, no native notification access — required rethinking the daily nudge pattern</p>
               </div>
             </div>
           </div>

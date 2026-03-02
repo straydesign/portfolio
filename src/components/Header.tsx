@@ -85,7 +85,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden mt-3 pb-3 px-6" role="navigation" aria-label="Mobile navigation">
-          <div className="rounded-3xl px-4 py-3" style={{ backgroundColor: '#1a1a1a', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
+          <div className="rounded-3xl px-4 py-3" style={{ backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)' }}>
             <div className="flex flex-col gap-1.5">
               {NAV_ITEMS.map((item) => (
                 <button
@@ -93,8 +93,8 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                   onClick={() => handleNavClick(item.id)}
                   className="px-3 py-1.5 border-2 text-left rounded-full"
                   style={{
-                    borderColor: currentPage === item.id ? '#ffffff' : 'transparent',
-                    color: '#ffffff',
+                    borderColor: currentPage === item.id ? headerTextColor : 'transparent',
+                    color: headerTextColor,
                   }}
                 >
                   {item.label}

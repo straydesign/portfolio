@@ -122,7 +122,7 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:Tlsesler44@gmail.com?subject=Web Design Inquiry"
+                <a href="mailto:tlsesler44@gmail.com?subject=Web Design Inquiry"
                   className="w-full px-4 py-2.5 rounded-full text-sm text-center transition-all hover:scale-105 font-bold"
                   style={{ backgroundColor: pkg.featured ? primaryColor : 'transparent', color: pkg.featured ? buttonTextColor : textColor, border: `2px solid ${primaryColor}`, display: 'block' }}>
                   Get Started
@@ -166,7 +166,7 @@ export default function Services() {
           <p className="text-base md:text-lg mb-6" style={{ color: secondaryTextColor }}>
             Tell me about your project and I&apos;ll get back to you within 24 hours.
           </p>
-          <a href="mailto:Tlsesler44@gmail.com?subject=Web Design Inquiry"
+          <a href="mailto:tlsesler44@gmail.com?subject=Web Design Inquiry"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-base transition-all hover:scale-105 font-bold"
             style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
             <Mail className="w-5 h-5" /> Get in Touch
