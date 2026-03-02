@@ -87,7 +87,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               In beverage distribution, merchandisers visit retail stores daily to restock shelves from backroom inventory. The job is physical, fast-paced, and done across 6–12 stores per shift.
             </p>
             <p className="text-lg md:text-xl mb-8 leading-relaxed" style={{ color: textColor }}>
-              Sales reps have ordering tools to help place orders. But the actual in-store work — deciding what to pull from the backroom, in what priority — is still pen, cardboard, and manual counting with no data to guide decisions.
+              The sales side has ordering software, but merchandisers never touch it. The actual in-store work — deciding what to pull from the backroom, in what priority — is still pen, cardboard, and manual counting with no data to guide decisions.
             </p>
           </div>
 
@@ -95,7 +95,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           <div className="mb-8 p-8 md:p-12 rounded-[48px]" style={cardStyle}>
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>RESEARCH & DISCOVERY</h2>
             <p className="text-lg md:text-xl mb-6 leading-relaxed font-bold" style={{ color: primaryColor }}>
-              1.5 years as a merchandiser. 6–12 stores per day. Every pain point is firsthand.
+              A year as a merchandiser. 6–12 stores per day. Every pain point is firsthand.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               {[
@@ -112,7 +112,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </div>
             <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)' }}>
               <p className="text-sm" style={{ color: textColor, opacity: 0.7 }}>
-                <strong>Method:</strong> Ethnographic field research — I was the user. These observations come from daily work across 15+ retail accounts over 1.5 years, not from interviews conducted after the fact.
+                <strong>Method:</strong> Ethnographic field research — I was the user. These observations come from daily work across 15+ retail accounts over a year, not from interviews conducted after the fact.
               </p>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>WHAT IS REAL VS WHAT IS NEXT</h2>
             <div className="space-y-6">
               {[
-                { icon: CheckCircle, title: 'Real', desc: 'Built from 1.5 years of daily merchandising across 15+ stores — every pain point and workflow observed firsthand' },
+                { icon: CheckCircle, title: 'Real', desc: 'Built from a year of daily merchandising across 15+ stores — every pain point and workflow observed firsthand' },
                 { icon: AlertTriangle, title: 'Not proven yet', desc: 'The exact time savings and accuracy numbers' },
                 { icon: Zap, title: 'Next', desc: 'Test with 8 to 10 merchandisers, then a 2 week pilot' },
               ].map(({ icon: Icon, title, desc }) => (

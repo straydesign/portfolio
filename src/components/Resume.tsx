@@ -64,7 +64,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
         <section className="mb-8">
           <h2 className="text-2xl mb-4" style={{ color: primaryColor, fontWeight: 700 }}>PROFESSIONAL SUMMARY</h2>
           <p className="text-base leading-relaxed" style={{ color: textColor }}>
-            Product Designer with a marketing degree and hands-on field experience. I worked 1.5 years as a merchandiser and completed 1,000+ DoorDash deliveries — so my design decisions start with real workflows, not assumptions. Skilled in Figma (Auto Layout, component libraries, design systems), user research, usability testing, and working within Agile teams. I focus on designs that serve both user needs and business goals.
+            Product Designer with a marketing degree and hands-on field experience. Skilled in Figma (Auto Layout, component libraries, design systems), user research, usability testing, and working within Agile teams. My design decisions start with real workflows, not assumptions — I focus on designs that serve both user needs and business goals.
           </p>
         </section>
 

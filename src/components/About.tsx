@@ -57,7 +57,7 @@ export default function About() {
         <div className="p-6 md:p-8 rounded-[48px] mb-8 md:mb-10" style={cardStyle}>
           <h2 className="text-2xl md:text-3xl mb-4 md:mb-6" style={{ color: primaryColor, fontWeight: 900 }}>ABOUT ME</h2>
           <p className="text-base md:text-lg leading-relaxed mb-4" style={{ color: textColor }}>
-            I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand — 1.5 years as a beer route merchandiser, 1,000+ DoorDash deliveries, and building products from scratch. That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
+            I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand — working as a merchandiser, doing gig delivery, and building products from scratch. That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
           </p>
           <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>
             Outside of work, I read constantly, climb, and tinker with aquascaping and home audio setups. The books below have shaped how I think about design, leadership, and communication.
