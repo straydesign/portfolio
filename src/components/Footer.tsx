@@ -4,7 +4,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system' | 'services';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;
@@ -50,6 +50,15 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
             </a>
           </div>
           <div className="flex items-center gap-3 md:gap-4">
+            {setCurrentPage && (
+              <button
+                onClick={() => setCurrentPage('services')}
+                className="px-4 py-1.5 border-2 rounded-full transition-all text-sm whitespace-nowrap hover:scale-105"
+                style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
+              >
+                WEB DESIGN SERVICES
+              </button>
+            )}
             {socialLinks.map((link) => (
               <a
                 key={link.label}

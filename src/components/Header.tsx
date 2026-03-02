@@ -6,7 +6,7 @@ import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
 import type { AccentColor, Theme } from '@/utils/cardStyles';
 import { Menu, X } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system' | 'services';
 
 interface HeaderProps {
   currentPage: Page;
