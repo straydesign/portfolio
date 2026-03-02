@@ -79,12 +79,6 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               title="Merchandising System Demo"
               borderColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}
             />
-            <div className="mt-6 flex justify-center">
-              <div className="w-[200px] md:w-[240px]">
-                <p className="text-xs font-bold mb-2 text-center" style={{ color: textColor, opacity: 0.6 }}>PROTOTYPE LOGIN</p>
-                <ImageWithSkeleton src="/images/middleman/screen-1-home.png" alt="Middleman app login screen showing branded sign-in interface" className="rounded-2xl w-full" style={{ border: `2px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}` }} />
-              </div>
-            </div>
           </div>
 
           {/* THE MOMENT */}
