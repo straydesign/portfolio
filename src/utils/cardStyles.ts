@@ -21,7 +21,7 @@ export const colorMapDarkMode: Record<AccentColor, string> = {
   orange: '#FF9900',
   yellow: '#FFDD00',
   green: '#00CC44',
-  bw: '#808080',
+  bw: '#666666',
   tan: '#E8DCC8',
 };
 
