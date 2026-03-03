@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
-import { Linkedin, Mail, Phone } from 'lucide-react';
+import { colorMap } from '@/utils/cardStyles';
+import { Linkedin, Mail, Phone, X } from 'lucide-react';
+import ContactForm from './ContactForm';
 
 type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system' | 'services';
 
@@ -16,6 +18,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const basePrimaryColor = colorMap[accentColor];
   const primaryColor = accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;
   const textColor = primaryColor;
+  const [contactOpen, setContactOpen] = useState(false);
 
   const socialLinks = [
     { icon: Phone, label: 'Phone', href: 'tel:+18149640081' },
@@ -24,57 +27,91 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   ];
 
   return (
-    <footer
-      className="mt-auto relative"
-      style={{
-        backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
-        zIndex: 50,
-        boxShadow: theme === 'dark' ? '0 -2px 8px rgba(0, 0, 0, 0.5)' : '0 -2px 8px rgba(0, 0, 0, 0.08)',
-      }}
-    >
-      <div className="px-6 md:px-8 py-3 md:py-4" style={{ position: 'relative', zIndex: 51 }}>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
-          <div className="flex items-center gap-4 md:gap-6">
-            <h2
-              className="text-[18px] md:text-[24px]"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: textColor }}
-            >
-              LET&apos;S WORK TOGETHER
-            </h2>
-            <a
-              href="mailto:tlsesler44@gmail.com"
-              className="px-6 py-2 border-2 rounded-full transition-all text-sm md:text-base whitespace-nowrap hover:scale-105"
-              style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
-            >
-              CONTACT
-            </a>
-          </div>
-          <div className="flex items-center gap-3 md:gap-4">
-            {setCurrentPage && (
+    <>
+      <footer
+        className="mt-auto relative"
+        style={{
+          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+          zIndex: 50,
+          boxShadow: theme === 'dark' ? '0 -2px 8px rgba(0, 0, 0, 0.5)' : '0 -2px 8px rgba(0, 0, 0, 0.08)',
+        }}
+      >
+        <div className="px-6 md:px-8 py-3 md:py-4" style={{ position: 'relative', zIndex: 51 }}>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
+            <div className="flex items-center gap-4 md:gap-6">
+              <h2
+                className="text-[18px] md:text-[24px]"
+                style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: textColor }}
+              >
+                LET&apos;S WORK TOGETHER
+              </h2>
               <button
-                onClick={() => setCurrentPage('services')}
-                className="px-4 py-1.5 border-2 rounded-full transition-all text-sm whitespace-nowrap hover:scale-105"
+                onClick={() => setContactOpen(true)}
+                className="px-6 py-2 border-2 rounded-full transition-all text-sm md:text-base whitespace-nowrap hover:scale-105"
                 style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
               >
-                WEB DESIGN SERVICES
+                CONTACT
               </button>
-            )}
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                className="transition-all hover:scale-110"
-                style={{ color: textColor }}
-              >
-                <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
-              </a>
-            ))}
+            </div>
+            <div className="flex items-center gap-3 md:gap-4">
+              {setCurrentPage && (
+                <button
+                  onClick={() => setCurrentPage('services')}
+                  className="px-4 py-1.5 border-2 rounded-full transition-all text-sm whitespace-nowrap hover:scale-105"
+                  style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
+                >
+                  WEB DESIGN SERVICES
+                </button>
+              )}
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.label}
+                  className="transition-all hover:scale-110"
+                  style={{ color: textColor }}
+                >
+                  <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* Contact Modal */}
+      {contactOpen && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+          onClick={() => setContactOpen(false)}
+        >
+          <div className="absolute inset-0 bg-black/60" />
+          <div
+            className="relative w-full max-w-md rounded-[32px] p-6 md:p-8"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+              border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'}`,
+              boxShadow: '0 24px 48px rgba(0, 0, 0, 0.3)',
+            }}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold" style={{ color: primaryColor }}>Get in Touch</h3>
+              <button
+                onClick={() => setContactOpen(false)}
+                className="p-1 rounded-full transition-all hover:scale-110"
+                style={{ color: theme === 'dark' ? '#ffffff' : '#1d1d1f' }}
+                aria-label="Close contact form"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <ContactForm compact />
+          </div>
+        </div>
+      )}
+    </>
   );
 }

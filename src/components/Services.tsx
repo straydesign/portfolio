@@ -2,7 +2,8 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
-import { ExternalLink, Mail, Palette, Smartphone, BarChart3, Wrench } from 'lucide-react';
+import { ExternalLink, Palette, Smartphone, BarChart3, Wrench } from 'lucide-react';
+import ContactForm from './ContactForm';
 
 export default function Services() {
   const { theme, accentColor } = useTheme();
@@ -158,19 +159,17 @@ export default function Services() {
         </div>
 
         {/* CTA */}
-        <div className="p-6 md:p-10 rounded-[48px] text-center" style={cardStyle}>
-          <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4"
+        <div className="p-6 md:p-10 rounded-[48px]" style={cardStyle}>
+          <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4 text-center"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: primaryColor }}>
             LET&apos;S BUILD YOUR SITE.
           </h2>
-          <p className="text-base md:text-lg mb-6" style={{ color: secondaryTextColor }}>
+          <p className="text-base md:text-lg mb-6 text-center" style={{ color: secondaryTextColor }}>
             Tell me about your project and I&apos;ll get back to you within 24 hours.
           </p>
-          <a href="mailto:tlsesler44@gmail.com?subject=Web Design Inquiry"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-base transition-all hover:scale-105 font-bold"
-            style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
-            <Mail className="w-5 h-5" /> Get in Touch
-          </a>
+          <div className="max-w-md mx-auto">
+            <ContactForm />
+          </div>
         </div>
 
       </div>
