@@ -49,7 +49,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <div>
                 <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>CONCEPT</h3>
-                <p className="text-base md:text-lg" style={{ color: textColor }}>An AI-powered goal achievement app that breaks big dreams into manageable daily actions through personalized 7-day plans.</p>
+                <p className="text-base md:text-lg" style={{ color: textColor }}>An AI-powered goal achievement app that breaks big dreams into manageable daily actions through personalized 30-day plans delivered in 7-day sprints.</p>
               </div>
               <div>
                 <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>PROBLEM</h3>
@@ -57,7 +57,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
               </div>
               <div>
                 <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>SOLUTION</h3>
-                <p className="text-base md:text-lg font-bold" style={{ color: primaryColor }}>Tell the app your goal → AI generates a personalized 7-day plan → 3 simple daily activities → Track progress and adapt</p>
+                <p className="text-base md:text-lg font-bold" style={{ color: primaryColor }}>Tell the app your goal → AI generates a personalized 30-day plan in 7-day sprints → 3 simple daily activities → Track progress and adapt</p>
               </div>
               <div>
                 <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>MY ROLE</h3>
@@ -134,7 +134,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { icon: Brain, label: 'Set Your Goal', desc: 'Tell the app what you want to achieve in your own words' },
-                { icon: Calendar, label: 'Get Your Plan', desc: 'AI generates a personalized 7-day plan with 3 daily activities' },
+                { icon: Calendar, label: 'Get Your Plan', desc: 'AI generates a personalized 30-day plan in weekly sprints with 3 daily activities' },
                 { icon: Target, label: 'Track Progress', desc: 'Check off tasks, see your streak, and adapt as you grow' },
               ].map(({ icon: Icon, label, desc }) => (
                 <div key={label} className="text-center">
@@ -160,9 +160,9 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>KEY DESIGN DECISIONS</h2>
             <div className="space-y-8">
               <div>
-                <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: primaryColor }}>7-day plans instead of 30-day</h3>
+                <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: primaryColor }}>30-day goals in 7-day sprints</h3>
                 <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>
-                  Research shows that shorter commitment windows lead to higher completion rates. A week feels achievable—a month feels daunting. Users can always renew or adjust after 7 days.
+                  The full program is 30 days, but delivered in weekly sprints. Research shows that shorter commitment windows lead to higher completion rates. A week feels achievable — so users focus on one sprint at a time while the 30-day arc keeps them moving toward the bigger goal.
                 </p>
               </div>
               <div>

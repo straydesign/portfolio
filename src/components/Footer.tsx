@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone, X } from 'lucide-react';
@@ -19,6 +19,17 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const primaryColor = accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;
   const textColor = primaryColor;
   const [contactOpen, setContactOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!contactOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setContactOpen(false);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    modalRef.current?.focus();
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [contactOpen]);
 
   const socialLinks = [
     { icon: Phone, label: 'Phone', href: 'tel:+18149640081' },
@@ -89,7 +100,12 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
         >
           <div className="absolute inset-0 bg-black/60" />
           <div
-            className="relative w-full max-w-md rounded-[32px] p-6 md:p-8"
+            ref={modalRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Contact form"
+            className="relative w-full max-w-md rounded-[32px] p-6 md:p-8 outline-none"
             onClick={(e) => e.stopPropagation()}
             style={{
               backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',

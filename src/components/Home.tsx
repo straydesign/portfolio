@@ -137,7 +137,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             {/* Project 2 — DoorDash (RIGHT) */}
             <div className="flex justify-end">
               <div className="rounded-[48px] p-6 md:p-8 cursor-pointer transition-transform hover:scale-[1.02] w-full md:w-[60%]"
-                role="link" tabIndex={0} aria-label="View DoorDash Dasher App case study"
+                role="link" tabIndex={0} aria-label="View DoorDash UX evaluation case study"
                 onClick={() => setCurrentPage('doordash-case-study')}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage('doordash-case-study'); } }}
                 style={{ background: cardBg, border: cardBorder, boxShadow: cardShadow }}>
@@ -197,6 +197,44 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <ExternalLink className="w-4 h-4" /> Visit Site
                   </a>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* RECENT EXPERIENCE */}
+          <h2 className="text-[36px] md:text-[56px] mt-12 md:mt-16 mb-8 md:mb-12 leading-none tracking-wider font-black"
+            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}>
+            RECENT EXPERIENCE
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {/* News Corp */}
+            <div className="rounded-[48px] p-6 md:p-8"
+              style={{ background: cardBg, border: cardBorder, boxShadow: cardShadow }}>
+              <h3 className="text-xl md:text-2xl mb-2 font-bold" style={{ color: textColor }}>NEWS CORP</h3>
+              <p className="text-sm mb-3 font-semibold" style={{ color: primaryColor }}>Product Strategy Extern</p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                AI-driven product strategy for digital news products. Designing user surveys, translating research into feature concepts, and countering filter bubble effects.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {['AI Product Strategy', 'User Surveys', 'Research'].map((tag) => (
+                  <span key={tag} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: badgeBg, color: badgeText }}>{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* TikTok */}
+            <div className="rounded-[48px] p-6 md:p-8"
+              style={{ background: cardBg, border: cardBorder, boxShadow: cardShadow }}>
+              <h3 className="text-xl md:text-2xl mb-2 font-bold" style={{ color: textColor }}>TIKTOK / SAPPHIRE STUDIOS</h3>
+              <p className="text-sm mb-3 font-semibold" style={{ color: primaryColor }}>Brand & Content Strategy Extern</p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                Brand voice frameworks and visual identity systems mentored by TikTok&apos;s Head of Agency. Delivered a client-ready Brand Voice & Content Playbook.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {['Brand Strategy', 'Design Systems', 'Content Strategy'].map((tag) => (
+                  <span key={tag} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: badgeBg, color: badgeText }}>{tag}</span>
+                ))}
               </div>
             </div>
           </div>

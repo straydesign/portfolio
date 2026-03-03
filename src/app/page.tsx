@@ -74,7 +74,7 @@ export default function App() {
       'work': 'My Work | Tom Sesler',
       'resume': 'Resume | Tom Sesler',
       'middleman-case-study': 'Merchandising System Case Study | Tom Sesler',
-      'day-one-case-study': 'FirstDay.Life Case Study | Tom Sesler',
+      'day-one-case-study': 'firstday.life Case Study | Tom Sesler',
       'doordash-case-study': 'DoorDash UX Evaluation | Tom Sesler',
       'design-system': 'Design System | Tom Sesler',
       'services': 'Web Design Services | Tom Sesler',

@@ -30,7 +30,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             Thomas Sesler
           </h1>
           <div className="text-xl md:text-2xl mb-2" style={{ color: primaryColor, fontWeight: 600 }}>
-            Product Designer | UX/UI Designer
+            Product Designer
           </div>
           <div className="text-base md:text-lg mb-3" style={{ color: secondaryTextColor }}>
             New Hampshire / Massachusetts — open to full-time, contract, or remote
@@ -74,6 +74,30 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
         <section className="mb-8">
           <h2 className="text-2xl mb-4" style={{ color: primaryColor, fontWeight: 700 }}>PROFESSIONAL EXPERIENCE</h2>
 
+          {/* Freelance */}
+          <div className="mb-6">
+            <div className="flex flex-wrap items-baseline gap-3 mb-2">
+              <h3 className="text-lg font-semibold" style={{ color: textColor }}>UX/UI Designer (Freelance)</h3>
+              <span className="text-sm" style={{ color: secondaryTextColor }}>May 2025 – Present | Remote</span>
+            </div>
+            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
+              <li>Design responsive websites and cloud-based digital products for small business clients using Figma&apos;s Auto Layout, component variants, and interactive prototyping</li>
+              <li>Conduct client discovery interviews to understand user needs and business requirements, then translate findings into wireframes, flow diagrams, and high-fidelity mockups</li>
+              <li>Apply information architecture principles to create intuitive navigation and content hierarchy, designing experiences that reduce friction for diverse user types</li>
+              <li>Follow WCAG 2.1 accessibility guidelines and use Google Analytics 4 to validate design decisions with data</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {['Figma', 'IA & UX Writing', 'WCAG 2.1', 'GA4'].map(s => (
+                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
+              ))}
+            </div>
+            <a href="https://techxrev.com" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:scale-105"
+              style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor, textDecoration: 'none' }}>
+              View Site <ExternalLink size={14} />
+            </a>
+          </div>
+
           {/* News Corp */}
           <div className="mb-6">
             <div className="flex flex-wrap items-baseline gap-3 mb-2">
@@ -81,9 +105,9 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
               <span className="text-sm" style={{ color: secondaryTextColor }}>February 2026 – Present | Remote</span>
             </div>
             <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Completing an 8-week externship focused on AI-driven product strategy for News Corp&apos;s digital news products, with work reviewed by company leadership and opportunities to present design recommendations directly</li>
+              <li>Completing an 8-week externship focused on AI-driven product strategy for News Corp&apos;s digital news products, with work reviewed by company leadership</li>
               <li>Designing and deploying user surveys to investigate how algorithmic feeds shape trust and engagement, then translating research findings into actionable product feature concepts</li>
-              <li>Designed an AI feature concept aimed at presenting balanced perspectives in news content to counter filter bubble effects, informed by user research and behavioral patterns</li>
+              <li>Designing an AI feature concept aimed at presenting balanced perspectives in news content to counter filter bubble effects, informed by user research and behavioral patterns</li>
             </ul>
             <div className="flex flex-wrap gap-2">
               {['AI Product Strategy', 'User Surveys', 'Research Synthesis'].map(s => (
@@ -109,30 +133,6 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
                 <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
               ))}
             </div>
-          </div>
-
-          {/* Freelance */}
-          <div className="mb-6">
-            <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <h3 className="text-lg font-semibold" style={{ color: textColor }}>UX/UI Designer (Freelance)</h3>
-              <span className="text-sm" style={{ color: secondaryTextColor }}>May 2025 – Present | Remote</span>
-            </div>
-            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Design responsive websites and cloud-based digital products for small business clients using Figma&apos;s Auto Layout, component variants, and interactive prototyping</li>
-              <li>Conduct client discovery interviews to understand user needs and business requirements, then translate findings into wireframes, flow diagrams, and high-fidelity mockups</li>
-              <li>Apply information architecture principles to create intuitive navigation and content hierarchy, designing experiences that reduce friction for diverse user types</li>
-              <li>Follow WCAG 2.1 accessibility guidelines and use Google Analytics 4 to validate design decisions with data</li>
-            </ul>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {['Figma', 'IA & UX Writing', 'WCAG 2.1', 'GA4'].map(s => (
-                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
-              ))}
-            </div>
-            <a href="https://techxrev.com" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all hover:scale-105"
-              style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor, textDecoration: 'none' }}>
-              View Site <ExternalLink size={14} />
-            </a>
           </div>
 
           {/* Design Lab */}
@@ -212,7 +212,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
               <span className="text-sm" style={{ color: secondaryTextColor }}>June 2025 – August 2025 | Live Product</span>
             </div>
             <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Built and publicly launched an AI-powered web app that generates personalized 30-day self-improvement plans, guiding users through structured goals in a supportive, step-by-step format</li>
+              <li>Built and publicly launched an AI-powered web app that generates personalized 30-day self-improvement plans delivered in 7-day sprints, guiding users through structured goals in a supportive, step-by-step format</li>
               <li>Researched competitive wellness and productivity tools through comparative analysis to identify market gaps and unmet user needs</li>
               <li>Created a responsive, mobile-first interface in Figma with systematic breakpoint considerations, ensuring WCAG 2.1 Level AA compliance</li>
               <li>Gathered user feedback post-launch to drive iterative design improvements</li>
@@ -231,22 +231,6 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             )}
           </div>
 
-          {/* NHMEP */}
-          <div className="mb-6">
-            <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <h3 className="text-lg font-semibold" style={{ color: textColor }}>NHMEP Event Branding | Visual Identity System</h3>
-              <span className="text-sm" style={{ color: secondaryTextColor }}>January 2025 – May 2025 | Durham, NH</span>
-            </div>
-            <ul className="list-disc pl-5 space-y-1 mb-3 text-base" style={{ color: textColor }}>
-              <li>Collaborated with stakeholders to define branding requirements, conducted mood boarding and competitive analysis, and designed multiple logo concepts with clear design rationale</li>
-              <li>Delivered comprehensive brand guidelines including color palette, typography system, logo usage rules, and templates for digital and print applications</li>
-            </ul>
-            <div className="flex flex-wrap gap-2">
-              {['Brand Identity', 'Visual Design', 'Stakeholder Collaboration'].map(s => (
-                <span key={s} className="px-3 py-1 rounded-full text-sm" style={{ background: chipBg, border: `1px solid ${divider}`, color: textColor }}>{s}</span>
-              ))}
-            </div>
-          </div>
         </section>
 
         <div className="mb-8" style={{ borderTop: `2px solid ${divider}` }} />
