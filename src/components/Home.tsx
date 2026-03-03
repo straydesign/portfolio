@@ -62,11 +62,12 @@ export default function Home({ setCurrentPage }: HomeProps) {
           </div>
           <div className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4">
             {[
-              { icon: Phone, label: 'Phone', href: 'tel:+18149640081' },
-              { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/' },
-              { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com' },
+              { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
+              { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
+              { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
             ].map((link) => (
-              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
+              <a key={link.label} href={link.href}
+                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
                 style={{ backgroundColor: badgeBg, color: badgeText }}>
                 <link.icon className="w-4 h-4" />

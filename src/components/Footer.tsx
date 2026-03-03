@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone, X } from 'lucide-react';
@@ -21,20 +21,51 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const [contactOpen, setContactOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setContactOpen(false);
+      return;
+    }
+    if (e.key !== 'Tab') return;
+
+    const modal = modalRef.current;
+    if (!modal) return;
+    const focusable = modal.querySelectorAll<HTMLElement>(
+      'button, [href], input, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (!contactOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setContactOpen(false);
-    };
+    document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', handleKeyDown);
     modalRef.current?.focus();
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [contactOpen]);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [contactOpen, handleKeyDown]);
 
   const socialLinks = [
-    { icon: Phone, label: 'Phone', href: 'tel:+18149640081' },
-    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/' },
-    { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com' },
+    { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
+    { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
   ];
 
   return (
@@ -78,8 +109,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
                 <a
                   key={link.label}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   aria-label={link.label}
                   className="transition-all hover:scale-110"
                   style={{ color: textColor }}

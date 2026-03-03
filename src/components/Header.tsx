@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
-import { colorMap, getPrimaryColor } from '@/utils/cardStyles';
+import { colorMap } from '@/utils/cardStyles';
 import type { AccentColor, Theme } from '@/utils/cardStyles';
 import { Menu, X } from 'lucide-react';
 
@@ -60,7 +60,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                 className="px-3 py-1 border-2 rounded-full"
                 style={{
                   borderColor: currentPage === item.id ? headerTextColor : 'transparent',
-                  color: currentPage === item.id ? headerTextColor : `${headerTextColor}cc`,
+                  color: headerTextColor,
                 }}
               >
                 {item.label}

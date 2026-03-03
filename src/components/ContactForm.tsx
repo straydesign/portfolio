@@ -13,7 +13,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = theme === 'dark' ? '#ffffff' : '#1d1d1f';
-  const secondaryTextColor = theme === 'dark' ? '#a1a1a6' : '#6e6e73';
+  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const inputBg = theme === 'dark' ? '#2a2a2a' : '#f5f5f7';
   const inputBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
 
@@ -75,7 +75,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-${compact ? '3' : '4'}`}>
+    <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
       <div>
         <label htmlFor="contact-name" className="block text-sm font-medium mb-1" style={{ color: secondaryTextColor }}>
           Name

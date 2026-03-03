@@ -14,7 +14,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = theme === 'dark' ? '#ffffff' : '#1d1d1f';
-  const secondaryTextColor = theme === 'dark' ? '#a1a1a6' : '#6e6e73';
+  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const backgroundColor = theme === 'dark' ? '#000000' : '#ffffff';
   const badgeBg = cardStyles.getBadgeBackground(accentColor, theme);
   const badgeText = cardStyles.getBadgeTextColor(accentColor, theme);
@@ -37,7 +37,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
           </div>
           <div className="mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm"
-              style={{ background: '#d1fae5', border: '1px solid #065f46', color: '#065f46', fontWeight: 600 }}>
+              style={{ background: theme === 'dark' ? '#064e3b' : '#d1fae5', border: `1px solid ${theme === 'dark' ? '#34d399' : '#065f46'}`, color: theme === 'dark' ? '#34d399' : '#065f46', fontWeight: 600 }}>
               Available immediately
             </span>
           </div>

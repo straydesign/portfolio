@@ -9,7 +9,7 @@ export const colorMap: Record<AccentColor, string> = {
   orange: '#FF9900',
   yellow: '#FFDD00',
   green: '#00CC44',
-  bw: '#b0b0b0',
+  bw: '#767676',
   tan: '#E8DCC8',
 };
 
