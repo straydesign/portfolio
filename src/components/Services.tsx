@@ -123,11 +123,12 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
-                <a href="mailto:tlsesler44@gmail.com?subject=Web Design Inquiry"
+                <button
+                  onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
                   className="w-full px-4 py-2.5 rounded-full text-sm text-center transition-all hover:scale-105 font-bold"
-                  style={{ backgroundColor: pkg.featured ? primaryColor : 'transparent', color: pkg.featured ? buttonTextColor : textColor, border: `2px solid ${primaryColor}`, display: 'block' }}>
+                  style={{ backgroundColor: pkg.featured ? primaryColor : 'transparent', color: pkg.featured ? buttonTextColor : textColor, border: `2px solid ${primaryColor}` }}>
                   Get Started
-                </a>
+                </button>
               </div>
             ))}
           </div>
@@ -159,7 +160,7 @@ export default function Services() {
         </div>
 
         {/* CTA */}
-        <div className="p-6 md:p-10 rounded-[48px]" style={cardStyle}>
+        <div id="contact-form" className="p-6 md:p-10 rounded-[48px]" style={cardStyle}>
           <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4 text-center"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: primaryColor }}>
             LET&apos;S BUILD YOUR SITE.

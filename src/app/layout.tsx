@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | Tom Sesler",
   },
   description:
-    "Product designer creating end-to-end digital experiences. Case studies in marketplace design, AI features, and brand strategy.",
+    "Product designer creating end-to-end digital experiences. Case studies in merchandising systems, UX research, and AI-powered products.",
   metadataBase: new URL("https://straydesign.co"),
   alternates: {
     canonical: "/",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Tom Sesler — Product Designer",
     description:
-      "Product designer creating end-to-end digital experiences. Case studies in marketplace design, AI features, and brand strategy.",
+      "Product designer creating end-to-end digital experiences. Case studies in merchandising systems, UX research, and AI-powered products.",
     siteName: "Thomas Sesler Portfolio",
     url: "https://straydesign.co",
     locale: "en_US",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tom Sesler — Product Designer",
     description:
-      "Product designer creating end-to-end digital experiences. Case studies in marketplace design, AI features, and brand strategy.",
+      "Product designer creating end-to-end digital experiences. Case studies in merchandising systems, UX research, and AI-powered products.",
   },
   robots: {
     index: true,
