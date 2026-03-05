@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
-import { Linkedin, Mail, Phone, X } from 'lucide-react';
+import { getLane } from '@/utils/lanes';
+import { Linkedin, Mail, Phone, X, ArrowRight } from 'lucide-react';
 import ContactForm from './ContactForm';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system' | 'services';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;
@@ -20,6 +21,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const textColor = primaryColor;
   const [contactOpen, setContactOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const lane = currentPage ? getLane(currentPage) : 'portfolio';
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -73,19 +75,18 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
       <footer
         className="mt-auto relative"
         style={{
-          backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
+          backgroundColor: 'transparent',
           zIndex: 50,
-          boxShadow: theme === 'dark' ? '0 -2px 8px rgba(0, 0, 0, 0.5)' : '0 -2px 8px rgba(0, 0, 0, 0.08)',
         }}
       >
-        <div className="px-6 md:px-8 py-3 md:py-4" style={{ position: 'relative', zIndex: 51 }}>
+        <div className="px-6 md:px-8 pt-8 md:pt-10 pb-3 md:pb-4" style={{ position: 'relative', zIndex: 51, background: `linear-gradient(to top, ${theme === 'dark' ? '#000000' : '#ffffff'} 0%, ${theme === 'dark' ? '#000000' : '#ffffff'} 50%, transparent 100%)` }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
             <div className="flex items-center gap-4 md:gap-6">
               <h2
                 className="text-[18px] md:text-[24px]"
                 style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: textColor }}
               >
-                LET&apos;S WORK TOGETHER
+                {lane === 'services' ? 'READY TO START?' : 'LET\u2019S WORK TOGETHER'}
               </h2>
               <button
                 onClick={() => setContactOpen(true)}
@@ -98,11 +99,15 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
             <div className="flex items-center gap-3 md:gap-4">
               {setCurrentPage && (
                 <button
-                  onClick={() => setCurrentPage('services')}
-                  className="px-4 py-1.5 border-2 rounded-full transition-all text-sm whitespace-nowrap hover:scale-105"
-                  style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
+                  onClick={() => {
+                    setCurrentPage(lane === 'services' ? 'home' : 'services');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="flex items-center gap-1.5 text-sm whitespace-nowrap transition-opacity hover:opacity-70"
+                  style={{ color: textColor }}
                 >
-                  WEB DESIGN SERVICES
+                  {lane === 'services' ? 'View portfolio' : 'Need a website?'}
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               )}
               {socialLinks.map((link) => (

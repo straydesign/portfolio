@@ -1,12 +1,11 @@
 export type Theme = 'light' | 'dark';
-export type AccentColor = 'blue' | 'purple' | 'pink' | 'red' | 'orange' | 'yellow' | 'green' | 'bw' | 'tan';
+export type AccentColor = 'blue' | 'purple' | 'pink' | 'red' | 'yellow' | 'green' | 'bw' | 'tan';
 
 export const colorMap: Record<AccentColor, string> = {
   blue: '#0066FF',
   purple: '#9933FF',
   pink: '#FF00FF',
   red: '#FF0000',
-  orange: '#FF9900',
   yellow: '#FFDD00',
   green: '#00CC44',
   bw: '#767676',
@@ -18,7 +17,6 @@ export const colorMapDarkMode: Record<AccentColor, string> = {
   purple: '#9933FF',
   pink: '#FF00FF',
   red: '#FF0000',
-  orange: '#FF9900',
   yellow: '#FFDD00',
   green: '#00CC44',
   bw: '#666666',

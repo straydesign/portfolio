@@ -22,7 +22,7 @@ function getInitialTheme(): Theme {
 function getInitialAccent(): AccentColor {
   if (typeof window === 'undefined') return 'bw';
   const stored = localStorage.getItem('accentColor');
-  const valid: AccentColor[] = ['blue', 'purple', 'pink', 'red', 'orange', 'yellow', 'green', 'bw', 'tan'];
+  const valid: AccentColor[] = ['blue', 'purple', 'pink', 'red', 'yellow', 'green', 'bw', 'tan'];
   if (stored && valid.includes(stored as AccentColor)) return stored as AccentColor;
   return 'bw';
 }

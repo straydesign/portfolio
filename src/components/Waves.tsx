@@ -196,7 +196,7 @@ export default function Waves({
       ctx.beginPath();
       ctx.strokeStyle = configRef.current.lineColor;
       ctx.lineWidth = 1.5;
-      ctx.globalAlpha = isDarkMode ? 0.35 : 0.25;
+      ctx.globalAlpha = isDarkMode ? 0.15 : 0.10;
       linesRef.current.forEach(points => {
         let p1 = moved(points[0], false);
         ctx.moveTo(p1.x, p1.y);

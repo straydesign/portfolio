@@ -2,171 +2,269 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
-import { ExternalLink, Palette, Smartphone, BarChart3, Wrench } from 'lucide-react';
+import { ExternalLink, Zap, TrendingUp, Shield, BarChart3, Globe, Smartphone, Search, Gauge } from 'lucide-react';
 import ContactForm from './ContactForm';
 
 export default function Services() {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
+  const buttonPrimaryColor = cardStyles.getButtonPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
-  const backgroundColor = cardStyles.getBackgroundColor(theme);
-  const badgeBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
-  const badgeText = theme === 'dark' ? '#ffffff' : '#1d1d1f';
 
-  const cardStyle = {
-    background: theme === 'dark' ? '#1a1a1a' : '#ffffff',
-    border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'}`,
-    boxShadow: theme === 'dark' ? '0 4px 16px 0 rgba(0, 0, 0, 0.3)' : '0 4px 16px 0 rgba(0, 0, 0, 0.12)',
-  };
+  const statBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
+  const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
-  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#ffffff'
-    : (accentColor === 'bw' && theme === 'light') ? '#000000'
+  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#000000'
+    : (accentColor === 'bw' && theme === 'light') ? '#ffffff'
     : (accentColor === 'yellow' || accentColor === 'tan') ? '#000000'
     : '#ffffff';
 
-  const services = [
-    { icon: Palette, title: 'Custom Website Design', description: 'From wireframes in Figma to a polished, branded site that reflects your business.' },
-    { icon: Smartphone, title: 'Responsive Development', description: 'Mobile-first builds that look great on every screen size.' },
-    { icon: BarChart3, title: 'SEO & Analytics', description: 'Google Analytics 4 setup, search optimization, and tracking so you can measure results.' },
-    { icon: Wrench, title: 'Ongoing Support', description: 'Content updates, maintenance, and iterative improvements after launch.' },
-  ];
-
-  const packages = [
-    {
-      name: 'STARTER',
-      price: 'From $500',
-      description: 'Perfect for a focused landing page or single-page site.',
-      features: ['Single-page design', 'Mobile responsive', 'Basic SEO setup', '1 round of revisions'],
-    },
-    {
-      name: 'BUSINESS',
-      price: 'From $1,500',
-      description: 'A complete web presence for your growing business.',
-      features: ['Up to 5 pages', 'Custom design in Figma', 'SEO + GA4 setup', '2 rounds of revisions'],
-      featured: true,
-    },
-    {
-      name: 'PREMIUM',
-      price: 'From $3,000',
-      description: 'Full-service design with strategy and ongoing support.',
-      features: ['Full custom site', 'Content strategy', 'SEO + analytics', '1 month ongoing support', '3 rounds of revisions'],
-    },
-  ];
-
-  const featuredWork = [
-    {
-      title: 'TechxRev',
-      description: 'Responsive website for a technology services company. Custom design, SEO optimization, and Google Analytics integration.',
-      tags: ['Web Design', 'SEO', 'GA4'],
-      link: 'https://techxrev.com',
-    },
-  ];
-
   return (
-    <div className="px-6 md:px-12 py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]" style={{ backgroundColor }}>
-      <div className="max-w-7xl mx-auto">
+    <div className="px-4 md:px-8 py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
+      <div className="max-w-[90rem] mx-auto">
 
-        {/* HERO */}
-        <div className="mb-8 md:mb-12 p-6 md:p-10 rounded-[48px]" style={cardStyle}>
-          <h1 className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", WebkitTextStroke: `4px ${primaryColor}`, WebkitTextFillColor: 'transparent', color: 'transparent', paintOrder: 'stroke fill' }}>
-            WEB DESIGN
+        {/* ─── HERO ─── */}
+        <div className="mb-12 md:mb-16 pt-4 md:pt-8">
+          <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: primaryColor }}>
+            Erie, Pennsylvania &bull; Web Design &amp; Development
+          </p>
+          <h1 className="text-[40px] sm:text-[52px] md:text-[64px] leading-[1.05] tracking-tight font-black mb-4 md:mb-6"
+            style={{ color: textColor }}>
+            Professional Web Design{' '}
+            <span style={{ color: primaryColor }}>in Erie, PA</span>
           </h1>
           <p className="text-[20px] md:text-[24px] mb-6" style={{ color: primaryColor, fontWeight: 600 }}>
-            Custom websites that engage your audience and grow your business.
+            A fast, professional site that grows with your Erie business.
           </p>
-          <p className="text-[15px] md:text-[17px] leading-snug" style={{ color: textColor }}>
-            I combine a marketing background with design expertise to build sites that look great and actually drive results. Every project starts with understanding your business goals, your audience, and what success looks like for you.
+          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl" style={{ color: textColor }}>
+            I design and build high-performance websites for businesses in Erie, Pennsylvania and the surrounding region. Every project ships with real SEO, analytics tracking, and a responsive build that scores high on Google&apos;s Core Web Vitals. Your site becomes a growth tool, not just a brochure.
           </p>
         </div>
 
-        {/* WHAT I DO */}
-        <div className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl mb-6 md:mb-8 font-bold" style={{ color: textColor }}>
-            WHAT I DO
+        {/* ─── WHY IT MATTERS ─── */}
+        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-2xl md:text-3xl mb-8 font-bold" style={{ color: textColor }}>
+            WHAT YOU GET
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            {services.map((service) => (
-              <div key={service.title} className="p-6 md:p-8 rounded-[32px]" style={cardStyle}>
-                <service.icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
-                <h3 className="text-lg md:text-xl font-bold mb-2" style={{ color: textColor }}>{service.title}</h3>
-                <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>{service.description}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                icon: Gauge,
+                title: 'Performance',
+                points: ['Optimized load times', '90+ Lighthouse scores', 'Core Web Vitals compliant', 'Image optimization & lazy loading'],
+              },
+              {
+                icon: TrendingUp,
+                title: 'Growth-Ready',
+                points: ['SEO baked in from day one', 'Google Analytics 4 setup', 'Structured data for search', 'Built to scale as you grow'],
+              },
+              {
+                icon: Shield,
+                title: 'Built Right',
+                points: ['Responsive on every device', 'Accessible (WCAG standards)', 'Clean, maintainable code', 'Fast hosting infrastructure'],
+              },
+            ].map(({ icon: Icon, title, points }) => (
+              <div key={title}>
+                <Icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
+                <h3 className="text-lg font-bold mb-3" style={{ color: textColor }}>{title}</h3>
+                <div className="space-y-2">
+                  {points.map((point) => (
+                    <div key={point} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
+                      <p className="text-sm" style={{ color: secondaryTextColor }}>{point}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* PACKAGES */}
-        <div className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl mb-6 md:mb-8 font-bold" style={{ color: textColor }}>
-            PACKAGES
+        {/* ─── PRICING ─── */}
+        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+            WEBSITE PACKAGES
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {packages.map((pkg) => (
-              <div key={pkg.name} className="p-6 md:p-8 rounded-[32px] flex flex-col"
-                style={{ ...cardStyle, border: pkg.featured ? `2px solid ${primaryColor}` : cardStyle.border }}>
-                {pkg.featured && (
-                  <span className="inline-block self-start px-3 py-1 rounded-full text-xs font-bold mb-4"
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>One-time build. Yours to own.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {[
+              {
+                name: 'STARTER',
+                price: '$750',
+                description: 'A clean, professional site to establish your online presence.',
+                features: ['Up to 5 pages', 'Custom design', 'Mobile responsive', 'Basic SEO setup', 'Contact form', 'Google Analytics 4'],
+              },
+              {
+                name: 'PROFESSIONAL',
+                price: '$1,750',
+                description: 'A full-featured site built to convert visitors into customers.',
+                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Advanced SEO + structured data', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'Social media integration'],
+                featured: true,
+              },
+              {
+                name: 'CUSTOM',
+                price: '$3,750+',
+                description: 'Complex builds with custom functionality tailored to your business.',
+                features: ['Unlimited pages', 'E-commerce or booking system', 'Custom interactive features', 'Third-party integrations', 'Multi-language support', 'Priority 2-week turnaround', 'Launch strategy session'],
+              },
+              {
+                name: 'MOBILE APP',
+                price: '$5,000+',
+                description: 'A native mobile app for iOS, Android, or both.',
+                features: ['Custom UI/UX design', 'iOS and/or Android', 'Push notifications', 'Backend + API integration', 'App Store submission', 'Post-launch support included'],
+              },
+            ].map((tier) => (
+              <div key={tier.name} className="py-6 md:py-8 px-1">
+                {tier.featured && (
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-4"
                     style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
-                    POPULAR
+                    MOST POPULAR
                   </span>
                 )}
-                <h3 className="text-lg font-bold tracking-wider mb-2" style={{ color: primaryColor }}>{pkg.name}</h3>
-                <p className="text-2xl md:text-3xl font-bold mb-3" style={{ color: textColor }}>{pkg.price}</p>
-                <p className="text-sm mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>{pkg.description}</p>
-                <ul className="space-y-2 mb-6 flex-1">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2 text-sm" style={{ color: textColor }}>
-                      <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                      {feature}
-                    </li>
+                <h3 className="text-sm font-bold tracking-wider mb-3" style={{ color: primaryColor }}>{tier.name}</h3>
+                <div className="flex items-baseline gap-1 mb-3">
+                  <span className="text-3xl md:text-4xl font-bold" style={{ color: textColor }}>{tier.price}</span>
+                </div>
+                <p className="text-sm mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>{tier.description}</p>
+                <div className="space-y-2">
+                  {tier.features.map((feature) => (
+                    <div key={feature} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
+                      <p className="text-sm" style={{ color: textColor }}>{feature}</p>
+                    </div>
                   ))}
-                </ul>
-                <button
-                  onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="w-full px-4 py-2.5 rounded-full text-sm text-center transition-all hover:scale-105 font-bold"
-                  style={{ backgroundColor: pkg.featured ? primaryColor : 'transparent', color: pkg.featured ? buttonTextColor : textColor, border: `2px solid ${primaryColor}` }}>
-                  Get Started
-                </button>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* FEATURED WORK */}
-        <div className="mb-8 md:mb-12">
+        {/* ─── MONTHLY SUPPORT ─── */}
+        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+            ONGOING SUPPORT
+          </h2>
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                name: 'HOSTING & MAINTENANCE',
+                price: '$35',
+                period: '/mo',
+                description: 'Your site stays live, secure, and up to date.',
+                features: ['Managed hosting + SSL', 'Monthly backups', 'Security patches + updates', 'Uptime monitoring', 'Bug fixes', 'Email support'],
+              },
+              {
+                name: 'GROWTH',
+                price: '$125',
+                period: '/mo',
+                description: 'Ongoing design and content updates without hiring in-house.',
+                features: ['Everything in Hosting', 'Up to 4 hours of updates/mo', 'Content changes + new pages', 'Design refreshes', 'SEO monitoring + adjustments', 'Priority response (24hr)'],
+                featured: true,
+              },
+              {
+                name: 'MARKETING',
+                price: '$250+',
+                period: '/mo',
+                description: 'Full digital marketing — ads, analytics, and strategy.',
+                features: ['Everything in Growth', 'Google + Meta ad management', 'Campaign strategy + creative', 'Monthly performance reports', 'Conversion tracking setup', 'Ad spend optimization'],
+              },
+            ].map((tier) => (
+              <div key={tier.name} className="py-6 md:py-8 px-1">
+                {tier.featured && (
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-4"
+                    style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
+                    MOST POPULAR
+                  </span>
+                )}
+                <h3 className="text-sm font-bold tracking-wider mb-3" style={{ color: primaryColor }}>{tier.name}</h3>
+                <div className="flex items-baseline gap-1 mb-3">
+                  <span className="text-3xl md:text-4xl font-bold" style={{ color: textColor }}>{tier.price}</span>
+                  <span className="text-sm" style={{ color: secondaryTextColor }}>{tier.period}</span>
+                </div>
+                <p className="text-sm mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>{tier.description}</p>
+                <div className="space-y-2">
+                  {tier.features.map((feature) => (
+                    <div key={feature} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
+                      <p className="text-sm" style={{ color: textColor }}>{feature}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ─── FEATURED WORK ─── */}
+        <div id="featured-work" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-6 md:mb-8 font-bold" style={{ color: textColor }}>
             FEATURED WORK
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-            {featuredWork.map((project) => (
-              <div key={project.title} className="p-6 md:p-8 rounded-[32px]" style={cardStyle}>
-                <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>{project.title}</h3>
-                <p className="text-base mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: badgeBg, color: badgeText }}>{tag}</span>
-                  ))}
-                </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-all hover:scale-105"
-                  style={{ backgroundColor: badgeBg, color: badgeText }}>
-                  <ExternalLink className="w-4 h-4" /> Visit Site
-                </a>
+          <div className="py-4">
+            <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>TechxRev</h3>
+            <p className="text-base mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
+              Responsive website for a technology services company. Custom design, SEO optimization, and Google Analytics integration.
+            </p>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {['Web Design', 'SEO', 'GA4'].map((tag) => (
+                <span key={tag} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: statBg, color: textColor }}>{tag}</span>
+              ))}
+            </div>
+            <a href="https://techxrev.com" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
+              style={{ color: primaryColor }}>
+              <ExternalLink className="w-4 h-4" /> Visit Site
+            </a>
+          </div>
+        </div>
+
+        {/* ─── WHY LOCAL ─── */}
+        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+            WHY CHOOSE A LOCAL ERIE WEB DESIGNER?
+          </h2>
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Working with someone who knows the market makes a difference.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {[
+              { title: 'Local Market Knowledge', text: 'I understand the Erie, PA business landscape — from Presque Isle tourism to the manufacturing and healthcare sectors. Your website will speak directly to your actual customers in Northwestern Pennsylvania.' },
+              { title: 'Face-to-Face Collaboration', text: 'Unlike remote agencies, I\'m available for in-person meetings throughout Erie County. Let\'s grab coffee at Ember + Forge and talk about your project.' },
+              { title: 'Ongoing Local Support', text: 'Your website isn\'t a one-and-done project. I provide ongoing maintenance, updates, and support right here in Erie to keep your business growing online.' },
+            ].map(({ title, text }) => (
+              <div key={title} className="py-4">
+                <h3 className="text-lg font-bold mb-3" style={{ color: primaryColor }}>{title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: textColor }}>{text}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* CTA */}
-        <div id="contact-form" className="p-6 md:p-10 rounded-[48px]" style={cardStyle}>
+        {/* ─── SERVICE AREAS ─── */}
+        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+            SERVING ERIE, PA &amp; SURROUNDING AREAS
+          </h2>
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Professional web design available throughout Northwestern Pennsylvania. Remote collaboration available nationwide.</p>
+          <div className="flex flex-wrap gap-3">
+            {['Erie, PA', 'Millcreek Township', 'Harborcreek', 'Fairview', 'Edinboro', 'Meadville', 'Corry', 'North East, PA', 'Girard', 'Waterford', 'Warren, PA', 'Northwestern PA'].map((area) => (
+              <span key={area} className="px-4 py-2 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
+                {area}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* ─── CTA ─── */}
+        <div id="contact-form" className="mb-12 md:mb-16">
           <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4 text-center"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: primaryColor }}>
             LET&apos;S BUILD YOUR SITE.
           </h2>
-          <p className="text-base md:text-lg mb-6 text-center" style={{ color: secondaryTextColor }}>
-            Tell me about your project and I&apos;ll get back to you within 24 hours.
+          <p className="text-base md:text-lg mb-8 text-center" style={{ color: secondaryTextColor }}>
+            Free consultation for Erie, PA businesses. Tell me about your project and I&apos;ll get back to you within 24 hours.
           </p>
           <div className="max-w-md mx-auto">
             <ContactForm />

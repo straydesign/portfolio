@@ -9,7 +9,6 @@ const PAGES = [
   { name: 'Middleman Case Study', path: '/middleman' },
   { name: 'FirstDay Case Study', path: '/dayone' },
   { name: 'DoorDash Case Study', path: '/doordash' },
-  { name: 'Design System', path: '/design-system' },
 ];
 
 const BASE = 'http://localhost:3000';

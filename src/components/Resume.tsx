@@ -4,7 +4,7 @@ import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import { Download, Mail, ExternalLink } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'design-system' | 'services';
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
 
 interface ResumeProps {
   setCurrentPage?: (page: Page) => void;

@@ -17,8 +17,8 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   const inputBg = theme === 'dark' ? '#2a2a2a' : '#f5f5f7';
   const inputBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
 
-  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#ffffff'
-    : (accentColor === 'bw' && theme === 'light') ? '#000000'
+  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#000000'
+    : (accentColor === 'bw' && theme === 'light') ? '#ffffff'
     : (accentColor === 'yellow' || accentColor === 'tan') ? '#000000'
     : '#ffffff';
 
