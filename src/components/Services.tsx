@@ -105,7 +105,7 @@ export default function Services() {
               },
               {
                 name: 'CUSTOM',
-                price: '$3,000+',
+                price: '$3,000',
                 description: 'Full build with ads included to start driving traffic on day one.',
                 features: ['Unlimited pages', 'E-commerce or booking system', 'Professional photo shoot', 'AI-powered SEO + content', 'AI email marketing curated to individuals', '3 months of ad management included', 'Custom interactive features', 'Third-party integrations', 'Launch strategy session'],
               },
@@ -152,7 +152,7 @@ export default function Services() {
             {[
               {
                 name: 'HOSTING & MAINTENANCE',
-                price: '$35',
+                price: '$25',
                 period: '/mo',
                 description: 'Your site stays live, secure, and up to date.',
                 features: ['Managed hosting + SSL', 'Monthly backups', 'Security patches + updates', 'Uptime monitoring', 'Bug fixes', 'Email support'],
