@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
-import { ExternalLink, TrendingUp, Shield, Gauge, ChevronDown, Bot } from 'lucide-react';
+import { ExternalLink, ChevronDown, Bot, Gauge, TrendingUp, Shield } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import ContactForm from './ContactForm';
@@ -26,34 +26,25 @@ export default function Services() {
         {/* ─── HERO ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pt-4 md:pt-8">
           <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: primaryColor }}>
-            Erie, Pennsylvania &bull; Web Design &amp; Development
+            Erie, PA &bull; Web Design &amp; Development
           </p>
           <h1 className="text-[40px] sm:text-[52px] md:text-[64px] leading-[1.05] tracking-tight font-black mb-4 md:mb-6"
             style={{ color: textColor }}>
-            Professional Web Design{' '}
-            <span style={{ color: primaryColor }}>in Erie, PA</span>
+            Not a WordPress site.
           </h1>
           <p className="text-[20px] md:text-[24px] mb-6" style={{ color: primaryColor, fontWeight: 600 }}>
-            A fast, professional site that grows with your Erie business.
-          </p>
-          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl" style={{ color: textColor }}>
-            I design and build high-performance websites for businesses in Erie, Pennsylvania and the surrounding region. Every project ships with real SEO, analytics tracking, and a responsive build that scores high on Google&apos;s Core Web Vitals. Your site becomes a growth tool, not just a brochure.
+            Custom-built. AI-optimized. Engineered to rank.
           </p>
         </AnimateIn>
 
-        {/* ─── WHAT YOU GET ─── */}
+        {/* ─── WHAT SHIPS WITH EVERY SITE ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-4 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            EVERY SITE INCLUDES
+          <h2 className="text-[28px] md:text-[44px] mb-4 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            What Ships With Every Site
           </h2>
-          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl mb-4" style={{ color: textColor }}>
-            Every site I build is custom, high-performing, and set up to rank — not just on Google, but in AI answers from ChatGPT, Copilot, Perplexity, and Google AI Overviews. Most web designers build for search engines. I build for search engines <span style={{ fontStyle: 'italic' }}>and</span> AI.
-          </p>
-          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl mb-6" style={{ color: secondaryTextColor }}>
-            Your site ships with structured data so AI knows exactly what your business does, an llms.txt file — a cheat sheet built specifically for AI assistants — FAQ markup that feeds direct answers into search and AI results, a sitemap and robots.txt for proper crawling, and a manifest so customers can add your site to their phone in one tap. Most businesses don&apos;t have any of this.
-          </p>
+
           <div className="flex flex-wrap gap-3 mb-6">
-            {['Custom Design', 'Professional Photo Shoot', 'Mobile Responsive', 'AI-Powered SEO', 'Google Analytics 4', 'Curated Content', '90+ Lighthouse Score', 'llms.txt for AI', 'FAQ Structured Data', 'Sitemap & Robots.txt', 'Add to Home Screen'].map((tag) => (
+            {['Custom Design', 'Photo Shoot', 'Mobile Responsive', 'AI-Powered SEO', 'Google Analytics 4', 'llms.txt', 'JSON-LD Structured Data', 'FAQ Schema', 'Sitemap + Robots.txt', 'PWA Manifest', '90+ Lighthouse'].map((tag) => (
               <span key={tag} className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
                 {tag}
               </span>
@@ -63,7 +54,7 @@ export default function Services() {
           <button
             onClick={() => setShowTechnical(!showTechnical)}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105"
-            style={{ backgroundColor: primaryColor, color: theme === 'dark' && (accentColor === 'yellow' || accentColor === 'tan') ? '#000000' : accentColor === 'bw' && theme === 'dark' ? '#000000' : '#ffffff' }}
+            style={{ backgroundColor: primaryColor, color: accentColor === 'yellow' || accentColor === 'tan' ? '#000000' : accentColor === 'bw' && theme === 'dark' ? '#000000' : '#ffffff' }}
           >
             {showTechnical ? 'Hide Details' : "Let's Get Technical"}
             <ChevronDown
@@ -86,22 +77,22 @@ export default function Services() {
                     {
                       icon: Bot,
                       title: 'AI & Crawlability',
-                      points: ['llms.txt — LLM-readable site manifest', 'JSON-LD FaqPage schema markup', 'JSON-LD LocalBusiness + Service structured data', 'manifest.json — PWA install prompt', 'robots.txt + XML sitemap generation'],
+                      points: ['llms.txt — LLM-readable site manifest', 'JSON-LD FaqPage schema', 'JSON-LD LocalBusiness + Service data', 'manifest.json — PWA install prompt', 'robots.txt + XML sitemap'],
                     },
                     {
                       icon: Gauge,
                       title: 'Performance',
-                      points: ['Next.js / React SSR + static generation', 'WebP / AVIF image formats with srcset', 'Lazy loading via Intersection Observer', '90+ Lighthouse (Performance, SEO, A11y)', 'Core Web Vitals: LCP, CLS, INP optimized'],
+                      points: ['Next.js SSR + static generation', 'WebP / AVIF with srcset', 'Intersection Observer lazy loading', '90+ Lighthouse across all audits', 'LCP, CLS, INP optimized'],
                     },
                     {
                       icon: TrendingUp,
                       title: 'SEO & Analytics',
-                      points: ['Google Analytics 4 + gtag.js', 'Open Graph + Twitter Card meta tags', 'Canonical URLs + hreflang where needed', 'Server-side rendered <title> + meta description', 'Google Search Console ready'],
+                      points: ['GA4 + gtag.js', 'Open Graph + Twitter Card meta', 'Canonical URLs', 'SSR <title> + meta description', 'Search Console ready'],
                     },
                     {
                       icon: Shield,
                       title: 'Infrastructure',
-                      points: ['TypeScript + React 19 codebase', 'Tailwind CSS utility-first styling', 'Vercel edge network + CDN', 'HTTPS / TLS by default', 'WCAG 2.1 AA accessible markup'],
+                      points: ['TypeScript + React 19', 'Tailwind CSS', 'Vercel edge CDN', 'HTTPS / TLS default', 'WCAG 2.1 AA markup'],
                     },
                   ].map(({ icon: Icon, title, points }) => (
                     <StaggerItem key={title}>
@@ -124,30 +115,15 @@ export default function Services() {
                 {/* ─── What This Means vs WordPress ─── */}
                 <div className="mt-10 pt-8" style={{ borderTop: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}>
                   <h3 className="text-lg font-bold mb-4" style={{ color: textColor }}>
-                    What this actually means vs. a WordPress site
+                    What this means vs. WordPress
                   </h3>
                   <div className="space-y-4 max-w-3xl">
                     {[
-                      {
-                        mine: 'Your pages are pre-rendered at build time and served from a global CDN. No database query on every page load.',
-                        wp: 'WordPress generates each page on the fly by querying a MySQL database. Every visitor triggers a server round-trip, which is why WordPress sites feel slower without heavy caching plugins.',
-                      },
-                      {
-                        mine: 'AI assistants (ChatGPT, Copilot, Perplexity) can read your llms.txt and structured data directly. They know what your business does without guessing from paragraph text.',
-                        wp: 'WordPress doesn\'t generate llms.txt. Structured data requires a plugin like Yoast or RankMath, and most sites either skip it or misconfigure it.',
-                      },
-                      {
-                        mine: 'Images are automatically converted to WebP/AVIF and served at the right size for each device. No extra plugins needed.',
-                        wp: 'WordPress serves the original uploaded image unless you install and configure an optimization plugin. Unoptimized images are the #1 reason WordPress sites score poorly on Lighthouse.',
-                      },
-                      {
-                        mine: 'Zero plugins. The entire site is a single compiled codebase. Nothing to update, nothing to break, no security patches to chase.',
-                        wp: 'The average WordPress site runs 20–30 plugins. Each one is a potential security vulnerability and a maintenance burden. Plugin conflicts are the most common cause of WordPress site crashes.',
-                      },
-                      {
-                        mine: 'No login page to brute-force. No admin panel exposed to the internet. The site is static files on a CDN — there\'s nothing to hack.',
-                        wp: 'WordPress exposes /wp-admin and /wp-login.php by default. It\'s the most targeted CMS on the internet, accounting for ~90% of all hacked CMS sites.',
-                      },
+                      { mine: 'Pre-rendered pages served from a global CDN. No database query per visit.', wp: 'WordPress queries MySQL on every page load. Slow without caching plugins.' },
+                      { mine: 'AI assistants read your llms.txt and structured data directly.', wp: 'No llms.txt. Structured data needs a plugin — most skip it or misconfigure it.' },
+                      { mine: 'Images auto-converted to WebP/AVIF at the right size per device.', wp: 'Serves original uploads unless you add an optimization plugin.' },
+                      { mine: 'Zero plugins. Single compiled codebase. Nothing to update or break.', wp: 'Average site runs 20–30 plugins. Each one is a security risk and maintenance burden.' },
+                      { mine: 'No login page. No admin panel. Static files on a CDN — nothing to hack.', wp: '/wp-admin exposed by default. Most targeted CMS on the internet.' },
                     ].map((item, i) => (
                       <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)' }}>
@@ -155,7 +131,7 @@ export default function Services() {
                           <p className="text-sm leading-relaxed" style={{ color: textColor }}>{item.mine}</p>
                         </div>
                         <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)' }}>
-                          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: secondaryTextColor }}>Typical WordPress</p>
+                          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: secondaryTextColor }}>WordPress</p>
                           <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{item.wp}</p>
                         </div>
                       </div>
@@ -169,20 +145,20 @@ export default function Services() {
 
         {/* ─── PRICING ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            WEBSITE PACKAGES
+          <h2 className="text-[28px] md:text-[44px] mb-2 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            Pricing
           </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Everything above is included with every package. One-time build. Yours to own.</p>
+          <p className="text-base mb-8" style={{ color: secondaryTextColor }}>Everything above included. One-time build. Yours to own.</p>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
             <StaggerItem>
               <PricingCard
                 name="STARTER"
                 price="$1,000"
-                subtitle="A custom, high-performance site for small service-based businesses."
+                subtitle="Up to 5 pages. Perfect for small service businesses."
                 features={[
                   { label: 'Up to 5 pages' },
-                  { label: 'Everything in Every Site Includes' },
+                  { label: 'All standard features included' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -194,15 +170,14 @@ export default function Services() {
               <PricingCard
                 name="PROFESSIONAL"
                 price="$2,000"
-                subtitle="A custom, full-featured site built to convert visitors into customers."
+                subtitle="Up to 12 pages. Built to convert walk-in traffic."
                 featured
                 features={[
                   { label: 'Up to 12 pages' },
+                  { label: 'CMS for self-editing' },
+                  { label: 'AI chatbot' },
+                  { label: 'Blog section' },
                   { label: 'Content strategy' },
-                  { label: 'CMS for easy self-editing' },
-                  { label: 'AI chatbot for your site' },
-                  { label: 'Blog or news section' },
-                  { label: 'Structured data for AI & search' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -214,16 +189,14 @@ export default function Services() {
               <PricingCard
                 name="CUSTOM"
                 price="$3,000"
-                subtitle="Full custom build with optional add-ons to drive traffic and reach customers around the clock."
+                subtitle="Unlimited pages. E-commerce, ads, and integrations."
                 features={[
                   { label: 'Unlimited pages' },
-                  { label: 'E-commerce or booking system' },
-                  { label: 'Custom interactive features' },
+                  { label: 'E-commerce or booking' },
                   { label: 'Third-party integrations' },
-                  { label: 'Launch strategy session' },
-                  { label: 'Optional: AI chatbot (24/7 customer reach)' },
-                  { label: 'Optional: AI email marketing setup' },
-                  { label: 'Optional: Facebook & Meta ads setup' },
+                  { label: 'Optional: AI chatbot' },
+                  { label: 'Optional: AI email marketing' },
+                  { label: 'Optional: Meta ads setup' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -234,12 +207,12 @@ export default function Services() {
           </StaggerContainer>
         </AnimateIn>
 
-        {/* ─── MONTHLY SUPPORT ─── */}
+        {/* ─── ONGOING SUPPORT ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            ONGOING SUPPORT
+          <h2 className="text-[28px] md:text-[44px] mb-2 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            Ongoing Support
           </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
+          <p className="text-base mb-8" style={{ color: secondaryTextColor }}>Cancel anytime.</p>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
             <StaggerItem>
@@ -247,14 +220,12 @@ export default function Services() {
                 name="HOSTING & MAINTENANCE"
                 price="$50"
                 periodLabel="/mo"
-                subtitle="Your site stays live, secure, and up to date."
+                subtitle="Hosting, SSL, backups, monitoring, bug fixes."
                 features={[
                   { label: 'Managed hosting + SSL' },
                   { label: 'Monthly backups' },
-                  { label: 'Security patches + updates' },
                   { label: 'Uptime monitoring' },
-                  { label: 'Bug fixes' },
-                  { label: 'Email support' },
+                  { label: 'Bug fixes + patches' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -267,14 +238,12 @@ export default function Services() {
                 name="MARKETING"
                 price="$500"
                 periodLabel="/mo"
-                subtitle="Full digital marketing. Ads, analytics, and strategy."
+                subtitle="Ads, analytics, and strategy."
                 features={[
-                  { label: 'Everything in Growth' },
                   { label: 'Google + Meta ad management' },
-                  { label: 'Campaign strategy + creative' },
+                  { label: 'Campaign strategy' },
                   { label: 'Monthly performance reports' },
-                  { label: 'Conversion tracking setup' },
-                  { label: 'Ad spend optimization' },
+                  { label: 'Conversion tracking' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -287,98 +256,36 @@ export default function Services() {
 
         {/* ─── TECH STACKS ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            BUILT WITH THE RIGHT TOOL FOR THE JOB
+          <h2 className="text-[28px] md:text-[44px] mb-2 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            Tech I Work With
           </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>
-            I don&apos;t force every project into the same template. Your site gets built with the stack that fits your needs.
-          </p>
+          <p className="text-base mb-8" style={{ color: secondaryTextColor }}>Right tool for the job. Not one-size-fits-all.</p>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.08}>
+          <div className="flex flex-wrap gap-3">
             {[
-              {
-                category: 'Web Frameworks',
-                items: [
-                  { name: 'Next.js', desc: 'React framework with server-side rendering and static generation. What most of my sites are built with — fast, SEO-optimized, and scales to any size.' },
-                  { name: 'React', desc: 'Component-based UI library. Powers interactive dashboards, complex forms, and single-page apps.' },
-                  { name: 'Astro', desc: 'Ships zero JavaScript by default. Ideal for content-heavy sites like blogs and marketing pages where speed is everything.' },
-                  { name: 'Vue / Nuxt', desc: 'Progressive framework with a gentler learning curve. Nuxt adds server rendering and auto-routing. Great for teams that need to maintain the site themselves.' },
-                  { name: 'Svelte', desc: 'Compiles to vanilla JS with no runtime overhead. Produces the smallest, fastest bundles of any framework.' },
-                ],
-              },
-              {
-                category: 'Mobile & Native',
-                items: [
-                  { name: 'React Native', desc: 'Build iOS and Android apps from one codebase. Native performance, shared logic across platforms.' },
-                  { name: 'SwiftUI', desc: 'Apple-native framework for iOS, macOS, watchOS. The gold standard for apps that feel like they belong on iPhone.' },
-                  { name: 'Flutter', desc: 'Google\'s cross-platform toolkit. One codebase for iOS, Android, web, and desktop with a custom rendering engine.' },
-                  { name: 'Jetpack Compose', desc: 'Android\'s modern UI toolkit. Declarative, Kotlin-native, and the direction all new Android development is heading.' },
-                ],
-              },
-              {
-                category: 'Styling & UI Systems',
-                items: [
-                  { name: 'Tailwind CSS', desc: 'Utility-first CSS framework. No bloated stylesheets — every class maps to exactly one style. What I use on every web project.' },
-                  { name: 'shadcn/ui', desc: 'Pre-built, accessible React components you own. Not a dependency — the code lives in your project, fully customizable.' },
-                  { name: 'Nuxt UI', desc: 'Component library for Vue/Nuxt with built-in dark mode, accessibility, and Tailwind integration.' },
-                ],
-              },
-              {
-                category: 'Video & Motion',
-                items: [
-                  { name: 'Remotion', desc: 'Programmatic video creation in React. Animated explainers, social media content, and dynamic video — all generated from code.' },
-                  { name: 'Framer Motion', desc: 'Production-ready animation library for React. Scroll-triggered reveals, page transitions, and interactive hover effects.' },
-                ],
-              },
-              {
-                category: 'AI & Automation',
-                items: [
-                  { name: 'AI Chatbots', desc: 'Custom chatbots that answer customer questions 24/7. Trained on your business, embedded directly on your site.' },
-                  { name: 'AI Email Marketing', desc: 'Automated email sequences personalized to individual customers using AI-generated content.' },
-                  { name: 'AI-Powered SEO', desc: 'Structured data, llms.txt, and content optimization so your site ranks in both traditional search and AI assistants.' },
-                ],
-              },
-              {
-                category: 'Infrastructure',
-                items: [
-                  { name: 'Vercel / Edge CDN', desc: 'Global deployment in seconds. Your site is served from the closest data center to each visitor.' },
-                  { name: 'TypeScript', desc: 'Type-safe JavaScript. Catches bugs before they reach production and makes the codebase maintainable long-term.' },
-                  { name: 'Google Analytics 4', desc: 'Full analytics setup with event tracking, conversion goals, and real-time reporting.' },
-                ],
-              },
-            ].map(({ category, items }) => (
-              <StaggerItem key={category}>
-                <div>
-                  <h3 className="text-lg font-bold mb-4" style={{ color: primaryColor }}>{category}</h3>
-                  <div className="space-y-3">
-                    {items.map((item) => (
-                      <div key={item.name}>
-                        <p className="text-sm font-semibold" style={{ color: textColor }}>{item.name}</p>
-                        <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{item.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
+              'Next.js', 'React', 'Astro', 'Vue', 'Nuxt', 'Svelte',
+              'React Native', 'SwiftUI', 'Flutter', 'Jetpack Compose',
+              'Tailwind CSS', 'shadcn/ui', 'TypeScript',
+              'Remotion', 'Framer Motion',
+              'Vercel', 'Google Analytics 4',
+            ].map((tech) => (
+              <span key={tech} className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
+                {tech}
+              </span>
             ))}
-          </StaggerContainer>
+          </div>
         </AnimateIn>
 
         {/* ─── FEATURED WORK ─── */}
         <AnimateIn direction="up" id="featured-work" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-6 md:mb-8 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            FEATURED WORK
+          <h2 className="text-[28px] md:text-[44px] mb-6 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            Featured Work
           </h2>
-          <div className="py-4">
+          <div>
             <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>TechxRev</h3>
-            <p className="text-base mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
-              Responsive website for a technology services company. Custom design, SEO optimization, and Google Analytics integration.
+            <p className="text-sm mb-3" style={{ color: secondaryTextColor }}>
+              Custom site for an IT services company. Design, SEO, analytics.
             </p>
-            <div className="flex flex-wrap gap-3 mb-4">
-              {['Web Design', 'SEO', 'GA4'].map((tag) => (
-                <span key={tag} className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: statBg, color: textColor }}>{tag}</span>
-              ))}
-            </div>
             <a href="https://techxrev.com" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
               style={{ color: primaryColor }}>
@@ -387,37 +294,14 @@ export default function Services() {
           </div>
         </AnimateIn>
 
-        {/* ─── WHY LOCAL ─── */}
-        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            WHY CHOOSE A LOCAL ERIE WEB DESIGNER?
-          </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Working with someone who knows the market makes a difference.</p>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.12}>
-            {[
-              { title: 'Local Market Knowledge', text: 'I understand the Erie, PA business landscape, from Presque Isle tourism to the manufacturing and healthcare sectors. Your website will speak directly to your actual customers in Northwestern Pennsylvania.' },
-              { title: 'Face-to-Face Collaboration', text: 'Unlike remote agencies, I\'m available for in-person meetings throughout Erie County. Let\'s grab coffee at Ember + Forge and talk about your project.' },
-              { title: 'Ongoing Local Support', text: 'Your website isn\'t a one-and-done project. I provide ongoing maintenance, updates, and support right here in Erie to keep your business growing online.' },
-            ].map(({ title, text }) => (
-              <StaggerItem key={title}>
-                <div className="py-4">
-                  <h3 className="text-lg font-bold mb-3" style={{ color: primaryColor }}>{title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: textColor }}>{text}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </AnimateIn>
-
         {/* ─── SERVICE AREAS ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
-            SERVING ERIE, PA &amp; SURROUNDING AREAS
+          <h2 className="text-[28px] md:text-[44px] mb-4 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            Service Areas
           </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Professional web design available throughout Northwestern Pennsylvania. Remote collaboration available nationwide.</p>
           <div className="flex flex-wrap gap-3">
-            {['Erie, PA', 'Millcreek Township', 'Harborcreek', 'Fairview', 'Edinboro', 'Meadville', 'Corry', 'North East, PA', 'Girard', 'Waterford', 'Warren, PA', 'Northwestern PA'].map((area) => (
-              <span key={area} className="px-4 py-2 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
+            {['Erie, PA', 'Millcreek', 'Harborcreek', 'Fairview', 'Edinboro', 'Meadville', 'Corry', 'North East', 'Girard', 'Waterford', 'Warren', 'Northwestern PA', 'Remote / Nationwide'].map((area) => (
+              <span key={area} className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
                 {area}
               </span>
             ))}
@@ -430,8 +314,8 @@ export default function Services() {
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: primaryColor }}>
             LET&apos;S BUILD YOUR SITE.
           </h2>
-          <p className="text-base md:text-lg mb-8 text-center" style={{ color: secondaryTextColor }}>
-            Free consultation for Erie, PA businesses. Tell me about your project and I&apos;ll get back to you within 24 hours.
+          <p className="text-base mb-8 text-center" style={{ color: secondaryTextColor }}>
+            Free consultation. I&apos;ll get back to you within 24 hours.
           </p>
           <div className="max-w-md mx-auto">
             <ContactForm />
