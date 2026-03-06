@@ -494,25 +494,37 @@ export default function About() {
             />
           </div>
 
-          {/* Slide-out description panel */}
-          <div
-            className="overflow-hidden transition-all duration-300 ease-out"
-            style={{
-              maxHeight: activeBookIndex !== null ? '200px' : '0px',
-              opacity: activeBookIndex !== null ? 1 : 0,
-            }}
-          >
-            {activeBookIndex !== null && (
-              <div className="pt-6 pb-2">
-                <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
+          {/* Book description overlay */}
+          {activeBookIndex !== null && (
+            <div
+              className="fixed inset-0 z-[9999] flex items-center justify-center px-4"
+              style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+              onClick={() => setActiveBookIndex(null)}
+              role="dialog"
+              aria-modal="true"
+              aria-label={ALL_BOOKS[activeBookIndex].title}
+            >
+              <div
+                className="max-w-md w-full p-8 rounded-2xl"
+                style={{ backgroundColor: theme === 'dark' ? '#111111' : '#ffffff' }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 className="text-xl font-bold mb-3" style={{ color: textColor }}>
                   {ALL_BOOKS[activeBookIndex].title}
                 </h3>
                 <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
                   {ALL_BOOKS[activeBookIndex].description}
                 </p>
+                <button
+                  className="mt-6 text-sm font-semibold transition-opacity hover:opacity-70"
+                  style={{ color: primaryColor }}
+                  onClick={() => setActiveBookIndex(null)}
+                >
+                  Close
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
       </div>
