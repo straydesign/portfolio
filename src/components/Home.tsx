@@ -171,8 +171,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
             role="link"
             tabIndex={0}
             aria-label={`View ${CASE_STUDY.title} case study`}
-            className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6"
-            style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
+            className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6 px-6 rounded-2xl"
+            style={{ backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)', border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
             onClick={() => setCurrentPage(CASE_STUDY.id)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -222,8 +222,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 role="link"
                 tabIndex={0}
                 aria-label={`View ${project.title} project`}
-                className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6"
-                style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
+                className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6 px-6 rounded-2xl"
+                style={{ backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)', border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
                 onClick={() => setCurrentPage(project.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
