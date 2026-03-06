@@ -20,16 +20,16 @@ function getInitialTheme(): Theme {
 }
 
 function getInitialAccent(): AccentColor {
-  if (typeof window === 'undefined') return 'bw';
+  if (typeof window === 'undefined') return 'blue';
   const stored = localStorage.getItem('accentColor');
   const valid: AccentColor[] = ['blue', 'purple', 'pink', 'red', 'yellow', 'green', 'bw', 'tan'];
   if (stored && valid.includes(stored as AccentColor)) return stored as AccentColor;
-  return 'bw';
+  return 'blue';
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>('dark');
-  const [accentColor, setAccentColorState] = useState<AccentColor>('bw');
+  const [accentColor, setAccentColorState] = useState<AccentColor>('blue');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Avoid flash of wrong theme on SSR
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: 'dark', accentColor: 'bw', toggleTheme: () => {}, setAccentColor: () => {} }}>
+      <ThemeContext.Provider value={{ theme: 'dark', accentColor: 'blue', toggleTheme: () => {}, setAccentColor: () => {} }}>
         {children}
       </ThemeContext.Provider>
     );

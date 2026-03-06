@@ -43,7 +43,7 @@ export default function Services() {
 
         {/* ─── WHAT YOU GET ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-4 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-4 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             EVERY SITE INCLUDES
           </h2>
           <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl mb-4" style={{ color: textColor }}>
@@ -169,7 +169,7 @@ export default function Services() {
 
         {/* ─── PRICING ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             WEBSITE PACKAGES
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Everything above is included with every package. One-time build. Yours to own.</p>
@@ -214,15 +214,16 @@ export default function Services() {
               <PricingCard
                 name="CUSTOM"
                 price="$3,000"
-                subtitle="Full custom build with ads included to drive traffic on day one."
+                subtitle="Full custom build with optional add-ons to drive traffic and reach customers around the clock."
                 features={[
                   { label: 'Unlimited pages' },
                   { label: 'E-commerce or booking system' },
-                  { label: 'AI email marketing' },
-                  { label: '3 months of ad management included' },
                   { label: 'Custom interactive features' },
                   { label: 'Third-party integrations' },
                   { label: 'Launch strategy session' },
+                  { label: 'Optional: AI chatbot (24/7 customer reach)' },
+                  { label: 'Optional: AI email marketing setup' },
+                  { label: 'Optional: Facebook & Meta ads setup' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -235,7 +236,7 @@ export default function Services() {
 
         {/* ─── MONTHLY SUPPORT ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             ONGOING SUPPORT
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
@@ -284,9 +285,88 @@ export default function Services() {
           </StaggerContainer>
         </AnimateIn>
 
+        {/* ─── TECH STACKS ─── */}
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
+            BUILT WITH THE RIGHT TOOL FOR THE JOB
+          </h2>
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>
+            I don&apos;t force every project into the same template. Your site gets built with the stack that fits your needs.
+          </p>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.08}>
+            {[
+              {
+                category: 'Web Frameworks',
+                items: [
+                  { name: 'Next.js', desc: 'React framework with server-side rendering and static generation. What most of my sites are built with — fast, SEO-optimized, and scales to any size.' },
+                  { name: 'React', desc: 'Component-based UI library. Powers interactive dashboards, complex forms, and single-page apps.' },
+                  { name: 'Astro', desc: 'Ships zero JavaScript by default. Ideal for content-heavy sites like blogs and marketing pages where speed is everything.' },
+                  { name: 'Vue / Nuxt', desc: 'Progressive framework with a gentler learning curve. Nuxt adds server rendering and auto-routing. Great for teams that need to maintain the site themselves.' },
+                  { name: 'Svelte', desc: 'Compiles to vanilla JS with no runtime overhead. Produces the smallest, fastest bundles of any framework.' },
+                ],
+              },
+              {
+                category: 'Mobile & Native',
+                items: [
+                  { name: 'React Native', desc: 'Build iOS and Android apps from one codebase. Native performance, shared logic across platforms.' },
+                  { name: 'SwiftUI', desc: 'Apple-native framework for iOS, macOS, watchOS. The gold standard for apps that feel like they belong on iPhone.' },
+                  { name: 'Flutter', desc: 'Google\'s cross-platform toolkit. One codebase for iOS, Android, web, and desktop with a custom rendering engine.' },
+                  { name: 'Jetpack Compose', desc: 'Android\'s modern UI toolkit. Declarative, Kotlin-native, and the direction all new Android development is heading.' },
+                ],
+              },
+              {
+                category: 'Styling & UI Systems',
+                items: [
+                  { name: 'Tailwind CSS', desc: 'Utility-first CSS framework. No bloated stylesheets — every class maps to exactly one style. What I use on every web project.' },
+                  { name: 'shadcn/ui', desc: 'Pre-built, accessible React components you own. Not a dependency — the code lives in your project, fully customizable.' },
+                  { name: 'Nuxt UI', desc: 'Component library for Vue/Nuxt with built-in dark mode, accessibility, and Tailwind integration.' },
+                ],
+              },
+              {
+                category: 'Video & Motion',
+                items: [
+                  { name: 'Remotion', desc: 'Programmatic video creation in React. Animated explainers, social media content, and dynamic video — all generated from code.' },
+                  { name: 'Framer Motion', desc: 'Production-ready animation library for React. Scroll-triggered reveals, page transitions, and interactive hover effects.' },
+                ],
+              },
+              {
+                category: 'AI & Automation',
+                items: [
+                  { name: 'AI Chatbots', desc: 'Custom chatbots that answer customer questions 24/7. Trained on your business, embedded directly on your site.' },
+                  { name: 'AI Email Marketing', desc: 'Automated email sequences personalized to individual customers using AI-generated content.' },
+                  { name: 'AI-Powered SEO', desc: 'Structured data, llms.txt, and content optimization so your site ranks in both traditional search and AI assistants.' },
+                ],
+              },
+              {
+                category: 'Infrastructure',
+                items: [
+                  { name: 'Vercel / Edge CDN', desc: 'Global deployment in seconds. Your site is served from the closest data center to each visitor.' },
+                  { name: 'TypeScript', desc: 'Type-safe JavaScript. Catches bugs before they reach production and makes the codebase maintainable long-term.' },
+                  { name: 'Google Analytics 4', desc: 'Full analytics setup with event tracking, conversion goals, and real-time reporting.' },
+                ],
+              },
+            ].map(({ category, items }) => (
+              <StaggerItem key={category}>
+                <div>
+                  <h3 className="text-lg font-bold mb-4" style={{ color: primaryColor }}>{category}</h3>
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <div key={item.name}>
+                        <p className="text-sm font-semibold" style={{ color: textColor }}>{item.name}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </AnimateIn>
+
         {/* ─── FEATURED WORK ─── */}
         <AnimateIn direction="up" id="featured-work" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-6 md:mb-8 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-6 md:mb-8 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             FEATURED WORK
           </h2>
           <div className="py-4">
@@ -309,7 +389,7 @@ export default function Services() {
 
         {/* ─── WHY LOCAL ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             WHY CHOOSE A LOCAL ERIE WEB DESIGNER?
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Working with someone who knows the market makes a difference.</p>
@@ -331,7 +411,7 @@ export default function Services() {
 
         {/* ─── SERVICE AREAS ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
+          <h2 className="text-3xl md:text-4xl mb-2 font-bold italic" style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: textColor }}>
             SERVING ERIE, PA &amp; SURROUNDING AREAS
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Professional web design available throughout Northwestern Pennsylvania. Remote collaboration available nationwide.</p>
