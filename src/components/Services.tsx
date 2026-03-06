@@ -2,23 +2,18 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
-import { ExternalLink, Zap, TrendingUp, Shield, BarChart3, Globe, Smartphone, Search, Gauge } from 'lucide-react';
+import { ExternalLink, TrendingUp, Shield, Gauge } from 'lucide-react';
 import ContactForm from './ContactForm';
+import PricingCard from './PricingCard';
 
 export default function Services() {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
-  const buttonPrimaryColor = cardStyles.getButtonPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
 
   const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
   const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
-
-  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#000000'
-    : (accentColor === 'bw' && theme === 'light') ? '#ffffff'
-    : (accentColor === 'yellow' || accentColor === 'tan') ? '#000000'
-    : '#ffffff';
 
   return (
     <div className="px-4 md:px-8 py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
@@ -88,56 +83,83 @@ export default function Services() {
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>One-time build. Yours to own.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {[
-              {
-                name: 'STARTER',
-                price: '$500',
-                description: 'A professional site for small service-based businesses.',
-                features: ['Up to 5 pages', 'Custom design', 'Mobile responsive', 'Professional photo shoot', 'AI-powered SEO optimization', 'Google Analytics 4', 'Content curated to your business'],
-              },
-              {
-                name: 'PROFESSIONAL',
-                price: '$1,500',
-                description: 'A full-featured site built to convert visitors into customers.',
-                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Professional photo shoot', 'AI-powered SEO + structured data', 'AI chatbot for your site', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'AI-curated copy + content'],
-                featured: true,
-              },
-              {
-                name: 'CUSTOM',
-                price: '$3,000',
-                description: 'Full build with ads included to start driving traffic on day one.',
-                features: ['Unlimited pages', 'E-commerce or booking system', 'Professional photo shoot', 'AI-powered SEO + content', 'AI email marketing curated to individuals', '3 months of ad management included', 'Custom interactive features', 'Third-party integrations', 'Launch strategy session'],
-              },
-              {
-                name: 'MOBILE APP',
-                price: '$5,000+',
-                description: 'A native mobile app for iOS, Android, or both.',
-                features: ['Custom UI/UX design', 'iOS and/or Android', 'Push notifications', 'Backend + API integration', 'App Store submission', 'Post-launch support included'],
-              },
-            ].map((tier) => (
-              <div key={tier.name} className="py-6 md:py-8 px-1">
-                {tier.featured && (
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-4"
-                    style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
-                    MOST POPULAR
-                  </span>
-                )}
-                <h3 className="text-sm font-bold tracking-wider mb-3" style={{ color: primaryColor }}>{tier.name}</h3>
-                <div className="flex items-baseline gap-1 mb-3">
-                  <span className="text-3xl md:text-4xl font-bold" style={{ color: textColor }}>{tier.price}</span>
-                </div>
-                <p className="text-sm mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>{tier.description}</p>
-                <div className="space-y-2">
-                  {tier.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                      <p className="text-sm" style={{ color: textColor }}>{feature}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <PricingCard
+              name="STARTER"
+              price="$500"
+              subtitle="A professional site for small service-based businesses."
+              features={[
+                { label: 'Up to 5 pages' },
+                { label: 'Custom design' },
+                { label: 'Mobile responsive' },
+                { label: 'Professional photo shoot' },
+                { label: 'AI-powered SEO optimization' },
+                { label: 'Google Analytics 4' },
+                { label: 'Content curated to your business' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
+            <PricingCard
+              name="PROFESSIONAL"
+              price="$1,500"
+              subtitle="A full-featured site built to convert visitors into customers."
+              featured
+              features={[
+                { label: 'Up to 12 pages' },
+                { label: 'Custom design + content strategy' },
+                { label: 'CMS for easy self-editing' },
+                { label: 'Professional photo shoot' },
+                { label: 'AI-powered SEO + structured data' },
+                { label: 'AI chatbot for your site' },
+                { label: 'Blog or news section' },
+                { label: 'Speed optimization (90+ Lighthouse)' },
+                { label: 'AI-curated copy + content' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
+            <PricingCard
+              name="CUSTOM"
+              price="$3,000"
+              subtitle="Full build with ads included to start driving traffic on day one."
+              features={[
+                { label: 'Unlimited pages' },
+                { label: 'E-commerce or booking system' },
+                { label: 'Professional photo shoot' },
+                { label: 'AI-powered SEO + content' },
+                { label: 'AI email marketing curated to individuals' },
+                { label: '3 months of ad management included' },
+                { label: 'Custom interactive features' },
+                { label: 'Third-party integrations' },
+                { label: 'Launch strategy session' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
+            <PricingCard
+              name="MOBILE APP"
+              price="$5,000+"
+              subtitle="A native mobile app for iOS, Android, or both."
+              features={[
+                { label: 'Custom UI/UX design' },
+                { label: 'iOS and/or Android' },
+                { label: 'Push notifications' },
+                { label: 'Backend + API integration' },
+                { label: 'App Store submission' },
+                { label: 'Post-launch support included' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
           </div>
         </div>
 
@@ -148,54 +170,62 @@ export default function Services() {
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {[
-              {
-                name: 'HOSTING & MAINTENANCE',
-                price: '$25',
-                period: '/mo',
-                description: 'Your site stays live, secure, and up to date.',
-                features: ['Managed hosting + SSL', 'Monthly backups', 'Security patches + updates', 'Uptime monitoring', 'Bug fixes', 'Email support'],
-              },
-              {
-                name: 'GROWTH',
-                price: '$125',
-                period: '/mo',
-                description: 'Ongoing design and content updates without hiring in-house.',
-                features: ['Everything in Hosting', 'Up to 4 hours of updates/mo', 'Content changes + new pages', 'Design refreshes', 'SEO monitoring + adjustments', 'Priority response (24hr)'],
-                featured: true,
-              },
-              {
-                name: 'MARKETING',
-                price: '$500',
-                period: '/mo',
-                description: 'Full digital marketing. Ads, analytics, and strategy.',
-                features: ['Everything in Growth', 'Google + Meta ad management', 'Campaign strategy + creative', 'Monthly performance reports', 'Conversion tracking setup', 'Ad spend optimization'],
-              },
-            ].map((tier) => (
-              <div key={tier.name} className="py-6 md:py-8 px-1">
-                {tier.featured && (
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold mb-4"
-                    style={{ backgroundColor: primaryColor, color: buttonTextColor }}>
-                    MOST POPULAR
-                  </span>
-                )}
-                <h3 className="text-sm font-bold tracking-wider mb-3" style={{ color: primaryColor }}>{tier.name}</h3>
-                <div className="flex items-baseline gap-1 mb-3">
-                  <span className="text-3xl md:text-4xl font-bold" style={{ color: textColor }}>{tier.price}</span>
-                  <span className="text-sm" style={{ color: secondaryTextColor }}>{tier.period}</span>
-                </div>
-                <p className="text-sm mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>{tier.description}</p>
-                <div className="space-y-2">
-                  {tier.features.map((feature) => (
-                    <div key={feature} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                      <p className="text-sm" style={{ color: textColor }}>{feature}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <PricingCard
+              name="HOSTING & MAINTENANCE"
+              price="$25"
+              periodLabel="/mo"
+              subtitle="Your site stays live, secure, and up to date."
+              features={[
+                { label: 'Managed hosting + SSL' },
+                { label: 'Monthly backups' },
+                { label: 'Security patches + updates' },
+                { label: 'Uptime monitoring' },
+                { label: 'Bug fixes' },
+                { label: 'Email support' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
+            <PricingCard
+              name="GROWTH"
+              price="$125"
+              periodLabel="/mo"
+              subtitle="Ongoing design and content updates without hiring in-house."
+              featured
+              features={[
+                { label: 'Everything in Hosting' },
+                { label: 'Up to 4 hours of updates/mo' },
+                { label: 'Content changes + new pages' },
+                { label: 'Design refreshes' },
+                { label: 'SEO monitoring + adjustments' },
+                { label: 'Priority response (24hr)' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
+            <PricingCard
+              name="MARKETING"
+              price="$500"
+              periodLabel="/mo"
+              subtitle="Full digital marketing. Ads, analytics, and strategy."
+              features={[
+                { label: 'Everything in Growth' },
+                { label: 'Google + Meta ad management' },
+                { label: 'Campaign strategy + creative' },
+                { label: 'Monthly performance reports' },
+                { label: 'Conversion tracking setup' },
+                { label: 'Ad spend optimization' },
+              ]}
+              primaryColor={primaryColor}
+              textColor={textColor}
+              secondaryTextColor={secondaryTextColor}
+              theme={theme}
+            />
           </div>
         </div>
 
