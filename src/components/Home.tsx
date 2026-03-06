@@ -287,7 +287,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
               >
                 <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
-                  {rec.quote}
+                  &ldquo;{rec.quote}&rdquo;
                 </p>
                 <p className="text-sm font-bold" style={{ color: textColor }}>
                   {rec.name}
