@@ -7,6 +7,7 @@ interface PhoneMockupProps {
   title?: string;
   description?: string;
   alt?: string;
+  textColor?: string;
   onClick?: () => void;
 }
 
@@ -17,6 +18,7 @@ export default function PhoneMockup({
   title,
   description,
   alt = 'App screenshot',
+  textColor,
   onClick,
 }: PhoneMockupProps) {
   return (
@@ -44,7 +46,7 @@ export default function PhoneMockup({
 
       {/* Title & description */}
       {(title || description) && (
-        <div className="w-full mt-4">
+        <div className="w-full mt-4" style={textColor ? { color: textColor } : undefined}>
           {title && (
             <p className="text-base md:text-lg font-bold">{title}</p>
           )}

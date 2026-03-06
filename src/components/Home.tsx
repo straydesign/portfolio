@@ -199,6 +199,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               title="DoorDash Dasher App"
               description="Ethnographic UX research + redesign proposals"
               alt="DoorDash Dasher app screenshot"
+              textColor={textColor}
               onClick={() => setCurrentPage('doordash-case-study')}
             />
           </div>
@@ -252,6 +253,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               title="Merchandising System"
               description="Mobile app to reduce retail stock-outs"
               alt="Middleman app screenshot"
+              textColor={textColor}
               onClick={() => setCurrentPage('middleman-case-study')}
             />
             <PhoneMockup
@@ -261,6 +263,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               title="FirstDay.Life"
               description="AI-powered goal tracker — shipped product"
               alt="FirstDay.Life app screenshot"
+              textColor={textColor}
               onClick={() => setCurrentPage('day-one-case-study')}
             />
           </div>

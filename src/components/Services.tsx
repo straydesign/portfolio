@@ -92,22 +92,22 @@ export default function Services() {
             {[
               {
                 name: 'STARTER',
-                price: '$750',
-                description: 'A clean, professional site to establish your online presence.',
-                features: ['Up to 5 pages', 'Custom design', 'Mobile responsive', 'Basic SEO setup', 'Contact form', 'Google Analytics 4'],
+                price: '$500',
+                description: 'A professional site for small service-based businesses.',
+                features: ['Up to 5 pages', 'Custom design', 'Mobile responsive', 'Professional photo shoot', 'AI-powered SEO optimization', 'Google Analytics 4', 'Content curated to your business'],
               },
               {
                 name: 'PROFESSIONAL',
-                price: '$1,750',
+                price: '$1,500',
                 description: 'A full-featured site built to convert visitors into customers.',
-                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Advanced SEO + structured data', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'Social media integration'],
+                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Professional photo shoot', 'AI-powered SEO + structured data', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'AI-curated copy + content'],
                 featured: true,
               },
               {
                 name: 'CUSTOM',
-                price: '$3,750+',
-                description: 'Complex builds with custom functionality tailored to your business.',
-                features: ['Unlimited pages', 'E-commerce or booking system', 'Custom interactive features', 'Third-party integrations', 'Multi-language support', 'Priority 2-week turnaround', 'Launch strategy session'],
+                price: '$3,000+',
+                description: 'Full build with ads included to start driving traffic on day one.',
+                features: ['Unlimited pages', 'E-commerce or booking system', 'Professional photo shoot', 'AI-powered SEO + content', '3 months of ad management included', 'Custom interactive features', 'Third-party integrations', 'Launch strategy session'],
               },
               {
                 name: 'MOBILE APP',
