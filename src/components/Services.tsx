@@ -12,7 +12,7 @@ export default function Services() {
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
 
-  const statBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
+  const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
   const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
   const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#000000'

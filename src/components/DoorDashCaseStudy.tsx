@@ -14,7 +14,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
 
-  const statBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
+  const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
   const imgBorder = `2px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`;
   const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
@@ -128,11 +128,11 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
           <div className="flex flex-col md:flex-row gap-6 mb-8">
             <div className="flex gap-4 justify-center md:w-1/2">
               <div className="w-[160px] md:w-[200px] flex-shrink-0">
-                <p className="text-xs font-bold mb-2 text-center" style={{ color: textColor, opacity: 0.6 }}>CURRENT STATE</p>
+                <p className="text-xs font-bold mb-2 text-center" style={{ color: textColor, opacity: 0.6 }}>EXAMPLE 1</p>
                 <ImageWithSkeleton src="/images/doordash/slide4_Image_0.png" alt="DoorDash delivery screen showing Continue as primary red button" className="rounded-2xl w-full" style={{ border: imgBorder }} />
               </div>
               <div className="w-[160px] md:w-[200px] flex-shrink-0">
-                <p className="text-xs font-bold mb-2 text-center" style={{ color: textColor, opacity: 0.6 }}>COMPARISON</p>
+                <p className="text-xs font-bold mb-2 text-center" style={{ color: textColor, opacity: 0.6 }}>EXAMPLE 2</p>
                 <ImageWithSkeleton src="/images/doordash/slide4_Image_1.png" alt="DoorDash delivery screen showing Handed order to customer and Directions buttons" className="rounded-2xl w-full" style={{ border: imgBorder }} />
               </div>
             </div>

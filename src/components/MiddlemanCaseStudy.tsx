@@ -15,7 +15,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
 
-  const statBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.03)';
+  const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
   const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
   return (
