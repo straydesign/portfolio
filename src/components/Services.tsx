@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
-import { ExternalLink, TrendingUp, Shield, Gauge } from 'lucide-react';
+import { ExternalLink, TrendingUp, Shield, Gauge, ChevronDown, Bot } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import ContactForm from './ContactForm';
 import PricingCard from './PricingCard';
@@ -13,6 +15,7 @@ export default function Services() {
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
 
+  const [showTechnical, setShowTechnical] = useState(false);
   const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
   const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
@@ -38,45 +41,88 @@ export default function Services() {
           </p>
         </AnimateIn>
 
-        {/* ─── WHY IT MATTERS ─── */}
+        {/* ─── WHAT YOU GET ─── */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
-          <h2 className="text-2xl md:text-3xl mb-8 font-bold" style={{ color: textColor }}>
-            WHAT YOU GET
+          <h2 className="text-2xl md:text-3xl mb-4 font-bold" style={{ color: textColor }}>
+            EVERY SITE INCLUDES
           </h2>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.12}>
-            {[
-              {
-                icon: Gauge,
-                title: 'Performance',
-                points: ['Optimized load times', '90+ Lighthouse scores', 'Core Web Vitals compliant', 'Image optimization & lazy loading'],
-              },
-              {
-                icon: TrendingUp,
-                title: 'Growth-Ready',
-                points: ['SEO baked in from day one', 'Google Analytics 4 setup', 'Structured data for search', 'Built to scale as you grow'],
-              },
-              {
-                icon: Shield,
-                title: 'Built Right',
-                points: ['Responsive on every device', 'Accessible (WCAG standards)', 'Clean, maintainable code', 'Fast hosting infrastructure'],
-              },
-            ].map(({ icon: Icon, title, points }) => (
-              <StaggerItem key={title}>
-                <div>
-                  <Icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
-                  <h3 className="text-lg font-bold mb-3" style={{ color: textColor }}>{title}</h3>
-                  <div className="space-y-2">
-                    {points.map((point) => (
-                      <div key={point} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                        <p className="text-sm" style={{ color: secondaryTextColor }}>{point}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </StaggerItem>
+          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl mb-4" style={{ color: textColor }}>
+            Every site I build is custom, high-performing, and set up to rank — not just on Google, but in AI answers from ChatGPT, Copilot, Perplexity, and Google AI Overviews. Most web designers build for search engines. I build for search engines <span style={{ fontStyle: 'italic' }}>and</span> AI.
+          </p>
+          <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl mb-6" style={{ color: secondaryTextColor }}>
+            Your site ships with structured data so AI knows exactly what your business does, an llms.txt file — a cheat sheet built specifically for AI assistants — FAQ markup that feeds direct answers into search and AI results, a sitemap and robots.txt for proper crawling, and a manifest so customers can add your site to their phone in one tap. Most businesses don&apos;t have any of this.
+          </p>
+          <div className="flex flex-wrap gap-3 mb-6">
+            {['Custom Design', 'Professional Photo Shoot', 'Mobile Responsive', 'AI-Powered SEO', 'Google Analytics 4', 'Curated Content', '90+ Lighthouse Score', 'llms.txt for AI', 'FAQ Structured Data', 'Sitemap & Robots.txt', 'Add to Home Screen'].map((tag) => (
+              <span key={tag} className="px-3 py-1.5 rounded-full text-sm font-medium" style={{ backgroundColor: statBg, color: textColor }}>
+                {tag}
+              </span>
             ))}
-          </StaggerContainer>
+          </div>
+
+          <button
+            onClick={() => setShowTechnical(!showTechnical)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105"
+            style={{ backgroundColor: primaryColor, color: theme === 'dark' && (accentColor === 'yellow' || accentColor === 'tan') ? '#000000' : accentColor === 'bw' && theme === 'dark' ? '#000000' : '#ffffff' }}
+          >
+            {showTechnical ? 'Hide Details' : "Let's Get Technical"}
+            <ChevronDown
+              className="w-4 h-4 transition-transform duration-300"
+              style={{ transform: showTechnical ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
+          </button>
+
+          <AnimatePresence>
+            {showTechnical && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                className="overflow-hidden"
+              >
+                <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 pt-8" staggerDelay={0.12}>
+                  {[
+                    {
+                      icon: Bot,
+                      title: 'AI Visibility',
+                      points: ['llms.txt — AI cheat sheet for ChatGPT, Copilot & Perplexity', 'FAQ structured data — direct answers in AI & search results', 'Structured data markup — AI knows exactly what you do', 'manifest.json — "Add to Home Screen" on phones'],
+                    },
+                    {
+                      icon: Gauge,
+                      title: 'Performance',
+                      points: ['Optimized load times', '90+ Lighthouse scores', 'Core Web Vitals compliant', 'Image optimization & lazy loading'],
+                    },
+                    {
+                      icon: TrendingUp,
+                      title: 'Growth-Ready',
+                      points: ['SEO baked in from day one', 'Google Analytics 4 setup', 'robots.txt + sitemap.xml for proper crawling', 'Built to scale as you grow'],
+                    },
+                    {
+                      icon: Shield,
+                      title: 'Built Right',
+                      points: ['Responsive on every device', 'Accessible (WCAG standards)', 'Clean, maintainable code', 'Fast hosting infrastructure'],
+                    },
+                  ].map(({ icon: Icon, title, points }) => (
+                    <StaggerItem key={title}>
+                      <div>
+                        <Icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
+                        <h3 className="text-lg font-bold mb-3" style={{ color: textColor }}>{title}</h3>
+                        <div className="space-y-2">
+                          {points.map((point) => (
+                            <div key={point} className="flex items-start gap-2">
+                              <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
+                              <p className="text-sm" style={{ color: secondaryTextColor }}>{point}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </AnimateIn>
 
         {/* ─── PRICING ─── */}
@@ -84,22 +130,17 @@ export default function Services() {
           <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
             WEBSITE PACKAGES
           </h2>
-          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>One-time build. Yours to own.</p>
+          <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Everything above is included with every package. One-time build. Yours to own.</p>
 
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
             <StaggerItem>
               <PricingCard
                 name="STARTER"
                 price="$1,000"
-                subtitle="A professional site for small service-based businesses."
+                subtitle="A custom, high-performance site for small service-based businesses."
                 features={[
                   { label: 'Up to 5 pages' },
-                  { label: 'Custom design' },
-                  { label: 'Mobile responsive' },
-                  { label: 'Professional photo shoot' },
-                  { label: 'AI-powered SEO optimization' },
-                  { label: 'Google Analytics 4' },
-                  { label: 'Content curated to your business' },
+                  { label: 'Everything in Every Site Includes' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -111,18 +152,15 @@ export default function Services() {
               <PricingCard
                 name="PROFESSIONAL"
                 price="$2,000"
-                subtitle="A full-featured site built to convert visitors into customers."
+                subtitle="A custom, full-featured site built to convert visitors into customers."
                 featured
                 features={[
                   { label: 'Up to 12 pages' },
-                  { label: 'Custom design + content strategy' },
+                  { label: 'Content strategy' },
                   { label: 'CMS for easy self-editing' },
-                  { label: 'Professional photo shoot' },
-                  { label: 'AI-powered SEO + structured data' },
                   { label: 'AI chatbot for your site' },
                   { label: 'Blog or news section' },
-                  { label: 'Speed optimization (90+ Lighthouse)' },
-                  { label: 'AI-curated copy + content' },
+                  { label: 'Structured data for AI & search' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
@@ -134,13 +172,11 @@ export default function Services() {
               <PricingCard
                 name="CUSTOM"
                 price="$3,000"
-                subtitle="Full build with ads included to start driving traffic on day one."
+                subtitle="Full custom build with ads included to drive traffic on day one."
                 features={[
                   { label: 'Unlimited pages' },
                   { label: 'E-commerce or booking system' },
-                  { label: 'Professional photo shoot' },
-                  { label: 'AI-powered SEO + content' },
-                  { label: 'AI email marketing curated to individuals' },
+                  { label: 'AI email marketing' },
                   { label: '3 months of ad management included' },
                   { label: 'Custom interactive features' },
                   { label: 'Third-party integrations' },
