@@ -100,14 +100,14 @@ export default function Services() {
                 name: 'PROFESSIONAL',
                 price: '$1,500',
                 description: 'A full-featured site built to convert visitors into customers.',
-                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Professional photo shoot', 'AI-powered SEO + structured data', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'AI-curated copy + content'],
+                features: ['Up to 12 pages', 'Custom design + content strategy', 'CMS for easy self-editing', 'Professional photo shoot', 'AI-powered SEO + structured data', 'AI chatbot for your site', 'Blog or news section', 'Speed optimization (90+ Lighthouse)', 'AI-curated copy + content'],
                 featured: true,
               },
               {
                 name: 'CUSTOM',
                 price: '$3,000+',
                 description: 'Full build with ads included to start driving traffic on day one.',
-                features: ['Unlimited pages', 'E-commerce or booking system', 'Professional photo shoot', 'AI-powered SEO + content', '3 months of ad management included', 'Custom interactive features', 'Third-party integrations', 'Launch strategy session'],
+                features: ['Unlimited pages', 'E-commerce or booking system', 'Professional photo shoot', 'AI-powered SEO + content', 'AI email marketing curated to individuals', '3 months of ad management included', 'Custom interactive features', 'Third-party integrations', 'Launch strategy session'],
               },
               {
                 name: 'MOBILE APP',
