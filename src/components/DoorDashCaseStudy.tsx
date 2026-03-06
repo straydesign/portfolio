@@ -56,7 +56,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
             </div>
             <div>
               <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>MY ROLE</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>UX Researcher & Designer — Ethnographic observation, heuristic evaluation, redesign proposals</p>
+              <p className="text-base md:text-lg" style={{ color: textColor }}>UX Researcher & Designer. Ethnographic observation, heuristic evaluation, redesign proposals</p>
             </div>
             <div>
               <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>FRAMEWORK</h3>
@@ -64,7 +64,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
             </div>
             <div>
               <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>KEY CONSTRAINT</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Limited attention — driving, time pressure, quick glances. App must be operated at driving speed.</p>
+              <p className="text-base md:text-lg" style={{ color: textColor }}>Limited attention. Driving, time pressure, quick glances. App must be operated at driving speed.</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <div className="flex items-center gap-3 mb-6">
             <Smartphone className="w-6 h-6" style={{ color: primaryColor }} />
-            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #1 — BUTTON HIERARCHY MISMATCH</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #1: BUTTON HIERARCHY MISMATCH</h2>
           </div>
           <div className="flex flex-col md:flex-row gap-6 mb-8">
             <div className="flex gap-4 justify-center md:w-1/2">
@@ -143,7 +143,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
               </p>
               <h3 className="text-lg md:text-xl font-bold mb-3" style={{ color: primaryColor }}>Why It Might Exist</h3>
               <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
-                Likely optimized for poor-connectivity edge cases — pre-loading the completion flow prevents failures when signal drops at the door.
+                Likely optimized for poor-connectivity edge cases. Pre-loading the completion flow prevents failures when signal drops at the door.
               </p>
               <h3 className="text-lg md:text-xl font-bold mb-3" style={{ color: primaryColor }}>Proposed Redesign</h3>
               <p className="text-base leading-relaxed" style={{ color: textColor }}>
@@ -157,10 +157,10 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <div className="flex items-center gap-3 mb-6">
             <Shield className="w-6 h-6" style={{ color: primaryColor }} />
-            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #2 — NO ERROR RECOVERY PATH</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #2: NO ERROR RECOVERY PATH</h2>
           </div>
           <p className="text-lg md:text-xl mb-6 leading-relaxed font-bold" style={{ color: textColor }}>
-            Once an order is marked delivered — accidentally or legitimately — the address is permanently inaccessible.
+            Once an order is marked delivered, accidentally or legitimately, the address is permanently inaccessible.
           </p>
           <div className="mb-6">
             <h3 className="text-base font-bold mb-3" style={{ color: primaryColor }}>Edge cases requiring address recovery:</h3>
@@ -181,7 +181,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
           <div className="p-5 rounded-2xl mb-6" style={{ backgroundColor: statBg }}>
             <h3 className="text-base font-bold mb-2" style={{ color: primaryColor }}>Why addresses disappear</h3>
             <p className="text-base leading-relaxed" style={{ color: textColor }}>
-              Customer privacy and stalking prevention. Data minimization is regulatory best practice. These are valid — but the driver was at the address minutes ago, and currently gets it anyway by messaging through DoorDash.
+              Customer privacy and stalking prevention. Data minimization is regulatory best practice. These are valid, but the driver was at the address minutes ago, and currently gets it anyway by messaging through DoorDash.
             </p>
           </div>
           <div className="p-5 rounded-2xl" style={{ backgroundColor: statBg, border: `2px solid ${primaryColor}` }}>
@@ -196,7 +196,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <div className="flex items-center gap-3 mb-6">
             <Camera className="w-6 h-6" style={{ color: primaryColor }} />
-            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #3 — INFLEXIBLE PHOTO VALIDATION</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #3: INFLEXIBLE PHOTO VALIDATION</h2>
           </div>
           <div className="flex flex-col md:flex-row gap-6 mb-6">
             <div className="flex justify-center md:w-1/3">
@@ -212,7 +212,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
               </div>
               <h3 className="text-lg font-bold mb-3" style={{ color: primaryColor }}>The Paradox</h3>
               <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
-                ML compares to previous delivery photos for fraud prevention. Alternate locations don&apos;t match = rejected. System loses photo proof for non-standard locations — exactly when documentation matters most. Rejection forces bypass, producing no photo at all.
+                ML compares to previous delivery photos for fraud prevention. Alternate locations don&apos;t match = rejected. System loses photo proof for non-standard locations, exactly when documentation matters most. Rejection forces bypass, producing no photo at all.
               </p>
               <div className="p-5 rounded-2xl" style={{ backgroundColor: statBg, border: `2px solid ${primaryColor}` }}>
                 <h3 className="text-base font-bold mb-2" style={{ color: primaryColor }}>Proposed Redesign</h3>
@@ -228,7 +228,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <div className="flex items-center gap-3 mb-6">
             <Key className="w-6 h-6" style={{ color: primaryColor }} />
-            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #4 — PREMATURE INFORMATION REMOVAL</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #4: PREMATURE INFORMATION REMOVAL</h2>
           </div>
           <p className="text-lg md:text-xl mb-6 leading-relaxed" style={{ color: textColor }}>
             Pizza portals and smart lockers require pickup codes. If &quot;picked up&quot; is tapped before code entry: <strong style={{ color: primaryColor }}>code disappears. No retrieval option.</strong>
@@ -236,13 +236,13 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
           <div className="p-5 rounded-2xl mb-6" style={{ backgroundColor: statBg }}>
             <h3 className="text-base font-bold mb-2" style={{ color: primaryColor }}>Why it might exist</h3>
             <p className="text-base leading-relaxed" style={{ color: textColor }}>
-              Code is tied to order state — once &quot;picked up&quot; is confirmed, ephemeral data clears. Simplifies state machine and reduces data retention. But real pickup involves juggling bags, unfamiliar restaurants, and divided attention.
+              Code is tied to order state. Once &quot;picked up&quot; is confirmed, ephemeral data clears. Simplifies state machine and reduces data retention. But real pickup involves juggling bags, unfamiliar restaurants, and divided attention.
             </p>
           </div>
           <div className="p-5 rounded-2xl" style={{ backgroundColor: statBg, border: `2px solid ${primaryColor}` }}>
             <h3 className="text-base font-bold mb-2" style={{ color: primaryColor }}>Proposed Redesign</h3>
             <p className="text-base leading-relaxed" style={{ color: textColor }}>
-              Keep code visible until locker/portal API confirms physical retrieval. Code clears on hardware confirmation, not tap. A bad actor would memorize the code — this design only punishes honest mistakes.
+              Keep code visible until locker/portal API confirms physical retrieval. Code clears on hardware confirmation, not tap. A bad actor would memorize the code. This design only punishes honest mistakes.
             </p>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <div className="flex items-center gap-3 mb-6">
             <Smartphone className="w-6 h-6" style={{ color: primaryColor }} />
-            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #5 — EXCESSIVE INTERACTION COST</h2>
+            <h2 className="text-sm md:text-base font-bold tracking-widest" style={{ color: primaryColor }}>ISSUE #5: EXCESSIVE INTERACTION COST</h2>
           </div>
           <p className="text-2xl md:text-3xl font-bold mb-2" style={{ color: primaryColor }}>12 taps to cancel.</p>
           <p className="text-lg mb-6" style={{ color: textColor }}>Stacked order = 24 taps. While operating a vehicle.</p>
@@ -294,7 +294,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>DESIGN PHILOSOPHY</h2>
           <p className="text-xl md:text-2xl font-bold mb-8 leading-relaxed" style={{ color: primaryColor }}>
-            Every redesign preserves the business goal the current design serves. The question isn&apos;t whether these goals matter — it&apos;s whether the current implementation achieves them or undermines them.
+            Every redesign preserves the business goal the current design serves. The question isn&apos;t whether these goals matter. It&apos;s whether the current implementation achieves them or undermines them.
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[

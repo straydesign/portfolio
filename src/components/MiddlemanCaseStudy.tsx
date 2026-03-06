@@ -58,7 +58,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </div>
             <div>
               <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>MY ROLE</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Solo UX Designer & Researcher — Problem definition, user research, IA, interaction design, prototyping (10+ iterations)</p>
+              <p className="text-base md:text-lg" style={{ color: textColor }}>Solo UX Designer & Researcher. Problem definition, user research, IA, interaction design, prototyping (10+ iterations)</p>
             </div>
             <div>
               <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>TOOLS</h3>
@@ -83,7 +83,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             In beverage distribution, merchandisers visit retail stores daily to restock shelves from backroom inventory. The job is physical, fast-paced, and done across 6–12 stores per shift.
           </p>
           <p className="text-lg md:text-xl leading-relaxed" style={{ color: textColor }}>
-            The sales side has ordering software, but merchandisers never touch it. The actual in-store work — deciding what to pull from the backroom, in what priority — is still pen, cardboard, and manual counting with no data to guide decisions.
+            The sales side has ordering software, but merchandisers never touch it. The actual in-store work, deciding what to pull from the backroom, in what priority, is still pen, cardboard, and manual counting with no data to guide decisions.
           </p>
         </div>
 
@@ -95,10 +95,10 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {[
-              { note: 'Spent 10+ minutes counting backstock in walk-in coolers — no way to know what was already on shelf without walking back and forth', label: 'FIELD OBSERVATION' },
+              { note: 'Spent 10+ minutes counting backstock in walk-in coolers. No way to know what was already on shelf without walking back and forth', label: 'FIELD OBSERVATION' },
               { note: 'Pulled wrong SKU twice in one store because the existing app shows product names but not shelf locations or photos', label: 'ERROR PATTERN' },
               { note: 'Coworkers kept personal spreadsheets of what each store needed because the company tools were too slow to reference in-aisle', label: 'WORKAROUND BEHAVIOR' },
-              { note: 'Store managers would flag stockouts verbally at check-in — no system captured this, so the same products stayed out of stock for weeks', label: 'COMMUNICATION GAP' },
+              { note: 'Store managers would flag stockouts verbally at check-in. No system captured this, so the same products stayed out of stock for weeks', label: 'COMMUNICATION GAP' },
             ].map(({ note, label }) => (
               <div key={label} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
                 <p className="text-xs font-bold mb-2 tracking-wider" style={{ color: primaryColor }}>{label}</p>
@@ -108,7 +108,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </div>
           <div className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
             <p className="text-sm" style={{ color: textColor, opacity: 0.7 }}>
-              <strong>Method:</strong> Ethnographic field research — I was the user. These observations come from daily work across 15+ retail accounts over a year, not from interviews conducted after the fact.
+              <strong>Method:</strong> Ethnographic field research. I was the user. These observations come from daily work across 15+ retail accounts over a year, not from interviews conducted after the fact.
             </p>
           </div>
         </div>
@@ -173,13 +173,13 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
         <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
           <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>DESIGN PROCESS</h2>
           <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: textColor }}>
-            10+ iterations across 3 months. Each round was informed by the field observations above — I was still working as a merchandiser during the design process, testing mental models against real shifts.
+            10+ iterations across 3 months. Each round was informed by the field observations above. I was still working as a merchandiser during the design process, testing mental models against real shifts.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
               { phase: 'TASK ANALYSIS', desc: 'Mapped the actual merchandiser workflow across a full shift: arrive → check backroom → count shelf → decide pulls → restock → confirm → next store' },
               { phase: 'LOW-FI WIREFRAMES', desc: 'Paper sketches testing two IA approaches: store-first (select store, see pull list) vs. product-first (see all low-stock items across stores)' },
-              { phase: 'MID-FI PROTOTYPE', desc: 'Figma flows testing the store-first approach — which matched the physical workflow better. Iterated on information density for quick in-aisle scanning' },
+              { phase: 'MID-FI PROTOTYPE', desc: 'Figma flows testing the store-first approach, which matched the physical workflow better. Iterated on information density for quick in-aisle scanning' },
               { phase: 'HI-FI INTERACTIVE', desc: 'Full interactive prototype with component system, real data patterns, and the 3-step core flow: pick store → pull list → confirm pulled' },
             ].map(({ phase, desc }) => (
               <div key={phase} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
@@ -225,7 +225,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>WHAT IS REAL VS WHAT IS NEXT</h2>
           <div className="space-y-6">
             {[
-              { icon: CheckCircle, title: 'Real', desc: 'Built from a year of daily merchandising across 15+ stores — every pain point and workflow observed firsthand' },
+              { icon: CheckCircle, title: 'Real', desc: 'Built from a year of daily merchandising across 15+ stores. Every pain point and workflow observed firsthand' },
               { icon: AlertTriangle, title: 'Not proven yet', desc: 'The exact time savings and accuracy numbers' },
               { icon: Zap, title: 'Next', desc: 'Test with 8 to 10 merchandisers, then a 2 week pilot' },
             ].map(({ icon: Icon, title, desc }) => (

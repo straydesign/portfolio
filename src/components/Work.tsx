@@ -40,7 +40,7 @@ const PROJECTS = [
   },
   {
     title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker — designed, built, and shipped as a live product.',
+    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
     deliverable: 'Live shipped product + Apple-native design',
     screenshot: '/images/mockups/firstday-screen.png',
     alt: 'FirstDay.Life app screenshot',

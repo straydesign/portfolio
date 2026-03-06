@@ -48,7 +48,7 @@ const PROJECTS = [
   {
     id: 'day-one-case-study' as const,
     title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker — designed, built, and shipped as a live product.',
+    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
     deliverable: 'Live shipped product + Apple-native design',
   },
 ];
@@ -57,12 +57,12 @@ const RECOMMENDATIONS = [
   {
     quote: 'I hired Tom as a marketing consultant to assist my technology company with revamping our website, implementing and understanding web analytics, and other marketing tasks. In short, Tom delivered everything he promised, and more. He\u2019s easy to work with, communicates quickly and does a great job explaining things. When he provides instructions, they\u2019re clear, concise and easy to follow. We all enjoy the fact that Tom under-promises and over-delivers. It\u2019s always nice to feel like you got a bit more than you paid for; Tom has mastered that delivery! I recommend Tom to any marketing team looking for a professional, intelligent team-member that\u2019s not afraid to get his hands dirty.',
     name: 'Kurt Simione',
-    role: 'TechxRev — Client',
+    role: 'TechxRev, Client',
   },
   {
     quote: 'I had the pleasure of teaching Tom Sesler in both Financial and Managerial Accounting, where he consistently stood out as a top student\u2014earning close to a perfect in each course. What impressed me most was not just Tom\u2019s mastery of the material, but his ability to connect concepts and apply them thoughtfully to real business situations. He was an active participant in class discussions, often raising insightful questions and offering perspectives that pushed conversations deeper. Tom was always prepared, met every deadline, and demonstrated a professional and focused mindset from day one. He\u2019s exactly the kind of driven, analytical thinker that any team would be lucky to have.',
     name: 'Scott Berube',
-    role: 'MSA, CPA, CFE — Principal Lecturer of Accounting, UNH',
+    role: 'MSA, CPA, CFE. Principal Lecturer of Accounting, UNH',
   },
   {
     quote: 'Thomas stood out immediately in my Organizational Behavior class\u2014not just because of how well he performed, but because of how he showed up. He was consistently engaged in discussions, brought thoughtful ideas into the room, and had a knack for raising the level of conversation without ever needing to dominate it. What impressed me most was his ability to balance strategic thinking with collaboration. He worked seamlessly with his team, contributing in a way that moved the group forward and made others better. If you\u2019re looking for someone in marketing who brings emotional intelligence, strong execution, and a team-first mindset, Thomas is someone I\u2019d recommend without hesitation!',
@@ -111,10 +111,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
           </p>
           <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: textColor }}>
             From ethnographic field research to interactive Figma prototypes to live products.
-            Marketing background means I design for users and business outcomes — closing the gap between design intent and what actually ships.
+            Marketing background means I design for users and business outcomes. Closing the gap between design intent and what actually ships.
           </p>
           <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
-            New Hampshire / Massachusetts — open to full-time, contract, or remote
+            New Hampshire / Massachusetts. Open to full-time, contract, or remote
           </p>
           <div className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4">
             {[
@@ -261,7 +261,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               gradientFrom={primaryColor}
               gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
               title="FirstDay.Life"
-              description="AI-powered goal tracker — shipped product"
+              description="AI-powered goal tracker. Shipped product"
               alt="FirstDay.Life app screenshot"
               textColor={textColor}
               onClick={() => setCurrentPage('day-one-case-study')}
@@ -274,7 +274,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <div className="px-4 md:px-8 py-8 md:py-12">
         <div className="max-w-[90rem] mx-auto">
           <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
+            className="text-[28px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
           >
             RECOMMENDATIONS

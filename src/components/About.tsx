@@ -157,7 +157,7 @@ export default function About() {
                 ABOUT
               </h1>
               <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: textColor }}>
-                I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand — working as a merchandiser, doing gig delivery, and building products from scratch.
+                I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
               </p>
               <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: textColor }}>
                 That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.

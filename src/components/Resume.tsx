@@ -33,7 +33,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             Product Designer
           </div>
           <div className="text-base md:text-lg mb-3" style={{ color: secondaryTextColor }}>
-            New Hampshire / Massachusetts — open to full-time, contract, or remote
+            New Hampshire / Massachusetts. Open to full-time, contract, or remote
           </div>
           <div className="mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm"
@@ -258,7 +258,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             { label: 'Research & Analysis:', text: 'User Interviews, Usability Testing, Contextual Inquiry, Competitive Analysis, Survey Design, Google Analytics 4, Qualtrics' },
             { label: 'Strategy & Content:', text: 'Brand Voice Development, Content Strategy, AI Personalization Strategy, Information Architecture' },
             { label: 'Development Knowledge:', text: 'HTML/CSS Fundamentals, Responsive Design Principles, SEO Best Practices' },
-            { label: 'Portfolio:', text: 'straydesign.co — Case studies showcasing user research, wireframes, prototypes, and business-centered design thinking' },
+            { label: 'Portfolio:', text: 'straydesign.co. Case studies showcasing user research, wireframes, prototypes, and business-centered design thinking' },
             { label: 'References:', text: 'Available upon request | Public recommendations on LinkedIn' },
           ].map(({ label, text }) => (
             <div key={label} className="mb-4">

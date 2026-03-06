@@ -167,9 +167,9 @@ export default function Services() {
               },
               {
                 name: 'MARKETING',
-                price: '$250+',
+                price: '$500',
                 period: '/mo',
-                description: 'Full digital marketing — ads, analytics, and strategy.',
+                description: 'Full digital marketing. Ads, analytics, and strategy.',
                 features: ['Everything in Growth', 'Google + Meta ad management', 'Campaign strategy + creative', 'Monthly performance reports', 'Conversion tracking setup', 'Ad spend optimization'],
               },
             ].map((tier) => (
@@ -230,7 +230,7 @@ export default function Services() {
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Working with someone who knows the market makes a difference.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {[
-              { title: 'Local Market Knowledge', text: 'I understand the Erie, PA business landscape — from Presque Isle tourism to the manufacturing and healthcare sectors. Your website will speak directly to your actual customers in Northwestern Pennsylvania.' },
+              { title: 'Local Market Knowledge', text: 'I understand the Erie, PA business landscape, from Presque Isle tourism to the manufacturing and healthcare sectors. Your website will speak directly to your actual customers in Northwestern Pennsylvania.' },
               { title: 'Face-to-Face Collaboration', text: 'Unlike remote agencies, I\'m available for in-person meetings throughout Erie County. Let\'s grab coffee at Ember + Forge and talk about your project.' },
               { title: 'Ongoing Local Support', text: 'Your website isn\'t a one-and-done project. I provide ongoing maintenance, updates, and support right here in Erie to keep your business growing online.' },
             ].map(({ title, text }) => (
