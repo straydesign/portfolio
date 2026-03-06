@@ -27,29 +27,38 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tom Sesler — Web Design & Product Design | Erie, PA",
-    template: "%s | Tom Sesler — Erie, PA",
+    default: "Tom Sesler — Product Designer & Web Developer | Erie, PA",
+    template: "%s | Tom Sesler",
   },
   description:
-    "Professional web design in Erie, PA. Custom websites, UX design, and SEO for Erie businesses. Fast, responsive, and built to convert. Free consultation — (814) 964-0081.",
+    "Product designer and web developer building digital experiences. Portfolio, case studies, and professional web design services in Erie, PA.",
   metadataBase: new URL("https://straydesign.co"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    title: "Tom Sesler — Professional Web Design in Erie, PA",
+    title: "Tom Sesler — Product Designer & Web Developer",
     description:
-      "Custom web design and development for Erie, PA businesses. Modern, fast, SEO-optimized websites that convert visitors into customers.",
-    siteName: "Tom Sesler — Web Design Erie PA",
+      "Product designer building web and mobile experiences. Portfolio, case studies, and web design services in Erie, PA.",
+    siteName: "Tom Sesler — Product Designer",
     url: "https://straydesign.co",
     locale: "en_US",
+    images: [
+      {
+        url: "https://straydesign.co/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Tom Sesler — Product Designer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tom Sesler — Web Design Erie, PA",
+    title: "Tom Sesler — Product Designer & Web Developer",
     description:
-      "Professional web design for Erie, PA businesses. Custom websites, UX design, SEO, and digital marketing.",
+      "Product designer building web and mobile experiences. Portfolio, case studies, and web design services.",
+    images: ["https://straydesign.co/og-image.png"],
   },
   robots: {
     index: true,
@@ -78,7 +87,7 @@ export const metadata: Metadata = {
     "custom website Erie",
     "small business web design Erie",
     "responsive web design Erie PA",
-    "Figma designer Erie",
+    "product designer Erie",
     "UI UX design Erie PA",
   ],
   authors: [{ name: "Tom Sesler" }],
