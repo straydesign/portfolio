@@ -88,13 +88,6 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
               >
                 {lane === 'services' ? 'READY TO START?' : 'LET\u2019S WORK TOGETHER'}
               </h2>
-              <button
-                onClick={() => setContactOpen(true)}
-                className="px-6 py-2 border-2 rounded-full transition-all text-sm md:text-base whitespace-nowrap hover:scale-105"
-                style={{ borderColor: textColor, color: textColor, backgroundColor: 'transparent' }}
-              >
-                CONTACT
-              </button>
             </div>
             <div className="flex items-center gap-3 md:gap-4">
               {setCurrentPage && (
