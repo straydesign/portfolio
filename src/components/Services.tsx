@@ -85,23 +85,23 @@ export default function Services() {
                   {[
                     {
                       icon: Bot,
-                      title: 'AI Visibility',
-                      points: ['llms.txt — AI cheat sheet for ChatGPT, Copilot & Perplexity', 'FAQ structured data — direct answers in AI & search results', 'Structured data markup — AI knows exactly what you do', 'manifest.json — "Add to Home Screen" on phones'],
+                      title: 'AI & Crawlability',
+                      points: ['llms.txt — LLM-readable site manifest', 'JSON-LD FaqPage schema markup', 'JSON-LD LocalBusiness + Service structured data', 'manifest.json — PWA install prompt', 'robots.txt + XML sitemap generation'],
                     },
                     {
                       icon: Gauge,
                       title: 'Performance',
-                      points: ['Optimized load times', '90+ Lighthouse scores', 'Core Web Vitals compliant', 'Image optimization & lazy loading'],
+                      points: ['Next.js / React SSR + static generation', 'WebP / AVIF image formats with srcset', 'Lazy loading via Intersection Observer', '90+ Lighthouse (Performance, SEO, A11y)', 'Core Web Vitals: LCP, CLS, INP optimized'],
                     },
                     {
                       icon: TrendingUp,
-                      title: 'Growth-Ready',
-                      points: ['SEO baked in from day one', 'Google Analytics 4 setup', 'robots.txt + sitemap.xml for proper crawling', 'Built to scale as you grow'],
+                      title: 'SEO & Analytics',
+                      points: ['Google Analytics 4 + gtag.js', 'Open Graph + Twitter Card meta tags', 'Canonical URLs + hreflang where needed', 'Server-side rendered <title> + meta description', 'Google Search Console ready'],
                     },
                     {
                       icon: Shield,
-                      title: 'Built Right',
-                      points: ['Responsive on every device', 'Accessible (WCAG standards)', 'Clean, maintainable code', 'Fast hosting infrastructure'],
+                      title: 'Infrastructure',
+                      points: ['TypeScript + React 19 codebase', 'Tailwind CSS utility-first styling', 'Vercel edge network + CDN', 'HTTPS / TLS by default', 'WCAG 2.1 AA accessible markup'],
                     },
                   ].map(({ icon: Icon, title, points }) => (
                     <StaggerItem key={title}>
@@ -120,6 +120,48 @@ export default function Services() {
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
+
+                {/* ─── What This Means vs WordPress ─── */}
+                <div className="mt-10 pt-8" style={{ borderTop: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}>
+                  <h3 className="text-lg font-bold mb-4" style={{ color: textColor }}>
+                    What this actually means vs. a WordPress site
+                  </h3>
+                  <div className="space-y-4 max-w-3xl">
+                    {[
+                      {
+                        mine: 'Your pages are pre-rendered at build time and served from a global CDN. No database query on every page load.',
+                        wp: 'WordPress generates each page on the fly by querying a MySQL database. Every visitor triggers a server round-trip, which is why WordPress sites feel slower without heavy caching plugins.',
+                      },
+                      {
+                        mine: 'AI assistants (ChatGPT, Copilot, Perplexity) can read your llms.txt and structured data directly. They know what your business does without guessing from paragraph text.',
+                        wp: 'WordPress doesn\'t generate llms.txt. Structured data requires a plugin like Yoast or RankMath, and most sites either skip it or misconfigure it.',
+                      },
+                      {
+                        mine: 'Images are automatically converted to WebP/AVIF and served at the right size for each device. No extra plugins needed.',
+                        wp: 'WordPress serves the original uploaded image unless you install and configure an optimization plugin. Unoptimized images are the #1 reason WordPress sites score poorly on Lighthouse.',
+                      },
+                      {
+                        mine: 'Zero plugins. The entire site is a single compiled codebase. Nothing to update, nothing to break, no security patches to chase.',
+                        wp: 'The average WordPress site runs 20–30 plugins. Each one is a potential security vulnerability and a maintenance burden. Plugin conflicts are the most common cause of WordPress site crashes.',
+                      },
+                      {
+                        mine: 'No login page to brute-force. No admin panel exposed to the internet. The site is static files on a CDN — there\'s nothing to hack.',
+                        wp: 'WordPress exposes /wp-admin and /wp-login.php by default. It\'s the most targeted CMS on the internet, accounting for ~90% of all hacked CMS sites.',
+                      },
+                    ].map((item, i) => (
+                      <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)' }}>
+                          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: primaryColor }}>Your site</p>
+                          <p className="text-sm leading-relaxed" style={{ color: textColor }}>{item.mine}</p>
+                        </div>
+                        <div className="p-4 rounded-xl" style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.01)' }}>
+                          <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: secondaryTextColor }}>Typical WordPress</p>
+                          <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{item.wp}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
