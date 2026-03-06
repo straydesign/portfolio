@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
+import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
 
 const ALL_BOOKS = [
@@ -122,7 +123,7 @@ export default function About() {
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
 
         {/* ─── HERO ─── */}
-        <div className="pt-4 md:pt-8 mb-12 md:mb-16">
+        <AnimateIn direction="up" className="pt-4 md:pt-8 mb-12 md:mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Photo */}
             <div
@@ -167,36 +168,38 @@ export default function About() {
               </p>
             </div>
           </div>
-        </div>
+        </AnimateIn>
 
       </div>
 
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
 
         {/* ─── INTERESTS ─── */}
-        <div className="mb-12 md:mb-16 pb-8 md:pb-12">
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
           <h2
             className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
           >
             INTERESTS
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 md:gap-y-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 md:gap-y-8" staggerDelay={0.08}>
             {INTERESTS.map((interest) => (
-              <div key={interest.label} className="py-2">
-                <h3 className="text-base font-bold mb-1" style={{ color: primaryColor }}>
-                  {interest.label}
-                </h3>
-                <p className="text-[15px] leading-relaxed" style={{ color: secondaryTextColor }}>
-                  {interest.text}
-                </p>
-              </div>
+              <StaggerItem key={interest.label}>
+                <div className="py-2">
+                  <h3 className="text-base font-bold mb-1" style={{ color: primaryColor }}>
+                    {interest.label}
+                  </h3>
+                  <p className="text-[15px] leading-relaxed" style={{ color: secondaryTextColor }}>
+                    {interest.text}
+                  </p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </AnimateIn>
 
         {/* ─── MY FAVORITES — standalone 3D books ─── */}
-        <div className="mb-16 md:mb-24 pb-8 md:pb-12">
+        <AnimateIn direction="up" className="mb-16 md:mb-24 pb-8 md:pb-12">
           <h2
             className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
@@ -314,10 +317,10 @@ export default function About() {
               );
             })}
           </div>
-        </div>
+        </AnimateIn>
 
         {/* ─── BOOKSHELF ─── */}
-        <div className="mb-12 md:mb-16 pb-8 md:pb-12">
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
           <h2
             className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
@@ -513,7 +516,7 @@ export default function About() {
               </div>
             )}
           </div>
-        </div>
+        </AnimateIn>
 
       </div>
 

@@ -1,8 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { Mail, Phone, Linkedin } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
+import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
 import PhoneMockup from './PhoneMockup';
 import ContactForm from './ContactForm';
@@ -13,7 +16,6 @@ interface HomeProps {
   setCurrentPage: (page: Page) => void;
 }
 
-// Placeholder carousel images — replace with real screenshots in public/images/carousel/
 const CAROUSEL_ITEMS = [
   { src: '/images/carousel/mm-login.mp4', alt: 'Middleman login flow' },
   { src: '/images/carousel/fd-landing.mp4', alt: 'FirstDay landing page' },
@@ -76,6 +78,109 @@ const RECOMMENDATIONS = [
   },
 ];
 
+const HERO_TEXT = 'PRODUCT DESIGNER';
+const CONTACT_LINKS = [
+  { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
+  { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
+];
+
+function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: string }) {
+  const prefersReducedMotion = useReducedMotion();
+  const chars = text.split('');
+
+  if (prefersReducedMotion) {
+    return (
+      <h1
+        className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
+        style={{
+          fontFamily: "var(--font-family-bungee), sans-serif",
+          WebkitTextStroke: `4px ${primaryColor}`,
+          WebkitTextFillColor: 'transparent',
+          color: 'transparent',
+          paintOrder: 'stroke fill',
+        }}
+      >
+        {text}
+      </h1>
+    );
+  }
+
+  return (
+    <h1
+      className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
+      style={{
+        fontFamily: "var(--font-family-bungee), sans-serif",
+        WebkitTextStroke: `4px ${primaryColor}`,
+        WebkitTextFillColor: 'transparent',
+        color: 'transparent',
+        paintOrder: 'stroke fill',
+      }}
+      aria-label={text}
+    >
+      {chars.map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{
+            duration: 0.4,
+            delay: i * 0.04,
+            ease: [0.25, 0.1, 0.25, 1],
+          }}
+          aria-hidden="true"
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+    </h1>
+  );
+}
+
+function InteractiveCard({
+  children,
+  primaryColor,
+  theme,
+  onClick,
+  ariaLabel,
+  className = '',
+}: {
+  children: React.ReactNode;
+  primaryColor: string;
+  theme: 'light' | 'dark';
+  onClick: () => void;
+  ariaLabel: string;
+  className?: string;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+  const defaultBorder = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+
+  return (
+    <div
+      role="link"
+      tabIndex={0}
+      aria-label={ariaLabel}
+      className={`cursor-pointer py-4 md:py-6 px-6 rounded-2xl transition-all duration-200 ${className}`}
+      style={{
+        backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)',
+        border: `1px solid ${isHovered ? primaryColor : defaultBorder}`,
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+      }}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </div>
+  );
+}
+
 
 export default function Home({ setCurrentPage }: HomeProps) {
   const { theme, accentColor } = useTheme();
@@ -84,6 +189,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const badgeBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
   const badgeText = theme === 'dark' ? '#ffffff' : '#1d1d1f';
+  const prefersReducedMotion = useReducedMotion();
+
+  // Total duration of hero text reveal for sequencing subsequent elements
+  const heroTextDuration = HERO_TEXT.length * 0.04 + 0.4;
 
   return (
     <div className="min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
@@ -91,49 +200,69 @@ export default function Home({ setCurrentPage }: HomeProps) {
       {/* ─── 1. HERO (card-less) ─── */}
       <div className="px-6 md:px-16 pt-12 md:pt-20 pb-8 md:pb-12">
         <div className="max-w-7xl mx-auto">
-          <p className="text-[15px] md:text-[17px] font-medium mb-2" style={{ color: textColor }}>
+          <motion.p
+            className="text-[15px] md:text-[17px] font-medium mb-2"
+            style={{ color: textColor }}
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+          >
             Tom Sesler
-          </p>
-          <h1
-            className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
-            style={{
-              fontFamily: "var(--font-family-bungee), sans-serif",
-              WebkitTextStroke: `4px ${primaryColor}`,
-              WebkitTextFillColor: 'transparent',
-              color: 'transparent',
-              paintOrder: 'stroke fill',
+          </motion.p>
+
+          <HeroTextReveal text={HERO_TEXT} primaryColor={primaryColor} />
+
+          <motion.p
+            className="text-[20px] md:text-[24px] mb-6 md:mb-8"
+            style={{ color: primaryColor, fontWeight: 600 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: heroTextDuration }}
+          >
+            I live the problem before I solve it.
+          </motion.p>
+
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: heroTextDuration + 0.15 }}
+          >
+            <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: textColor }}>
+              From ethnographic field research to interactive Figma prototypes to live products.
+              Marketing background means I design for users and business outcomes. Closing the gap between design intent and what actually ships.
+            </p>
+            <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
+              New Hampshire / Massachusetts. Open to full-time, contract, or remote
+            </p>
+          </motion.div>
+
+          {/* Contact pills — stagger in */}
+          <motion.div
+            className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={prefersReducedMotion ? {} : {
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1, delayChildren: heroTextDuration + 0.35 } },
             }}
           >
-            PRODUCT DESIGNER
-          </h1>
-          <p className="text-[20px] md:text-[24px] mb-6 md:mb-8" style={{ color: primaryColor, fontWeight: 600 }}>
-            I live the problem before I solve it.
-          </p>
-          <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: textColor }}>
-            From ethnographic field research to interactive Figma prototypes to live products.
-            Marketing background means I design for users and business outcomes. Closing the gap between design intent and what actually ships.
-          </p>
-          <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
-            New Hampshire / Massachusetts. Open to full-time, contract, or remote
-          </p>
-          <div className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4">
-            {[
-              { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
-              { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
-              { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
-            ].map((link) => (
-              <a
+            {CONTACT_LINKS.map((link) => (
+              <motion.a
                 key={link.label}
                 href={link.href}
                 {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full transition-all hover:scale-105"
                 style={{ backgroundColor: badgeBg, color: badgeText }}
+                variants={prefersReducedMotion ? {} : {
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+                }}
               >
                 <link.icon className="w-4 h-4" />
                 <span className="text-sm font-medium">{link.label}</span>
-              </a>
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -159,7 +288,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
       </div>
 
       {/* ─── 3. CASE STUDY ─── */}
-      <div className="px-4 md:px-8 py-8 md:py-12">
+      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
         <div className="max-w-[90rem] mx-auto">
           <h2
             className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
@@ -167,19 +296,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
           >
             CASE STUDY
           </h2>
-          <div
-            role="link"
-            tabIndex={0}
-            aria-label={`View ${CASE_STUDY.title} case study`}
-            className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6 px-6 rounded-2xl"
-            style={{ backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)', border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
+          <InteractiveCard
+            primaryColor={primaryColor}
+            theme={theme}
             onClick={() => setCurrentPage(CASE_STUDY.id)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setCurrentPage(CASE_STUDY.id);
-              }
-            }}
+            ariaLabel={`View ${CASE_STUDY.title} case study`}
           >
             <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
               {CASE_STUDY.title}
@@ -190,8 +311,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
             <p className="text-sm font-semibold" style={{ color: primaryColor }}>
               {CASE_STUDY.deliverable}
             </p>
-          </div>
-          <div className="mt-8 md:mt-12 max-w-sm">
+          </InteractiveCard>
+          <AnimateIn direction="up" delay={0.15} className="mt-8 md:mt-12 max-w-sm">
             <PhoneMockup
               screenshot="/images/mockups/doordash-screen.png"
               gradientFrom={primaryColor}
@@ -202,12 +323,12 @@ export default function Home({ setCurrentPage }: HomeProps) {
               textColor={textColor}
               onClick={() => setCurrentPage('doordash-case-study')}
             />
-          </div>
+          </AnimateIn>
         </div>
-      </div>
+      </AnimateIn>
 
       {/* ─── 3b. PROJECTS ─── */}
-      <div className="px-4 md:px-8 py-8 md:py-12">
+      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
         <div className="max-w-[90rem] mx-auto">
           <h2
             className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
@@ -215,63 +336,60 @@ export default function Home({ setCurrentPage }: HomeProps) {
           >
             PROJECTS
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12" staggerDelay={0.12}>
             {PROJECTS.map((project) => (
-              <div
-                key={project.id}
-                role="link"
-                tabIndex={0}
-                aria-label={`View ${project.title} project`}
-                className="cursor-pointer transition-opacity hover:opacity-80 py-4 md:py-6 px-6 rounded-2xl"
-                style={{ backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)', border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
-                onClick={() => setCurrentPage(project.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setCurrentPage(project.id);
-                  }
-                }}
-              >
-                <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
-                  {project.title}
-                </h3>
-                <p className="text-base mb-3" style={{ color: secondaryTextColor }}>
-                  {project.description}
-                </p>
-                <p className="text-sm font-semibold" style={{ color: primaryColor }}>
-                  {project.deliverable}
-                </p>
-              </div>
+              <StaggerItem key={project.id}>
+                <InteractiveCard
+                  primaryColor={primaryColor}
+                  theme={theme}
+                  onClick={() => setCurrentPage(project.id)}
+                  ariaLabel={`View ${project.title} project`}
+                >
+                  <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
+                    {project.title}
+                  </h3>
+                  <p className="text-base mb-3" style={{ color: secondaryTextColor }}>
+                    {project.description}
+                  </p>
+                  <p className="text-sm font-semibold" style={{ color: primaryColor }}>
+                    {project.deliverable}
+                  </p>
+                </InteractiveCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
           {/* Project Demos */}
-          <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <PhoneMockup
-              screenshot="/images/mockups/middleman-screen.png"
-              gradientFrom={primaryColor}
-              gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-              title="Merchandising System"
-              description="Mobile app to reduce retail stock-outs"
-              alt="Middleman app screenshot"
-              textColor={textColor}
-              onClick={() => setCurrentPage('middleman-case-study')}
-            />
-            <PhoneMockup
-              screenshot="/images/mockups/firstday-screen.png"
-              gradientFrom={primaryColor}
-              gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-              title="FirstDay.Life"
-              description="AI-powered goal tracker. Shipped product"
-              alt="FirstDay.Life app screenshot"
-              textColor={textColor}
-              onClick={() => setCurrentPage('day-one-case-study')}
-            />
-          </div>
+          <StaggerContainer className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.15}>
+            <StaggerItem>
+              <PhoneMockup
+                screenshot="/images/mockups/middleman-screen.png"
+                gradientFrom={primaryColor}
+                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                title="Merchandising System"
+                description="Mobile app to reduce retail stock-outs"
+                alt="Middleman app screenshot"
+                textColor={textColor}
+                onClick={() => setCurrentPage('middleman-case-study')}
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <PhoneMockup
+                screenshot="/images/mockups/firstday-screen.png"
+                gradientFrom={primaryColor}
+                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                title="FirstDay.Life"
+                description="AI-powered goal tracker. Shipped product"
+                alt="FirstDay.Life app screenshot"
+                textColor={textColor}
+                onClick={() => setCurrentPage('day-one-case-study')}
+              />
+            </StaggerItem>
+          </StaggerContainer>
         </div>
-      </div>
+      </AnimateIn>
 
       {/* ─── 5. RECOMMENDATIONS ─── */}
-      <div className="px-4 md:px-8 py-8 md:py-12">
+      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
         <div className="max-w-[90rem] mx-auto">
           <h2
             className="text-[28px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
@@ -279,30 +397,31 @@ export default function Home({ setCurrentPage }: HomeProps) {
           >
             RECOMMENDATIONS
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12" staggerDelay={0.1}>
             {RECOMMENDATIONS.map((rec, i) => (
-              <div
-                key={i}
-                className="py-4 md:py-6"
-                style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
-              >
-                <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
-                  &ldquo;{rec.quote}&rdquo;
-                </p>
-                <p className="text-sm font-bold" style={{ color: textColor }}>
-                  {rec.name}
-                </p>
-                <p className="text-sm" style={{ color: secondaryTextColor }}>
-                  {rec.role}
-                </p>
-              </div>
+              <StaggerItem key={i}>
+                <div
+                  className="py-4 md:py-6"
+                  style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
+                >
+                  <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
+                    &ldquo;{rec.quote}&rdquo;
+                  </p>
+                  <p className="text-sm font-bold" style={{ color: textColor }}>
+                    {rec.name}
+                  </p>
+                  <p className="text-sm" style={{ color: secondaryTextColor }}>
+                    {rec.role}
+                  </p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
-      </div>
+      </AnimateIn>
 
       {/* ─── 6. GET IN TOUCH ─── */}
-      <div className="px-4 md:px-8 py-8 md:py-12">
+      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
         <div className="max-w-md mx-auto">
           <h2
             className="text-[36px] md:text-[56px] mb-4 leading-none tracking-wider font-black text-center"
@@ -315,7 +434,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
           </p>
           <ContactForm />
         </div>
-      </div>
+      </AnimateIn>
 
       {/* ─── 7. FOOTER SPACER ─── */}
       <div className="h-[calc(60vh+50px)] md:h-[calc(70vh+50px)]" />

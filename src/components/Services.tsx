@@ -3,6 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import { ExternalLink, TrendingUp, Shield, Gauge } from 'lucide-react';
+import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import ContactForm from './ContactForm';
 import PricingCard from './PricingCard';
 
@@ -20,7 +21,7 @@ export default function Services() {
       <div className="max-w-[90rem] mx-auto">
 
         {/* ─── HERO ─── */}
-        <div className="mb-12 md:mb-16 pt-4 md:pt-8">
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pt-4 md:pt-8">
           <p className="text-sm font-semibold uppercase tracking-widest mb-4" style={{ color: primaryColor }}>
             Erie, Pennsylvania &bull; Web Design &amp; Development
           </p>
@@ -35,14 +36,14 @@ export default function Services() {
           <p className="text-[15px] md:text-[17px] leading-relaxed max-w-3xl" style={{ color: textColor }}>
             I design and build high-performance websites for businesses in Erie, Pennsylvania and the surrounding region. Every project ships with real SEO, analytics tracking, and a responsive build that scores high on Google&apos;s Core Web Vitals. Your site becomes a growth tool, not just a brochure.
           </p>
-        </div>
+        </AnimateIn>
 
         {/* ─── WHY IT MATTERS ─── */}
-        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-8 font-bold" style={{ color: textColor }}>
             WHAT YOU GET
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.12}>
             {[
               {
                 icon: Gauge,
@@ -60,177 +61,174 @@ export default function Services() {
                 points: ['Responsive on every device', 'Accessible (WCAG standards)', 'Clean, maintainable code', 'Fast hosting infrastructure'],
               },
             ].map(({ icon: Icon, title, points }) => (
-              <div key={title}>
-                <Icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
-                <h3 className="text-lg font-bold mb-3" style={{ color: textColor }}>{title}</h3>
-                <div className="space-y-2">
-                  {points.map((point) => (
-                    <div key={point} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                      <p className="text-sm" style={{ color: secondaryTextColor }}>{point}</p>
-                    </div>
-                  ))}
+              <StaggerItem key={title}>
+                <div>
+                  <Icon className="w-8 h-8 mb-4" style={{ color: primaryColor }} />
+                  <h3 className="text-lg font-bold mb-3" style={{ color: textColor }}>{title}</h3>
+                  <div className="space-y-2">
+                    {points.map((point) => (
+                      <div key={point} className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
+                        <p className="text-sm" style={{ color: secondaryTextColor }}>{point}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </AnimateIn>
 
         {/* ─── PRICING ─── */}
-        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
             WEBSITE PACKAGES
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>One-time build. Yours to own.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <PricingCard
-              name="STARTER"
-              price="$500"
-              subtitle="A professional site for small service-based businesses."
-              features={[
-                { label: 'Up to 5 pages' },
-                { label: 'Custom design' },
-                { label: 'Mobile responsive' },
-                { label: 'Professional photo shoot' },
-                { label: 'AI-powered SEO optimization' },
-                { label: 'Google Analytics 4' },
-                { label: 'Content curated to your business' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-            <PricingCard
-              name="PROFESSIONAL"
-              price="$1,500"
-              subtitle="A full-featured site built to convert visitors into customers."
-              featured
-              features={[
-                { label: 'Up to 12 pages' },
-                { label: 'Custom design + content strategy' },
-                { label: 'CMS for easy self-editing' },
-                { label: 'Professional photo shoot' },
-                { label: 'AI-powered SEO + structured data' },
-                { label: 'AI chatbot for your site' },
-                { label: 'Blog or news section' },
-                { label: 'Speed optimization (90+ Lighthouse)' },
-                { label: 'AI-curated copy + content' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-            <PricingCard
-              name="CUSTOM"
-              price="$3,000"
-              subtitle="Full build with ads included to start driving traffic on day one."
-              features={[
-                { label: 'Unlimited pages' },
-                { label: 'E-commerce or booking system' },
-                { label: 'Professional photo shoot' },
-                { label: 'AI-powered SEO + content' },
-                { label: 'AI email marketing curated to individuals' },
-                { label: '3 months of ad management included' },
-                { label: 'Custom interactive features' },
-                { label: 'Third-party integrations' },
-                { label: 'Launch strategy session' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-            <PricingCard
-              name="MOBILE APP"
-              price="$5,000+"
-              subtitle="A native mobile app for iOS, Android, or both."
-              features={[
-                { label: 'Custom UI/UX design' },
-                { label: 'iOS and/or Android' },
-                { label: 'Push notifications' },
-                { label: 'Backend + API integration' },
-                { label: 'App Store submission' },
-                { label: 'Post-launch support included' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-          </div>
-        </div>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            <StaggerItem>
+              <PricingCard
+                name="STARTER"
+                price="$1,000"
+                subtitle="A professional site for small service-based businesses."
+                features={[
+                  { label: 'Up to 5 pages' },
+                  { label: 'Custom design' },
+                  { label: 'Mobile responsive' },
+                  { label: 'Professional photo shoot' },
+                  { label: 'AI-powered SEO optimization' },
+                  { label: 'Google Analytics 4' },
+                  { label: 'Content curated to your business' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <PricingCard
+                name="PROFESSIONAL"
+                price="$1,500"
+                subtitle="A full-featured site built to convert visitors into customers."
+                featured
+                features={[
+                  { label: 'Up to 12 pages' },
+                  { label: 'Custom design + content strategy' },
+                  { label: 'CMS for easy self-editing' },
+                  { label: 'Professional photo shoot' },
+                  { label: 'AI-powered SEO + structured data' },
+                  { label: 'AI chatbot for your site' },
+                  { label: 'Blog or news section' },
+                  { label: 'Speed optimization (90+ Lighthouse)' },
+                  { label: 'AI-curated copy + content' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <PricingCard
+                name="CUSTOM"
+                price="$3,000"
+                subtitle="Full build with ads included to start driving traffic on day one."
+                features={[
+                  { label: 'Unlimited pages' },
+                  { label: 'E-commerce or booking system' },
+                  { label: 'Professional photo shoot' },
+                  { label: 'AI-powered SEO + content' },
+                  { label: 'AI email marketing curated to individuals' },
+                  { label: '3 months of ad management included' },
+                  { label: 'Custom interactive features' },
+                  { label: 'Third-party integrations' },
+                  { label: 'Launch strategy session' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+          </StaggerContainer>
+        </AnimateIn>
 
         {/* ─── MONTHLY SUPPORT ─── */}
-        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
             ONGOING SUPPORT
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <PricingCard
-              name="HOSTING & MAINTENANCE"
-              price="$25"
-              periodLabel="/mo"
-              subtitle="Your site stays live, secure, and up to date."
-              features={[
-                { label: 'Managed hosting + SSL' },
-                { label: 'Monthly backups' },
-                { label: 'Security patches + updates' },
-                { label: 'Uptime monitoring' },
-                { label: 'Bug fixes' },
-                { label: 'Email support' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-            <PricingCard
-              name="GROWTH"
-              price="$125"
-              periodLabel="/mo"
-              subtitle="Ongoing design and content updates without hiring in-house."
-              featured
-              features={[
-                { label: 'Everything in Hosting' },
-                { label: 'Up to 4 hours of updates/mo' },
-                { label: 'Content changes + new pages' },
-                { label: 'Design refreshes' },
-                { label: 'SEO monitoring + adjustments' },
-                { label: 'Priority response (24hr)' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-            <PricingCard
-              name="MARKETING"
-              price="$500"
-              periodLabel="/mo"
-              subtitle="Full digital marketing. Ads, analytics, and strategy."
-              features={[
-                { label: 'Everything in Growth' },
-                { label: 'Google + Meta ad management' },
-                { label: 'Campaign strategy + creative' },
-                { label: 'Monthly performance reports' },
-                { label: 'Conversion tracking setup' },
-                { label: 'Ad spend optimization' },
-              ]}
-              primaryColor={primaryColor}
-              textColor={textColor}
-              secondaryTextColor={secondaryTextColor}
-              theme={theme}
-            />
-          </div>
-        </div>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
+            <StaggerItem>
+              <PricingCard
+                name="HOSTING & MAINTENANCE"
+                price="$50"
+                periodLabel="/mo"
+                subtitle="Your site stays live, secure, and up to date."
+                features={[
+                  { label: 'Managed hosting + SSL' },
+                  { label: 'Monthly backups' },
+                  { label: 'Security patches + updates' },
+                  { label: 'Uptime monitoring' },
+                  { label: 'Bug fixes' },
+                  { label: 'Email support' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <PricingCard
+                name="GROWTH"
+                price="$125"
+                periodLabel="/mo"
+                subtitle="Ongoing design and content updates without hiring in-house."
+                featured
+                features={[
+                  { label: 'Everything in Hosting' },
+                  { label: 'Up to 4 hours of updates/mo' },
+                  { label: 'Content changes + new pages' },
+                  { label: 'Design refreshes' },
+                  { label: 'SEO monitoring + adjustments' },
+                  { label: 'Priority response (24hr)' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+            <StaggerItem>
+              <PricingCard
+                name="MARKETING"
+                price="$500"
+                periodLabel="/mo"
+                subtitle="Full digital marketing. Ads, analytics, and strategy."
+                features={[
+                  { label: 'Everything in Growth' },
+                  { label: 'Google + Meta ad management' },
+                  { label: 'Campaign strategy + creative' },
+                  { label: 'Monthly performance reports' },
+                  { label: 'Conversion tracking setup' },
+                  { label: 'Ad spend optimization' },
+                ]}
+                primaryColor={primaryColor}
+                textColor={textColor}
+                secondaryTextColor={secondaryTextColor}
+                theme={theme}
+              />
+            </StaggerItem>
+          </StaggerContainer>
+        </AnimateIn>
 
         {/* ─── FEATURED WORK ─── */}
-        <div id="featured-work" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" id="featured-work" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-6 md:mb-8 font-bold" style={{ color: textColor }}>
             FEATURED WORK
           </h2>
@@ -250,30 +248,32 @@ export default function Services() {
               <ExternalLink className="w-4 h-4" /> Visit Site
             </a>
           </div>
-        </div>
+        </AnimateIn>
 
         {/* ─── WHY LOCAL ─── */}
-        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
             WHY CHOOSE A LOCAL ERIE WEB DESIGNER?
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Working with someone who knows the market makes a difference.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.12}>
             {[
               { title: 'Local Market Knowledge', text: 'I understand the Erie, PA business landscape, from Presque Isle tourism to the manufacturing and healthcare sectors. Your website will speak directly to your actual customers in Northwestern Pennsylvania.' },
               { title: 'Face-to-Face Collaboration', text: 'Unlike remote agencies, I\'m available for in-person meetings throughout Erie County. Let\'s grab coffee at Ember + Forge and talk about your project.' },
               { title: 'Ongoing Local Support', text: 'Your website isn\'t a one-and-done project. I provide ongoing maintenance, updates, and support right here in Erie to keep your business growing online.' },
             ].map(({ title, text }) => (
-              <div key={title} className="py-4">
-                <h3 className="text-lg font-bold mb-3" style={{ color: primaryColor }}>{title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: textColor }}>{text}</p>
-              </div>
+              <StaggerItem key={title}>
+                <div className="py-4">
+                  <h3 className="text-lg font-bold mb-3" style={{ color: primaryColor }}>{title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: textColor }}>{text}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </AnimateIn>
 
         {/* ─── SERVICE AREAS ─── */}
-        <div className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
+        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8" style={{ borderBottom: divider }}>
           <h2 className="text-2xl md:text-3xl mb-2 font-bold" style={{ color: textColor }}>
             SERVING ERIE, PA &amp; SURROUNDING AREAS
           </h2>
@@ -285,10 +285,10 @@ export default function Services() {
               </span>
             ))}
           </div>
-        </div>
+        </AnimateIn>
 
         {/* ─── CTA ─── */}
-        <div id="contact-form" className="mb-12 md:mb-16">
+        <AnimateIn direction="up" id="contact-form" className="mb-12 md:mb-16">
           <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4 text-center"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: primaryColor }}>
             LET&apos;S BUILD YOUR SITE.
@@ -299,7 +299,7 @@ export default function Services() {
           <div className="max-w-md mx-auto">
             <ContactForm />
           </div>
-        </div>
+        </AnimateIn>
 
       </div>
       <div className="h-[calc(60vh+50px)] md:h-[calc(70vh+50px)]" />

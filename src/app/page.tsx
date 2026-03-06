@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import Header from '@/components/Header';
@@ -111,14 +112,24 @@ export default function App() {
           />
         </div>
         <div className="relative z-10">
-          {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
-          {currentPage === 'about' && <About />}
-          {currentPage === 'work' && <Work />}
-          {currentPage === 'resume' && <Resume setCurrentPage={setCurrentPage} />}
-          {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
-          {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
-          {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
-          {currentPage === 'services' && <Services />}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+            >
+              {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
+              {currentPage === 'about' && <About />}
+              {currentPage === 'work' && <Work />}
+              {currentPage === 'resume' && <Resume setCurrentPage={setCurrentPage} />}
+              {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
+              {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
+              {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
+              {currentPage === 'services' && <Services />}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </main>
       {currentPage !== 'work' && <Footer setCurrentPage={setCurrentPage} currentPage={currentPage} />}
