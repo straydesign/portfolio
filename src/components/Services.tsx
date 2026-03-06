@@ -110,7 +110,7 @@ export default function Services() {
             <StaggerItem>
               <PricingCard
                 name="PROFESSIONAL"
-                price="$1,500"
+                price="$2,000"
                 subtitle="A full-featured site built to convert visitors into customers."
                 featured
                 features={[
@@ -162,7 +162,7 @@ export default function Services() {
           </h2>
           <p className="text-lg mb-8" style={{ color: secondaryTextColor }}>Keep your site running, fresh, and growing. Cancel anytime.</p>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.12}>
             <StaggerItem>
               <PricingCard
                 name="HOSTING & MAINTENANCE"
@@ -176,27 +176,6 @@ export default function Services() {
                   { label: 'Uptime monitoring' },
                   { label: 'Bug fixes' },
                   { label: 'Email support' },
-                ]}
-                primaryColor={primaryColor}
-                textColor={textColor}
-                secondaryTextColor={secondaryTextColor}
-                theme={theme}
-              />
-            </StaggerItem>
-            <StaggerItem>
-              <PricingCard
-                name="GROWTH"
-                price="$125"
-                periodLabel="/mo"
-                subtitle="Ongoing design and content updates without hiring in-house."
-                featured
-                features={[
-                  { label: 'Everything in Hosting' },
-                  { label: 'Up to 4 hours of updates/mo' },
-                  { label: 'Content changes + new pages' },
-                  { label: 'Design refreshes' },
-                  { label: 'SEO monitoring + adjustments' },
-                  { label: 'Priority response (24hr)' },
                 ]}
                 primaryColor={primaryColor}
                 textColor={textColor}
