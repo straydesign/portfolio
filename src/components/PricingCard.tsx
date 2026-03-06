@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { Check, Sparkles } from 'lucide-react';
 
 export type PricingFeature = {
   label: React.ReactNode;
@@ -20,6 +22,7 @@ export type PricingCardProps = {
   secondaryTextColor: string;
   theme: 'light' | 'dark';
   className?: string;
+  onCtaClick?: () => void;
 };
 
 export default function PricingCard({
@@ -34,104 +37,169 @@ export default function PricingCard({
   secondaryTextColor,
   theme,
   className,
+  onCtaClick,
 }: PricingCardProps) {
-  const cardBg = theme === 'dark' ? '#0a0a0a' : '#fafafa';
-  const cardBorder = theme === 'dark' ? '#222222' : '#e4e4e7';
-  const frameBg = featured
+  const cardBg = theme === 'dark' ? 'rgba(10, 10, 10, 0.8)' : 'rgba(250, 250, 250, 0.9)';
+  const cardBorder = featured
     ? primaryColor
-    : theme === 'dark' ? '#333333' : '#d4d4d8';
-  const okBg = theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
-  const okBorder = theme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
-  const noBg = theme === 'dark' ? 'rgba(255,180,0,0.08)' : 'rgba(255,180,0,0.06)';
-  const noBorder = theme === 'dark' ? 'rgba(255,180,0,0.15)' : 'rgba(255,180,0,0.12)';
+    : theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+  const hoverBorder = featured
+    ? primaryColor
+    : theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)';
+
+  const featureDot = theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
 
   return (
-    <section aria-label={`${name} plan`} className={cn('relative', className)}>
-      <div
-        className="rounded-3xl p-[3px]"
-        style={{ background: frameBg }}
-      >
+    <motion.section
+      aria-label={`${name} plan`}
+      className={cn('relative group cursor-pointer', className)}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      {/* Featured badge */}
+      {featured && (
         <div
-          className="rounded-[22px] px-8 pb-8 pt-10 shadow-sm"
+          className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
           style={{
-            backgroundColor: cardBg,
-            border: `1px solid ${cardBorder}`,
+            backgroundColor: primaryColor,
+            color: '#ffffff',
+            boxShadow: `0 4px 20px ${primaryColor}40`,
           }}
         >
-          <h3
-            className="text-center text-xl font-semibold"
+          <Sparkles className="w-3 h-3" />
+          Most Popular
+        </div>
+      )}
+
+      <div
+        className="rounded-2xl px-7 pb-7 pt-9 transition-all duration-300 relative overflow-hidden"
+        style={{
+          backgroundColor: cardBg,
+          border: `1px solid ${cardBorder}`,
+          backdropFilter: 'blur(20px)',
+          boxShadow: featured
+            ? `0 0 40px ${primaryColor}15, 0 8px 32px rgba(0,0,0,0.12)`
+            : '0 4px 24px rgba(0,0,0,0.06)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = hoverBorder;
+          if (!featured) {
+            e.currentTarget.style.boxShadow = `0 8px 32px rgba(0,0,0,0.12)`;
+          }
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = cardBorder;
+          if (!featured) {
+            e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
+          }
+        }}
+      >
+        {/* Accent line at top */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300"
+          style={{
+            background: featured
+              ? primaryColor
+              : `linear-gradient(90deg, transparent, ${primaryColor}60, transparent)`,
+            opacity: featured ? 1 : 0.5,
+          }}
+        />
+
+        <h3
+          className="text-center text-sm font-bold uppercase tracking-widest"
+          style={{ color: featured ? primaryColor : secondaryTextColor }}
+        >
+          {name}
+        </h3>
+
+        <div className="mt-5 text-center">
+          <span
+            className="text-5xl font-black leading-none tracking-tight"
             style={{ color: textColor }}
           >
-            {name}
-          </h3>
-          {subtitle && (
-            <p
-              className="mt-1 text-center text-sm"
+            {price}
+          </span>
+          {periodLabel && (
+            <span
+              className="ml-1 text-base font-medium"
               style={{ color: secondaryTextColor }}
             >
-              {subtitle}
-            </p>
-          )}
-
-          <div className="mt-6 text-center">
-            <span
-              className="text-5xl font-bold leading-none"
-              style={{ color: primaryColor }}
-            >
-              {price}
+              {periodLabel}
             </span>
-            {periodLabel && (
-              <span
-                className="ml-1 text-sm"
-                style={{ color: secondaryTextColor }}
-              >
-                {periodLabel}
-              </span>
-            )}
-          </div>
-
-          <ul className="mt-8 space-y-4">
-            {features.map((f, i) => {
-              const ok = f.included !== false;
-              return (
-                <li
-                  key={i}
-                  className="flex items-start gap-3"
-                  style={{ color: textColor }}
-                >
-                  <span
-                    className="mt-0.5 inline-grid h-6 w-6 shrink-0 place-items-center rounded-full"
-                    style={{
-                      backgroundColor: ok ? okBg : noBg,
-                      boxShadow: `inset 0 0 0 1px ${ok ? okBorder : noBorder}`,
-                    }}
-                    aria-hidden
-                  >
-                    {ok ? (
-                      <svg
-                        viewBox="0 0 20 20"
-                        className="h-3.5 w-3.5"
-                        fill={primaryColor}
-                      >
-                        <path d="M16.7 6.3a1 1 0 0 0-1.4-1.4L8 12.2 4.7 8.9a1 1 0 1 0-1.4 1.4L7.3 14a1 1 0 0 0 1.4 0l8-8Z" />
-                      </svg>
-                    ) : (
-                      <svg
-                        viewBox="0 0 20 20"
-                        className="h-3.5 w-3.5"
-                        fill="#f59e0b"
-                      >
-                        <path d="M6.2 5 5 6.2 8.8 10 5 13.8 6.2 15 10 11.2 13.8 15 15 13.8 11.2 10 15 6.2 13.8 5 10 8.8z" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className="text-sm">{f.label}</span>
-                </li>
-              );
-            })}
-          </ul>
+          )}
         </div>
+
+        {subtitle && (
+          <p
+            className="mt-3 text-center text-sm leading-relaxed"
+            style={{ color: secondaryTextColor }}
+          >
+            {subtitle}
+          </p>
+        )}
+
+        <div
+          className="mt-6 mb-6"
+          style={{ borderTop: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'}` }}
+        />
+
+        <ul className="space-y-3">
+          {features.map((f, i) => {
+            const ok = f.included !== false;
+            return (
+              <li
+                key={i}
+                className="flex items-center gap-3"
+                style={{ color: ok ? textColor : secondaryTextColor }}
+              >
+                <span
+                  className="inline-grid h-5 w-5 shrink-0 place-items-center rounded-full"
+                  style={{
+                    backgroundColor: ok ? `${primaryColor}18` : featureDot,
+                  }}
+                  aria-hidden
+                >
+                  <Check
+                    className="h-3 w-3"
+                    style={{ color: ok ? primaryColor : secondaryTextColor }}
+                    strokeWidth={3}
+                  />
+                </span>
+                <span className="text-sm">{f.label}</span>
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* CTA button */}
+        <button
+          onClick={onCtaClick}
+          className="mt-7 w-full py-3 rounded-xl text-sm font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer"
+          style={{
+            backgroundColor: featured ? primaryColor : 'transparent',
+            color: featured ? '#ffffff' : textColor,
+            border: featured ? 'none' : `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)'}`,
+          }}
+          onMouseEnter={(e) => {
+            if (!featured) {
+              e.currentTarget.style.borderColor = primaryColor;
+              e.currentTarget.style.color = primaryColor;
+            } else {
+              e.currentTarget.style.opacity = '0.9';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!featured) {
+              e.currentTarget.style.borderColor = theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
+              e.currentTarget.style.color = textColor;
+            } else {
+              e.currentTarget.style.opacity = '1';
+            }
+          }}
+        >
+          Get Started
+        </button>
       </div>
-    </section>
+    </motion.section>
   );
 }
