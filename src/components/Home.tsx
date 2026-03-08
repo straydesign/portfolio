@@ -92,7 +92,7 @@ function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: st
   if (prefersReducedMotion) {
     return (
       <h1
-        className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full"
+        className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full break-words"
         style={{
           fontFamily: "var(--font-family-bungee), sans-serif",
           WebkitTextStroke: `3px ${primaryColor}`,
@@ -231,7 +231,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               Ethnographic fieldwork, real user observation, and actual data — not assumptions. Marketing background means I design for business outcomes, not just pixels.
             </p>
             <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
-              New Hampshire / Massachusetts. Open to full-time, contract, or remote
+              New Hampshire / Massachusetts. Open to full-time or remote
             </p>
           </motion.div>
 

@@ -68,14 +68,14 @@ export default function App() {
 
     // Update document title for accessibility (WCAG 2.4.2)
     const titles: Record<Page, string> = {
-      'home': 'Tom Sesler — Web Design & Product Design | Erie, PA',
-      'about': 'About Tom Sesler | Web Designer in Erie, PA',
-      'work': 'My Work | Tom Sesler — Erie, PA',
-      'resume': 'Resume | Tom Sesler — Web Designer Erie, PA',
+      'home': 'Tom Sesler — Product Designer',
+      'about': 'About | Tom Sesler — Product Designer',
+      'work': 'Work | Tom Sesler — Product Designer',
+      'resume': 'Resume | Tom Sesler — Product Designer',
       'middleman-case-study': 'Merchandising System Case Study | Tom Sesler',
       'day-one-case-study': 'firstday.life Case Study | Tom Sesler',
       'doordash-case-study': 'DoorDash UX Evaluation | Tom Sesler',
-      'services': 'Professional Web Design in Erie, PA | Tom Sesler',
+      'services': 'Services | Tom Sesler',
     };
     document.title = titles[currentPage];
   }, [currentPage]);

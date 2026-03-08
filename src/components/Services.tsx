@@ -395,7 +395,7 @@ export default function Services() {
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
-              <PricingCard name="MARKETING" price="$500" periodLabel="/mo" subtitle="Ads, analytics, and strategy."
+              <PricingCard name="MARKETING" price="$497" periodLabel="/mo" subtitle="Ads, analytics, and strategy."
                 features={[{ label: 'Google + Meta ad management' }, { label: 'Campaign strategy' }, { label: 'Monthly performance reports' }, { label: 'Conversion tracking' }]}
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>

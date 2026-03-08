@@ -3,8 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
-import { getLane } from '@/utils/lanes';
-import { Linkedin, Mail, Phone, X, ArrowRight } from 'lucide-react';
+import { Linkedin, Mail, Phone, X } from 'lucide-react';
 import ContactForm from './ContactForm';
 
 type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
@@ -21,7 +20,6 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const textColor = primaryColor;
   const [contactOpen, setContactOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const lane = currentPage ? getLane(currentPage) : 'portfolio';
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -86,23 +84,10 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
                 className="text-[18px] md:text-[24px]"
                 style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: textColor }}
               >
-                {lane === 'services' ? 'READY TO START?' : 'LET\u2019S WORK TOGETHER'}
+                LET&apos;S WORK TOGETHER
               </h2>
             </div>
             <div className="flex items-center gap-3 md:gap-4">
-              {setCurrentPage && (
-                <button
-                  onClick={() => {
-                    setCurrentPage(lane === 'services' ? 'home' : 'services');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="flex items-center gap-1.5 text-sm whitespace-nowrap transition-opacity hover:opacity-70"
-                  style={{ color: textColor }}
-                >
-                  {lane === 'services' ? 'View portfolio' : 'Need a website?'}
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              )}
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
