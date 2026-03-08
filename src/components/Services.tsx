@@ -65,6 +65,8 @@ const CATEGORIES: Category[] = [
     features: [
       { label: 'SSL / HTTPS', desc: 'Encrypted by default. Secure connection for every visitor. Required for Google ranking.' },
       { label: 'Vercel Edge CDN', desc: 'Deployed to a global content delivery network. Fast load times worldwide.' },
+      { label: '24/7 Error Monitoring', desc: 'Sentry watches your site around the clock. If something breaks, I know before your customers do.' },
+      { label: 'Automatic Bug Fixes', desc: 'When an error is detected, AI diagnoses the issue and creates a fix automatically. Most bugs resolved without you lifting a finger.' },
       { label: 'WCAG 2.1 AA', desc: 'Accessible markup. Screen readers, keyboard navigation, proper contrast ratios.' },
       { label: 'PWA Manifest', desc: 'Your site can be installed like an app on phones. Adds to home screen with your icon.' },
       { label: 'TypeScript', desc: 'Type-safe code. Catches bugs before they reach production. Industry standard.' },
@@ -387,7 +389,7 @@ export default function Services() {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto" staggerDelay={0.12}>
             <StaggerItem>
               <PricingCard name="HOSTING & MAINTENANCE" price="$50" periodLabel="/mo" subtitle="Hosting, SSL, backups, monitoring, bug fixes."
-                features={[{ label: 'Managed hosting + SSL' }, { label: 'Monthly backups' }, { label: 'Uptime monitoring' }, { label: 'Bug fixes + patches' }]}
+                features={[{ label: 'Managed hosting + SSL' }, { label: 'Monthly backups' }, { label: '24/7 error monitoring' }, { label: 'Automatic bug fixes' }, { label: 'Uptime monitoring' }]}
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>

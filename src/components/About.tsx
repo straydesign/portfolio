@@ -124,26 +124,7 @@ export default function About() {
 
         {/* ─── HERO ─── */}
         <AnimateIn direction="up" className="pt-4 md:pt-8 mb-12 md:mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-            {/* Photo */}
-            <div
-              className="w-full aspect-[4/5] rounded-2xl flex items-center justify-center order-first"
-              style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)' }}
-            >
-              <img
-                src="/images/about-photo.jpg"
-                alt="Tom Sesler"
-                className="w-full h-full object-cover rounded-2xl"
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  target.style.display = 'none';
-                  if (target.parentElement) {
-                    target.parentElement.innerHTML = `<span style="color: ${secondaryTextColor}; font-size: 14px;">Photo placeholder</span>`;
-                  }
-                }}
-              />
-            </div>
-            {/* Text */}
+          <div className="max-w-2xl">
             <div>
               <h1
                 className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
