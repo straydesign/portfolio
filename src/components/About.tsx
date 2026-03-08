@@ -90,7 +90,13 @@ const CURRENT_FAVORITES = [
   { title: 'Extreme Ownership', desc: 'Leaders take full responsibility for outcomes, good or bad. In the workplace, it is so common for things to be pushed around--take responsibility for more than just your part.' },
 ];
 
-export default function About() {
+type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+
+interface AboutProps {
+  setCurrentPage?: (page: Page) => void;
+}
+
+export default function About({ setCurrentPage }: AboutProps) {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
@@ -499,6 +505,34 @@ export default function About() {
           </div>
         </AnimateIn>
 
+      </div>
+
+      {/* ─── CTA ─── */}
+      <div className="max-w-[90rem] mx-auto px-4 md:px-8">
+        <AnimateIn direction="up" className="mb-12 md:mb-16">
+          <div className="max-w-lg mx-auto text-center">
+            <h2
+              className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
+              style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: primaryColor }}
+            >
+              WANT TO WORK TOGETHER?
+            </h2>
+            <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
+              Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
+            </p>
+            <button
+              onClick={() => setCurrentPage?.('services')}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
+              style={{
+                backgroundColor: primaryColor,
+                color: '#ffffff',
+                boxShadow: `0 4px 24px ${primaryColor}30`,
+              }}
+            >
+              See What I Build
+            </button>
+          </div>
+        </AnimateIn>
       </div>
 
       {/* Footer spacer */}

@@ -357,21 +357,23 @@ export default function Services() {
             <h2 className="text-[28px] md:text-[44px] mb-3 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
               Pricing
             </h2>
-            <p className="text-base" style={{ color: secondaryTextColor }}>Everything above included. One-time build. Yours to own.</p>
+            <p className="text-base mb-2" style={{ color: secondaryTextColor }}>Most Erie agencies charge $5,000–$15,000 for a custom website. I keep overhead low and pass the savings to you.</p>
+            <p className="text-base mb-2" style={{ color: secondaryTextColor }}>Everything above included. One-time build. Yours to own.</p>
+            <p className="text-sm font-bold" style={{ color: primaryColor }}>Unlimited revisions until you love it.</p>
           </div>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.1}>
             <StaggerItem>
-              <PricingCard name="STARTER" price="$1,000" subtitle="Up to 5 pages. Perfect for small service businesses."
+              <PricingCard name="STARTER" price="$997" subtitle="Up to 5 pages. Perfect for small service businesses."
                 features={[{ label: 'Up to 5 pages' }, { label: 'All standard features included' }]}
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
-              <PricingCard name="PROFESSIONAL" price="$2,000" subtitle="Up to 12 pages. Built to convert walk-in traffic." featured
+              <PricingCard name="PROFESSIONAL" price="$1,997" subtitle="Up to 12 pages. Built to convert walk-in traffic." featured
                 features={[{ label: 'Up to 12 pages' }, { label: 'CMS for self-editing' }, { label: 'AI chatbot' }, { label: 'Blog section' }, { label: 'Content strategy' }]}
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
-              <PricingCard name="CUSTOM" price="$3,000" subtitle="Unlimited pages. E-commerce, ads, and integrations."
+              <PricingCard name="CUSTOM" price="$2,997" subtitle="Unlimited pages. E-commerce, ads, and integrations."
                 features={[{ label: 'Unlimited pages' }, { label: 'E-commerce or booking' }, { label: 'Third-party integrations' }, { label: 'Optional: AI chatbot' }, { label: 'Optional: AI email marketing' }, { label: 'Optional: Meta ads setup' }]}
                 primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
             </StaggerItem>
@@ -438,6 +440,19 @@ export default function Services() {
               Visit Site <ExternalLink className="w-4 h-4" />
             </span>
           </a>
+          <a href="https://racknroll.vercel.app" target="_blank" rel="noopener noreferrer"
+            className="block rounded-xl p-6 md:p-8 transition-all duration-300 cursor-pointer max-w-2xl mt-6"
+            style={{ backgroundColor: glassBg, border: `1px solid ${glassBorder}` }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${primaryColor}40`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${primaryColor}10`; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = glassBorder; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: primaryColor }}>Client Project</p>
+            <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>Rack n&apos; Roll</h3>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: secondaryTextColor }}>Custom site for a billiards and entertainment venue. Design, development, SEO.</p>
+            <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: primaryColor }}>
+              Visit Site <ExternalLink className="w-4 h-4" />
+            </span>
+          </a>
         </AnimateIn>
 
         {/* ─── Service Areas ─── */}
@@ -454,6 +469,27 @@ export default function Services() {
               >
                 {a}
               </span>
+            ))}
+          </div>
+        </AnimateIn>
+
+        {/* ─── FAQ ─── */}
+        <AnimateIn direction="up" className="mb-24 md:mb-32 max-w-3xl">
+          <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+            FAQ
+          </h2>
+          <div className="space-y-6">
+            {[
+              { q: 'I already have a website. Why would I pay for a new one?', a: 'If your current site isn\'t bringing in customers, it\'s costing you money. A modern site built for search engines and AI assistants pays for itself.' },
+              { q: 'Can\'t I just use Wix or Squarespace?', a: 'You can — but you\'ll get a template that looks like everyone else, loads slowly, and ranks poorly. A custom site is built around your business, not a drag-and-drop editor.' },
+              { q: 'What if I need changes after the site launches?', a: 'That\'s what the $50/mo maintenance plan is for. Bug fixes, content updates, and monitoring — all included.' },
+              { q: 'How long does it take?', a: 'Most projects launch in 2–4 weeks. Complex builds with e-commerce or integrations may take longer.' },
+              { q: 'What if I don\'t like the design?', a: 'Unlimited revisions until you love it. I don\'t ship anything you\'re not happy with.' },
+            ].map(({ q, a }) => (
+              <div key={q}>
+                <h3 className="text-base font-bold mb-1" style={{ color: textColor }}>{q}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{a}</p>
+              </div>
             ))}
           </div>
         </AnimateIn>

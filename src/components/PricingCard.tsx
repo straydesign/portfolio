@@ -197,7 +197,7 @@ export default function PricingCard({
             }
           }}
         >
-          Get Started
+          Start My Project
         </button>
       </div>
     </motion.section>

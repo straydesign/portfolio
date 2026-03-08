@@ -121,7 +121,7 @@ export default function App() {
               transition={{ duration: 0.2, ease: 'easeInOut' }}
             >
               {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
-              {currentPage === 'about' && <About />}
+              {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
               {currentPage === 'work' && <Work />}
               {currentPage === 'resume' && <Resume setCurrentPage={setCurrentPage} />}
               {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}

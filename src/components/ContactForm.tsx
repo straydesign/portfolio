@@ -136,7 +136,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
         style={{ backgroundColor: primaryColor, color: buttonTextColor }}
       >
         <Send className="w-4 h-4" />
-        {status === 'sending' ? 'Sending...' : 'Send Message'}
+        {status === 'sending' ? 'Sending...' : 'Get My Free Consultation'}
       </button>
 
       <p className="text-xs text-center" style={{ color: secondaryTextColor }}>
