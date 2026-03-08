@@ -92,10 +92,10 @@ function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: st
   if (prefersReducedMotion) {
     return (
       <h1
-        className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
+        className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full"
         style={{
           fontFamily: "var(--font-family-bungee), sans-serif",
-          WebkitTextStroke: `4px ${primaryColor}`,
+          WebkitTextStroke: `3px ${primaryColor}`,
           WebkitTextFillColor: 'transparent',
           color: 'transparent',
           paintOrder: 'stroke fill',
@@ -108,10 +108,10 @@ function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: st
 
   return (
     <h1
-      className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
+      className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full"
       style={{
         fontFamily: "var(--font-family-bungee), sans-serif",
-        WebkitTextStroke: `4px ${primaryColor}`,
+        WebkitTextStroke: `3px ${primaryColor}`,
         WebkitTextFillColor: 'transparent',
         color: 'transparent',
         paintOrder: 'stroke fill',
