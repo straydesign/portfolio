@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -18,4 +19,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "stray-design-nm",
+  project: "javascript-nextjs",
+  widenClientFileUpload: true,
+  tunnelRoute: "/monitoring",
+  silent: !process.env.CI,
+});
