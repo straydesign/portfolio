@@ -440,19 +440,6 @@ export default function Services() {
               Visit Site <ExternalLink className="w-4 h-4" />
             </span>
           </a>
-          <a href="https://racknroll.vercel.app" target="_blank" rel="noopener noreferrer"
-            className="block rounded-xl p-6 md:p-8 transition-all duration-300 cursor-pointer max-w-2xl mt-6"
-            style={{ backgroundColor: glassBg, border: `1px solid ${glassBorder}` }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${primaryColor}40`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${primaryColor}10`; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = glassBorder; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
-          >
-            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: primaryColor }}>Client Project</p>
-            <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>Rack n&apos; Roll</h3>
-            <p className="text-sm leading-relaxed mb-4" style={{ color: secondaryTextColor }}>Custom site for a billiards and entertainment venue. Design, development, SEO.</p>
-            <span className="inline-flex items-center gap-2 text-sm font-semibold" style={{ color: primaryColor }}>
-              Visit Site <ExternalLink className="w-4 h-4" />
-            </span>
-          </a>
         </AnimateIn>
 
         {/* ─── Service Areas ─── */}
