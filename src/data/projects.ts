@@ -5,8 +5,7 @@ export type Page =
   | 'resume'
   | 'middleman-case-study'
   | 'day-one-case-study'
-  | 'doordash-case-study'
-  | 'services';
+  | 'doordash-case-study';
 
 export type ProjectType = 'case-study' | 'project';
 
@@ -71,7 +70,6 @@ export const STATIC_PAGES: ReadonlyMap<Page, string> = new Map([
   ['about', 'About | Tom Sesler — Product Designer'],
   ['work', 'Work | Tom Sesler — Product Designer'],
   ['resume', 'Resume | Tom Sesler — Product Designer'],
-  ['services', 'Services | Tom Sesler'],
 ]);
 
 export function getPageFromPath(pathname: string): Page {
@@ -79,7 +77,7 @@ export function getPageFromPath(pathname: string): Page {
 
   // Check static pages
   if (path === '' || path === '/') return 'home';
-  const staticMatch = (['about', 'work', 'resume', 'services'] as const).find(
+  const staticMatch = (['about', 'work', 'resume'] as const).find(
     (p) => p === path,
   );
   if (staticMatch) return staticMatch;

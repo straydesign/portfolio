@@ -521,8 +521,8 @@ export default function About({ setCurrentPage }: AboutProps) {
             <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
               Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
             </p>
-            <button
-              onClick={() => setCurrentPage?.('services')}
+            <a
+              href="mailto:tom@straydesign.co"
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
               style={{
                 backgroundColor: primaryColor,
@@ -530,8 +530,8 @@ export default function About({ setCurrentPage }: AboutProps) {
                 boxShadow: `0 4px 24px ${primaryColor}30`,
               }}
             >
-              See What I Build
-            </button>
+              Get in Touch
+            </a>
           </div>
         </AnimateIn>
       </div>

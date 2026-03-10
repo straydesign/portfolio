@@ -19,7 +19,6 @@ const Resume = dynamic(() => import('@/components/Resume'));
 const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
 const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
 const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
-const Services = dynamic(() => import('@/components/Services'));
 const Work = dynamic(() => import('@/components/Work'));
 
 export default function App() {
@@ -51,7 +50,7 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      {currentPage !== 'work' && currentPage !== 'services' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+      {currentPage !== 'work' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
       <main id="main-content" className="flex-1 relative overflow-hidden">
         <div className="fixed inset-0 pointer-events-none z-0" style={{ background: theme === 'dark' ? '#000000' : '#ffffff' }} />
         <div className="fixed inset-0 z-[2] pointer-events-none">
@@ -86,7 +85,6 @@ export default function App() {
               {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
               {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
               {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
-              {currentPage === 'services' && <Services />}
             </motion.div>
           </AnimatePresence>
         </div>
