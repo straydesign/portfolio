@@ -97,7 +97,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                   left: pillStyle.left,
                   width: pillStyle.width,
                   height: '100%',
-                  transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1), width 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               />
             )}

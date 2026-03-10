@@ -77,6 +77,21 @@ export default function PhoneMockup({
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
     >
+      {/* Title & description — above the phone so it's visible without scrolling */}
+      {(title || description) && (
+        <div className="w-full mb-4" style={textColor ? { color: textColor } : undefined}>
+          {title && (
+            <p className="text-base md:text-lg font-bold tracking-tight">{title}</p>
+          )}
+          {description && (
+            <p className="text-sm mt-1.5 leading-relaxed" style={{ color: secondaryTextColor || textColor, opacity: secondaryTextColor ? 1 : 0.65 }}>{description}</p>
+          )}
+          {deliverable && (
+            <p className="text-xs mt-2 font-semibold uppercase tracking-wider" style={{ color: secondaryTextColor || textColor, opacity: 0.5 }}>{deliverable}</p>
+          )}
+        </div>
+      )}
+
       {/* Gradient backdrop with 3D phone */}
       <motion.div
         ref={containerRef}
@@ -294,20 +309,6 @@ export default function PhoneMockup({
         </motion.div>
       </motion.div>
 
-      {/* Title & description */}
-      {(title || description) && (
-        <div className="w-full mt-5" style={textColor ? { color: textColor } : undefined}>
-          {title && (
-            <p className="text-base md:text-lg font-bold tracking-tight">{title}</p>
-          )}
-          {description && (
-            <p className="text-sm mt-1.5 leading-relaxed" style={{ color: secondaryTextColor || textColor, opacity: secondaryTextColor ? 1 : 0.65 }}>{description}</p>
-          )}
-          {deliverable && (
-            <p className="text-xs mt-2 font-semibold uppercase tracking-wider" style={{ color: secondaryTextColor || textColor, opacity: 0.5 }}>{deliverable}</p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
