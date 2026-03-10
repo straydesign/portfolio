@@ -3,7 +3,6 @@
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import { ArrowLeft, ExternalLink, Brain, Calendar, Target } from 'lucide-react';
-import LiteYouTube from './LiteYouTube';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
@@ -81,16 +80,6 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           </AnimateIn>
         </div>
 
-        {/* VIDEO DEMO */}
-        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <p className="text-xs font-bold tracking-widest mb-6 uppercase" style={{ color: primaryColor }}>See It in Action</p>
-          <LiteYouTube
-            videoId="YBzZwWGH9bs"
-            title="FirstDay.Life Demo"
-            borderColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}
-          />
-        </AnimateIn>
-
         {/* THE FEELING */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <div className="p-6 md:p-10 rounded-2xl" style={{ backgroundColor: statBg, borderLeft: `4px solid ${primaryColor}` }}>
@@ -98,31 +87,6 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
               Learning guitar. Spending time with your kids. Saving for a house. Whatever the goal &mdash; you get <span style={{ color: primaryColor }}>three simple things to do today.</span>
             </p>
           </div>
-        </AnimateIn>
-
-        {/* THE CORE LOOP */}
-        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Core Loop</p>
-          <p className="text-xl md:text-2xl font-bold mb-10" style={{ color: primaryColor }}>
-            Dream &rarr; Plan &rarr; Do &rarr; Repeat
-          </p>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8" staggerDelay={0.1}>
-            {[
-              { icon: Brain, label: 'Set Your Goal', desc: 'No categories. No setup. Just say what matters.' },
-              { icon: Calendar, label: 'Get Your Plan', desc: 'Wake up knowing exactly what to do today.' },
-              { icon: Target, label: 'Track Progress', desc: 'Three tasks a day. Small wins compound.' },
-            ].map(({ icon: Icon, label, desc }) => (
-              <StaggerItem key={label}>
-                <div className="text-center">
-                  <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: statBg }}>
-                    <Icon className="w-7 h-7" style={{ color: primaryColor }} />
-                  </div>
-                  <p className="text-lg font-bold mb-2" style={{ color: textColor }}>{label}</p>
-                  <p className="text-sm" style={{ color: secondaryTextColor }}>{desc}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
         </AnimateIn>
 
         {/* THE JOURNEY — main flow videos */}
@@ -184,9 +148,45 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           </StaggerContainer>
         </AnimateIn>
 
-        {/* THE LIVE PRODUCT — desktop screenshots */}
+        {/* THE CORE LOOP */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Core Loop</p>
+          <p className="text-xl md:text-2xl font-bold mb-10" style={{ color: primaryColor }}>
+            Dream &rarr; Plan &rarr; Do &rarr; Repeat
+          </p>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8" staggerDelay={0.1}>
+            {[
+              { icon: Brain, label: 'Set Your Goal', desc: 'No categories. No setup. Just say what matters.' },
+              { icon: Calendar, label: 'Get Your Plan', desc: 'Wake up knowing exactly what to do today.' },
+              { icon: Target, label: 'Track Progress', desc: 'Three tasks a day. Small wins compound.' },
+            ].map(({ icon: Icon, label, desc }) => (
+              <StaggerItem key={label}>
+                <div className="text-center">
+                  <div className="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: statBg }}>
+                    <Icon className="w-7 h-7" style={{ color: primaryColor }} />
+                  </div>
+                  <p className="text-lg font-bold mb-2" style={{ color: textColor }}>{label}</p>
+                  <p className="text-sm" style={{ color: secondaryTextColor }}>{desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </AnimateIn>
+
+        {/* THE LIVE PRODUCT */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Live Product</p>
+          <div className="flex justify-center mb-10">
+            <div>
+              <p className="text-xs font-bold mb-3 text-center" style={{ color: secondaryTextColor }}>MOBILE</p>
+              <PhoneMockup
+                screenshot="/images/firstday/firstday-screen.png"
+                gradientFrom={primaryColor}
+                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                alt="FirstDay.Life mobile app"
+              />
+            </div>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <p className="text-xs font-bold mb-3 text-center" style={{ color: secondaryTextColor }}>DESKTOP</p>

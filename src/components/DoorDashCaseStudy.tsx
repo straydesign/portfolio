@@ -126,8 +126,13 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
                 The biggest button says &quot;Complete&quot; &mdash; but you need directions first.
               </p>
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
-                You&apos;re holding three bags, scanning apartment numbers. The app wants you to mark it delivered before you&apos;ve arrived.
+                You&apos;re still driving, distracted, and the biggest tap target on screen triggers &quot;complete delivery.&quot; One accidental bump and the order is done before you&apos;ve arrived.
               </p>
+              <div className="p-3 rounded-xl mb-4" style={{ backgroundColor: statBg }}>
+                <p className="text-sm" style={{ color: secondaryTextColor }}>
+                  <strong style={{ color: textColor }}>Why:</strong> Pre-loading completion prevents failures when signal drops at the door.
+                </p>
+              </div>
               <div className="p-4 rounded-xl" style={{ backgroundColor: `${primaryColor}10`, borderLeft: `3px solid ${primaryColor}` }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Fix:</strong> Show directions until you arrive. Then show &quot;Complete.&quot;
@@ -158,6 +163,11 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
               </div>
             ))}
           </div>
+          <div className="p-3 rounded-xl mb-4" style={{ backgroundColor: statBg }}>
+            <p className="text-sm" style={{ color: secondaryTextColor }}>
+              <strong style={{ color: textColor }}>Why:</strong> Customer privacy &mdash; minimizing stored location data prevents stalking risk.
+            </p>
+          </div>
           <div className="p-4 rounded-xl" style={{ backgroundColor: `${primaryColor}10`, borderLeft: `3px solid ${primaryColor}` }}>
             <p className="text-sm" style={{ color: textColor }}>
               <strong style={{ color: primaryColor }}>Fix:</strong> 15-minute nav-only window. Logged for privacy. Then gone.
@@ -181,6 +191,11 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
                 You follow the customer&apos;s instructions. The app flags it as wrong. So you skip the photo &mdash; now there&apos;s no proof at all.
               </p>
+              <div className="p-3 rounded-xl mb-4" style={{ backgroundColor: statBg }}>
+                <p className="text-sm" style={{ color: secondaryTextColor }}>
+                  <strong style={{ color: textColor }}>Why:</strong> ML validation deters fraud by ensuring photos match the expected delivery location.
+                </p>
+              </div>
               <div className="p-4 rounded-xl" style={{ backgroundColor: `${primaryColor}10`, borderLeft: `3px solid ${primaryColor}` }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Fix:</strong> &quot;Alternate location&quot; prompt on mismatch. Photo + note saved. Some proof is better than none.
@@ -209,6 +224,11 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
           <p className="text-base mb-6" style={{ color: secondaryTextColor }}>
             One tap of &quot;picked up&quot; and the code vanishes. You&apos;re still standing there, locker unopened.
           </p>
+          <div className="p-3 rounded-xl mb-4" style={{ backgroundColor: statBg }}>
+            <p className="text-sm" style={{ color: secondaryTextColor }}>
+              <strong style={{ color: textColor }}>Why:</strong> Ephemeral data clears on state change &mdash; the system assumes pickup is complete once confirmed.
+            </p>
+          </div>
           <div className="p-4 rounded-xl" style={{ backgroundColor: `${primaryColor}10`, borderLeft: `3px solid ${primaryColor}` }}>
             <p className="text-sm" style={{ color: textColor }}>
               <strong style={{ color: primaryColor }}>Fix:</strong> Keep code visible until the locker actually opens &mdash; not until you tap a button.
@@ -257,6 +277,11 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
             ))}
           </div>
 
+          <div className="p-3 rounded-xl mb-4" style={{ backgroundColor: statBg }}>
+            <p className="text-sm" style={{ color: secondaryTextColor }}>
+              <strong style={{ color: textColor }}>Why:</strong> Friction deters cancellations. Embedded surveys guarantee response rates.
+            </p>
+          </div>
           <div className="p-4 rounded-xl" style={{ backgroundColor: `${primaryColor}10`, borderLeft: `3px solid ${primaryColor}` }}>
             <p className="text-sm" style={{ color: textColor }}>
               <strong style={{ color: primaryColor }}>Fix:</strong> 4-tap cancel. Survey after the shift, not at a red light.

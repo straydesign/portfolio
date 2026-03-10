@@ -4,7 +4,6 @@ import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import MiddlemanLogo from './MiddlemanLogo';
 import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target } from 'lucide-react';
-import LiteYouTube from './LiteYouTube';
 import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 
@@ -41,8 +40,8 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
         </div>
 
         {/* HERO */}
-        <div className="min-h-[80vh] flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <AnimateIn direction="up">
+        <div className="min-h-[80vh] flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12 md:py-16" style={{ borderBottom: divider }}>
+          <AnimateIn direction="left" className="w-full md:w-1/2">
             <div className="flex items-center gap-4 mb-3">
               <MiddlemanLogo color={primaryColor} className="w-12 md:w-16 h-auto" />
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Project</p>
@@ -51,29 +50,31 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <p className="text-lg md:text-xl mb-10 max-w-2xl leading-relaxed" style={{ color: secondaryTextColor }}>
               You walk into a store cold. No list. No plan. Just your memory and a cardboard tally sheet.
             </p>
+            <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
+              {[
+                { label: 'CUSTOMER', value: 'Beer merchandisers (6-12 stores/day)' },
+                { label: 'THE PAIN', value: '45+ min per store guessing what to restock' },
+                { label: 'MY ROLE', value: 'Solo designer \u2014 also worked as a merchandiser' },
+                { label: 'TIMEFRAME', value: '3 months to hi-fi prototype' },
+              ].map(({ label, value }) => (
+                <StaggerItem key={label}>
+                  <div>
+                    <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
+                    <p className="text-sm" style={{ color: textColor }}>{value}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </AnimateIn>
 
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" staggerDelay={0.06}>
-            {[
-              { label: 'CUSTOMER', value: 'Beer merchandisers (6-12 stores/day)' },
-              { label: 'THE PAIN', value: '45+ min per store guessing what to restock' },
-              { label: 'MY ROLE', value: 'Solo designer \u2014 also worked as a merchandiser' },
-              { label: 'TIMEFRAME', value: '3 months to hi-fi prototype' },
-            ].map(({ label, value }) => (
-              <StaggerItem key={label}>
-                <div>
-                  <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
-                  <p className="text-sm" style={{ color: textColor }}>{value}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-
-          <AnimateIn direction="up" delay={0.3}>
-            <LiteYouTube
-              videoId="TQagpOFdQpM"
-              title="Merchandising System Demo"
-              borderColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}
+          <AnimateIn direction="right" className="w-full md:w-1/2">
+            <PhoneMockup
+              screenshot="/images/mockups/middleman-screen.png"
+              gradientFrom={primaryColor}
+              gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+              alt="Middleman app home screen"
+              introVideoSrc="/videos/middleman-intro.mp4"
+              size="large"
             />
           </AnimateIn>
         </div>
@@ -135,6 +136,8 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               { src: '/images/carousel/mm-route.mp4', label: 'Your day, mapped out' },
               { src: '/images/carousel/mm-store-switch.mp4', label: 'Always know where you are' },
               { src: '/images/carousel/mm-nav-flow.mp4', label: 'Every screen, connected' },
+              { src: '/images/carousel/mm-login.mp4', label: 'Secure sign-in' },
+              { src: '/images/carousel/mm-settings.mp4', label: 'Your preferences' },
             ].map(({ src, label }, i) => (
               <StaggerItem key={i}>
                 <div className="text-center">
@@ -155,36 +158,22 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </StaggerContainer>
         </AnimateIn>
 
-        {/* THE IDEA — phone mockup */}
+        {/* THE IDEA */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Idea</p>
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-            <div className="md:w-1/2">
-              <p className="text-2xl md:text-4xl font-bold mb-6 leading-tight" style={{ color: primaryColor }}>
-                Tell me what to pull first. Everything else is secondary.
-              </p>
-              <div className="grid grid-cols-3 gap-4 mb-6">
-                {['1. Pick store', '2. Pull list', '3. Confirm & go'].map((step) => (
-                  <div key={step} className="text-center p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-                    <p className="text-sm font-bold" style={{ color: primaryColor }}>{step}</p>
-                  </div>
-                ))}
+          <p className="text-xs font-bold tracking-widest mb-8 uppercase text-center" style={{ color: primaryColor }}>The Idea</p>
+          <p className="text-2xl md:text-4xl font-bold mb-10 leading-tight text-center max-w-3xl mx-auto" style={{ color: primaryColor }}>
+            Tell me what to pull first. Everything else is secondary.
+          </p>
+          <div className="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
+            {['1. Pick store', '2. Pull list', '3. Confirm & go'].map((step) => (
+              <div key={step} className="text-center p-4 rounded-xl" style={{ backgroundColor: statBg }}>
+                <p className="text-sm font-bold" style={{ color: primaryColor }}>{step}</p>
               </div>
-              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                Open the app. See what to pull. Do the work.
-              </p>
-            </div>
-            <div className="md:w-1/2">
-              <PhoneMockup
-                screenshot="/images/mockups/middleman-screen.png"
-                gradientFrom={primaryColor}
-                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-                alt="Middleman app home screen"
-                introVideoSrc="/videos/middleman-intro.mp4"
-                size="large"
-              />
-            </div>
+            ))}
           </div>
+          <p className="text-base leading-relaxed text-center max-w-xl mx-auto" style={{ color: secondaryTextColor }}>
+            Open the app. See what to pull. Do the work.
+          </p>
         </AnimateIn>
 
         {/* BY THE NUMBERS */}

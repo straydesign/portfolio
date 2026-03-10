@@ -225,8 +225,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${bungee.variable} ${playfair.variable}`}>
       <head>
-        {/* Preconnect to YouTube thumbnail CDN (used by LiteYouTube on home page) */}
-        <link rel="preconnect" href="https://i.ytimg.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Google Analytics */}

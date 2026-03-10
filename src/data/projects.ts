@@ -119,10 +119,6 @@ export function getDocumentTitle(page: Page): string {
   return 'Tom Sesler — Product Designer';
 }
 
-export function getProjectById(id: Page): Project | undefined {
-  return PROJECTS.find((p) => p.id === id);
-}
-
 export function getProjectTypeLabel(type: ProjectType): string {
   return type === 'case-study' ? 'Case Study' : 'Project';
 }
