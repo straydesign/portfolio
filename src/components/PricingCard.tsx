@@ -21,6 +21,7 @@ export type PricingCardProps = {
   textColor: string;
   secondaryTextColor: string;
   theme: 'light' | 'dark';
+  onPrimaryColor?: string;
   className?: string;
   onCtaClick?: () => void;
 };
@@ -36,6 +37,7 @@ export default function PricingCard({
   textColor,
   secondaryTextColor,
   theme,
+  onPrimaryColor = '#ffffff',
   className,
   onCtaClick,
 }: PricingCardProps) {
@@ -62,7 +64,7 @@ export default function PricingCard({
           className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
           style={{
             backgroundColor: primaryColor,
-            color: '#ffffff',
+            color: onPrimaryColor,
             boxShadow: `0 4px 20px ${primaryColor}40`,
           }}
         >
@@ -177,7 +179,7 @@ export default function PricingCard({
           className="mt-7 w-full py-3 rounded-xl text-sm font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer"
           style={{
             backgroundColor: featured ? primaryColor : 'transparent',
-            color: featured ? '#ffffff' : textColor,
+            color: featured ? onPrimaryColor : textColor,
             border: featured ? 'none' : `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)'}`,
           }}
           onMouseEnter={(e) => {

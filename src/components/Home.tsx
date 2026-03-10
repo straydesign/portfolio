@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Mail, Phone, Linkedin } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
@@ -9,72 +8,41 @@ import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
 import PhoneMockup from './PhoneMockup';
 import ContactForm from './ContactForm';
-
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
+import { CAROUSEL_ITEMS } from '@/data/carousel';
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;
 }
 
-const CAROUSEL_ITEMS = [
-  { src: '/images/carousel/mm-login.mp4', alt: 'Middleman login flow' },
-  { src: '/images/carousel/fd-landing.mp4', alt: 'FirstDay landing page' },
-  { src: '/images/carousel/mm-dashboard.mp4', alt: 'Middleman dashboard overview' },
-  { src: '/images/carousel/fd-login.mp4', alt: 'FirstDay login flow' },
-  { src: '/images/carousel/mm-orders.mp4', alt: 'Middleman orders tab' },
-  { src: '/images/carousel/fd-goal-create.mp4', alt: 'FirstDay goal creation + plan generation' },
-  { src: '/images/carousel/mm-stock.mp4', alt: 'Middleman stock management' },
-  { src: '/images/carousel/fd-calendar.mp4', alt: 'FirstDay calendar + day view' },
-  { src: '/images/carousel/mm-store-switch.mp4', alt: 'Middleman store switcher' },
-  { src: '/images/carousel/fd-complete-day.mp4', alt: 'FirstDay completing activities' },
-  { src: '/images/carousel/mm-route.mp4', alt: 'Middleman route map' },
-  { src: '/images/carousel/fd-achievements.mp4', alt: 'FirstDay achievements + stats' },
-  { src: '/images/carousel/mm-nav-flow.mp4', alt: 'Middleman tab navigation' },
-  { src: '/images/carousel/mm-settings.mp4', alt: 'Middleman settings' },
-];
-
-const CASE_STUDY = {
-  id: 'doordash-case-study' as const,
-  title: 'DOORDASH DASHER APP',
-  description: 'Ethnographic UX research across 1,000+ deliveries with five redesign proposals.',
-  deliverable: 'Heuristic evaluation + 5 redesign concepts',
-};
-
-const PROJECTS = [
-  {
-    id: 'middleman-case-study' as const,
-    title: 'MERCHANDISING SYSTEM',
-    description: 'Mobile app design to reduce retail stock-outs using real-time POS data.',
-    deliverable: 'Full design system + interactive Figma prototype',
-  },
-  {
-    id: 'day-one-case-study' as const,
-    title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
-    deliverable: 'Live shipped product + Apple-native design',
-  },
-];
-
 const RECOMMENDATIONS = [
   {
     quote: 'I hired Tom as a marketing consultant to assist my technology company with revamping our website, implementing and understanding web analytics, and other marketing tasks. In short, Tom delivered everything he promised, and more. He\u2019s easy to work with, communicates quickly and does a great job explaining things. When he provides instructions, they\u2019re clear, concise and easy to follow. We all enjoy the fact that Tom under-promises and over-delivers. It\u2019s always nice to feel like you got a bit more than you paid for; Tom has mastered that delivery! I recommend Tom to any marketing team looking for a professional, intelligent team-member that\u2019s not afraid to get his hands dirty.',
+    highlight: 'Tom under-promises and over-delivers.',
     name: 'Kurt Simione',
     role: 'TechxRev, Client',
+    initials: 'KS',
   },
   {
     quote: 'I had the pleasure of teaching Tom Sesler in both Financial and Managerial Accounting, where he consistently stood out as a top student\u2014earning close to a perfect in each course. What impressed me most was not just Tom\u2019s mastery of the material, but his ability to connect concepts and apply them thoughtfully to real business situations. He was an active participant in class discussions, often raising insightful questions and offering perspectives that pushed conversations deeper. Tom was always prepared, met every deadline, and demonstrated a professional and focused mindset from day one. He\u2019s exactly the kind of driven, analytical thinker that any team would be lucky to have.',
+    highlight: 'Exactly the kind of driven, analytical thinker any team would be lucky to have.',
     name: 'Scott Berube',
-    role: 'MSA, CPA, CFE. Principal Lecturer of Accounting, UNH',
+    role: 'Principal Lecturer of Accounting, UNH',
+    initials: 'SB',
   },
   {
     quote: 'Thomas stood out immediately in my Organizational Behavior class\u2014not just because of how well he performed, but because of how he showed up. He was consistently engaged in discussions, brought thoughtful ideas into the room, and had a knack for raising the level of conversation without ever needing to dominate it. What impressed me most was his ability to balance strategic thinking with collaboration. He worked seamlessly with his team, contributing in a way that moved the group forward and made others better. If you\u2019re looking for someone in marketing who brings emotional intelligence, strong execution, and a team-first mindset, Thomas is someone I\u2019d recommend without hesitation!',
+    highlight: 'Strategic thinking with collaboration — he made others better.',
     name: 'Nikhil Awasty',
-    role: 'Assistant Professor of Organizational Behavior, UNH',
+    role: 'Assistant Professor, UNH',
+    initials: 'NA',
   },
   {
     quote: 'I had the pleasure of teaching Tom in my Quantitative Decision Making course at UNH Paul College of Business in Fall 2024. Known for its rigorous blend of operations theory and quantitative analysis, this course is one of the more challenging in the curriculum. Tom stood out as an engaged and dedicated student. Tom excelled academically and brought a positive, proactive attitude to class and office hours. His thoughtful contributions and strong work ethic were greatly appreciated. I am confident in Tom\u2019s bright future and highly recommend him for any graduate program or professional opportunity.',
+    highlight: 'Confident in Tom\u2019s bright future — highly recommend.',
     name: 'Russell Miles',
-    role: 'Operations / Supply Chain / Business Development',
+    role: 'Operations / Supply Chain, UNH',
+    initials: 'RM',
   },
 ];
 
@@ -82,7 +50,7 @@ const HERO_TEXT = 'PRODUCT DESIGNER';
 const CONTACT_LINKS = [
   { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
   { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
-  { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
+  { icon: Mail, label: 'Email', href: 'mailto:tom@straydesign.co', external: false },
 ];
 
 function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: string }) {
@@ -137,67 +105,22 @@ function HeroTextReveal({ text, primaryColor }: { text: string; primaryColor: st
   );
 }
 
-function InteractiveCard({
-  children,
-  primaryColor,
-  theme,
-  onClick,
-  ariaLabel,
-  className = '',
-}: {
-  children: React.ReactNode;
-  primaryColor: string;
-  theme: 'light' | 'dark';
-  onClick: () => void;
-  ariaLabel: string;
-  className?: string;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-  const defaultBorder = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
-
-  return (
-    <div
-      role="link"
-      tabIndex={0}
-      aria-label={ariaLabel}
-      className={`cursor-pointer py-4 md:py-6 px-6 rounded-2xl transition-all duration-200 ${className}`}
-      style={{
-        backgroundColor: theme === 'dark' ? '#000000' : 'rgba(0,0,0,0.03)',
-        border: `1px solid ${isHovered ? primaryColor : defaultBorder}`,
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-      }}
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {children}
-    </div>
-  );
-}
-
-
 export default function Home({ setCurrentPage }: HomeProps) {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
+  const onPrimary = cardStyles.getOnPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const badgeBg = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
   const badgeText = theme === 'dark' ? '#ffffff' : '#1d1d1f';
   const prefersReducedMotion = useReducedMotion();
 
-  // Total duration of hero text reveal for sequencing subsequent elements
   const heroTextDuration = HERO_TEXT.length * 0.04 + 0.4;
 
   return (
     <div className="min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
 
-      {/* ─── 1. HERO (card-less) ─── */}
+      {/* 1. HERO */}
       <div className="px-6 md:px-16 pt-12 md:pt-20 pb-8 md:pb-12">
         <div className="max-w-7xl mx-auto">
           <motion.p
@@ -235,7 +158,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             </p>
           </motion.div>
 
-          {/* Contact pills — stagger in */}
+          {/* Contact pills */}
           <motion.div
             className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4"
             initial="hidden"
@@ -265,8 +188,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </div>
 
-      {/* ─── 2. AUTO-SCROLL SCREENSHOT CAROUSEL ─── */}
-      <div className="py-8 md:py-12">
+      {/* 2. AUTO-SCROLL SCREENSHOT CAROUSEL */}
+      <div className="py-10 md:py-16">
         <Carousel
           speed={40}
           direction="left"
@@ -275,7 +198,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             <video
               key={item.src}
               src={item.src}
-              className="h-48 md:h-64 w-48 md:w-64 rounded-lg object-cover aspect-square"
+              className="h-44 md:h-56 w-44 md:w-56 rounded-xl object-cover aspect-square shadow-lg transition-transform duration-300 hover:scale-[1.03]"
               autoPlay
               loop
               muted
@@ -286,132 +209,174 @@ export default function Home({ setCurrentPage }: HomeProps) {
         />
       </div>
 
-      {/* ─── 3. CASE STUDY ─── */}
-      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
+      {/* 3. WORK — featured project + supporting grid */}
+      <AnimateIn direction="up" className="px-4 md:px-8 py-12 md:py-20">
         <div className="max-w-[90rem] mx-auto">
-          <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            CASE STUDY
-          </h2>
-          <InteractiveCard
-            primaryColor={primaryColor}
-            theme={theme}
-            onClick={() => setCurrentPage(CASE_STUDY.id)}
-            ariaLabel={`View ${CASE_STUDY.title} case study`}
-          >
-            <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
-              {CASE_STUDY.title}
-            </h3>
-            <p className="text-base mb-3" style={{ color: secondaryTextColor }}>
-              {CASE_STUDY.description}
-            </p>
-            <p className="text-sm font-semibold" style={{ color: primaryColor }}>
-              {CASE_STUDY.deliverable}
-            </p>
-          </InteractiveCard>
-          <AnimateIn direction="up" delay={0.15} className="mt-8 md:mt-12 max-w-sm">
-            <PhoneMockup
-              screenshot="/images/mockups/doordash-screen.png"
-              gradientFrom={primaryColor}
-              gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-              title="DoorDash Dasher App"
-              description="Ethnographic UX research + redesign proposals"
-              alt="DoorDash Dasher app screenshot"
-              textColor={textColor}
-              onClick={() => setCurrentPage('doordash-case-study')}
-            />
-          </AnimateIn>
-        </div>
-      </AnimateIn>
+          <div className="flex items-baseline gap-4 mb-10 md:mb-14">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
+            >
+              WORK
+            </h2>
+            <span className="text-sm font-medium" style={{ color: secondaryTextColor }}>
+              {PROJECTS.length} projects
+            </span>
+          </div>
 
-      {/* ─── 3b. PROJECTS ─── */}
-      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
-        <div className="max-w-[90rem] mx-auto">
-          <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            PROJECTS
-          </h2>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12" staggerDelay={0.12}>
-            {PROJECTS.map((project) => (
-              <StaggerItem key={project.id}>
-                <InteractiveCard
-                  primaryColor={primaryColor}
-                  theme={theme}
-                  onClick={() => setCurrentPage(project.id)}
-                  ariaLabel={`View ${project.title} project`}
-                >
-                  <h3 className="text-xl font-bold mb-2" style={{ color: textColor }}>
-                    {project.title}
+          {/* Featured project (first) — larger, offset layout */}
+          {PROJECTS.length > 0 && (
+            <AnimateIn direction="up" className="mb-16 md:mb-24">
+              <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+                <div className="w-full md:w-1/2">
+                  <PhoneMockup
+                    screenshot={PROJECTS[0].screenshot}
+                    gradientFrom={primaryColor}
+                    gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                    alt={PROJECTS[0].alt}
+                    onClick={() => setCurrentPage(PROJECTS[0].id)}
+                    introVideoSrc={PROJECTS[0].introVideoSrc}
+                    size="large"
+                  />
+                </div>
+                <div className="w-full md:w-1/2 md:py-8">
+                  <span
+                    className="inline-block mb-4 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider"
+                    style={{
+                      backgroundColor: PROJECTS[0].type === 'case-study' ? primaryColor : badgeBg,
+                      color: PROJECTS[0].type === 'case-study' ? onPrimary : badgeText,
+                    }}
+                  >
+                    {getProjectTypeLabel(PROJECTS[0].type)}
+                  </span>
+                  <h3
+                    className="text-2xl md:text-4xl font-bold mb-3 tracking-tight"
+                    style={{ color: textColor }}
+                  >
+                    {PROJECTS[0].title}
                   </h3>
-                  <p className="text-base mb-3" style={{ color: secondaryTextColor }}>
-                    {project.description}
+                  <p className="text-base md:text-lg leading-relaxed mb-4" style={{ color: secondaryTextColor }}>
+                    {PROJECTS[0].description}
                   </p>
-                  <p className="text-sm font-semibold" style={{ color: primaryColor }}>
-                    {project.deliverable}
+                  <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: primaryColor }}>
+                    {PROJECTS[0].deliverable}
                   </p>
-                </InteractiveCard>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-          {/* Project Demos */}
-          <StaggerContainer className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.15}>
-            <StaggerItem>
-              <PhoneMockup
-                screenshot="/images/mockups/middleman-screen.png"
-                gradientFrom={primaryColor}
-                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-                title="Merchandising System"
-                description="Mobile app to reduce retail stock-outs"
-                alt="Middleman app screenshot"
-                textColor={textColor}
-                onClick={() => setCurrentPage('middleman-case-study')}
-              />
-            </StaggerItem>
-            <StaggerItem>
-              <PhoneMockup
-                screenshot="/images/mockups/firstday-screen.png"
-                gradientFrom={primaryColor}
-                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-                title="FirstDay.Life"
-                description="AI-powered goal tracker. Shipped product"
-                alt="FirstDay.Life app screenshot"
-                textColor={textColor}
-                onClick={() => setCurrentPage('day-one-case-study')}
-              />
-            </StaggerItem>
-          </StaggerContainer>
+                  <button
+                    className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all hover:scale-105"
+                    style={{ backgroundColor: primaryColor, color: onPrimary }}
+                    onClick={() => setCurrentPage(PROJECTS[0].id)}
+                  >
+                    View {getProjectTypeLabel(PROJECTS[0].type)}
+                  </button>
+                </div>
+              </div>
+            </AnimateIn>
+          )}
+
+          {/* Remaining projects — 2-column grid */}
+          {PROJECTS.length > 1 && (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12" staggerDelay={0.15}>
+              {PROJECTS.slice(1).map((project) => (
+                <StaggerItem key={project.id}>
+                  <div className="relative">
+                    <span
+                      className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider"
+                      style={{
+                        backgroundColor: project.type === 'case-study' ? primaryColor : badgeBg,
+                        color: project.type === 'case-study' ? onPrimary : badgeText,
+                      }}
+                    >
+                      {getProjectTypeLabel(project.type)}
+                    </span>
+                    <PhoneMockup
+                      screenshot={project.screenshot}
+                      gradientFrom={primaryColor}
+                      gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                      title={project.title}
+                      description={project.description}
+                      deliverable={project.deliverable}
+                      alt={project.alt}
+                      textColor={textColor}
+                      secondaryTextColor={secondaryTextColor}
+                      onClick={() => setCurrentPage(project.id)}
+                      introVideoSrc={project.introVideoSrc}
+                    />
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          )}
         </div>
       </AnimateIn>
 
-      {/* ─── 5. RECOMMENDATIONS ─── */}
-      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
+      {/* 4. RECOMMENDATIONS */}
+      <AnimateIn direction="up" className="px-4 md:px-8 py-16 md:py-24">
         <div className="max-w-[90rem] mx-auto">
-          <h2
-            className="text-[28px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            RECOMMENDATIONS
-          </h2>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 md:gap-y-12" staggerDelay={0.1}>
-            {RECOMMENDATIONS.map((rec, i) => (
+          <div className="flex items-baseline gap-4 mb-10 md:mb-14">
+            <h2
+              className="text-[28px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
+            >
+              KIND WORDS
+            </h2>
+          </div>
+
+          {/* Featured quote — first rec gets special treatment */}
+          <AnimateIn direction="up" className="mb-12 md:mb-16">
+            <div
+              className="p-6 md:p-10 rounded-2xl relative"
+              style={{
+                backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)',
+                borderLeft: `4px solid ${primaryColor}`,
+              }}
+            >
+              <p className="text-xl md:text-2xl font-bold leading-relaxed mb-6" style={{ color: textColor }}>
+                &ldquo;{RECOMMENDATIONS[0].highlight}&rdquo;
+              </p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: secondaryTextColor }}>
+                {RECOMMENDATIONS[0].quote}
+              </p>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
+                  style={{ backgroundColor: primaryColor, color: onPrimary }}
+                >
+                  {RECOMMENDATIONS[0].initials}
+                </div>
+                <div>
+                  <p className="text-sm font-bold" style={{ color: textColor }}>{RECOMMENDATIONS[0].name}</p>
+                  <p className="text-xs" style={{ color: secondaryTextColor }}>{RECOMMENDATIONS[0].role}</p>
+                </div>
+              </div>
+            </div>
+          </AnimateIn>
+
+          {/* Remaining recs — compact cards */}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {RECOMMENDATIONS.slice(1).map((rec, i) => (
               <StaggerItem key={i}>
                 <div
-                  className="py-4 md:py-6"
-                  style={{ borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` }}
+                  className="p-5 rounded-xl h-full flex flex-col"
+                  style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)' }}
                 >
-                  <p className="text-base leading-relaxed mb-4" style={{ color: textColor }}>
-                    &ldquo;{rec.quote}&rdquo;
+                  <p className="text-base font-semibold leading-snug mb-4 flex-1" style={{ color: textColor }}>
+                    &ldquo;{rec.highlight}&rdquo;
                   </p>
-                  <p className="text-sm font-bold" style={{ color: textColor }}>
-                    {rec.name}
+                  <p className="text-xs leading-relaxed mb-4 line-clamp-3" style={{ color: secondaryTextColor }}>
+                    {rec.quote}
                   </p>
-                  <p className="text-sm" style={{ color: secondaryTextColor }}>
-                    {rec.role}
-                  </p>
+                  <div className="flex items-center gap-3 mt-auto">
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+                      style={{ backgroundColor: `${primaryColor}20`, color: primaryColor }}
+                    >
+                      {rec.initials}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold" style={{ color: textColor }}>{rec.name}</p>
+                      <p className="text-xs" style={{ color: secondaryTextColor }}>{rec.role}</p>
+                    </div>
+                  </div>
                 </div>
               </StaggerItem>
             ))}
@@ -419,23 +384,28 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </AnimateIn>
 
-      {/* ─── 6. GET IN TOUCH ─── */}
-      <AnimateIn direction="up" className="px-4 md:px-8 py-8 md:py-12">
-        <div className="max-w-md mx-auto">
+      {/* 5. GET IN TOUCH — with visual flair */}
+      <AnimateIn direction="up" className="px-4 md:px-8 py-16 md:py-24">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>
+            Let&apos;s collaborate
+          </p>
           <h2
-            className="text-[36px] md:text-[56px] mb-4 leading-none tracking-wider font-black text-center"
+            className="text-[32px] md:text-[48px] mb-4 leading-none tracking-wider font-black"
             style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
           >
             GET IN TOUCH
           </h2>
-          <p className="text-base mb-8 text-center" style={{ color: secondaryTextColor }}>
-            Have a project in mind? Let&apos;s talk.
+          <p className="text-base md:text-lg mb-10 max-w-md mx-auto" style={{ color: secondaryTextColor }}>
+            Have a project in mind? I&apos;d love to hear about it.
           </p>
-          <ContactForm />
+          <div className="max-w-md mx-auto">
+            <ContactForm />
+          </div>
         </div>
       </AnimateIn>
 
-      {/* ─── 7. FOOTER SPACER ─── */}
+      {/* 6. FOOTER SPACER */}
       <div className="h-[calc(60vh+50px)] md:h-[calc(70vh+50px)]" />
     </div>
   );

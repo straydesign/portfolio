@@ -3,8 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import { Download, Mail, ExternalLink } from 'lucide-react';
-
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page } from '@/data/projects';
 
 interface ResumeProps {
   setCurrentPage?: (page: Page) => void;
@@ -42,7 +41,7 @@ export default function Resume({ setCurrentPage }: ResumeProps) {
             </span>
           </div>
           <div className="mb-2 text-base" style={{ color: textColor }}>
-            <Mail size={16} className="inline mr-2" />tlsesler44@gmail.com
+            <Mail size={16} className="inline mr-2" />tom@straydesign.co
           </div>
           <div className="flex gap-3 flex-wrap mb-6">
             <a href="https://www.linkedin.com/in/tom-sesler/" target="_blank" rel="noopener noreferrer"

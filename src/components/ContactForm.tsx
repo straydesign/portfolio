@@ -125,7 +125,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
       {status === 'error' && (
         <div className="flex items-center gap-2 text-sm" style={{ color: '#ef4444' }}>
           <AlertTriangle className="w-4 h-4" />
-          Something went wrong. Try again or email tlsesler44@gmail.com directly.
+          Something went wrong. Try again or email tom@straydesign.co directly.
         </div>
       )}
 
@@ -140,7 +140,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
       </button>
 
       <p className="text-xs text-center" style={{ color: secondaryTextColor }}>
-        Or email directly at <a href="mailto:tlsesler44@gmail.com" style={{ color: primaryColor }}>tlsesler44@gmail.com</a>
+        Or email directly at <a href="mailto:tom@straydesign.co" style={{ color: primaryColor }}>tom@straydesign.co</a>
       </p>
     </form>
   );

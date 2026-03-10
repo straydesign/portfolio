@@ -8,6 +8,7 @@ import { colorMap } from '@/utils/cardStyles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Home from '@/components/Home';
+import { type Page, getPageFromPath, getPathFromPage, getDocumentTitle } from '@/data/projects';
 
 // Lazy-load heavy canvas animation — nothing to SSR (it's a <canvas>)
 const Waves = dynamic(() => import('@/components/Waves'), { ssr: false });
@@ -20,36 +21,6 @@ const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
 const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
 const Services = dynamic(() => import('@/components/Services'));
 const Work = dynamic(() => import('@/components/Work'));
-
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
-
-function getPageFromPath(pathname: string): Page {
-  const path = pathname.replace(/^\//, '');
-  switch (path) {
-    case 'about': return 'about';
-    case 'work': return 'work';
-    case 'resume': return 'resume';
-    case 'middleman': case 'middleman-case-study': return 'middleman-case-study';
-    case 'dayone': case 'day-one': case 'day-one-case-study': return 'day-one-case-study';
-    case 'doordash': case 'doordash-case-study': return 'doordash-case-study';
-    case 'services': return 'services';
-    default: return 'home';
-  }
-}
-
-function getPathFromPage(page: Page): string {
-  switch (page) {
-    case 'home': return '/';
-    case 'about': return '/about';
-    case 'work': return '/work';
-    case 'resume': return '/resume';
-    case 'middleman-case-study': return '/middleman';
-    case 'day-one-case-study': return '/dayone';
-    case 'doordash-case-study': return '/doordash';
-    case 'services': return '/services';
-    default: return '/';
-  }
-}
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -65,19 +36,7 @@ export default function App() {
       window.history.pushState({}, '', newPath);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Update document title for accessibility (WCAG 2.4.2)
-    const titles: Record<Page, string> = {
-      'home': 'Tom Sesler — Product Designer',
-      'about': 'About | Tom Sesler — Product Designer',
-      'work': 'Work | Tom Sesler — Product Designer',
-      'resume': 'Resume | Tom Sesler — Product Designer',
-      'middleman-case-study': 'Merchandising System Case Study | Tom Sesler',
-      'day-one-case-study': 'firstday.life Case Study | Tom Sesler',
-      'doordash-case-study': 'DoorDash UX Evaluation | Tom Sesler',
-      'services': 'Services | Tom Sesler',
-    };
-    document.title = titles[currentPage];
+    document.title = getDocumentTitle(currentPage);
   }, [currentPage]);
 
   useEffect(() => {

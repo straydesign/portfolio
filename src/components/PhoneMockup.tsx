@@ -1,14 +1,21 @@
 'use client';
 
+import { useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+
 interface PhoneMockupProps {
   screenshot: string;
   gradientFrom?: string;
   gradientTo?: string;
   title?: string;
   description?: string;
+  deliverable?: string;
   alt?: string;
   textColor?: string;
+  secondaryTextColor?: string;
   onClick?: () => void;
+  introVideoSrc?: string;
+  size?: 'default' | 'large';
 }
 
 export default function PhoneMockup({
@@ -17,41 +24,287 @@ export default function PhoneMockup({
   gradientTo = '#000000',
   title,
   description,
+  deliverable,
   alt = 'App screenshot',
   textColor,
+  secondaryTextColor,
   onClick,
+  introVideoSrc,
+  size = 'default',
 }: PhoneMockupProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 200, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 200, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const phoneWidth = size === 'large' ? 220 : 180;
+  const phoneHeight = size === 'large' ? 440 : 360;
+
   return (
     <div
-      className={`flex flex-col items-center ${onClick ? 'cursor-pointer transition-opacity hover:opacity-90' : ''}`}
+      className={`flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
       role={onClick ? 'link' : undefined}
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
     >
-      {/* Image on gradient */}
-      <div
-        className="w-full rounded-2xl overflow-hidden aspect-square max-h-[600px] flex items-center justify-center"
+      {/* Gradient backdrop with 3D phone */}
+      <motion.div
+        ref={containerRef}
+        className="w-full rounded-2xl overflow-hidden flex items-center justify-center relative"
         style={{
-          background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+          background: `linear-gradient(145deg, ${gradientFrom}18, ${gradientTo}30)`,
+          aspectRatio: size === 'large' ? '4/5' : '1/1',
+          perspective: '1000px',
+          rotateX,
+          rotateY,
         }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        <img
-          src={screenshot}
-          alt={alt}
-          className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-          loading="lazy"
+        {/* Subtle gradient orb behind the phone */}
+        <div
+          className="absolute rounded-full blur-3xl transition-all duration-500"
+          style={{
+            width: phoneWidth * 1.8,
+            height: phoneWidth * 1.8,
+            background: `radial-gradient(circle, ${gradientFrom}50, ${gradientFrom}20 50%, transparent 75%)`,
+            opacity: isHovered ? 0.55 : 0.2,
+            transform: `scale(${isHovered ? 1.1 : 1})`,
+          }}
         />
-      </div>
+
+        {/* Phone device */}
+        <motion.div
+          className="relative"
+          style={{ width: phoneWidth, height: phoneHeight }}
+          animate={{ y: isHovered ? -8 : 0 }}
+          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          {/* Drop shadow */}
+          <div
+            className="absolute -inset-4 rounded-full blur-3xl transition-all duration-500"
+            style={{
+              background: isHovered
+                ? `radial-gradient(ellipse, ${gradientFrom}15, rgba(0,0,0,0.35) 60%)`
+                : 'rgba(0, 0, 0, 0.3)',
+              transform: `translateY(${isHovered ? 20 : 12}px)`,
+              opacity: isHovered ? 0.6 : 0.3,
+            }}
+          />
+
+          {/* Phone bezel */}
+          <div
+            className="absolute inset-0 rounded-[28px] transition-shadow duration-500"
+            style={{
+              background: 'linear-gradient(145deg, #3a3a3a, #1a1a1a, #0a0a0a, #2a2a2a)',
+              boxShadow: isHovered
+                ? `
+                  inset 0 1px 0 rgba(255,255,255,0.2),
+                  inset 0 -1px 0 rgba(0,0,0,0.4),
+                  0 0 0 0.5px rgba(255,255,255,0.08),
+                  0 25px 60px rgba(0,0,0,0.5),
+                  0 0 30px ${gradientFrom}08
+                `
+                : `
+                  inset 0 1px 0 rgba(255,255,255,0.15),
+                  inset 0 -1px 0 rgba(0,0,0,0.4),
+                  0 0 0 0.5px rgba(255,255,255,0.06),
+                  0 20px 50px rgba(0,0,0,0.4)
+                `,
+            }}
+          />
+
+          {/* Side buttons */}
+          <div
+            className="absolute rounded-sm"
+            style={{
+              right: -2, top: '25%', width: 2, height: 30,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))',
+            }}
+          />
+          <div
+            className="absolute rounded-sm"
+            style={{
+              left: -2, top: '20%', width: 2, height: 20,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.03))',
+            }}
+          />
+          <div
+            className="absolute rounded-sm"
+            style={{
+              left: -2, top: '32%', width: 2, height: 36,
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03))',
+            }}
+          />
+
+          {/* Screen area */}
+          <div
+            className="absolute overflow-hidden"
+            style={{
+              top: 4, left: 4, right: 4, bottom: 4,
+              borderRadius: 24,
+              background: '#000',
+            }}
+          >
+            {/* App content — fills entire screen */}
+            <div className="absolute inset-0">
+              <img
+                src={screenshot}
+                alt={alt}
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+                style={{
+                  opacity: introVideoSrc && isHovered ? 0 : 1,
+                  transition: 'opacity 0.4s ease',
+                }}
+              />
+
+              {introVideoSrc && (
+                <video
+                  ref={videoRef}
+                  src={introVideoSrc}
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  muted
+                  playsInline
+                  loop
+                  style={{
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'opacity 0.4s ease',
+                  }}
+                />
+              )}
+            </div>
+
+            {/* Dynamic Island — overlaid on top of content */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+              style={{
+                top: 8,
+                width: 72,
+                height: 20,
+                borderRadius: 10,
+                background: '#000',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                zIndex: 10,
+              }}
+            >
+              <div
+                className="absolute top-1/2 -translate-y-1/2"
+                style={{
+                  right: 14,
+                  width: 7,
+                  height: 7,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle at 35% 35%, #2a2a4e, #0a0a15)',
+                  boxShadow: 'inset 0 0.5px 1px rgba(255,255,255,0.15)',
+                }}
+              />
+            </div>
+
+            {/* Reflection sweep */}
+            <div
+              className="absolute inset-0 pointer-events-none transition-opacity duration-700"
+              style={{
+                background: `linear-gradient(
+                  120deg,
+                  transparent 0%,
+                  transparent 30%,
+                  rgba(255,255,255,0.08) 45%,
+                  rgba(255,255,255,0.18) 50%,
+                  rgba(255,255,255,0.08) 55%,
+                  transparent 70%,
+                  transparent 100%
+                )`,
+                transform: isHovered ? 'translateX(100%)' : 'translateX(-100%)',
+                transition: 'transform 0.8s ease-in-out, opacity 0.3s',
+                opacity: isHovered ? 1 : 0,
+                zIndex: 11,
+              }}
+            />
+
+            {/* Top glass sheen */}
+            <div
+              className="absolute top-0 left-0 right-0 pointer-events-none"
+              style={{
+                height: '25%',
+                background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
+                zIndex: 11,
+              }}
+            />
+
+            {/* Home indicator bar */}
+            <div
+              className="absolute bottom-1.5 left-1/2 -translate-x-1/2 pointer-events-none"
+              style={{
+                width: phoneWidth * 0.35,
+                height: 4,
+                borderRadius: 2,
+                background: 'rgba(255,255,255,0.25)',
+                zIndex: 11,
+              }}
+            />
+
+            {/* Inner screen edge glow */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                borderRadius: 24,
+                boxShadow: 'inset 0 0 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04)',
+                zIndex: 12,
+              }}
+            />
+          </div>
+
+          {/* Top bezel highlight */}
+          <div
+            className="absolute top-0 left-1/4 right-1/4 h-px"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)' }}
+          />
+        </motion.div>
+      </motion.div>
 
       {/* Title & description */}
       {(title || description) && (
-        <div className="w-full mt-4" style={textColor ? { color: textColor } : undefined}>
+        <div className="w-full mt-5" style={textColor ? { color: textColor } : undefined}>
           {title && (
-            <p className="text-base md:text-lg font-bold">{title}</p>
+            <p className="text-base md:text-lg font-bold tracking-tight">{title}</p>
           )}
           {description && (
-            <p className="text-sm mt-1 opacity-70">{description}</p>
+            <p className="text-sm mt-1.5 leading-relaxed" style={{ color: secondaryTextColor || textColor, opacity: secondaryTextColor ? 1 : 0.65 }}>{description}</p>
+          )}
+          {deliverable && (
+            <p className="text-xs mt-2 font-semibold uppercase tracking-wider" style={{ color: secondaryTextColor || textColor, opacity: 0.5 }}>{deliverable}</p>
           )}
         </div>
       )}

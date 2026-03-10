@@ -1,4 +1,4 @@
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page } from '@/data/projects';
 
 type Lane = 'portfolio' | 'services';
 

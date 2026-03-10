@@ -117,7 +117,7 @@ export default function RootLayout({
           "Professional web design and development services in Erie, PA. Custom websites, UX/UI design, SEO, and digital marketing for local businesses.",
         url: "https://straydesign.co",
         telephone: "+1-814-964-0081",
-        email: "tlsesler44@gmail.com",
+        email: "tom@straydesign.co",
         priceRange: "$$",
         image: "https://straydesign.co/images/about-photo.jpg",
         areaServed: [
@@ -187,7 +187,7 @@ export default function RootLayout({
           "Professional web designer in Erie, PA — from ethnographic field research to interactive prototypes to live products.",
         url: "https://straydesign.co",
         sameAs: ["https://www.linkedin.com/in/tom-sesler/"],
-        email: "tlsesler44@gmail.com",
+        email: "tom@straydesign.co",
         telephone: "+1-814-964-0081",
         knowsAbout: [
           "Web Design",

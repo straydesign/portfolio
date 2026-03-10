@@ -3,8 +3,10 @@
 import { useTheme } from '@/context/ThemeContext';
 import * as cardStyles from '@/utils/cardStyles';
 import MiddlemanLogo from './MiddlemanLogo';
-import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target, AlertTriangle, CheckCircle, Zap } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target } from 'lucide-react';
 import LiteYouTube from './LiteYouTube';
+import PhoneMockup from './PhoneMockup';
+import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 
 interface MiddlemanCaseStudyProps {
   onBack: () => void;
@@ -14,9 +16,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
+  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
 
-  const statBg = theme === 'dark' ? '#000000' : 'rgba(0, 0, 0, 0.03)';
-  const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
+  const statBg = theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0, 0, 0, 0.03)';
+  const divider = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'}`;
+  const videoBorder = `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`;
 
   return (
     <div className="min-h-screen">
@@ -36,228 +40,191 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </a>
         </div>
 
-        {/* PROJECT OVERVIEW */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <div className="flex items-center gap-4 mb-4">
-            <h1 className="text-3xl md:text-5xl font-bold" style={{ color: primaryColor }}>MERCHANDISING SYSTEM</h1>
-            <MiddlemanLogo color={primaryColor} className="w-16 md:w-20 h-auto" />
-          </div>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>PROJECT OVERVIEW</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>CUSTOMER</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Beer route merchandisers managing 6-12 stores per day across rural/suburban territories</p>
+        {/* HERO */}
+        <div className="min-h-[80vh] flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
+          <AnimateIn direction="up">
+            <div className="flex items-center gap-4 mb-3">
+              <MiddlemanLogo color={primaryColor} className="w-12 md:w-16 h-auto" />
+              <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Project</p>
             </div>
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>PROBLEM</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Existing merchandising apps are slow and cumbersome, taking 45+ min per store. Lack visibility into backstock and what to pull to prevent stockouts.</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>HYPOTHESIS</h3>
-              <p className="text-base md:text-lg font-bold" style={{ color: primaryColor }}>Could reduce time per store from 45 min to 15 min | Cut stockouts by 60% | Increase backstock pull accuracy to 85%+</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>MY ROLE</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Solo UX Designer & Researcher. Problem definition, user research, IA, interaction design, prototyping (10+ iterations)</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>TOOLS</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>Figma (wireframes to hi-fi), Field experience as merchandiser, Task analysis</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-bold mb-2 opacity-70" style={{ color: textColor }}>TIMEFRAME</h3>
-              <p className="text-base md:text-lg" style={{ color: textColor }}>3 months (Concept to high-fidelity interactive prototype)</p>
-            </div>
-          </div>
-          <LiteYouTube
-            videoId="TQagpOFdQpM"
-            title="Merchandising System Demo"
-            borderColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}
-          />
-        </div>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>MERCHANDISING SYSTEM</h1>
+            <p className="text-lg md:text-xl mb-10 max-w-2xl leading-relaxed" style={{ color: secondaryTextColor }}>
+              You walk into a store cold. No list. No plan. Just your memory and a cardboard tally sheet.
+            </p>
+          </AnimateIn>
 
-        {/* THE MOMENT */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE MOMENT</h2>
-          <p className="text-base md:text-lg mb-4 leading-relaxed" style={{ color: textColor, opacity: 0.8 }}>
-            In beverage distribution, merchandisers visit retail stores daily to restock shelves from backroom inventory. The job is physical, fast-paced, and done across 6–12 stores per shift.
-          </p>
-          <p className="text-lg md:text-xl leading-relaxed" style={{ color: textColor }}>
-            The sales side has ordering software, but merchandisers never touch it. The actual in-store work, deciding what to pull from the backroom, in what priority, is still pen, cardboard, and manual counting with no data to guide decisions.
-          </p>
-        </div>
-
-        {/* RESEARCH & DISCOVERY */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>RESEARCH & DISCOVERY</h2>
-          <p className="text-lg md:text-xl mb-6 leading-relaxed font-bold" style={{ color: primaryColor }}>
-            A year as a merchandiser. 6–12 stores per day. Every pain point is firsthand.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" staggerDelay={0.06}>
             {[
-              { note: 'Spent 10+ minutes counting backstock in walk-in coolers. No way to know what was already on shelf without walking back and forth', label: 'FIELD OBSERVATION' },
-              { note: 'Pulled wrong SKU twice in one store because the existing app shows product names but not shelf locations or photos', label: 'ERROR PATTERN' },
-              { note: 'Coworkers kept personal spreadsheets of what each store needed because the company tools were too slow to reference in-aisle', label: 'WORKAROUND BEHAVIOR' },
-              { note: 'Store managers would flag stockouts verbally at check-in. No system captured this, so the same products stayed out of stock for weeks', label: 'COMMUNICATION GAP' },
-            ].map(({ note, label }) => (
-              <div key={label} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-                <p className="text-xs font-bold mb-2 tracking-wider" style={{ color: primaryColor }}>{label}</p>
-                <p className="text-sm md:text-base leading-relaxed" style={{ color: textColor }}>{note}</p>
-              </div>
+              { label: 'CUSTOMER', value: 'Beer merchandisers (6-12 stores/day)' },
+              { label: 'THE PAIN', value: '45+ min per store guessing what to restock' },
+              { label: 'MY ROLE', value: 'Solo designer \u2014 also worked as a merchandiser' },
+              { label: 'TIMEFRAME', value: '3 months to hi-fi prototype' },
+            ].map(({ label, value }) => (
+              <StaggerItem key={label}>
+                <div>
+                  <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
+                  <p className="text-sm" style={{ color: textColor }}>{value}</p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-            <p className="text-sm" style={{ color: textColor, opacity: 0.7 }}>
-              <strong>Method:</strong> Ethnographic field research. I was the user. These observations come from daily work across 15+ retail accounts over a year, not from interviews conducted after the fact.
+          </StaggerContainer>
+
+          <AnimateIn direction="up" delay={0.3}>
+            <LiteYouTube
+              videoId="TQagpOFdQpM"
+              title="Merchandising System Demo"
+              borderColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)'}
+            />
+          </AnimateIn>
+        </div>
+
+        {/* THE DAILY PAIN */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <div className="p-6 md:p-10 rounded-2xl mb-8" style={{ backgroundColor: statBg, borderLeft: `4px solid ${primaryColor}` }}>
+            <p className="text-xl md:text-3xl leading-relaxed font-bold" style={{ color: textColor }}>
+              Sales reps have ordering software. The person restocking shelves has <span style={{ color: primaryColor }}>pen, cardboard, and guesswork.</span>
             </p>
           </div>
-        </div>
-
-        {/* COMPETITIVE LANDSCAPE */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>COMPETITIVE LANDSCAPE</h2>
-          <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: textColor }}>
-            Existing tools like VIP, Repsly, and distributor-built apps focus on order entry and delivery confirmation. None address the in-store merchandising workflow — what to pull from backstock, in what order, based on what's actually selling.
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { tool: 'VIP / Encompass', gap: 'Order-focused. No backstock visibility. Merchandisers use it for ordering, not in-store work.' },
-              { tool: 'Repsly', gap: 'Audit and compliance tool. Takes photos of shelves but doesn\'t tell you what to pull or prioritize.' },
-              { tool: 'Internal tools', gap: 'Spreadsheets and paper lists. Updated weekly at best. No real-time POS data integration.' },
-            ].map(({ tool, gap }) => (
-              <div key={tool} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-                <p className="text-base font-bold mb-2" style={{ color: primaryColor }}>{tool}</p>
-                <p className="text-sm leading-relaxed" style={{ color: textColor }}>{gap}</p>
+              "You can\u2019t see what\u2019s in backstock without walking to the cooler",
+              "You can\u2019t see what\u2019s about to run out until it already has",
+              "You spend 45 minutes per store on work the app should do for you",
+            ].map((pain, i) => (
+              <div key={i} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
+                <p className="text-base" style={{ color: textColor }}>{pain}</p>
               </div>
             ))}
           </div>
-        </div>
+        </AnimateIn>
 
-        {/* THE PROBLEM */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE PROBLEM</h2>
-          <p className="text-lg md:text-xl mb-8 leading-relaxed font-bold" style={{ color: textColor }}>In-store decisions are slow and based on guesswork:</p>
-          <div className="space-y-3">
-            {['You cannot quickly see what is in backstock', 'You cannot quickly see what is about to stock out', 'So you waste time and still miss pulls'].map(t => (
-              <div key={t} className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: primaryColor }} />
-                <p className="text-base md:text-lg" style={{ color: textColor }}>{t}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* TARGETS */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-4" style={{ color: primaryColor }}>DESIGN HYPOTHESIS</h2>
-          <p className="text-base md:text-lg mb-8 leading-relaxed" style={{ color: textColor }}>
-            If the app surfaces real-time POS data and generates prioritized pull lists, then:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* THE APP — core flow */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The App</p>
+          <p className="text-xl md:text-2xl font-bold mb-10" style={{ color: textColor }}>Three screens. One workflow. Zero guesswork.</p>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" staggerDelay={0.12}>
             {[
-              { icon: Clock, label: 'TIME PER STORE', value: '45 min → 15 min' },
+              { src: '/images/carousel/mm-dashboard.mp4', label: 'Pick your store', desc: 'Walk in knowing exactly what to do.' },
+              { src: '/images/carousel/mm-stock.mp4', label: 'See the pull list', desc: 'The backroom list is ready before you open the door.' },
+              { src: '/images/carousel/mm-orders.mp4', label: 'Confirm & move on', desc: 'Mark it done. Next store. What was 45 minutes is now 15.' },
+            ].map(({ src, label, desc }, i) => (
+              <StaggerItem key={i}>
+                <div className="text-center">
+                  <div className="mb-4">
+                    <video
+                      src={src}
+                      className="w-full rounded-2xl"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      aria-label={label}
+                      style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+                    />
+                  </div>
+                  <p className="text-base font-bold" style={{ color: primaryColor }}>{label}</p>
+                  <p className="text-sm mt-1" style={{ color: secondaryTextColor }}>{desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* Supporting features */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4" staggerDelay={0.08}>
+            {[
+              { src: '/images/carousel/mm-route.mp4', label: 'Your day, mapped out' },
+              { src: '/images/carousel/mm-store-switch.mp4', label: 'Always know where you are' },
+              { src: '/images/carousel/mm-nav-flow.mp4', label: 'Every screen, connected' },
+            ].map(({ src, label }, i) => (
+              <StaggerItem key={i}>
+                <div className="text-center">
+                  <video
+                    src={src}
+                    className="w-full rounded-xl"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    aria-label={label}
+                    style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+                  />
+                  <p className="text-xs font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </AnimateIn>
+
+        {/* THE IDEA — phone mockup */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Idea</p>
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div className="md:w-1/2">
+              <p className="text-2xl md:text-4xl font-bold mb-6 leading-tight" style={{ color: primaryColor }}>
+                Tell me what to pull first. Everything else is secondary.
+              </p>
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                {['1. Pick store', '2. Pull list', '3. Confirm & go'].map((step) => (
+                  <div key={step} className="text-center p-4 rounded-xl" style={{ backgroundColor: statBg }}>
+                    <p className="text-sm font-bold" style={{ color: primaryColor }}>{step}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+                Open the app. See what to pull. Do the work.
+              </p>
+            </div>
+            <div className="md:w-1/2">
+              <PhoneMockup
+                screenshot="/images/mockups/middleman-screen.png"
+                gradientFrom={primaryColor}
+                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
+                alt="Middleman app home screen"
+                introVideoSrc="/videos/middleman-intro.mp4"
+                size="large"
+              />
+            </div>
+          </div>
+        </AnimateIn>
+
+        {/* BY THE NUMBERS */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Hypothesis</p>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {[
+              { icon: Clock, label: 'TIME PER STORE', value: '45 min \u2192 15 min' },
               { icon: TrendingUp, label: 'STOCKOUTS', value: 'Down 60%' },
               { icon: Target, label: 'PULL ACCURACY', value: '85%+' },
             ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="text-center p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-                <Icon className="w-8 h-8 mx-auto mb-3" style={{ color: primaryColor }} />
-                <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: textColor, opacity: 0.7 }}>{label}</p>
-                <p className="text-lg md:text-xl font-bold" style={{ color: primaryColor }}>{value}</p>
-                <p className="text-xs mt-1" style={{ color: textColor, opacity: 0.5 }}>untested hypothesis</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* DESIGN PROCESS */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>DESIGN PROCESS</h2>
-          <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: textColor }}>
-            10+ iterations across 3 months. Each round was informed by the field observations above. I was still working as a merchandiser during the design process, testing mental models against real shifts.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {[
-              { phase: 'TASK ANALYSIS', desc: 'Mapped the actual merchandiser workflow across a full shift: arrive → check backroom → count shelf → decide pulls → restock → confirm → next store' },
-              { phase: 'LOW-FI WIREFRAMES', desc: 'Paper sketches testing two IA approaches: store-first (select store, see pull list) vs. product-first (see all low-stock items across stores)' },
-              { phase: 'MID-FI PROTOTYPE', desc: 'Figma flows testing the store-first approach, which matched the physical workflow better. Iterated on information density for quick in-aisle scanning' },
-              { phase: 'HI-FI INTERACTIVE', desc: 'Full interactive prototype with component system, real data patterns, and the 3-step core flow: pick store → pull list → confirm pulled' },
-            ].map(({ phase, desc }) => (
-              <div key={phase} className="p-4 rounded-xl" style={{ backgroundColor: statBg }}>
-                <p className="text-xs font-bold mb-2 tracking-wider" style={{ color: primaryColor }}>{phase}</p>
-                <p className="text-sm leading-relaxed" style={{ color: textColor }}>{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* THE IDEA */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>THE IDEA</h2>
-          <p className="text-2xl md:text-3xl font-bold mb-8" style={{ color: primaryColor }}>
-            Tell me what to pull first.<br />Everything else is secondary.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {['1. Pick store', '2. Pull list', '3. Confirm pulled'].map((step) => (
-              <div key={step} className="text-center">
-                <div className="text-xl font-bold" style={{ color: primaryColor }}>{step}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* TWO CHOICES THAT MATTER */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>TWO CHOICES THAT MATTER</h2>
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: primaryColor }}>Keep the store visible at all times</h3>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>So you do not do the right work in the wrong store.</p>
-            </div>
-            <div>
-              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: primaryColor }}>Put actions before stats</h3>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>Because the job is movement, not analysis.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* WHAT IS REAL VS WHAT IS NEXT */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16" style={{ borderBottom: divider }}>
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-8" style={{ color: primaryColor }}>WHAT IS REAL VS WHAT IS NEXT</h2>
-          <div className="space-y-6">
-            {[
-              { icon: CheckCircle, title: 'Real', desc: 'Built from a year of daily merchandising across 15+ stores. Every pain point and workflow observed firsthand' },
-              { icon: AlertTriangle, title: 'Not proven yet', desc: 'The exact time savings and accuracy numbers' },
-              { icon: Zap, title: 'Next', desc: 'Test with 8 to 10 merchandisers, then a 2 week pilot' },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="flex items-start gap-3">
-                <Icon className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: primaryColor }} />
-                <div>
-                  <p className="text-base md:text-lg font-bold mb-1" style={{ color: textColor }}>{title}</p>
-                  <p className="text-base md:text-lg" style={{ color: textColor, opacity: 0.8 }}>{desc}</p>
+              <StaggerItem key={label}>
+                <div className="text-center p-6 rounded-2xl" style={{ backgroundColor: statBg }}>
+                  <Icon className="w-8 h-8 mx-auto mb-3" style={{ color: primaryColor }} />
+                  <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
+                  <p className="text-xl md:text-2xl font-bold" style={{ color: primaryColor }}>{value}</p>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </AnimateIn>
 
-        {/* NEXT STEPS */}
-        <div className="min-h-screen flex flex-col justify-center py-12 md:py-16">
-          <h2 className="text-sm md:text-base font-bold tracking-widest mb-6" style={{ color: primaryColor }}>NEXT STEPS</h2>
-          <div className="space-y-4">
-            {[
-              { bold: 'User validation:', text: 'Conduct usability testing with 8-10 merchandisers to validate assumptions and measure task completion rates' },
-              { bold: 'Pilot implementation:', text: 'Partner with one distributor to build MVP and deploy with 5-10 merchandisers for 2-week field trial' },
-              { bold: 'Success metrics:', text: 'Track actual time per store, stockout frequency, backstock pull accuracy, and merchandiser satisfaction over 3 months' },
-              { bold: 'AI-powered forecasting:', text: 'Explore predictive ordering using historical sales patterns and seasonal trends' },
-              { bold: 'Route optimization:', text: 'Add intelligent route planning based on store urgency and proximity' },
-            ].map(({ bold, text }) => (
-              <div key={bold} className="flex items-start gap-3">
-                <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: primaryColor }} />
-                <p className="text-base md:text-lg" style={{ color: textColor }}><strong>{bold}</strong> {text}</p>
-              </div>
-            ))}
+        {/* TWO KEY DECISIONS */}
+        <AnimateIn direction="up" className="py-16 md:py-24">
+          <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>Two Key Decisions</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="p-6 rounded-2xl" style={{ backgroundColor: statBg, borderLeft: `4px solid ${primaryColor}` }}>
+              <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Never lose your place</p>
+              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+                The current store stays pinned on every screen &mdash; so you never pull product for the wrong account.
+              </p>
+            </div>
+            <div className="p-6 rounded-2xl" style={{ backgroundColor: statBg, borderLeft: `4px solid ${primaryColor}` }}>
+              <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Actions before analytics</p>
+              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+                The job is movement, not analysis. Pull lists come first. Reports come after the shift.
+              </p>
+            </div>
           </div>
-        </div>
+        </AnimateIn>
       </div>
       <div className="h-[calc(60vh+50px)] md:h-[calc(70vh+50px)]" />
     </div>

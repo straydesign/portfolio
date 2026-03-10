@@ -60,3 +60,10 @@ export const getDividerColor = (theme: Theme): string =>
 
 export const getChipBackground = (theme: Theme): string =>
   theme === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)';
+
+/** Text/icon color to use ON TOP of primaryColor background */
+export const getOnPrimaryColor = (accentColor: AccentColor, theme: Theme): string => {
+  if (accentColor === 'bw') return theme === 'dark' ? '#000000' : '#ffffff';
+  if (accentColor === 'yellow' || accentColor === 'tan') return '#000000';
+  return '#ffffff';
+};

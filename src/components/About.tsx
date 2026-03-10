@@ -90,7 +90,7 @@ const CURRENT_FAVORITES = [
   { title: 'Extreme Ownership', desc: 'Leaders take full responsibility for outcomes, good or bad. In the workplace, it is so common for things to be pushed around--take responsibility for more than just your part.' },
 ];
 
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page } from '@/data/projects';
 
 interface AboutProps {
   setCurrentPage?: (page: Page) => void;
@@ -99,6 +99,7 @@ interface AboutProps {
 export default function About({ setCurrentPage }: AboutProps) {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
+  const onPrimary = cardStyles.getOnPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const [activeBookIndex, setActiveBookIndex] = useState<number | null>(null);
@@ -525,7 +526,7 @@ export default function About({ setCurrentPage }: AboutProps) {
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
               style={{
                 backgroundColor: primaryColor,
-                color: '#ffffff',
+                color: onPrimary,
                 boxShadow: `0 4px 24px ${primaryColor}30`,
               }}
             >

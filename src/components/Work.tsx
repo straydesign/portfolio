@@ -5,47 +5,8 @@ import * as cardStyles from '@/utils/cardStyles';
 import PhoneMockup from './PhoneMockup';
 import ContactForm from './ContactForm';
 import Carousel from './Carousel';
-
-const CAROUSEL_ITEMS = [
-  { src: '/images/carousel/mm-login.mp4', alt: 'Middleman login flow' },
-  { src: '/images/carousel/fd-landing.mp4', alt: 'FirstDay landing page' },
-  { src: '/images/carousel/mm-dashboard.mp4', alt: 'Middleman dashboard overview' },
-  { src: '/images/carousel/fd-login.mp4', alt: 'FirstDay login flow' },
-  { src: '/images/carousel/mm-orders.mp4', alt: 'Middleman orders tab' },
-  { src: '/images/carousel/fd-goal-create.mp4', alt: 'FirstDay goal creation + plan generation' },
-  { src: '/images/carousel/mm-stock.mp4', alt: 'Middleman stock management' },
-  { src: '/images/carousel/fd-calendar.mp4', alt: 'FirstDay calendar + day view' },
-  { src: '/images/carousel/mm-store-switch.mp4', alt: 'Middleman store switcher' },
-  { src: '/images/carousel/fd-complete-day.mp4', alt: 'FirstDay completing activities' },
-  { src: '/images/carousel/mm-route.mp4', alt: 'Middleman route map' },
-  { src: '/images/carousel/fd-achievements.mp4', alt: 'FirstDay achievements + stats' },
-  { src: '/images/carousel/mm-nav-flow.mp4', alt: 'Middleman tab navigation' },
-  { src: '/images/carousel/mm-settings.mp4', alt: 'Middleman settings' },
-];
-
-const PROJECTS = [
-  {
-    title: 'DOORDASH DASHER APP',
-    description: 'Ethnographic UX research across 1,000+ deliveries with five redesign proposals.',
-    deliverable: 'Heuristic evaluation + 5 redesign concepts',
-    screenshot: '/images/mockups/doordash-screen.png',
-    alt: 'DoorDash Dasher app screenshot',
-  },
-  {
-    title: 'MERCHANDISING SYSTEM',
-    description: 'Mobile app design to reduce retail stock-outs using real-time POS data.',
-    deliverable: 'Full design system + interactive Figma prototype',
-    screenshot: '/images/mockups/middleman-screen.png',
-    alt: 'Middleman app screenshot',
-  },
-  {
-    title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
-    deliverable: 'Live shipped product + Apple-native design',
-    screenshot: '/images/mockups/firstday-screen.png',
-    alt: 'FirstDay.Life app screenshot',
-  },
-];
+import { PROJECTS } from '@/data/projects';
+import { CAROUSEL_ITEMS } from '@/data/carousel';
 
 export default function Work() {
   const { theme, accentColor } = useTheme();
@@ -90,7 +51,7 @@ export default function Work() {
             <video
               key={item.src}
               src={item.src}
-              className="h-48 md:h-64 w-48 md:w-64 rounded-lg object-cover aspect-square"
+              className="h-44 md:h-56 w-44 md:w-56 rounded-xl object-cover aspect-square shadow-lg transition-transform duration-300 hover:scale-[1.03]"
               autoPlay
               loop
               muted
@@ -106,7 +67,7 @@ export default function Work() {
         <div className="max-w-5xl mx-auto">
           {PROJECTS.map((project, i) => (
             <div
-              key={project.title}
+              key={project.id}
               className="mb-16 md:mb-20 last:mb-0"
               style={{ borderBottom: i < PROJECTS.length - 1 ? `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}` : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
             >
@@ -125,6 +86,7 @@ export default function Work() {
                   gradientFrom={primaryColor}
                   gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
                   alt={project.alt}
+                  introVideoSrc={project.introVideoSrc}
                 />
               </div>
             </div>

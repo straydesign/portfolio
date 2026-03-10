@@ -5,8 +5,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone, X } from 'lucide-react';
 import ContactForm from './ContactForm';
-
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page } from '@/data/projects';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;
@@ -65,7 +64,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
   const socialLinks = [
     { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
     { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
-    { icon: Mail, label: 'Email', href: 'mailto:tlsesler44@gmail.com', external: false },
+    { icon: Mail, label: 'Email', href: 'mailto:tom@straydesign.co', external: false },
   ];
 
   return (

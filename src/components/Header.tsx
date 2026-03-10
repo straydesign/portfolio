@@ -5,8 +5,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import type { AccentColor, Theme } from '@/utils/cardStyles';
 import { Menu, X } from 'lucide-react';
-
-type Page = 'home' | 'about' | 'work' | 'resume' | 'middleman-case-study' | 'day-one-case-study' | 'doordash-case-study' | 'services';
+import { type Page } from '@/data/projects';
 
 interface HeaderProps {
   currentPage: Page;

@@ -256,6 +256,7 @@ function FeatureBadges({
 export default function Services() {
   const { theme, accentColor } = useTheme();
   const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
+  const onPrimary = cardStyles.getOnPrimaryColor(accentColor, theme);
   const textColor = cardStyles.getTextColor(theme);
   const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
 
@@ -289,7 +290,7 @@ export default function Services() {
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
               style={{
                 backgroundColor: primaryColor,
-                color: accentColor === 'yellow' || accentColor === 'tan' ? '#000' : accentColor === 'bw' && theme === 'dark' ? '#000' : '#fff',
+                color: onPrimary,
                 boxShadow: `0 4px 24px ${primaryColor}30`,
               }}
             >
@@ -365,17 +366,17 @@ export default function Services() {
             <StaggerItem>
               <PricingCard name="STARTER" price="$997" subtitle="Up to 5 pages. Perfect for small service businesses."
                 features={[{ label: 'Up to 5 pages' }, { label: 'All standard features included' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
+                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="PROFESSIONAL" price="$1,997" subtitle="Up to 12 pages. Built to convert walk-in traffic." featured
                 features={[{ label: 'Up to 12 pages' }, { label: 'CMS for self-editing' }, { label: 'AI chatbot' }, { label: 'Blog section' }, { label: 'Content strategy' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
+                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="CUSTOM" price="$2,997" subtitle="Unlimited pages. E-commerce, ads, and integrations."
                 features={[{ label: 'Unlimited pages' }, { label: 'E-commerce or booking' }, { label: 'Third-party integrations' }, { label: 'Optional: AI chatbot' }, { label: 'Optional: AI email marketing' }, { label: 'Optional: Meta ads setup' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
+                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
             </StaggerItem>
           </StaggerContainer>
         </AnimateIn>
@@ -392,12 +393,12 @@ export default function Services() {
             <StaggerItem>
               <PricingCard name="HOSTING & MAINTENANCE" price="$50" periodLabel="/mo" subtitle="Hosting, SSL, backups, monitoring, bug fixes."
                 features={[{ label: 'Managed hosting + SSL' }, { label: 'Monthly backups' }, { label: '24/7 error monitoring' }, { label: 'Automatic bug fixes' }, { label: 'Uptime monitoring' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
+                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="MARKETING" price="$497" periodLabel="/mo" subtitle="Ads, analytics, and strategy."
                 features={[{ label: 'Google + Meta ad management' }, { label: 'Campaign strategy' }, { label: 'Monthly performance reports' }, { label: 'Conversion tracking' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onCtaClick={scrollToContact} />
+                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
             </StaggerItem>
           </StaggerContainer>
         </AnimateIn>
