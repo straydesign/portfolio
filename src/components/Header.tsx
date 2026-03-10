@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { colorMap } from '@/utils/cardStyles';
 import type { AccentColor, Theme } from '@/utils/cardStyles';
@@ -34,6 +34,35 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
   const { theme, accentColor } = useTheme();
   const headerTextColor = getHeaderTextColor(accentColor, theme);
 
+  const navRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
+  const [pillReady, setPillReady] = useState(false);
+
+  const updatePill = useCallback(() => {
+    const activeButton = buttonRefs.current.get(currentPage);
+    const container = navRef.current;
+    if (!activeButton || !container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = activeButton.getBoundingClientRect();
+
+    setPillStyle({
+      left: buttonRect.left - containerRect.left,
+      width: buttonRect.width,
+    });
+    setPillReady(true);
+  }, [currentPage]);
+
+  useEffect(() => {
+    updatePill();
+  }, [updatePill]);
+
+  useEffect(() => {
+    window.addEventListener('resize', updatePill);
+    return () => window.removeEventListener('resize', updatePill);
+  }, [updatePill]);
+
   const handleNavClick = useCallback((itemId: string) => {
     if (itemId === 'home') {
       setCurrentPage('home');
@@ -58,14 +87,30 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: `linear-gradient(to bottom, ${fadeBg} 0%, ${fadeBg} 50%, transparent 100%)` }}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-3 lg:gap-6">
+          <div ref={navRef} className="hidden md:flex items-center gap-3 lg:gap-6 relative">
+            {/* Sliding pill indicator */}
+            {pillReady && (
+              <div
+                className="absolute top-0 rounded-full border-2 pointer-events-none"
+                style={{
+                  borderColor: headerTextColor,
+                  left: pillStyle.left,
+                  width: pillStyle.width,
+                  height: '100%',
+                  transition: 'left 0.6s cubic-bezier(0.4, 0, 0.2, 1), width 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+              />
+            )}
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
+                ref={(el) => {
+                  if (el) buttonRefs.current.set(item.id, el);
+                }}
                 onClick={() => handleNavClick(item.id)}
                 className="px-3 py-1 border-2 rounded-full"
                 style={{
-                  borderColor: isActive(item.id) ? headerTextColor : 'transparent',
+                  borderColor: 'transparent',
                   color: headerTextColor,
                 }}
               >

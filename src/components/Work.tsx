@@ -111,7 +111,7 @@ export default function Work() {
       </div>
 
       {/* Bottom spacer */}
-      <div className="h-[calc(60vh+50px)] md:h-[calc(70vh+50px)]" />
+      <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
     </div>
   );
 }
