@@ -175,18 +175,35 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
 
         {/* THE LIVE PRODUCT */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Live Product</p>
-          <div className="flex justify-center mb-10">
-            <div>
-              <p className="text-xs font-bold mb-3 text-center" style={{ color: secondaryTextColor }}>MOBILE</p>
-              <PhoneMockup
-                screenshot="/images/firstday/firstday-screen.png"
-                gradientFrom={primaryColor}
-                gradientTo={theme === 'dark' ? '#000000' : '#1a1a1a'}
-                alt="FirstDay.Life mobile app"
-              />
-            </div>
-          </div>
+          <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Live Product</p>
+          <p className="text-xl md:text-2xl font-bold mb-10" style={{ color: textColor }}>
+            Every screen polished, every interaction considered.
+          </p>
+
+          {/* App Screens Showcase */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12" staggerDelay={0.08}>
+            {[
+              { src: '/images/firstday/goal-creation.png', label: 'Set your goal' },
+              { src: '/images/firstday/loading-screen.png', label: 'AI builds your plan' },
+              { src: '/images/firstday/calendar-view.png', label: 'Your 30-day calendar' },
+              { src: '/images/firstday/day-view.png', label: 'Daily activities' },
+              { src: '/images/firstday/congrats-view.png', label: 'Celebrate wins' },
+            ].map(({ src, label }) => (
+              <StaggerItem key={label}>
+                <div className="text-center">
+                  <ImageWithSkeleton
+                    src={src}
+                    alt={label}
+                    className="w-full rounded-2xl"
+                    style={{ border: imgBorder }}
+                  />
+                  <p className="text-xs font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          {/* Desktop views */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
               <p className="text-xs font-bold mb-3 text-center" style={{ color: secondaryTextColor }}>DESKTOP</p>
