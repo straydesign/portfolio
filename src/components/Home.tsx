@@ -23,6 +23,7 @@ const RECOMMENDATIONS = [
     name: 'Kurt Simione',
     role: 'TechxRev, Client',
     initials: 'KS',
+    href: 'https://techxrev.com',
   },
   {
     quote: 'I had the pleasure of teaching Tom Sesler in both Financial and Managerial Accounting, where he consistently stood out as a top student\u2014earning close to a perfect in each course. What impressed me most was not just Tom\u2019s mastery of the material, but his ability to connect concepts and apply them thoughtfully to real business situations. He was an active participant in class discussions, often raising insightful questions and offering perspectives that pushed conversations deeper. Tom was always prepared, met every deadline, and demonstrated a professional and focused mindset from day one. He\u2019s exactly the kind of driven, analytical thinker that any team would be lucky to have.',
@@ -293,7 +294,12 @@ export default function Home({ setCurrentPage }: HomeProps) {
               <p className="text-sm leading-relaxed mb-6" style={{ color: '#a1a1a6' }}>
                 {RECOMMENDATIONS[0].quote}
               </p>
-              <div className="flex items-center gap-3">
+              <a
+                href={RECOMMENDATIONS[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+              >
                 <div
                   className="w-10 h-10 flex items-center justify-center text-sm font-bold"
                   style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
@@ -301,10 +307,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   {RECOMMENDATIONS[0].initials}
                 </div>
                 <div>
-                  <p className="text-sm font-bold" style={{ color: '#ffffff' }}>{RECOMMENDATIONS[0].name}</p>
+                  <p className="text-sm font-bold group-hover:underline" style={{ color: '#ffffff' }}>{RECOMMENDATIONS[0].name}</p>
                   <p className="text-xs" style={{ color: '#a1a1a6' }}>{RECOMMENDATIONS[0].role}</p>
                 </div>
-              </div>
+              </a>
             </TextCard>
           </AnimateIn>
 
