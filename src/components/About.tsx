@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import * as cardStyles from '@/utils/cardStyles';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
+import TextCard from './TextCard';
 
 const ALL_BOOKS = [
   { title: 'The Art of Innovation', color: 'red', description: 'Creativity is not a lightbulb moment--it is a process with structure that makes the best creative works happen.' },
@@ -66,7 +65,6 @@ const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; sid
   terracotta: { bg: '#9A5A3A', light: '#B0704A', edge: '#6E3E28', side: '#844C32', top: '#A86242', text: 'rgba(255,255,255,0.92)' },
 };
 
-// Placeholder photos — replace with real images in public/images/about/
 const ABOUT_PHOTOS = [
   { src: '/images/about/photo-1.jpg', alt: 'About photo 1' },
   { src: '/images/about/photo-2.jpg', alt: 'About photo 2' },
@@ -96,20 +94,246 @@ interface AboutProps {
   setCurrentPage?: (page: Page) => void;
 }
 
+// Split books into 3 rows of 10
+const SHELF_ROWS = [
+  ALL_BOOKS.slice(0, 10),
+  ALL_BOOKS.slice(10, 20),
+  ALL_BOOKS.slice(20, 30),
+];
+
+function BookSpine({
+  book,
+  index,
+  globalIndex,
+  isActive,
+  onToggle,
+}: {
+  book: typeof ALL_BOOKS[0];
+  index: number;
+  globalIndex: number;
+  isActive: boolean;
+  onToggle: () => void;
+}) {
+  const c = BOOK_COLORS[book.color] || BOOK_COLORS.brown;
+  const baseH = 150;
+  const h = baseH + Math.min(book.title.length * 2.5, 80);
+  const w = 42 + (book.title.length % 4) * 3;
+  const topDepth = 10;
+  const topShift = 10;
+  const totalW = w + topShift;
+  const totalH = topDepth + h;
+  const pageEdgeColor = '#D4CFC4';
+  const pageEdgeDark = '#B8B0A0';
+  const zBase = index + 1;
+
+  const bookShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${totalW}px ${h}px, ${w}px ${totalH}px, 0px ${totalH}px, 0px ${topDepth}px)`;
+  const topShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${w}px ${topDepth}px, 0px ${topDepth}px)`;
+  const rightSideShape = `polygon(${totalW}px 0px, ${totalW}px ${h}px, ${w}px ${totalH}px, ${w}px ${topDepth}px)`;
+
+  return (
+    <div
+      className="relative flex-shrink-0 cursor-pointer"
+      style={{
+        width: `${totalW}px`,
+        height: `${totalH}px`,
+        zIndex: isActive ? ALL_BOOKS.length + 10 : zBase,
+        marginRight: `${-(topShift - 3)}px`,
+      }}
+      role="button"
+      tabIndex={0}
+      onClick={onToggle}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(); } }}
+      aria-label={book.title}
+      title={book.title}
+    >
+      <div
+        className="absolute inset-0 transition-transform duration-300 ease-out"
+        style={{ transform: isActive ? 'translateY(20px) translateX(-8px)' : 'none' }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: bookShape,
+            background: `linear-gradient(90deg, ${c.edge} 0%, ${c.side} 6%, ${c.bg} 18%, ${c.light} 45%, ${c.bg} 72%, ${c.side} 90%, ${c.edge} 100%)`,
+            boxShadow: isActive ? '2px 6px 16px rgba(0,0,0,0.4)' : 'none',
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            clipPath: bookShape,
+            left: 0,
+            top: `${topDepth}px`,
+            width: '6px',
+            height: `${h}px`,
+            background: 'linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.08) 40%, transparent 100%)',
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            left: `${w - 6}px`,
+            top: `${topDepth}px`,
+            width: '8px',
+            height: `${h}px`,
+            background: 'linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.06) 50%, rgba(0,0,0,0.15) 100%)',
+          }}
+        />
+        <div className="absolute inset-0" style={{ clipPath: rightSideShape, background: c.side }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: rightSideShape,
+            background: 'linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.04) 60%, transparent 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: topShape,
+            background: `linear-gradient(180deg, ${pageEdgeColor} 0%, ${pageEdgeDark} 70%, rgba(0,0,0,0.08) 100%)`,
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            left: 0,
+            top: `${topDepth - 1}px`,
+            width: `${w}px`,
+            height: '3px',
+            background: 'linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.18) 50%, transparent 100%)',
+          }}
+        />
+        <span
+          className="absolute flex items-center justify-center text-[9px] md:text-[10px] font-semibold leading-none"
+          style={{
+            fontFamily: 'var(--font-family-playfair), Georgia, serif',
+            left: 0,
+            top: `${topDepth}px`,
+            width: `${w}px`,
+            height: `${h}px`,
+            color: c.text,
+            writingMode: 'vertical-rl',
+            textOrientation: 'mixed',
+            transform: 'rotate(180deg)',
+            padding: '12px 3px',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            letterSpacing: '0.05em',
+            textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+          }}
+        >
+          {book.title}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ShelfRow({
+  books,
+  rowIndex,
+  activeBookIndex,
+  setActiveBookIndex,
+}: {
+  books: typeof ALL_BOOKS;
+  rowIndex: number;
+  activeBookIndex: number | null;
+  setActiveBookIndex: (index: number | null) => void;
+}) {
+  const globalOffset = rowIndex * 10;
+  const leftBooks = books.slice(0, 5);
+  const rightBooks = books.slice(5, 10);
+  const activeInThisRow = activeBookIndex !== null && activeBookIndex >= globalOffset && activeBookIndex < globalOffset + 10;
+  const activeBook = activeInThisRow ? ALL_BOOKS[activeBookIndex!] : null;
+
+  return (
+    <div className="mb-8">
+      <div className="relative">
+        <div
+          className="flex items-end"
+          style={{ paddingBottom: '18px', paddingTop: '12px' }}
+        >
+          {/* Left group */}
+          <div className="flex items-end flex-shrink-0">
+            {leftBooks.map((book, i) => (
+              <BookSpine
+                key={globalOffset + i}
+                book={book}
+                index={i}
+                globalIndex={globalOffset + i}
+                isActive={activeBookIndex === globalOffset + i}
+                onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + i ? null : globalOffset + i)}
+              />
+            ))}
+          </div>
+
+          {/* Center gap — active book info */}
+          <div className="flex-1 flex items-end justify-center min-w-[200px] max-w-[300px] mx-auto px-4">
+            <div
+              className="w-full overflow-hidden transition-all duration-300 ease-out"
+              style={{
+                maxHeight: activeInThisRow ? '240px' : '0px',
+                opacity: activeInThisRow ? 1 : 0,
+              }}
+            >
+              {activeBook && (
+                <TextCard padding="md" noTilt>
+                  <h3 className="text-sm font-bold mb-2" style={{ color: '#ffffff' }}>
+                    {activeBook.title}
+                  </h3>
+                  <p className="text-xs leading-relaxed" style={{ color: '#a1a1a6' }}>
+                    {activeBook.description}
+                  </p>
+                </TextCard>
+              )}
+            </div>
+          </div>
+
+          {/* Right group */}
+          <div className="flex items-end flex-shrink-0">
+            {rightBooks.map((book, i) => (
+              <BookSpine
+                key={globalOffset + 5 + i}
+                book={book}
+                index={5 + i}
+                globalIndex={globalOffset + 5 + i}
+                isActive={activeBookIndex === globalOffset + 5 + i}
+                onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + 5 + i ? null : globalOffset + 5 + i)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Shelf surface */}
+        <div
+          className="h-[6px]"
+          style={{
+            borderRadius: 0,
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)',
+          }}
+        />
+        {/* Shelf shadow */}
+        <div
+          className="h-[8px]"
+          style={{
+            background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%)',
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function About({ setCurrentPage }: AboutProps) {
-  const { theme, accentColor } = useTheme();
-  const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
-  const onPrimary = cardStyles.getOnPrimaryColor(accentColor, theme);
-  const textColor = cardStyles.getTextColor(theme);
-  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
   const [activeBookIndex, setActiveBookIndex] = useState<number | null>(null);
   const [activeFavIndex, setActiveFavIndex] = useState<number | null>(null);
-
 
   return (
     <div className="py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
 
-      {/* ─── PHOTO CAROUSEL — full width at top ─── */}
+      {/* PHOTO CAROUSEL */}
       <div className="pb-8 md:pb-12">
         <Carousel
           speed={35}
@@ -120,7 +344,8 @@ export default function About({ setCurrentPage }: AboutProps) {
               key={img.src}
               src={img.src}
               alt={img.alt}
-              className="h-48 md:h-64 w-48 md:w-64 rounded-lg object-cover aspect-square"
+              className="h-48 md:h-64 w-48 md:w-64 object-cover aspect-square"
+              style={{ borderRadius: 0 }}
               loading="lazy"
             />
           ))}
@@ -129,15 +354,15 @@ export default function About({ setCurrentPage }: AboutProps) {
 
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
 
-        {/* ─── HERO ─── */}
+        {/* HERO */}
         <AnimateIn direction="up" className="pt-4 md:pt-8 mb-12 md:mb-16">
           <div className="max-w-2xl">
-            <div>
+            <TextCard padding="lg">
               <h1
                 className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
                 style={{
                   fontFamily: "var(--font-family-bungee), sans-serif",
-                  WebkitTextStroke: `4px ${primaryColor}`,
+                  WebkitTextStroke: '4px #ffffff',
                   WebkitTextFillColor: 'transparent',
                   color: 'transparent',
                   paintOrder: 'stroke fill',
@@ -145,16 +370,16 @@ export default function About({ setCurrentPage }: AboutProps) {
               >
                 ABOUT
               </h1>
-              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: textColor }}>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
                 I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
               </p>
-              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: textColor }}>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
                 That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
               </p>
-              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: textColor }}>
+              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
                 Outside of work, I read constantly, climb, and tinker with aquascaping and home audio setups. The books below have shaped how I think about design, leadership, and communication.
               </p>
-            </div>
+            </TextCard>
           </div>
         </AnimateIn>
 
@@ -162,38 +387,42 @@ export default function About({ setCurrentPage }: AboutProps) {
 
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
 
-        {/* ─── INTERESTS ─── */}
+        {/* INTERESTS */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
-          <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            INTERESTS
-          </h2>
+          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+            >
+              INTERESTS
+            </h2>
+          </TextCard>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 md:gap-y-8" staggerDelay={0.08}>
             {INTERESTS.map((interest) => (
               <StaggerItem key={interest.label}>
-                <div className="py-2">
-                  <h3 className="text-base font-bold mb-1" style={{ color: primaryColor }}>
+                <TextCard padding="md">
+                  <h3 className="text-base font-bold mb-1" style={{ color: '#ffffff' }}>
                     {interest.label}
                   </h3>
-                  <p className="text-[15px] leading-relaxed" style={{ color: secondaryTextColor }}>
+                  <p className="text-[15px] leading-relaxed" style={{ color: '#a1a1a6' }}>
                     {interest.text}
                   </p>
-                </div>
+                </TextCard>
               </StaggerItem>
             ))}
           </StaggerContainer>
         </AnimateIn>
 
-        {/* ─── MY FAVORITES — standalone 3D books ─── */}
+        {/* MY FAVORITES — standalone 3D books */}
         <AnimateIn direction="up" className="mb-16 md:mb-24 pb-8 md:pb-12">
-          <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            MY FAVORITES
-          </h2>
+          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+            >
+              MY FAVORITES
+            </h2>
+          </TextCard>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-20 justify-items-center" style={{ perspective: '1200px' }}>
             {CURRENT_FAVORITES.map((book, index) => {
               const isActive = activeFavIndex === index;
@@ -202,7 +431,7 @@ export default function About({ setCurrentPage }: AboutProps) {
               const coverW = 200;
               const coverH = 280;
               const spineW = 26;
-              const pageColor = theme === 'dark' ? '#d4cfc4' : '#f0ebe0';
+              const pageColor = '#d4cfc4';
 
               return (
                 <div
@@ -220,7 +449,6 @@ export default function About({ setCurrentPage }: AboutProps) {
                   aria-label={book.title}
                   title={book.title}
                 >
-                  {/* 3D book body */}
                   <div
                     className="absolute"
                     style={{
@@ -231,7 +459,6 @@ export default function About({ setCurrentPage }: AboutProps) {
                       transformStyle: 'preserve-3d',
                     }}
                   >
-                    {/* SPINE — left edge */}
                     <div
                       className="absolute top-0 h-full"
                       style={{
@@ -244,14 +471,13 @@ export default function About({ setCurrentPage }: AboutProps) {
                         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1)',
                       }}
                     />
-
-                    {/* PAGES — visible when cover opens */}
                     <div
-                      className="absolute inset-0 rounded-r-sm overflow-hidden p-4 flex flex-col justify-center"
+                      className="absolute inset-0 overflow-hidden p-4 flex flex-col justify-center"
                       style={{
                         background: pageColor,
                         boxShadow: 'inset 2px 0 4px rgba(0,0,0,0.1)',
                         zIndex: 1,
+                        borderRadius: 0,
                       }}
                     >
                       <div className="absolute right-0 top-2 bottom-2 w-[3px]" style={{ background: 'repeating-linear-gradient(180deg, transparent 0px, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px)' }} />
@@ -262,24 +488,23 @@ export default function About({ setCurrentPage }: AboutProps) {
                         {book.desc}
                       </p>
                     </div>
-
-                    {/* FRONT COVER — swings open on click */}
                     <div
-                      className="absolute inset-0 rounded-r-md transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                      className="absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
                       style={{
                         transformOrigin: 'left center',
                         transformStyle: 'preserve-3d',
                         transform: isActive ? 'rotateY(-155deg)' : 'rotateY(0deg)',
                         zIndex: 3,
+                        borderRadius: 0,
                       }}
                     >
-                      {/* Front face */}
                       <div
-                        className="absolute inset-0 rounded-r-md flex flex-col items-center justify-center p-5"
+                        className="absolute inset-0 flex flex-col items-center justify-center p-5"
                         style={{
                           background: `linear-gradient(145deg, ${c.light} 0%, ${c.bg} 40%, ${c.edge} 100%)`,
-                          boxShadow: `2px 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)`,
+                          boxShadow: '2px 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)',
                           backfaceVisibility: 'hidden',
+                          borderRadius: 0,
                         }}
                       >
                         <span
@@ -288,15 +513,15 @@ export default function About({ setCurrentPage }: AboutProps) {
                         >
                           {book.title}
                         </span>
-                        <div className="w-12 h-[2px] mt-3 rounded-full" style={{ background: 'rgba(255,255,255,0.3)' }} />
+                        <div className="w-12 h-[2px] mt-3" style={{ background: 'rgba(255,255,255,0.3)', borderRadius: 0 }} />
                       </div>
-                      {/* Back face (visible when flipped) */}
                       <div
-                        className="absolute inset-0 rounded-r-md"
+                        className="absolute inset-0"
                         style={{
                           background: c.edge,
                           transform: 'rotateY(180deg)',
                           backfaceVisibility: 'hidden',
+                          borderRadius: 0,
                         }}
                       />
                     </div>
@@ -307,237 +532,61 @@ export default function About({ setCurrentPage }: AboutProps) {
           </div>
         </AnimateIn>
 
-        {/* ─── BOOKSHELF ─── */}
+        {/* BOOKSHELF — 3 rows with center gap */}
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
-          <h2
-            className="text-[36px] md:text-[56px] mb-8 md:mb-12 leading-none tracking-wider font-black"
-            style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: textColor }}
-          >
-            BOOKSHELF
-          </h2>
-
-          {/* Shelf — 3D books using clip-path for unified silhouette */}
-          <div className="relative">
-            <div
-              className="flex flex-wrap items-end"
-              style={{ paddingBottom: '18px', paddingTop: '12px' }}
+          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
             >
-              {ALL_BOOKS.map((book, index) => {
-                const isActive = activeBookIndex === index;
-                const c = BOOK_COLORS[book.color] || BOOK_COLORS.brown;
-                const baseH = 150;
-                const h = baseH + Math.min(book.title.length * 2.5, 80);
-                const w = 42 + (book.title.length % 4) * 3;
-                const topDepth = 10;
-                const topShift = 10;
-                const totalW = w + topShift;
-                const totalH = topDepth + h;
-                const pageEdgeColor = theme === 'dark' ? '#D4CFC4' : '#F0EBE0';
-                const pageEdgeDark = theme === 'dark' ? '#B8B0A0' : '#DED6C4';
-                const zBase = index + 1;
+              BOOKSHELF
+            </h2>
+          </TextCard>
 
-                // Expanded shape — includes right side face for visible page edges
-                const bookShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${totalW}px ${h}px, ${w}px ${totalH}px, 0px ${totalH}px, 0px ${topDepth}px)`;
-                const topShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${w}px ${topDepth}px, 0px ${topDepth}px)`;
-                const rightSideShape = `polygon(${totalW}px 0px, ${totalW}px ${h}px, ${w}px ${totalH}px, ${w}px ${topDepth}px)`;
-
-                return (
-                  <div
-                    key={index}
-                    className="relative flex-shrink-0 cursor-pointer"
-                    style={{
-                      width: `${totalW}px`,
-                      height: `${totalH}px`,
-                      zIndex: isActive ? ALL_BOOKS.length + 10 : zBase,
-                      marginRight: `${-(topShift - 3)}px`,
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setActiveBookIndex(isActive ? null : index)}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveBookIndex(isActive ? null : index); } }}
-                    aria-label={book.title}
-                    title={book.title}
-                  >
-                    <div
-                      className="absolute inset-0 transition-transform duration-300 ease-out"
-                      style={{ transform: isActive ? 'translateY(20px) translateX(-8px)' : 'none' }}
-                    >
-                      {/* Base layer — curved spine with cylindrical lighting */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          clipPath: bookShape,
-                          background: `linear-gradient(90deg, ${c.edge} 0%, ${c.side} 6%, ${c.bg} 18%, ${c.light} 45%, ${c.bg} 72%, ${c.side} 90%, ${c.edge} 100%)`,
-                          boxShadow: isActive ? '2px 6px 16px rgba(0,0,0,0.4)' : 'none',
-                        }}
-                      />
-
-                      {/* Left edge — rounded corner shading */}
-                      <div
-                        className="absolute"
-                        style={{
-                          clipPath: bookShape,
-                          left: 0,
-                          top: `${topDepth}px`,
-                          width: '6px',
-                          height: `${h}px`,
-                          background: `linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.08) 40%, transparent 100%)`,
-                        }}
-                      />
-
-                      {/* Right edge of spine — rounded corner transition to page edges */}
-                      <div
-                        className="absolute"
-                        style={{
-                          left: `${w - 6}px`,
-                          top: `${topDepth}px`,
-                          width: '8px',
-                          height: `${h}px`,
-                          background: `linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.06) 50%, rgba(0,0,0,0.15) 100%)`,
-                        }}
-                      />
-
-                      {/* Right side face — page edges */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          clipPath: rightSideShape,
-                          background: c.side,
-                        }}
-                      />
-
-                      {/* Right side shadow — depth at the spine-to-pages corner */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          clipPath: rightSideShape,
-                          background: `linear-gradient(90deg, rgba(0,0,0,${theme === 'dark' ? '0.35' : '0.18'}) 0%, rgba(0,0,0,0.04) 60%, transparent 100%)`,
-                        }}
-                      />
-
-                      {/* Top face overlay — cream page edges */}
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          clipPath: topShape,
-                          background: `linear-gradient(180deg, ${pageEdgeColor} 0%, ${pageEdgeDark} 70%, rgba(0,0,0,0.08) 100%)`,
-                        }}
-                      />
-
-                      {/* Soft edge between top face and spine */}
-                      <div
-                        className="absolute"
-                        style={{
-                          left: 0,
-                          top: `${topDepth - 1}px`,
-                          width: `${w}px`,
-                          height: '3px',
-                          background: `linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,${theme === 'dark' ? '0.18' : '0.1'}) 50%, transparent 100%)`,
-                        }}
-                      />
-
-                      {/* Title on spine */}
-                      <span
-                        className="absolute flex items-center justify-center text-[9px] md:text-[10px] font-semibold leading-none"
-                        style={{
-                          fontFamily: 'var(--font-family-playfair), Georgia, serif',
-                          left: 0,
-                          top: `${topDepth}px`,
-                          width: `${w}px`,
-                          height: `${h}px`,
-                          color: c.text,
-                          writingMode: 'vertical-rl',
-                          textOrientation: 'mixed',
-                          transform: 'rotate(180deg)',
-                          padding: '12px 3px',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          letterSpacing: '0.05em',
-                          textShadow: '0 1px 2px rgba(0,0,0,0.5)',
-                        }}
-                      >
-                        {book.title}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Shelf surface */}
-            <div
-              className="h-[6px] rounded-sm"
-              style={{
-                background: theme === 'dark'
-                  ? 'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)'
-                  : 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 100%)',
-              }}
+          {SHELF_ROWS.map((rowBooks, rowIndex) => (
+            <ShelfRow
+              key={rowIndex}
+              books={rowBooks}
+              rowIndex={rowIndex}
+              activeBookIndex={activeBookIndex}
+              setActiveBookIndex={setActiveBookIndex}
             />
-            {/* Shelf shadow */}
-            <div
-              className="h-[8px]"
-              style={{
-                background: theme === 'dark'
-                  ? 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%)'
-                  : 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, transparent 100%)',
-              }}
-            />
-          </div>
-
-          {/* Book description — centered in section */}
-          <div
-            className="overflow-hidden transition-all duration-300 ease-out"
-            style={{
-              maxHeight: activeBookIndex !== null ? '300px' : '0px',
-              opacity: activeBookIndex !== null ? 1 : 0,
-            }}
-          >
-            {activeBookIndex !== null && (
-              <div className="pt-8 pb-4 max-w-lg mx-auto text-center">
-                <h3 className="text-xl font-bold mb-3" style={{ color: textColor }}>
-                  {ALL_BOOKS[activeBookIndex].title}
-                </h3>
-                <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                  {ALL_BOOKS[activeBookIndex].description}
-                </p>
-              </div>
-            )}
-          </div>
+          ))}
         </AnimateIn>
 
       </div>
 
-      {/* ─── CTA ─── */}
+      {/* CTA */}
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
         <AnimateIn direction="up" className="mb-12 md:mb-16">
           <div className="max-w-lg mx-auto text-center">
-            <h2
-              className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
-              style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: primaryColor }}
-            >
-              WANT TO WORK TOGETHER?
-            </h2>
-            <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
-              Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
-            </p>
-            <a
-              href="mailto:tom@straydesign.co"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
-              style={{
-                backgroundColor: primaryColor,
-                color: onPrimary,
-                boxShadow: `0 4px 24px ${primaryColor}30`,
-              }}
-            >
-              Get in Touch
-            </a>
+            <TextCard padding="lg">
+              <h2
+                className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
+                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
+              >
+                WANT TO WORK TOGETHER?
+              </h2>
+              <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
+                Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
+              </p>
+              <a
+                href="mailto:tom@straydesign.co"
+                className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
+                style={{
+                  backgroundColor: '#ffffff',
+                  color: '#000000',
+                  borderRadius: 0,
+                }}
+              >
+                Get in Touch
+              </a>
+            </TextCard>
           </div>
         </AnimateIn>
       </div>
 
       {/* Footer spacer */}
-
       <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
     </div>
   );

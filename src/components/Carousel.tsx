@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import { useTheme } from '@/context/ThemeContext';
 
 interface CarouselProps {
   items: ReactNode[];
@@ -18,9 +17,7 @@ export default function Carousel({
   pauseOnHover = true,
   className = '',
 }: CarouselProps) {
-  const { theme } = useTheme();
   const animationName = direction === 'left' ? 'scroll-left' : 'scroll-right';
-  const edgeColor = theme === 'dark' ? '#000000' : '#ffffff';
 
   return (
     <div
@@ -31,12 +28,12 @@ export default function Carousel({
       {/* Left edge fade */}
       <div
         className="absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"
-        style={{ background: `linear-gradient(to right, ${edgeColor}, transparent)` }}
+        style={{ background: 'linear-gradient(to right, #000000, transparent)' }}
       />
       {/* Right edge fade */}
       <div
         className="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"
-        style={{ background: `linear-gradient(to left, ${edgeColor}, transparent)` }}
+        style={{ background: 'linear-gradient(to left, #000000, transparent)' }}
       />
 
       <div

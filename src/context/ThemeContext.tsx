@@ -1,65 +1,17 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Theme, AccentColor } from '@/utils/cardStyles';
+import { createContext, useContext, ReactNode } from 'react';
+import { Theme } from '@/utils/cardStyles';
 
 interface ThemeContextType {
   theme: Theme;
-  accentColor: AccentColor;
-  toggleTheme: () => void;
-  setAccentColor: (color: AccentColor) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark';
-  const stored = localStorage.getItem('theme');
-  if (stored === 'light' || stored === 'dark') return stored;
-  return 'dark';
-}
-
-function getInitialAccent(): AccentColor {
-  if (typeof window === 'undefined') return 'blue';
-  const stored = localStorage.getItem('accentColor');
-  const valid: AccentColor[] = ['blue', 'purple', 'pink', 'red', 'yellow', 'green', 'bw', 'tan'];
-  if (stored && valid.includes(stored as AccentColor)) return stored as AccentColor;
-  return 'blue';
-}
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [accentColor, setAccentColorState] = useState<AccentColor>('blue');
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setTheme(getInitialTheme());
-    setAccentColorState(getInitialAccent());
-    setMounted(true);
-  }, []);
-
-  const toggleTheme = () => {
-    const next = theme === 'light' ? 'dark' : 'light';
-    setTheme(next);
-    localStorage.setItem('theme', next);
-  };
-
-  const setAccentColor = (color: AccentColor) => {
-    setAccentColorState(color);
-    localStorage.setItem('accentColor', color);
-  };
-
-  // Avoid flash of wrong theme on SSR
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider value={{ theme: 'dark', accentColor: 'blue', toggleTheme: () => {}, setAccentColor: () => {} }}>
-        {children}
-      </ThemeContext.Provider>
-    );
-  }
-
   return (
-    <ThemeContext.Provider value={{ theme, accentColor, toggleTheme, setAccentColor }}>
+    <ThemeContext.Provider value={{ theme: 'dark' }}>
       {children}
     </ThemeContext.Provider>
   );

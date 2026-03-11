@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import { colorMap } from '@/utils/cardStyles';
 import { Linkedin, Mail, Phone, X } from 'lucide-react';
 import ContactForm from './ContactForm';
 import { type Page } from '@/data/projects';
@@ -13,10 +11,6 @@ interface FooterProps {
 }
 
 export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
-  const { theme, accentColor } = useTheme();
-  const basePrimaryColor = colorMap[accentColor];
-  const primaryColor = accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;
-  const textColor = primaryColor;
   const [contactOpen, setContactOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -71,17 +65,14 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
     <>
       <footer
         className="mt-auto relative"
-        style={{
-          backgroundColor: 'transparent',
-          zIndex: 50,
-        }}
+        style={{ backgroundColor: 'transparent', zIndex: 50 }}
       >
-        <div className="px-6 md:px-8 pt-8 md:pt-10 pb-3 md:pb-4" style={{ position: 'relative', zIndex: 51, background: `linear-gradient(to top, ${theme === 'dark' ? '#000000' : '#ffffff'} 0%, ${theme === 'dark' ? '#000000' : '#ffffff'} 50%, transparent 100%)` }}>
+        <div className="px-6 md:px-8 pt-8 md:pt-10 pb-3 md:pb-4" style={{ position: 'relative', zIndex: 51, background: 'linear-gradient(to top, #000000 0%, #000000 50%, transparent 100%)' }}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
             <div className="flex items-center gap-4 md:gap-6">
               <h2
                 className="text-[18px] md:text-[24px]"
-                style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: textColor }}
+                style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: '#ffffff' }}
               >
                 LET&apos;S WORK TOGETHER
               </h2>
@@ -94,7 +85,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
                   {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   aria-label={link.label}
                   className="transition-all hover:scale-110"
-                  style={{ color: textColor }}
+                  style={{ color: '#ffffff' }}
                 >
                   <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
                 </a>
@@ -117,20 +108,21 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Contact form"
-            className="relative w-full max-w-md rounded-[32px] p-6 md:p-8 outline-none"
+            className="relative w-full max-w-md p-6 md:p-8 outline-none"
             onClick={(e) => e.stopPropagation()}
             style={{
-              backgroundColor: theme === 'dark' ? '#1a1a1a' : '#ffffff',
-              border: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)'}`,
+              backgroundColor: '#000000',
+              borderRadius: 0,
+              border: '1px solid rgba(255, 255, 255, 0.12)',
               boxShadow: '0 24px 48px rgba(0, 0, 0, 0.3)',
             }}
           >
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold" style={{ color: primaryColor }}>Get in Touch</h3>
+              <h3 className="text-xl font-bold" style={{ color: '#ffffff' }}>Get in Touch</h3>
               <button
                 onClick={() => setContactOpen(false)}
-                className="p-1 rounded-full transition-all hover:scale-110"
-                style={{ color: theme === 'dark' ? '#ffffff' : '#1d1d1f' }}
+                className="p-1 transition-all hover:scale-110"
+                style={{ color: '#ffffff', borderRadius: 0 }}
                 aria-label="Close contact form"
               >
                 <X className="w-5 h-5" />

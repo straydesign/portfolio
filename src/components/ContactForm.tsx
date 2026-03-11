@@ -1,8 +1,6 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import * as cardStyles from '@/utils/cardStyles';
 import { Send, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface ContactFormProps {
@@ -10,18 +8,6 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ compact = false }: ContactFormProps) {
-  const { theme, accentColor } = useTheme();
-  const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
-  const textColor = theme === 'dark' ? '#ffffff' : '#1d1d1f';
-  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
-  const inputBg = theme === 'dark' ? '#2a2a2a' : '#f5f5f7';
-  const inputBorder = theme === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
-
-  const buttonTextColor = (accentColor === 'bw' && theme === 'dark') ? '#000000'
-    : (accentColor === 'bw' && theme === 'light') ? '#ffffff'
-    : (accentColor === 'yellow' || accentColor === 'tan') ? '#000000'
-    : '#ffffff';
-
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,13 +46,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   if (status === 'success') {
     return (
       <div className={`text-center ${compact ? 'py-4' : 'py-8'}`}>
-        <CheckCircle className="w-10 h-10 mx-auto mb-3" style={{ color: primaryColor }} />
-        <p className="text-lg font-bold mb-1" style={{ color: textColor }}>Message sent</p>
-        <p className="text-sm" style={{ color: secondaryTextColor }}>I&apos;ll get back to you within 24 hours.</p>
+        <CheckCircle className="w-10 h-10 mx-auto mb-3" style={{ color: '#ffffff' }} />
+        <p className="text-lg font-bold mb-1" style={{ color: '#ffffff' }}>Message sent</p>
+        <p className="text-sm" style={{ color: '#a1a1a6' }}>I&apos;ll get back to you within 24 hours.</p>
         <button
           onClick={() => setStatus('idle')}
           className="mt-4 text-sm underline"
-          style={{ color: primaryColor }}
+          style={{ color: '#ffffff' }}
         >
           Send another message
         </button>
@@ -77,7 +63,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
       <div>
-        <label htmlFor="contact-name" className="block text-sm font-medium mb-1" style={{ color: secondaryTextColor }}>
+        <label htmlFor="contact-name" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
           Name
         </label>
         <input
@@ -86,13 +72,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl text-base outline-none transition-all focus:ring-2"
-          style={{ backgroundColor: inputBg, border: `1px solid ${inputBorder}`, color: textColor }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20"
+          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
           placeholder="Your name"
         />
       </div>
       <div>
-        <label htmlFor="contact-email" className="block text-sm font-medium mb-1" style={{ color: secondaryTextColor }}>
+        <label htmlFor="contact-email" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
           Email
         </label>
         <input
@@ -101,13 +87,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2.5 rounded-xl text-base outline-none transition-all focus:ring-2"
-          style={{ backgroundColor: inputBg, border: `1px solid ${inputBorder}`, color: textColor }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20"
+          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
           placeholder="your@email.com"
         />
       </div>
       <div>
-        <label htmlFor="contact-message" className="block text-sm font-medium mb-1" style={{ color: secondaryTextColor }}>
+        <label htmlFor="contact-message" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
           Message
         </label>
         <textarea
@@ -116,8 +102,8 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={compact ? 3 : 4}
-          className="w-full px-4 py-2.5 rounded-xl text-base outline-none transition-all focus:ring-2 resize-none"
-          style={{ backgroundColor: inputBg, border: `1px solid ${inputBorder}`, color: textColor }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20 resize-none"
+          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
           placeholder="Tell me about your project..."
         />
       </div>
@@ -132,15 +118,15 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-base transition-all hover:scale-105 font-bold disabled:opacity-60"
-        style={{ backgroundColor: primaryColor, color: buttonTextColor }}
+        className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base transition-all hover:scale-105 font-bold disabled:opacity-60"
+        style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
       >
         <Send className="w-4 h-4" />
         {status === 'sending' ? 'Sending...' : 'Send Message'}
       </button>
 
-      <p className="text-xs text-center" style={{ color: secondaryTextColor }}>
-        Or email directly at <a href="mailto:tom@straydesign.co" style={{ color: primaryColor }}>tom@straydesign.co</a>
+      <p className="text-xs text-center" style={{ color: '#a1a1a6' }}>
+        Or email directly at <a href="mailto:tom@straydesign.co" style={{ color: '#ffffff' }}>tom@straydesign.co</a>
       </p>
     </form>
   );

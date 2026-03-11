@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useTheme } from '@/context/ThemeContext';
-import * as cardStyles from '@/utils/cardStyles';
 import { ExternalLink, ArrowRight, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import ContactForm from './ContactForm';
 import PricingCard from './PricingCard';
+import TextCard from './TextCard';
 
 function scrollToContact() {
   document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
@@ -95,26 +94,19 @@ const CATEGORIES: Category[] = [
   },
 ];
 
-function FeatureBadges({
-  primaryColor,
-  textColor,
-  secondaryTextColor,
-  theme,
-}: {
-  primaryColor: string;
-  textColor: string;
-  secondaryTextColor: string;
-  theme: 'light' | 'dark';
-}) {
+function FeatureBadges() {
+  const primaryColor = '#ffffff';
+  const textColor = '#ffffff';
+  const secondaryTextColor = '#a1a1a6';
+
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
-  const pillBg = theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)';
-  const pillBorder = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
-  const glassBg = theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)';
-  const glassBorder = theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
+  const pillBg = 'rgba(255,255,255,0.04)';
+  const pillBorder = 'rgba(255,255,255,0.08)';
+  const glassBorder = 'rgba(255,255,255,0.06)';
 
   const updateIndicator = useCallback(() => {
     const tab = tabsRef.current[activeCategory];
@@ -167,8 +159,8 @@ function FeatureBadges({
 
           {/* Sliding indicator */}
           <motion.div
-            className="absolute bottom-0 h-[2px] rounded-full"
-            style={{ backgroundColor: primaryColor }}
+            className="absolute bottom-0 h-[2px]"
+            style={{ backgroundColor: primaryColor, borderRadius: 0 }}
             animate={{ left: indicatorStyle.left, width: indicatorStyle.width }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
           />
@@ -197,17 +189,18 @@ function FeatureBadges({
               <button
                 key={feature.label}
                 onClick={() => handleBadgeClick(feature)}
-                className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer"
+                className="px-4 py-2 text-sm font-medium transition-all duration-200 cursor-pointer"
                 style={{
-                  backgroundColor: isSelected ? `${primaryColor}15` : pillBg,
+                  borderRadius: 0,
+                  backgroundColor: isSelected ? '#111111' : pillBg,
                   border: `1px solid ${isSelected ? primaryColor : pillBorder}`,
                   color: isSelected ? primaryColor : textColor,
-                  boxShadow: isSelected ? `0 0 12px ${primaryColor}15` : 'none',
+                  boxShadow: isSelected ? `0 0 12px rgba(255,255,255,0.08)` : 'none',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSelected) {
-                    e.currentTarget.style.borderColor = `${primaryColor}60`;
-                    e.currentTarget.style.backgroundColor = `${primaryColor}08`;
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -236,13 +229,14 @@ function FeatureBadges({
             className="overflow-hidden"
           >
             <div
-              className="p-5 rounded-xl relative"
+              className="p-5 relative"
               style={{
-                backgroundColor: glassBg,
-                border: `1px solid ${primaryColor}20`,
+                borderRadius: 0,
+                backgroundColor: '#000000',
+                border: '1px solid rgba(255,255,255,0.12)',
               }}
             >
-              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: `linear-gradient(90deg, ${primaryColor}, transparent)` }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, #ffffff, transparent)' }} />
               <p className="text-sm font-bold mb-1" style={{ color: primaryColor }}>{selectedFeature.label}</p>
               <p className="text-sm leading-relaxed" style={{ color: textColor }}>{selectedFeature.desc}</p>
             </div>
@@ -254,22 +248,20 @@ function FeatureBadges({
 }
 
 export default function Services() {
-  const { theme, accentColor } = useTheme();
-  const primaryColor = cardStyles.getPrimaryColor(accentColor, theme);
-  const onPrimary = cardStyles.getOnPrimaryColor(accentColor, theme);
-  const textColor = cardStyles.getTextColor(theme);
-  const secondaryTextColor = cardStyles.getSecondaryTextColor(theme);
+  const primaryColor = '#ffffff';
+  const textColor = '#ffffff';
+  const secondaryTextColor = '#a1a1a6';
 
-  const glassBg = theme === 'dark' ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.02)';
-  const glassBorder = theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)';
+  const glassBg = '#000000';
+  const glassBorder = 'rgba(255,255,255,0.06)';
 
   return (
     <div className="px-4 md:px-8 py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
       <div className="max-w-[90rem] mx-auto">
 
-        {/* ═══ 1. HERO ═══ */}
+        {/* 1. HERO */}
         <AnimateIn direction="up" className="mb-24 md:mb-32 pt-8 md:pt-16">
-          <div className="w-16 h-1.5 rounded-full mb-8" style={{ backgroundColor: primaryColor }} />
+          <div className="w-16 h-1.5 mb-8" style={{ backgroundColor: primaryColor, borderRadius: 0 }} />
           <p className="text-sm font-bold uppercase tracking-[0.2em] mb-6" style={{ color: primaryColor }}>
             Erie, PA &bull; Web Design &amp; Development
           </p>
@@ -287,19 +279,19 @@ export default function Services() {
           <div className="flex flex-wrap gap-4">
             <button
               onClick={scrollToContact}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
               style={{
-                backgroundColor: primaryColor,
-                color: onPrimary,
-                boxShadow: `0 4px 24px ${primaryColor}30`,
+                borderRadius: 0,
+                backgroundColor: '#ffffff',
+                color: '#000000',
               }}
             >
               Start a Project <ArrowRight className="w-4 h-4" />
             </button>
             <a
               href="#pricing"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
-              style={{ color: textColor, border: `1px solid ${glassBorder}`, backgroundColor: glassBg }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
+              style={{ borderRadius: 0, color: textColor, border: `1px solid ${glassBorder}`, backgroundColor: glassBg }}
               onClick={(e) => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }}
             >
               See Pricing
@@ -307,52 +299,50 @@ export default function Services() {
           </div>
         </AnimateIn>
 
-        {/* ═══ 2. THE GUIDE — Interactive badge explorer ═══ */}
+        {/* 2. THE GUIDE -- Interactive badge explorer */}
         <AnimateIn direction="up" className="mb-24 md:mb-32">
-          <h2 className="text-[28px] md:text-[44px] mb-3 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
-            What You Get
-          </h2>
-          <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
-            Every feature, every framework, every tool — included or available.
-          </p>
+          <TextCard padding="lg">
+            <h2 className="text-[28px] md:text-[44px] mb-3 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+              What You Get
+            </h2>
+            <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
+              Every feature, every framework, every tool — included or available.
+            </p>
 
-          <FeatureBadges
-            primaryColor={primaryColor}
-            textColor={textColor}
-            secondaryTextColor={secondaryTextColor}
-            theme={theme}
-          />
-
+            <FeatureBadges />
+          </TextCard>
         </AnimateIn>
 
-        {/* ═══ 4. THE PLAN ═══ */}
+        {/* 4. THE PLAN */}
         <AnimateIn direction="up" className="mb-24 md:mb-32 max-w-3xl">
-          <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
-            How It Works
-          </h2>
-          <div className="space-y-8">
-            {[
-              { num: '01', title: 'We talk.', desc: 'Free consultation. You tell me about your business, your goals, and what\'s not working. I\'ll tell you exactly what I\'d build and why.' },
-              { num: '02', title: 'I build it.', desc: 'Custom design, development, photo shoot, SEO, analytics — the whole thing. You get updates along the way. Typical turnaround is 2-4 weeks.' },
-              { num: '03', title: 'You launch.', desc: 'Your site goes live. Customers find you. AI assistants recommend you. You look like the professional you are.' },
-            ].map(({ num, title, desc }) => (
-              <div key={num} className="flex gap-6 items-start">
-                <span
-                  className="text-[32px] md:text-[40px] font-black leading-none shrink-0 w-16 text-right"
-                  style={{ color: primaryColor, fontFamily: 'var(--font-family-bungee), sans-serif', opacity: 0.3 }}
-                >
-                  {num}
-                </span>
-                <div className="pt-1">
-                  <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>{title}</h3>
-                  <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>{desc}</p>
+          <TextCard padding="lg">
+            <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+              How It Works
+            </h2>
+            <div className="space-y-8">
+              {[
+                { num: '01', title: 'We talk.', desc: 'Free consultation. You tell me about your business, your goals, and what\'s not working. I\'ll tell you exactly what I\'d build and why.' },
+                { num: '02', title: 'I build it.', desc: 'Custom design, development, photo shoot, SEO, analytics — the whole thing. You get updates along the way. Typical turnaround is 2-4 weeks.' },
+                { num: '03', title: 'You launch.', desc: 'Your site goes live. Customers find you. AI assistants recommend you. You look like the professional you are.' },
+              ].map(({ num, title, desc }) => (
+                <div key={num} className="flex gap-6 items-start">
+                  <span
+                    className="text-[32px] md:text-[40px] font-black leading-none shrink-0 w-16 text-right"
+                    style={{ color: primaryColor, fontFamily: 'var(--font-family-bungee), sans-serif', opacity: 0.3 }}
+                  >
+                    {num}
+                  </span>
+                  <div className="pt-1">
+                    <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>{title}</h3>
+                    <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>{desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </TextCard>
         </AnimateIn>
 
-        {/* ═══ 5. PRICING ═══ */}
+        {/* 5. PRICING */}
         <AnimateIn direction="up" id="pricing" className="mb-24 md:mb-32">
           <div className="text-center mb-12">
             <h2 className="text-[28px] md:text-[44px] mb-3 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
@@ -366,22 +356,22 @@ export default function Services() {
             <StaggerItem>
               <PricingCard name="STARTER" price="$997" subtitle="Up to 5 pages. Perfect for small service businesses."
                 features={[{ label: 'Up to 5 pages' }, { label: 'All standard features included' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
+                onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="PROFESSIONAL" price="$1,997" subtitle="Up to 12 pages. Built to convert walk-in traffic." featured
                 features={[{ label: 'Up to 12 pages' }, { label: 'CMS for self-editing' }, { label: 'AI chatbot' }, { label: 'Blog section' }, { label: 'Content strategy' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
+                onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="CUSTOM" price="$2,997" subtitle="Unlimited pages. E-commerce, ads, and integrations."
                 features={[{ label: 'Unlimited pages' }, { label: 'E-commerce or booking' }, { label: 'Third-party integrations' }, { label: 'Optional: AI chatbot' }, { label: 'Optional: AI email marketing' }, { label: 'Optional: Meta ads setup' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
+                onCtaClick={scrollToContact} />
             </StaggerItem>
           </StaggerContainer>
         </AnimateIn>
 
-        {/* ─── Ongoing Support ─── */}
+        {/* Ongoing Support */}
         <AnimateIn direction="up" className="mb-24 md:mb-32">
           <div className="text-center mb-12">
             <h2 className="text-[28px] md:text-[44px] mb-3 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
@@ -393,45 +383,47 @@ export default function Services() {
             <StaggerItem>
               <PricingCard name="HOSTING & MAINTENANCE" price="$50" periodLabel="/mo" subtitle="Hosting, SSL, backups, monitoring, bug fixes."
                 features={[{ label: 'Managed hosting + SSL' }, { label: 'Monthly backups' }, { label: '24/7 error monitoring' }, { label: 'Automatic bug fixes' }, { label: 'Uptime monitoring' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
+                onCtaClick={scrollToContact} />
             </StaggerItem>
             <StaggerItem>
               <PricingCard name="MARKETING" price="$497" periodLabel="/mo" subtitle="Ads, analytics, and strategy."
                 features={[{ label: 'Google + Meta ad management' }, { label: 'Campaign strategy' }, { label: 'Monthly performance reports' }, { label: 'Conversion tracking' }]}
-                primaryColor={primaryColor} textColor={textColor} secondaryTextColor={secondaryTextColor} theme={theme} onPrimaryColor={onPrimary} onCtaClick={scrollToContact} />
+                onCtaClick={scrollToContact} />
             </StaggerItem>
           </StaggerContainer>
         </AnimateIn>
 
-        {/* ═══ 6. SUCCESS ═══ */}
+        {/* 6. SUCCESS */}
         <AnimateIn direction="up" className="mb-24 md:mb-32 max-w-3xl">
-          <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
-            What Changes
-          </h2>
-          <div className="space-y-5">
-            {[
-              'Customers Google your industry + city. You show up.',
-              'Someone asks ChatGPT for a recommendation. Your site is readable.',
-              'A visitor lands on your page. It loads instantly. It looks like you take your business seriously.',
-              'You stop paying for a site that works against you.',
-            ].map((line, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="w-2 h-2 rounded-full mt-2.5 shrink-0" style={{ backgroundColor: primaryColor }} />
-                <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>{line}</p>
-              </div>
-            ))}
-          </div>
+          <TextCard padding="lg">
+            <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+              What Changes
+            </h2>
+            <div className="space-y-5">
+              {[
+                'Customers Google your industry + city. You show up.',
+                'Someone asks ChatGPT for a recommendation. Your site is readable.',
+                'A visitor lands on your page. It loads instantly. It looks like you take your business seriously.',
+                'You stop paying for a site that works against you.',
+              ].map((line, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-2 h-2 mt-2.5 shrink-0" style={{ backgroundColor: primaryColor, borderRadius: 0 }} />
+                  <p className="text-base md:text-lg leading-relaxed" style={{ color: textColor }}>{line}</p>
+                </div>
+              ))}
+            </div>
+          </TextCard>
         </AnimateIn>
 
-        {/* ─── Featured Work ─── */}
+        {/* Featured Work */}
         <AnimateIn direction="up" className="mb-24 md:mb-32">
           <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
             Featured Work
           </h2>
           <a href="https://techxrev-rebuild.vercel.app" target="_blank" rel="noopener noreferrer"
-            className="block rounded-xl p-6 md:p-8 transition-all duration-300 cursor-pointer max-w-2xl"
-            style={{ backgroundColor: glassBg, border: `1px solid ${glassBorder}` }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = `${primaryColor}40`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 12px 40px ${primaryColor}10`; }}
+            className="block p-6 md:p-8 transition-all duration-300 cursor-pointer max-w-2xl"
+            style={{ borderRadius: 0, backgroundColor: '#000000', border: `1px solid ${glassBorder}` }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(255,255,255,0.06)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = glassBorder; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
           >
             <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: primaryColor }}>Client Project</p>
@@ -443,7 +435,7 @@ export default function Services() {
           </a>
         </AnimateIn>
 
-        {/* ─── Service Areas ─── */}
+        {/* Service Areas */}
         <AnimateIn direction="up" className="mb-24 md:mb-32">
           <h2 className="text-[28px] md:text-[44px] mb-4 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
             Service Areas
@@ -452,8 +444,8 @@ export default function Services() {
             {['Erie, PA', 'Millcreek', 'Harborcreek', 'Fairview', 'Edinboro', 'Meadville', 'Corry', 'North East', 'Girard', 'Waterford', 'Warren', 'Northwestern PA', 'Remote / Nationwide'].map((a) => (
               <span
                 key={a}
-                className="px-4 py-2 rounded-lg text-sm font-medium"
-                style={{ backgroundColor: theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.03)', border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)'}`, color: textColor }}
+                className="px-4 py-2 text-sm font-medium"
+                style={{ borderRadius: 0, backgroundColor: '#111111', border: '1px solid rgba(255,255,255,0.08)', color: textColor }}
               >
                 {a}
               </span>
@@ -461,31 +453,33 @@ export default function Services() {
           </div>
         </AnimateIn>
 
-        {/* ─── FAQ ─── */}
+        {/* FAQ */}
         <AnimateIn direction="up" className="mb-24 md:mb-32 max-w-3xl">
-          <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
-            FAQ
-          </h2>
-          <div className="space-y-6">
-            {[
-              { q: 'I already have a website. Why would I pay for a new one?', a: 'If your current site isn\'t bringing in customers, it\'s costing you money. A modern site built for search engines and AI assistants pays for itself.' },
-              { q: 'Can\'t I just use Wix or Squarespace?', a: 'You can — but you\'ll get a template that looks like everyone else, loads slowly, and ranks poorly. A custom site is built around your business, not a drag-and-drop editor.' },
-              { q: 'What if I need changes after the site launches?', a: 'That\'s what the $50/mo maintenance plan is for. Bug fixes, content updates, and monitoring — all included.' },
-              { q: 'How long does it take?', a: 'Most projects launch in 2–4 weeks. Complex builds with e-commerce or integrations may take longer.' },
-              { q: 'What if I don\'t like the design?', a: 'Unlimited revisions until you love it. I don\'t ship anything you\'re not happy with.' },
-            ].map(({ q, a }) => (
-              <div key={q}>
-                <h3 className="text-base font-bold mb-1" style={{ color: textColor }}>{q}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{a}</p>
-              </div>
-            ))}
-          </div>
+          <TextCard padding="lg">
+            <h2 className="text-[28px] md:text-[44px] mb-8 leading-none tracking-wider font-black" style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: textColor }}>
+              FAQ
+            </h2>
+            <div className="space-y-6">
+              {[
+                { q: 'I already have a website. Why would I pay for a new one?', a: 'If your current site isn\'t bringing in customers, it\'s costing you money. A modern site built for search engines and AI assistants pays for itself.' },
+                { q: 'Can\'t I just use Wix or Squarespace?', a: 'You can — but you\'ll get a template that looks like everyone else, loads slowly, and ranks poorly. A custom site is built around your business, not a drag-and-drop editor.' },
+                { q: 'What if I need changes after the site launches?', a: 'That\'s what the $50/mo maintenance plan is for. Bug fixes, content updates, and monitoring — all included.' },
+                { q: 'How long does it take?', a: 'Most projects launch in 2–4 weeks. Complex builds with e-commerce or integrations may take longer.' },
+                { q: 'What if I don\'t like the design?', a: 'Unlimited revisions until you love it. I don\'t ship anything you\'re not happy with.' },
+              ].map(({ q, a }) => (
+                <div key={q}>
+                  <h3 className="text-base font-bold mb-1" style={{ color: textColor }}>{q}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{a}</p>
+                </div>
+              ))}
+            </div>
+          </TextCard>
         </AnimateIn>
 
-        {/* ═══ 7. FINAL CTA ═══ */}
+        {/* 7. FINAL CTA */}
         <AnimateIn direction="up" id="contact-form" className="mb-12 md:mb-16">
           <div className="max-w-lg mx-auto text-center">
-            <div className="w-12 h-1.5 rounded-full mx-auto mb-8" style={{ backgroundColor: primaryColor }} />
+            <div className="w-12 h-1.5 mx-auto mb-8" style={{ backgroundColor: primaryColor, borderRadius: 0 }} />
             <h2 className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4"
               style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: primaryColor }}>
               LET&apos;S BUILD

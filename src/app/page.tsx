@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useTheme } from '@/context/ThemeContext';
-import { colorMap } from '@/utils/cardStyles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Home from '@/components/Home';
@@ -22,7 +20,6 @@ const Work = dynamic(() => import('@/components/Work'));
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
-  const { theme, accentColor } = useTheme();
 
   useEffect(() => {
     setCurrentPage(getPageFromPath(window.location.pathname));
@@ -43,16 +40,13 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const basePrimaryColor = colorMap[accentColor];
-  const primaryColor = accentColor === 'bw' && theme === 'dark' ? '#ffffff' : basePrimaryColor;
-
   return (
-    <div className={`min-h-screen flex flex-col transition-colors duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}>
+    <div className="min-h-screen flex flex-col bg-black">
       <a href="#main-content" className="skip-link">Skip to main content</a>
       {currentPage !== 'work' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
       <main id="main-content" className="flex-1 relative overflow-hidden">
         <div className="fixed inset-0 z-[2] pointer-events-none">
-          <BrickWallWrapper theme={theme} accentColor={primaryColor} />
+          <BrickWallWrapper theme="dark" accentColor="#ffffff" />
         </div>
         <div className="relative z-10">
           <AnimatePresence mode="wait">

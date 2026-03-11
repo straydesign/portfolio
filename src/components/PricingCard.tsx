@@ -4,6 +4,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { Check, Sparkles } from 'lucide-react';
+import TextCard from './TextCard';
 
 export type PricingFeature = {
   label: React.ReactNode;
@@ -17,11 +18,6 @@ export type PricingCardProps = {
   periodLabel?: string;
   features: PricingFeature[];
   featured?: boolean;
-  primaryColor: string;
-  textColor: string;
-  secondaryTextColor: string;
-  theme: 'light' | 'dark';
-  onPrimaryColor?: string;
   className?: string;
   onCtaClick?: () => void;
 };
@@ -33,23 +29,19 @@ export default function PricingCard({
   periodLabel,
   features,
   featured = false,
-  primaryColor,
-  textColor,
-  secondaryTextColor,
-  theme,
-  onPrimaryColor = '#ffffff',
   className,
   onCtaClick,
 }: PricingCardProps) {
-  const cardBg = theme === 'dark' ? 'rgba(10, 10, 10, 0.8)' : 'rgba(250, 250, 250, 0.9)';
-  const cardBorder = featured
-    ? primaryColor
-    : theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
-  const hoverBorder = featured
-    ? primaryColor
-    : theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.15)';
+  const textColor = '#ffffff';
+  const secondaryTextColor = '#a1a1a6';
+  const primaryColor = '#ffffff';
 
-  const featureDot = theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
+  const cardBorder = featured
+    ? '#ffffff'
+    : 'rgba(255,255,255,0.08)';
+  const hoverBorder = featured
+    ? '#ffffff'
+    : 'rgba(255,255,255,0.2)';
 
   return (
     <motion.section
@@ -61,11 +53,11 @@ export default function PricingCard({
       {/* Featured badge */}
       {featured && (
         <div
-          className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+          className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-4 py-1 text-xs font-bold uppercase tracking-wider"
           style={{
-            backgroundColor: primaryColor,
-            color: onPrimaryColor,
-            boxShadow: `0 4px 20px ${primaryColor}40`,
+            borderRadius: 0,
+            backgroundColor: '#ffffff',
+            color: '#000000',
           }}
         >
           <Sparkles className="w-3 h-3" />
@@ -74,19 +66,19 @@ export default function PricingCard({
       )}
 
       <div
-        className="rounded-2xl px-7 pb-7 pt-9 transition-all duration-300 relative overflow-hidden"
+        className="px-7 pb-7 pt-9 transition-all duration-300 relative overflow-hidden"
         style={{
-          backgroundColor: cardBg,
+          borderRadius: 0,
+          backgroundColor: '#000000',
           border: `1px solid ${cardBorder}`,
-          backdropFilter: 'blur(20px)',
           boxShadow: featured
-            ? `0 0 40px ${primaryColor}15, 0 8px 32px rgba(0,0,0,0.12)`
+            ? '0 0 40px rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.12)'
             : '0 4px 24px rgba(0,0,0,0.06)',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = hoverBorder;
           if (!featured) {
-            e.currentTarget.style.boxShadow = `0 8px 32px rgba(0,0,0,0.12)`;
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
           }
         }}
         onMouseLeave={(e) => {
@@ -96,17 +88,6 @@ export default function PricingCard({
           }
         }}
       >
-        {/* Accent line at top */}
-        <div
-          className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300"
-          style={{
-            background: featured
-              ? primaryColor
-              : `linear-gradient(90deg, transparent, ${primaryColor}60, transparent)`,
-            opacity: featured ? 1 : 0.5,
-          }}
-        />
-
         <h3
           className="text-center text-sm font-bold uppercase tracking-widest"
           style={{ color: featured ? primaryColor : secondaryTextColor }}
@@ -142,7 +123,7 @@ export default function PricingCard({
 
         <div
           className="mt-6 mb-6"
-          style={{ borderTop: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'}` }}
+          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
         />
 
         <ul className="space-y-3">
@@ -155,15 +136,16 @@ export default function PricingCard({
                 style={{ color: ok ? textColor : secondaryTextColor }}
               >
                 <span
-                  className="inline-grid h-5 w-5 shrink-0 place-items-center rounded-full"
+                  className="inline-grid h-5 w-5 shrink-0 place-items-center"
                   style={{
-                    backgroundColor: ok ? `${primaryColor}18` : featureDot,
+                    borderRadius: 0,
+                    backgroundColor: ok ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.15)',
                   }}
                   aria-hidden
                 >
                   <Check
                     className="h-3 w-3"
-                    style={{ color: ok ? primaryColor : secondaryTextColor }}
+                    style={{ color: ok ? '#22c55e' : secondaryTextColor }}
                     strokeWidth={3}
                   />
                 </span>
@@ -176,24 +158,23 @@ export default function PricingCard({
         {/* CTA button */}
         <button
           onClick={onCtaClick}
-          className="mt-7 w-full py-3 rounded-xl text-sm font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer"
+          className="mt-7 w-full py-3 text-sm font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer"
           style={{
-            backgroundColor: featured ? primaryColor : 'transparent',
-            color: featured ? onPrimaryColor : textColor,
-            border: featured ? 'none' : `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)'}`,
+            borderRadius: 0,
+            backgroundColor: featured ? '#ffffff' : '#111111',
+            color: featured ? '#000000' : '#ffffff',
+            border: 'none',
           }}
           onMouseEnter={(e) => {
             if (!featured) {
-              e.currentTarget.style.borderColor = primaryColor;
-              e.currentTarget.style.color = primaryColor;
+              e.currentTarget.style.backgroundColor = '#222222';
             } else {
               e.currentTarget.style.opacity = '0.9';
             }
           }}
           onMouseLeave={(e) => {
             if (!featured) {
-              e.currentTarget.style.borderColor = theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
-              e.currentTarget.style.color = textColor;
+              e.currentTarget.style.backgroundColor = '#111111';
             } else {
               e.currentTarget.style.opacity = '1';
             }

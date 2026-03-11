@@ -20,7 +20,7 @@ interface PhoneMockupProps {
 
 export default function PhoneMockup({
   screenshot,
-  gradientFrom = '#0066FF',
+  gradientFrom = '#888888',
   gradientTo = '#000000',
   title,
   description,
