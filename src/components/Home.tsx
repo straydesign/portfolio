@@ -4,11 +4,13 @@ import { Mail, Phone, Linkedin } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
+import CarouselPhoneCard from './CarouselPhoneCard';
 import PhoneMockup from './PhoneMockup';
 import ContactForm from './ContactForm';
 import TextCard from './TextCard';
 import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
 import { CAROUSEL_ITEMS } from '@/data/carousel';
+import { useLightDirection } from '@/hooks/useLightDirection';
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;
@@ -107,6 +109,7 @@ function HeroTextReveal({ text }: { text: string }) {
 export default function Home({ setCurrentPage }: HomeProps) {
   const prefersReducedMotion = useReducedMotion();
   const heroTextDuration = HERO_TEXT.length * 0.04 + 0.4;
+  const lightRef = useLightDirection();
 
   return (
     <div className="min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
@@ -188,16 +191,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
           direction="left"
           pauseOnHover
           items={CAROUSEL_ITEMS.map((item) => (
-            <video
+            <CarouselPhoneCard
               key={item.src}
-              src={item.src}
-              className="h-44 md:h-56 w-44 md:w-56 object-cover aspect-square shadow-lg transition-transform duration-300 hover:scale-[1.03]"
-              style={{ borderRadius: 0 }}
-              autoPlay
-              loop
-              muted
-              playsInline
-              aria-label={item.alt}
+              videoSrc={item.src}
+              alt={item.alt}
+              lightRef={lightRef}
             />
           ))}
         />
@@ -220,18 +218,18 @@ export default function Home({ setCurrentPage }: HomeProps) {
             </div>
           </TextCard>
 
-          {/* Featured project (first) — larger, offset layout */}
-          {PROJECTS.length > 0 && (
-            <AnimateIn direction="up" className="mb-16 md:mb-24">
-              <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+          {/* All projects — unified split layout (phone left, text right) */}
+          {PROJECTS.map((project, i) => (
+            <AnimateIn key={project.id} direction="up" className="mb-16 md:mb-24">
+              <div className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 <div className="w-full md:w-1/2">
                   <PhoneMockup
-                    screenshot={PROJECTS[0].screenshot}
+                    screenshot={project.screenshot}
                     gradientFrom="#888888"
                     gradientTo="#000000"
-                    alt={PROJECTS[0].alt}
-                    onClick={() => setCurrentPage(PROJECTS[0].id)}
-                    introVideoSrc={PROJECTS[0].introVideoSrc}
+                    alt={project.alt}
+                    onClick={() => setCurrentPage(project.id)}
+                    introVideoSrc={project.introVideoSrc}
                     size="large"
                   />
                 </div>
@@ -240,47 +238,6 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <span
                       className="inline-block mb-4 px-3 py-1 text-xs font-semibold uppercase tracking-wider"
                       style={{
-                        backgroundColor: PROJECTS[0].type === 'case-study' ? '#ffffff' : '#111111',
-                        color: PROJECTS[0].type === 'case-study' ? '#000000' : '#ffffff',
-                        borderRadius: 0,
-                      }}
-                    >
-                      {getProjectTypeLabel(PROJECTS[0].type)}
-                    </span>
-                    <h3
-                      className="text-2xl md:text-4xl font-bold mb-3 tracking-tight"
-                      style={{ color: '#ffffff' }}
-                    >
-                      {PROJECTS[0].title}
-                    </h3>
-                    <p className="text-base md:text-lg leading-relaxed mb-4" style={{ color: '#a1a1a6' }}>
-                      {PROJECTS[0].description}
-                    </p>
-                    <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#ffffff' }}>
-                      {PROJECTS[0].deliverable}
-                    </p>
-                    <button
-                      className="mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-all hover:scale-105"
-                      style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-                      onClick={() => setCurrentPage(PROJECTS[0].id)}
-                    >
-                      View {getProjectTypeLabel(PROJECTS[0].type)}
-                    </button>
-                  </TextCard>
-                </div>
-              </div>
-            </AnimateIn>
-          )}
-
-          {/* Remaining projects — 2-column grid */}
-          {PROJECTS.length > 1 && (
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12" staggerDelay={0.15}>
-              {PROJECTS.slice(1).map((project) => (
-                <StaggerItem key={project.id}>
-                  <div className="relative">
-                    <span
-                      className="inline-block mb-3 px-3 py-1 text-xs font-semibold uppercase tracking-wider"
-                      style={{
                         backgroundColor: project.type === 'case-study' ? '#ffffff' : '#111111',
                         color: project.type === 'case-study' ? '#000000' : '#ffffff',
                         borderRadius: 0,
@@ -288,24 +245,30 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     >
                       {getProjectTypeLabel(project.type)}
                     </span>
-                    <PhoneMockup
-                      screenshot={project.screenshot}
-                      gradientFrom="#888888"
-                      gradientTo="#000000"
-                      title={project.title}
-                      description={project.description}
-                      deliverable={project.deliverable}
-                      alt={project.alt}
-                      textColor="#ffffff"
-                      secondaryTextColor="#a1a1a6"
+                    <h3
+                      className="text-2xl md:text-4xl font-bold mb-3 tracking-tight"
+                      style={{ color: '#ffffff' }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="text-base md:text-lg leading-relaxed mb-4" style={{ color: '#a1a1a6' }}>
+                      {project.description}
+                    </p>
+                    <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#ffffff' }}>
+                      {project.deliverable}
+                    </p>
+                    <button
+                      className="mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-all hover:scale-105"
+                      style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                       onClick={() => setCurrentPage(project.id)}
-                      introVideoSrc={project.introVideoSrc}
-                    />
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          )}
+                    >
+                      View {getProjectTypeLabel(project.type)}
+                    </button>
+                  </TextCard>
+                </div>
+              </div>
+            </AnimateIn>
+          ))}
         </div>
       </AnimateIn>
 
