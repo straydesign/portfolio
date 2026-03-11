@@ -370,7 +370,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
             {/* Trade-off 6 */}
             <TextCard padding="lg">
-              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Bloomberg over beauty</p>
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Data density over decoration</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 Data density wins over polish. JetBrains Mono, sharp corners, traffic-light colors, zero shadows, no border radius anywhere. The design system was built for a cooler at 2am and a loading dock at 6am, not a pitch deck. Every pixel is information. If it doesn&apos;t tell you something actionable, it doesn&apos;t belong on the screen.
               </p>
