@@ -80,7 +80,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
 
         {/* THE FEELING */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+          <TextCard padding="lg">
             <p className="text-xl md:text-3xl leading-relaxed font-bold" style={{ color: textColor }}>
               Learning guitar. Spending time with your kids. Saving for a house. Whatever the goal &mdash; you get <span style={{ color: primaryColor }}>three simple things to do today.</span>
             </p>
@@ -248,13 +248,13 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           </TextCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg">
               <p className="text-base font-bold mb-3" style={{ color: textColor }}>Mosaic tiles and fractured light</p>
               <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
                 The landing page leans into mosaic tiles, stained-glass geometry, and dark atmospheric gradients. This wasn&apos;t decoration — it was a deliberate signal. Goal-setting apps tend to feel clinical or aggressively optimistic. FirstDay needed to feel like something deeper. The mosaics suggest complexity being organized into something beautiful, which is exactly what the AI does with your goal. Fractured pieces becoming a coherent picture.
               </p>
             </TextCard>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg">
               <p className="text-base font-bold mb-3" style={{ color: textColor }}>Dark, mysterious, almost sacred</p>
               <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
                 The dark palette and ambient glow create a sense of quiet power — like walking into a cathedral or a planetarium. That ambience is intentional. When someone types &ldquo;I want to learn guitar&rdquo; and the AI generates a personalized 30-day plan in seconds, that moment should feel magical, not transactional. The visual design borrows from the language of mystery and discovery because that&apos;s what the product delivers.
@@ -275,13 +275,13 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Key Decisions</p>
           </TextCard>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TextCard padding="md" style={{ borderLeft: '3px solid #ffffff' }}>
+            <TextCard padding="md">
               <p className="text-base md:text-lg font-bold mb-2" style={{ color: textColor }}>3 activities per day, not more</p>
               <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
                 The line between &quot;I can do this&quot; and &quot;this is too much.&quot; Each takes 15&ndash;30 minutes.
               </p>
             </TextCard>
-            <TextCard padding="md" style={{ borderLeft: '3px solid #ffffff' }}>
+            <TextCard padding="md">
               <p className="text-base md:text-lg font-bold mb-2" style={{ color: textColor }}>Natural language, not categories</p>
               <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
                 Describe your goal in your own words. The AI builds a plan around it.

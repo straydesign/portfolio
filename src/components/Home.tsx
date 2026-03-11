@@ -287,7 +287,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
           {/* Featured quote — first rec gets special treatment */}
           <AnimateIn direction="up" className="mb-12 md:mb-16">
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg">
               <p className="text-xl md:text-2xl font-bold leading-relaxed mb-6" style={{ color: '#ffffff' }}>
                 &ldquo;{RECOMMENDATIONS[0].highlight}&rdquo;
               </p>

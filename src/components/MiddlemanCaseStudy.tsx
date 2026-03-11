@@ -86,7 +86,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
         {/* ── THE PROBLEM ── */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }} className="mb-8">
+          <TextCard padding="lg" className="mb-8">
             <p className="text-xl md:text-3xl leading-relaxed font-bold" style={{ color: textColor }}>
               Sales reps have ordering software. The person restocking shelves has <span style={{ color: primaryColor }}>pen, cardboard, and guesswork.</span>
             </p>
@@ -253,13 +253,13 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </TextCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <TextCard padding="md" style={{ borderLeft: `4px solid ${primaryColor}` }}>
+            <TextCard padding="md">
               <p className="text-base font-bold mb-2" style={{ color: textColor }}>Auto-Generated Orders</p>
               <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
                 POS scans trigger reorder calculations. Orders appear pre-built — merchandisers just adjust quantities before warehouse cutoff. The system does the math so you can focus on the shelves.
               </p>
             </TextCard>
-            <TextCard padding="md" style={{ borderLeft: `4px solid ${amberColor}` }}>
+            <TextCard padding="md">
               <p className="text-base font-bold mb-2" style={{ color: textColor }}>Rolling Shrinkage Detection</p>
               <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
                 Per-SKU variance tracked over rolling windows. Flagged when sustained above threshold for 7+ days — not one-off anomalies. Breakage is logged separately so the system only flags real loss.
@@ -277,7 +277,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               </TextCard>
             </div>
             <div className="w-full md:w-1/2">
-              <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
+              <TextCard padding="lg">
                 <p className="text-base font-bold mb-3" style={{ color: textColor }}>Why no dollar amounts?</p>
                 <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
                   Merchandisers use this on store floors — in plain view of competitors, store staff, and customers. Showing distributor margins or unit costs would be a security risk. Every financial metric lives in back-office tools where it belongs. The merchandiser sees cases, not dollars.
@@ -324,7 +324,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
           <div className="space-y-6">
             {/* Trade-off 1 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Stripped every dollar amount from the app</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 No unit costs, no revenue, no margin data anywhere in the UI. Merchandisers share their screens constantly — with store managers, with each other, sometimes with competitors standing right there in the aisle. Showing distributor pricing would be a genuine security problem. Financial reporting belongs in back-office tools, not on a phone in a cooler.
@@ -333,7 +333,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </TextCard>
 
             {/* Trade-off 2 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Pull list instead of a data table</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 The stock view could have been a sortable table with columns for every metric. Instead it&apos;s a task list — here&apos;s what&apos;s low, here&apos;s how many to pull, tap when you&apos;re done. Merchandisers don&apos;t analyze inventory. They fill shelves. The app should feel like a checklist, not a spreadsheet. Healthy products stay in a quiet list below. You only see what needs your hands.
@@ -342,7 +342,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </TextCard>
 
             {/* Trade-off 3 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${amberColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Time as the delivery axis, not PO numbers</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 Nobody walks into a store thinking &ldquo;I wonder about PO-47293.&rdquo; They think &ldquo;is a truck coming today?&rdquo; So the schedule page organizes by time — today&apos;s delivery is the hero with a big ETA and progress bar. Upcoming orders sit below with an edit window. Past deliveries collapse into a one-line log. The mental model matches the merchandiser&apos;s actual day, not the warehouse&apos;s filing system.
@@ -351,7 +351,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </TextCard>
 
             {/* Trade-off 4 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${amberColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Neutral delivery status, not color-coded warnings</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 An early version used amber to indicate &ldquo;on route.&rdquo; But a delivery on its way is good news — it&apos;s not a warning. Amber means &ldquo;something needs attention&rdquo; in this system. So on-route deliveries use a neutral badge with the ETA time front and center. The traffic-light system only fires when something actually needs your intervention.
@@ -360,7 +360,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </TextCard>
 
             {/* Trade-off 5 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${redColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Store name always visible, not hidden in a menu</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 The store name takes up prime real estate on every single screen. That&apos;s expensive space on mobile. But merchandisers visit 6-12 stores a day and context-switching is where mistakes happen — pulling product for the wrong account, logging breakage to the wrong store. The store name is the single most important piece of context in the entire app. It earns that space.
@@ -369,7 +369,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             </TextCard>
 
             {/* Trade-off 6 */}
-            <TextCard padding="lg" style={{ borderLeft: `4px solid ${redColor}` }}>
+            <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Bloomberg over beauty</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                 Data density wins over polish. JetBrains Mono, sharp corners, traffic-light colors, zero shadows, no border radius anywhere. The design system was built for a cooler at 2am and a loading dock at 6am, not a pitch deck. Every pixel is information. If it doesn&apos;t tell you something actionable, it doesn&apos;t belong on the screen.
