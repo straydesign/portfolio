@@ -166,16 +166,24 @@ export default function CarouselPhoneCard({
             background: '#000',
           }}
         >
-          {/* Video content */}
-          <video
-            src={videoSrc}
-            className="w-full h-full object-cover object-top"
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-label={alt}
-          />
+          {/* Screen content — video or image */}
+          {videoSrc.endsWith('.mp4') ? (
+            <video
+              src={videoSrc}
+              className="w-full h-full object-cover object-top"
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-label={alt}
+            />
+          ) : (
+            <img
+              src={videoSrc}
+              alt={alt}
+              className="w-full h-full object-cover object-top"
+            />
+          )}
 
           {/* Dynamic Island */}
           <div
