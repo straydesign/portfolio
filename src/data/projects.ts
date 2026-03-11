@@ -22,6 +22,8 @@ export interface Project {
   readonly type: ProjectType;
   readonly videoId?: string;
   readonly introVideoSrc?: string;
+  readonly gradientFrom?: string;
+  readonly gradientTo?: string;
 }
 
 export const PROJECTS: readonly Project[] = [
@@ -42,13 +44,15 @@ export const PROJECTS: readonly Project[] = [
     title: 'MERCHANDISING SYSTEM',
     description: 'Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection.',
     deliverable: 'Live prototype + Bloomberg Terminal design system',
-    screenshot: '/images/middleman/dashboard.png',
-    alt: 'Middleman app screenshot',
+    screenshot: '/images/middleman/entry-card.png',
+    alt: 'MIDDLEMAN — green pallet jack icon on black',
     slug: 'middleman',
     slugAliases: ['middleman-case-study'],
     documentTitle: 'Merchandising System Case Study | Tom Sesler',
     type: 'project',
     introVideoSrc: '/videos/middleman-intro.mp4',
+    gradientFrom: '#22c55e',
+    gradientTo: '#000000',
   },
   {
     id: 'day-one-case-study',

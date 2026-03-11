@@ -226,8 +226,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 <div className="w-full md:w-1/2">
                   <PhoneMockup
                     screenshot={project.screenshot}
-                    gradientFrom="#888888"
-                    gradientTo="#000000"
+                    gradientFrom={project.gradientFrom ?? '#888888'}
+                    gradientTo={project.gradientTo ?? '#000000'}
                     alt={project.alt}
                     onClick={() => setCurrentPage(project.id)}
                     introVideoSrc={project.introVideoSrc}
