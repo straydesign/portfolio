@@ -211,12 +211,19 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             ))}
           </StaggerContainer>
 
-          {/* Login + Settings + Statistics row */}
-          <StaggerContainer className="grid grid-cols-3 gap-4" staggerDelay={0.08}>
+          {/* All screens grid */}
+          <StaggerContainer className="grid grid-cols-3 md:grid-cols-5 gap-4" staggerDelay={0.08}>
             {[
               { src: '/images/middleman/login.png', label: 'Login' },
+              { src: '/images/middleman/dashboard.png', label: 'Dashboard' },
+              { src: '/images/middleman/stock.png', label: 'Pull List' },
+              { src: '/images/middleman/orders.png', label: 'Deliveries' },
+              { src: '/images/middleman/order-edit.png', label: 'Order Edit' },
+              { src: '/images/middleman/order-detail.png', label: 'Order Detail' },
+              { src: '/images/middleman/product-detail.png', label: 'Product Detail' },
               { src: '/images/middleman/statistics.png', label: 'Statistics' },
               { src: '/images/middleman/settings.png', label: 'Settings' },
+              { src: '/images/middleman/merch-notes-modal.png', label: 'Notes' },
             ].map(({ src, label }) => (
               <StaggerItem key={label}>
                 <div className="text-center">
