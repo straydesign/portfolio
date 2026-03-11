@@ -41,7 +41,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
         <div className="min-h-[80vh] flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12 md:py-16" style={{ borderBottom: divider }}>
           <AnimateIn direction="left" className="w-full md:w-1/2">
             <TextCard padding="lg">
-              <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>Project &mdash; Live Product</p>
+              <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>Live Product</p>
               <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>FIRSTDAY.LIFE</h1>
               <p className="text-lg md:text-xl mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
                 You want to learn guitar. But where do you even start?
@@ -51,7 +51,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
               </p>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { label: 'CONCEPT', value: 'AI turns your goals into daily plans' },
+                  { label: 'CONCEPT', value: 'AI turns goals into 30-day daily plans' },
                   { label: 'THE GAP', value: 'No tool turns "I want to" into "here\'s what to do today"' },
                   { label: 'MY ROLE', value: 'UX Designer & Developer' },
                   { label: 'STATUS', value: 'Live at firstday.life' },
@@ -69,10 +69,10 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
 
           <AnimateIn direction="right" className="w-full md:w-1/2">
             <PhoneMockup
-              screenshot="/images/firstday/mobile-landing.png"
+              screenshot="/images/firstday/hero.png"
               gradientFrom={primaryColor}
               gradientTo="#000000"
-              alt="FirstDay.Life mobile app"
+              alt="FirstDay.Life hero — achieve any goal in 30 days"
               introVideoSrc="/videos/firstday-intro.mp4"
               size="large"
             />
@@ -99,7 +99,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" staggerDelay={0.12}>
             {[
               { src: '/images/carousel/fd-goal-create.mp4', label: 'Type your dream', desc: 'Say what matters in your own words.' },
-              { src: '/images/carousel/fd-calendar.mp4', label: 'Get your plan', desc: 'AI turns it into 7 days of action.' },
+              { src: '/images/carousel/fd-calendar.mp4', label: 'Get your plan', desc: 'AI turns it into 30 days of action.' },
               { src: '/images/carousel/fd-complete-day.mp4', label: 'Do the work', desc: 'Check off tasks. Watch momentum build.' },
             ].map(({ src, label, desc }, i) => (
               <StaggerItem key={i}>
@@ -107,7 +107,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
                   <div className="mb-4">
                     <video
                       src={src}
-                      className="w-full rounded-2xl"
+                      className="w-full"
                       autoPlay
                       loop
                       muted
@@ -136,7 +136,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
                 <div className="text-center">
                   <video
                     src={src}
-                    className="w-full rounded-xl"
+                    className="w-full"
                     autoPlay
                     loop
                     muted
@@ -205,7 +205,7 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
                   <ImageWithSkeleton
                     src={src}
                     alt={label}
-                    className="w-full rounded-2xl"
+                    className="w-full"
                     style={{ border: imgBorder }}
                   />
                   <TextCard padding="sm" noTilt className="mt-2">
@@ -216,20 +216,21 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
             ))}
           </StaggerContainer>
 
-          {/* Desktop views */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <TextCard padding="sm" noTilt className="mb-3 text-center">
-                <p className="text-xs font-bold" style={{ color: secondaryTextColor }}>DESKTOP</p>
-              </TextCard>
-              <ImageWithSkeleton src="/images/firstday/desktop-landing.png" alt="FirstDay.Life desktop landing page" className="rounded-2xl w-full" style={{ border: imgBorder }} />
-            </div>
-            <div>
-              <TextCard padding="sm" noTilt className="mb-3 text-center">
-                <p className="text-xs font-bold" style={{ color: secondaryTextColor }}>FEATURES</p>
-              </TextCard>
-              <ImageWithSkeleton src="/images/firstday/desktop-features.png" alt="FirstDay.Life features" className="rounded-2xl w-full" style={{ border: imgBorder }} />
-            </div>
+          {/* Website screenshots */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            {[
+              { src: '/images/firstday/hero.png', label: 'Hero' },
+              { src: '/images/firstday/features.png', label: 'How It Works' },
+              { src: '/images/firstday/mosaic.png', label: 'Steps' },
+              { src: '/images/firstday/section-3.png', label: 'Social Proof' },
+            ].map(({ src, label }) => (
+              <div key={label}>
+                <ImageWithSkeleton src={src} alt={`FirstDay.Life ${label}`} className="w-full" style={{ border: imgBorder }} />
+                <TextCard padding="sm" noTilt className="mt-2 text-center">
+                  <p className="text-xs font-bold" style={{ color: secondaryTextColor }}>{label}</p>
+                </TextCard>
+              </div>
+            ))}
           </div>
           <TextCard padding="sm" noTilt className="text-center">
             <p className="text-sm" style={{ color: secondaryTextColor }}>

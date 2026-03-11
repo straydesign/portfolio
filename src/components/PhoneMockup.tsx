@@ -69,11 +69,11 @@ export default function PhoneMockup({
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const phoneWidth = size === 'large'
-    ? (isDesktop ? 300 : 220)
-    : (isDesktop ? 240 : 180);
+    ? (isDesktop ? 300 : 330)
+    : (isDesktop ? 240 : 270);
   const phoneHeight = size === 'large'
-    ? (isDesktop ? 600 : 440)
-    : (isDesktop ? 480 : 360);
+    ? (isDesktop ? 600 : 660)
+    : (isDesktop ? 480 : 540);
 
   return (
     <div

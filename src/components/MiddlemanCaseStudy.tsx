@@ -1,8 +1,9 @@
 'use client';
 
 import MiddlemanLogo from './MiddlemanLogo';
-import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Clock, TrendingUp, Target, ShieldCheck, Zap } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
+import ImageWithSkeleton from './ImageWithSkeleton';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
 
@@ -13,10 +14,10 @@ interface MiddlemanCaseStudyProps {
 export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) {
   const textColor = '#ffffff';
   const secondaryTextColor = '#a1a1a6';
-  const primaryColor = '#ffffff';
+  const primaryColor = '#22c55e';
 
   const divider = '1px solid rgba(255,255,255,0.06)';
-  const videoBorder = '1px solid rgba(255,255,255,0.08)';
+  const imgBorder = '2px solid rgba(255,255,255,0.1)';
 
   return (
     <div className="min-h-screen">
@@ -26,12 +27,12 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
         <div className="pt-6 mb-8 flex items-center gap-4">
           <button onClick={onBack}
             className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: primaryColor, borderRadius: 0 }}>
+            style={{ color: '#ffffff', borderRadius: 0 }}>
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
           <a href="https://middleman.quest" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
-            style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+            style={{ backgroundColor: primaryColor, color: '#000000', borderRadius: 0 }}>
             <ExternalLink className="w-4 h-4" /> Try Live Prototype
           </a>
         </div>
@@ -42,18 +43,21 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <TextCard padding="lg">
               <div className="flex items-center gap-4 mb-3">
                 <MiddlemanLogo color={primaryColor} className="w-12 md:w-16 h-auto" />
-                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Project</p>
+                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Live Prototype</p>
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>MERCHANDISING SYSTEM</h1>
-              <p className="text-lg md:text-xl mb-10 max-w-2xl leading-relaxed" style={{ color: secondaryTextColor }}>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>MIDDLEMAN</h1>
+              <p className="text-lg md:text-xl mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
                 You walk into a store cold. No list. No plan. Just your memory and a cardboard tally sheet.
+              </p>
+              <p className="text-base mb-10 leading-relaxed" style={{ color: textColor }}>
+                Beer merchandisers visit 6&ndash;12 stores a day. MIDDLEMAN replaces guesswork with real-time POS data, auto-generated orders, and rolling shrinkage detection.
               </p>
               <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
                 {[
                   { label: 'CUSTOMER', value: 'Beer merchandisers (6-12 stores/day)' },
                   { label: 'THE PAIN', value: '45+ min per store guessing what to restock' },
-                  { label: 'MY ROLE', value: 'Solo designer \u2014 also worked as a merchandiser' },
-                  { label: 'TIMEFRAME', value: '3 months to hi-fi prototype' },
+                  { label: 'MY ROLE', value: 'Solo designer — also worked as a merchandiser' },
+                  { label: 'DESIGN SYSTEM', value: 'Bloomberg Terminal / Warehouse Grid' },
                 ].map(({ label, value }) => (
                   <StaggerItem key={label}>
                     <div>
@@ -68,10 +72,10 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
           <AnimateIn direction="right" className="w-full md:w-1/2">
             <PhoneMockup
-              screenshot="/images/mockups/middleman-screen.png"
+              screenshot="/images/middleman/dashboard.png"
               gradientFrom={primaryColor}
               gradientTo="#000000"
-              alt="Middleman app home screen"
+              alt="Middleman app dashboard with revenue at risk"
               introVideoSrc="/videos/middleman-intro.mp4"
               size="large"
             />
@@ -80,16 +84,16 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
 
         {/* THE DAILY PAIN */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }} className="mb-8">
+          <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }} className="mb-8">
             <p className="text-xl md:text-3xl leading-relaxed font-bold" style={{ color: textColor }}>
               Sales reps have ordering software. The person restocking shelves has <span style={{ color: primaryColor }}>pen, cardboard, and guesswork.</span>
             </p>
           </TextCard>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              "You can\u2019t see what\u2019s in backstock without walking to the cooler",
-              "You can\u2019t see what\u2019s about to run out until it already has",
-              "You spend 45 minutes per store on work the app should do for you",
+              "Orders come from POS data — the merchandiser shouldn't have to guess quantities",
+              "Shrinkage hides in daily noise until it's too late — you need rolling variance, not hunches",
+              "You spend 45 minutes per store on work the system should handle automatically",
             ].map((pain, i) => (
               <TextCard key={i} padding="md">
                 <p className="text-base" style={{ color: textColor }}>{pain}</p>
@@ -98,61 +102,54 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </div>
         </AnimateIn>
 
-        {/* THE APP — core flow */}
+        {/* THE APP — core screens */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="md" className="mb-10">
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The App</p>
-            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>Three screens. One workflow. Zero guesswork.</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>Walk in. See what to pull. Do the work. Move on.</p>
           </TextCard>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" staggerDelay={0.12}>
+
+          {/* Primary screen showcase */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" staggerDelay={0.08}>
             {[
-              { src: '/images/carousel/mm-dashboard.mp4', label: 'Pick your store', desc: 'Walk in knowing exactly what to do.' },
-              { src: '/images/carousel/mm-stock.mp4', label: 'See the pull list', desc: 'The backroom list is ready before you open the door.' },
-              { src: '/images/carousel/mm-orders.mp4', label: 'Confirm & move on', desc: 'Mark it done. Next store. What was 45 minutes is now 15.' },
-            ].map(({ src, label, desc }, i) => (
-              <StaggerItem key={i}>
+              { src: '/images/middleman/dashboard.png', label: 'Dashboard', desc: 'Revenue at risk, quick actions, activity feed' },
+              { src: '/images/middleman/stock.png', label: 'Stock View', desc: 'Frontstock, backstock, risk levels per SKU' },
+              { src: '/images/middleman/orders.png', label: 'Orders', desc: 'Auto-generated POs with on-route tracking' },
+              { src: '/images/middleman/order-edit.png', label: 'Order Edit', desc: 'Adjust quantities before warehouse cutoff' },
+            ].map(({ src, label, desc }) => (
+              <StaggerItem key={label}>
                 <div className="text-center">
-                  <div className="mb-4">
-                    <video
-                      src={src}
-                      className="w-full rounded-2xl"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      aria-label={label}
-                      style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
-                    />
-                  </div>
-                  <TextCard padding="sm">
-                    <p className="text-base font-bold" style={{ color: primaryColor }}>{label}</p>
-                    <p className="text-sm mt-1" style={{ color: secondaryTextColor }}>{desc}</p>
+                  <ImageWithSkeleton
+                    src={src}
+                    alt={label}
+                    className="w-full"
+                    style={{ border: imgBorder }}
+                  />
+                  <TextCard padding="sm" noTilt className="mt-2">
+                    <p className="text-sm font-bold" style={{ color: primaryColor }}>{label}</p>
+                    <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{desc}</p>
                   </TextCard>
                 </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
 
-          {/* Supporting features */}
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4" staggerDelay={0.08}>
+          {/* Secondary screens */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4" staggerDelay={0.08}>
             {[
-              { src: '/images/carousel/mm-route.mp4', label: 'Your day, mapped out' },
-              { src: '/images/carousel/mm-store-switch.mp4', label: 'Always know where you are' },
-              { src: '/images/carousel/mm-nav-flow.mp4', label: 'Every screen, connected' },
-              { src: '/images/carousel/mm-login.mp4', label: 'Secure sign-in' },
-              { src: '/images/carousel/mm-settings.mp4', label: 'Your preferences' },
-            ].map(({ src, label }, i) => (
-              <StaggerItem key={i}>
+              { src: '/images/middleman/order-detail.png', label: 'Order Detail' },
+              { src: '/images/middleman/product-detail.png', label: 'Product Detail' },
+              { src: '/images/middleman/statistics.png', label: 'Statistics' },
+              { src: '/images/middleman/settings.png', label: 'Settings' },
+              { src: '/images/middleman/login.png', label: 'Login' },
+            ].map(({ src, label }) => (
+              <StaggerItem key={label}>
                 <div className="text-center">
-                  <video
+                  <ImageWithSkeleton
                     src={src}
-                    className="w-full rounded-xl"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-label={label}
-                    style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+                    alt={label}
+                    className="w-full"
+                    style={{ border: imgBorder }}
                   />
                   <p className="text-xs font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                 </div>
@@ -161,26 +158,83 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </StaggerContainer>
         </AnimateIn>
 
-        {/* THE IDEA */}
+        {/* DESIGN SYSTEM */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" className="text-center max-w-3xl mx-auto mb-8">
-            <p className="text-xs font-bold tracking-widest mb-8 uppercase" style={{ color: primaryColor }}>The Idea</p>
-            <p className="text-2xl md:text-4xl font-bold mb-10 leading-tight" style={{ color: primaryColor }}>
-              Tell me what to pull first. Everything else is secondary.
+          <TextCard padding="lg" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Design System</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
+              Bloomberg Terminal meets warehouse floor
+            </p>
+            <p className="text-base mt-3 leading-relaxed" style={{ color: secondaryTextColor }}>
+              Merchandisers work in dimly-lit coolers and bright fluorescent aisles. The design system prioritizes scanability over aesthetics: monospace type, traffic-light colors, zero border radius, data-dense layouts.
             </p>
           </TextCard>
-          <div className="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
-            {['1. Pick store', '2. Pull list', '3. Confirm & go'].map((step) => (
-              <TextCard key={step} padding="md" className="text-center">
-                <p className="text-sm font-bold" style={{ color: primaryColor }}>{step}</p>
-              </TextCard>
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4" staggerDelay={0.08}>
+            {[
+              { label: 'Typography', value: 'JetBrains Mono', desc: 'Tabular nums, slashed zero' },
+              { label: 'Colors', value: 'Green / Amber / Red', desc: 'Traffic-light only — no blue, no purple' },
+              { label: 'Corners', value: '0px radius', desc: 'Sharp rectangles everywhere' },
+              { label: 'Shadows', value: 'None', desc: 'Flat cards with border separation' },
+            ].map(({ label, value, desc }) => (
+              <StaggerItem key={label}>
+                <TextCard padding="md">
+                  <p className="text-xs font-bold tracking-wider mb-1" style={{ color: secondaryTextColor }}>{label}</p>
+                  <p className="text-base font-bold" style={{ color: primaryColor }}>{value}</p>
+                  <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{desc}</p>
+                </TextCard>
+              </StaggerItem>
             ))}
-          </div>
-          <TextCard padding="md" className="text-center max-w-xl mx-auto">
-            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-              Open the app. See what to pull. Do the work.
+          </StaggerContainer>
+        </AnimateIn>
+
+        {/* SMART FEATURES */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Intelligence Layer</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
+              The system thinks so you don&apos;t have to
             </p>
           </TextCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <div className="flex flex-col md:flex-row gap-4">
+              <TextCard padding="md" style={{ borderLeft: `4px solid ${primaryColor}` }} className="flex-1">
+                <p className="text-base font-bold mb-2" style={{ color: textColor }}>Auto-Generated Orders</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  POS scans trigger reorder calculations. Orders appear pre-built — merchandisers just adjust quantities before warehouse cutoff.
+                </p>
+              </TextCard>
+              <TextCard padding="md" style={{ borderLeft: '4px solid #eab308' }} className="flex-1">
+                <p className="text-base font-bold mb-2" style={{ color: textColor }}>Rolling Shrinkage Detection</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  Per-SKU variance tracked over rolling windows. Flagged when sustained above threshold for 7+ days — not one-off anomalies.
+                </p>
+              </TextCard>
+            </div>
+          </div>
+
+          {/* Modals showcase */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4" staggerDelay={0.08}>
+            {[
+              { src: '/images/middleman/shrinkage-modal.png', label: 'Shrinkage Analysis' },
+              { src: '/images/middleman/breakage-modal.png', label: 'Log Breakage' },
+              { src: '/images/middleman/store-switcher.png', label: 'Store Switcher' },
+            ].map(({ src, label }) => (
+              <StaggerItem key={label}>
+                <div className="text-center">
+                  <ImageWithSkeleton
+                    src={src}
+                    alt={label}
+                    className="w-full"
+                    style={{ border: imgBorder }}
+                  />
+                  <TextCard padding="sm" noTilt className="mt-2">
+                    <p className="text-xs font-bold tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
+                  </TextCard>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </AnimateIn>
 
         {/* BY THE NUMBERS */}
@@ -188,11 +242,12 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           <TextCard padding="sm" className="mb-8 inline-block">
             <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>The Hypothesis</p>
           </TextCard>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-6" staggerDelay={0.1}>
             {[
-              { icon: Clock, label: 'TIME PER STORE', value: '45 min \u2192 15 min' },
+              { icon: Clock, label: 'TIME PER STORE', value: '45 min → 15 min' },
               { icon: TrendingUp, label: 'STOCKOUTS', value: 'Down 60%' },
-              { icon: Target, label: 'PULL ACCURACY', value: '85%+' },
+              { icon: ShieldCheck, label: 'SHRINKAGE', value: 'Caught in days, not weeks' },
+              { icon: Zap, label: 'ORDER ACCURACY', value: 'POS-driven, not guessed' },
             ].map(({ icon: Icon, label, value }) => (
               <StaggerItem key={label}>
                 <TextCard padding="lg" className="text-center">
@@ -205,22 +260,34 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </StaggerContainer>
         </AnimateIn>
 
-        {/* TWO KEY DECISIONS */}
+        {/* KEY DECISIONS */}
         <AnimateIn direction="up" className="py-16 md:py-24">
           <TextCard padding="sm" className="mb-8 inline-block">
-            <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Two Key Decisions</p>
+            <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Key Decisions</p>
           </TextCard>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
               <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Never lose your place</p>
               <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                The current store stays pinned on every screen &mdash; so you never pull product for the wrong account.
+                The current store stays pinned on every screen — so you never pull product for the wrong account. One tap switches context.
               </p>
             </TextCard>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
               <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Actions before analytics</p>
               <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                The job is movement, not analysis. Pull lists come first. Reports come after the shift.
+                The job is movement, not analysis. Pull lists and breakage logging come first. Stats are one tap away but never block the workflow.
+              </p>
+            </TextCard>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid #eab308' }}>
+              <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Separate breakage from shrinkage</p>
+              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+                Merchandisers log breakage manually — broken bottles, damaged packaging. The system subtracts these from shrinkage calculations so the rolling variance only flags real theft or loss.
+              </p>
+            </TextCard>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid #eab308' }}>
+              <p className="text-lg md:text-xl font-bold mb-3" style={{ color: textColor }}>Bloomberg over beauty</p>
+              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+                Data density wins over polish. JetBrains Mono, sharp corners, traffic-light colors. You see the number, you act on it. The design system was built for a cooler at 2am, not a pitch deck.
               </p>
             </TextCard>
           </div>
