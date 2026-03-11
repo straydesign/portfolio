@@ -6,36 +6,36 @@ import Carousel from './Carousel';
 import TextCard from './TextCard';
 
 const ALL_BOOKS = [
-  { title: 'The Art of Innovation', color: 'red', description: 'Creativity is not a lightbulb moment--it is a process with structure that makes the best creative works happen.' },
-  { title: 'Creative Confidence', color: 'cobalt', description: 'How IDEO goes into organizations and helps them with the creative process.' },
-  { title: 'Articulating Design Decisions', color: 'brown', description: 'How to work with clients in design based off of the author\'s long experience in design through building shared understanding.' },
-  { title: 'The Science of Scaling', color: 'tan', description: 'How organizations hold themselves back by forgetting about the big picture and setting low goals.' },
-  { title: 'Creative Selection', color: 'cream', description: 'The author\'s personal experience working at Apple--talks about simplicity and making things as easy as possible for the user.' },
-  { title: 'Indistractable', color: 'burgundy', description: 'About why we get distracted so easily and why it\'s so important to focus without distractions.' },
-  { title: 'Hooked', color: 'darkgreen', description: 'Talks about how the most successful products build habits with people through different strategies: triggers, actions, rewards, investment.' },
-  { title: 'How to Win Friends & Influence People', color: 'navy', description: 'Shows the value in the world of being genuine and inquisitive.' },
-  { title: 'The Power of When', color: 'teal', description: 'You have a biological clock--you have peak energy times and should implement habits based on your type.' },
-  { title: '48 Laws of Power', color: 'charcoal', description: 'Power dynamics shape every interaction. Understanding these patterns helps you navigate politics and recognize manipulation.' },
-  { title: 'The Dichotomy of Leadership', color: 'olive', description: 'This book pairs with Extreme Ownership and explains the caveats of overdoing some of the things in the first book.' },
-  { title: 'Start with Why', color: 'mustard', description: 'People don\'t buy what you do--they buy why you do it. Leading with purpose inspires loyalty and creates movements.' },
-  { title: 'Steal Like an Artist', color: 'plum', description: 'It is part of the creative process to be influenced by others\' work.' },
-  { title: 'Storyworthy', color: 'rust', description: 'What\'s important in a story is the transformation of the character through small moments.' },
-  { title: 'The Ten Faces of Innovation', color: 'blue', description: 'About how IDEO operates as a whole--they focus on creativity and believe that anything is possible.' },
-  { title: 'Influence', color: 'terracotta', description: 'Goes over the principles that persuade people, how other people use those against you, and how you can use them ethically.' },
-  { title: 'The 5 AM Club', color: 'sage', description: 'The morning sets the tone of your day. Getting things done early so that you can focus on primary work during the day.' },
-  { title: 'Deep Work', color: 'midnight', description: 'Some roles benefit from stretches of undistracted, very focused work.' },
-  { title: 'Building a StoryBrand', color: 'forest', description: 'About your communications with the customer. Should be all related to their story of growth.' },
-  { title: 'Can\'t Hurt Me', color: 'oxblood', description: 'About mastering your mind and not giving up because you feel uncomfortable.' },
-  { title: 'The Practice', color: 'white', description: 'Show up consistently and focus on improving bit by bit through repetition.' },
-  { title: 'The Goal', color: 'wine', description: 'Lean works because you map how everything actually functions and uncover what\'s limiting you.' },
-  { title: 'Atomic Habits', color: 'copper', description: 'About how to build and keep your habits.' },
-  { title: 'How to Talk to Anyone', color: 'slate', description: 'Master the art of conversation with practical techniques.' },
-  { title: 'The Intelligent Investor', color: 'darkgreen', description: 'A guide about investing for life: 90% in index funds, 10% in stock picks.' },
-  { title: 'The Hero and the Outlaw', color: 'red', description: 'Brands that tap into universal archetypes create deeper emotional connections and stand out in crowded markets.' },
-  { title: 'Laws of UX', color: 'cream', description: 'A collection of psychology principles that designers can use to build more intuitive, human-centered products.' },
-  { title: 'Emotional Design', color: 'cobalt', description: 'Good design works on three levels--visceral, behavioral, and reflective--and the emotional response matters as much as usability.' },
-  { title: 'Sprint', color: 'mustard', description: 'Five days to go from problem to tested prototype. A structured process for answering critical business questions through design and prototyping.' },
-  { title: 'Inspired', color: 'burgundy', description: 'How the best tech companies build products people love--through empowered product teams, continuous discovery, and strong product leadership.' },
+  { title: 'The Art of Innovation', color: 'red', description: 'Creativity isn\'t a flash of genius--it\'s a disciplined process. IDEO proves that the best ideas come from building rapid prototypes, getting feedback early, and iterating relentlessly. Observe real people, prototype fast, and let the work evolve.' },
+  { title: 'Creative Confidence', color: 'cobalt', description: 'IDEO goes into organizations and unlocks the creative potential that\'s already there. The core idea is that creativity isn\'t reserved for "creative people"--everyone has it, but most have been taught to suppress it. The best breakthroughs happen when you give non-designers permission to think creatively.' },
+  { title: 'Articulating Design Decisions', color: 'brown', description: 'The hardest part of design isn\'t the design--it\'s explaining your decisions to people who think differently than you. This book is about building shared understanding with stakeholders through clear rationale. The designer who can articulate why something works will always beat the one who just makes things look good.' },
+  { title: 'The Science of Scaling', color: 'tan', description: 'Organizations plateau because they set safe goals and forget the big picture. Thinking bigger often makes execution easier because it forces you to rethink your approach entirely. For product teams, this is the difference between incremental features and transformative product vision.' },
+  { title: 'Creative Selection', color: 'cream', description: 'The author worked at Apple on Safari, the keyboard, and other foundational products. Apple\'s magic isn\'t genius--it\'s an obsessive process of demos, iteration, and simplification. Every feature starts complex and gets refined until only the essential remains.' },
+  { title: 'Indistractable', color: 'burgundy', description: 'We blame technology for our distractions, but the real root cause is internal discomfort--we reach for our phones to escape boredom or anxiety. The fix isn\'t willpower, it\'s designing your environment and schedule to make focus the default. Applied this to my own workflow and the difference is night and day.' },
+  { title: 'Hooked', color: 'darkgreen', description: 'The most successful products build habits through a four-part loop: trigger, action, variable reward, investment. Every time you check Instagram or open Slack, you\'re running through this cycle. Understanding this framework is essential for designing products people stick with--and for recognizing when it\'s being used against you.' },
+  { title: 'How to Win Friends & Influence People', color: 'navy', description: 'The most powerful thing you can do in any conversation is be genuinely curious about the other person. People don\'t care what you know until they know that you care. In client work and user research, this principle changes everything about the quality of information you get.' },
+  { title: 'The Power of When', color: 'teal', description: 'Everyone has a biological chronotype that determines when they peak in energy, creativity, and focus. Most people fight their natural rhythm instead of working with it. Once I figured out my type and restructured my schedule, I stopped forcing productivity and started having it show up naturally.' },
+  { title: '48 Laws of Power', color: 'charcoal', description: 'Power dynamics run in the background of every interaction--meetings, negotiations, even design reviews. This book teaches you to see the game that\'s already being played, not to be manipulative. Once you recognize these patterns, you understand why decisions get made the way they do.' },
+  { title: 'The Dichotomy of Leadership', color: 'olive', description: 'This is the sequel to Extreme Ownership that explains the caveats. Take too much ownership and you micromanage. Be too aggressive and you lose your team. Every leadership principle has a tipping point where it becomes counterproductive--the best leaders adjust constantly.' },
+  { title: 'Start with Why', color: 'mustard', description: 'People don\'t buy what you do--they buy why you do it. Apple, Patagonia, and the strongest brands all lead with purpose, not features. In product design, if you can\'t articulate why your product exists beyond "it does X," you haven\'t found your differentiator yet.' },
+  { title: 'Steal Like an Artist', color: 'plum', description: 'Every creative person is a remix of their influences--the idea that anything is truly "original" is a myth, and that\'s freeing. The trick is to steal from enough diverse sources that the combination becomes uniquely yours. Changed how I approach design research and inspiration gathering.' },
+  { title: 'Storyworthy', color: 'rust', description: 'The best stories aren\'t about dramatic events--they\'re about small, specific moments of transformation. A good story changes you from one state to another in a way the audience can feel. In product work, this is exactly how case studies should be structured--show the transformation, not the feature list.' },
+  { title: 'The Ten Faces of Innovation', color: 'blue', description: 'IDEO breaks innovation into ten distinct roles--the Anthropologist, the Experimenter, the Cross-Pollinator, and more. Innovation isn\'t one person\'s job, it\'s a team sport where different perspectives compound. When building a product team, I think about which "faces" are represented and which are missing.' },
+  { title: 'Influence', color: 'terracotta', description: 'Cialdini breaks down six principles of persuasion: reciprocity, commitment, social proof, authority, liking, and scarcity. These aren\'t tricks--they\'re how human decision-making actually works. Every product designer should understand these because they\'re baked into every onboarding flow and pricing page.' },
+  { title: 'The 5 AM Club', color: 'sage', description: 'The first hour of your day sets the trajectory for everything after. Getting the most important work done before the world starts demanding your attention is a competitive advantage most people never use. The principle of protecting your best hours for your most important work is real.' },
+  { title: 'Deep Work', color: 'midnight', description: 'The ability to do deep, focused work is becoming rare exactly when it\'s becoming most valuable. Shallow work--emails, Slack, meetings--fills the day but doesn\'t move the needle. The people who produce exceptional output are the ones who carve out protected blocks for uninterrupted thinking.' },
+  { title: 'Building a StoryBrand', color: 'forest', description: 'Most companies talk about themselves when they should be talking about the customer\'s journey. Your customer is the hero, you\'re the guide. Every piece of communication should connect to their story of growth--this framework changed how I write copy and position products.' },
+  { title: 'Can\'t Hurt Me', color: 'oxblood', description: 'Goggins\' core message is that when you think you\'re at your limit, you\'re actually at about 40%. Most of what holds you back isn\'t physical or intellectual--it\'s your brain keeping you comfortable. Whether it\'s shipping a hard deadline or pushing through a tough climb, this mindset applies everywhere.' },
+  { title: 'The Practice', color: 'white', description: 'Creativity isn\'t about inspiration--it\'s about showing up and doing the work consistently, especially when you don\'t feel like it. The professionals who produce great work aren\'t more talented, they\'re more disciplined about the practice. Ship imperfect work, learn, show up again tomorrow.' },
+  { title: 'The Goal', color: 'wine', description: 'The whole book is about finding the one bottleneck limiting your entire system. Lean works because you map how everything actually functions and fix the real constraint before optimizing anything else. In product development, this means identifying the true blocker instead of spreading effort everywhere.' },
+  { title: 'Atomic Habits', color: 'copper', description: 'The compound effect of 1% improvements is staggering over time, but only if the habits stick. James Clear\'s system--make it obvious, attractive, easy, and satisfying--is the most practical framework for building habits that last. Used it to restructure my morning routine, reading, and design practice.' },
+  { title: 'How to Talk to Anyone', color: 'slate', description: '92 techniques for mastering conversation, from first impressions to deep rapport. Great communicators aren\'t born--they\'ve practiced specific patterns until they become second nature. In user interviews and client meetings, these small adjustments in how you listen change every interaction.' },
+  { title: 'The Intelligent Investor', color: 'darkgreen', description: 'Graham\'s timeless advice: invest for the long term, don\'t time the market, put 90% in index funds. The discipline of separating emotion from financial decisions translates directly to design decisions--data over feelings, patience over panic.' },
+  { title: 'The Hero and the Outlaw', color: 'red', description: 'Every powerful brand maps to one of twelve universal archetypes--the Hero, the Creator, the Explorer, the Sage. Brands that align with an archetype create deeper emotional connections because they tap into stories people already understand. When helping a client define positioning, this framework is always running in the background.' },
+  { title: 'Laws of UX', color: 'cream', description: 'A concise collection of psychological principles that explain why users behave the way they do--Fitts\'s Law, Hick\'s Law, the Peak-End Rule, Jakob\'s Law. These aren\'t opinions about design, they\'re research-backed patterns of human behavior. Every product decision should be filtered through at least a few of these.' },
+  { title: 'Emotional Design', color: 'cobalt', description: 'Design works on three levels--visceral, behavioral, and reflective--and the emotional response matters as much as usability. Most designers only optimize for behavioral, but the products people love succeed on all three. A beautiful product that\'s hard to use fails, but so does a usable product that feels nothing.' },
+  { title: 'Sprint', color: 'mustard', description: 'Five days from problem to tested prototype. Google Ventures created a structured process that forces decisions and puts real user feedback at the center. The speed of validated learning is unmatched--you learn more in one sprint than months of speculation.' },
+  { title: 'Inspired', color: 'burgundy', description: 'Marty Cagan breaks down how the best tech companies build products people love--through empowered teams, continuous discovery, and strong product leadership. Great products don\'t come from top-down roadmaps, they come from teams given problems to solve, not features to build.' },
 ];
 
 const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; side: string; top: string; text: string }> = {
@@ -94,12 +94,9 @@ interface AboutProps {
   setCurrentPage?: (page: Page) => void;
 }
 
-// Split books into 3 rows of 10
-const SHELF_ROWS = [
-  ALL_BOOKS.slice(0, 10),
-  ALL_BOOKS.slice(10, 20),
-  ALL_BOOKS.slice(20, 30),
-];
+// Desktop: 2 rows of 15 | Mobile: 3 rows of 10
+const DESKTOP_ROWS = [ALL_BOOKS.slice(0, 15), ALL_BOOKS.slice(15, 30)];
+const MOBILE_ROWS = [ALL_BOOKS.slice(0, 10), ALL_BOOKS.slice(10, 20), ALL_BOOKS.slice(20, 30)];
 
 function BookSpine({
   book,
@@ -233,94 +230,89 @@ function BookSpine({
 
 function ShelfRow({
   books,
-  rowIndex,
+  globalOffset,
   activeBookIndex,
   setActiveBookIndex,
 }: {
   books: typeof ALL_BOOKS;
-  rowIndex: number;
+  globalOffset: number;
   activeBookIndex: number | null;
   setActiveBookIndex: (index: number | null) => void;
 }) {
-  const globalOffset = rowIndex * 10;
-  const leftBooks = books.slice(0, 5);
-  const rightBooks = books.slice(5, 10);
-  const activeInThisRow = activeBookIndex !== null && activeBookIndex >= globalOffset && activeBookIndex < globalOffset + 10;
-  const activeBook = activeInThisRow ? ALL_BOOKS[activeBookIndex!] : null;
-
   return (
-    <div className="mb-8">
-      <div className="relative">
-        <div
-          className="flex items-end"
-          style={{ paddingBottom: '18px', paddingTop: '12px' }}
-        >
-          {/* Left group */}
-          <div className="flex items-end flex-shrink-0">
-            {leftBooks.map((book, i) => (
-              <BookSpine
-                key={globalOffset + i}
-                book={book}
-                index={i}
-                globalIndex={globalOffset + i}
-                isActive={activeBookIndex === globalOffset + i}
-                onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + i ? null : globalOffset + i)}
-              />
-            ))}
-          </div>
+    <div className="mb-4">
+      <div
+        className="flex items-end justify-center"
+        style={{ paddingBottom: '14px', paddingTop: '8px' }}
+      >
+        {books.map((book, i) => (
+          <BookSpine
+            key={globalOffset + i}
+            book={book}
+            index={i}
+            globalIndex={globalOffset + i}
+            isActive={activeBookIndex === globalOffset + i}
+            onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + i ? null : globalOffset + i)}
+          />
+        ))}
+      </div>
 
-          {/* Center gap — active book info */}
-          <div className="flex-1 flex items-end justify-center min-w-[200px] max-w-[300px] mx-auto px-4">
-            <div
-              className="w-full overflow-hidden transition-all duration-300 ease-out"
-              style={{
-                maxHeight: activeInThisRow ? '240px' : '0px',
-                opacity: activeInThisRow ? 1 : 0,
-              }}
-            >
-              {activeBook && (
-                <TextCard padding="md" noTilt>
-                  <h3 className="text-sm font-bold mb-2" style={{ color: '#ffffff' }}>
-                    {activeBook.title}
-                  </h3>
-                  <p className="text-xs leading-relaxed" style={{ color: '#a1a1a6' }}>
-                    {activeBook.description}
-                  </p>
-                </TextCard>
-              )}
-            </div>
-          </div>
+      {/* Glossy black shelf */}
+      <div
+        style={{
+          height: 12,
+          background: 'linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 25%, #0a0a0a 50%, #050505 80%, #000000 100%)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.30), inset 0 2px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.6)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      />
+      {/* Shelf underside shadow */}
+      <div
+        style={{
+          height: 10,
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 40%, transparent 100%)',
+        }}
+      />
+    </div>
+  );
+}
 
-          {/* Right group */}
-          <div className="flex items-end flex-shrink-0">
-            {rightBooks.map((book, i) => (
-              <BookSpine
-                key={globalOffset + 5 + i}
-                book={book}
-                index={5 + i}
-                globalIndex={globalOffset + 5 + i}
-                isActive={activeBookIndex === globalOffset + 5 + i}
-                onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + 5 + i ? null : globalOffset + 5 + i)}
-              />
-            ))}
+function BookDescriptionPanel({ book }: { book: typeof ALL_BOOKS[0] | null }) {
+  return (
+    <div
+      className="relative h-full flex flex-col justify-center transition-all duration-300"
+      style={{
+        backgroundColor: '#000000',
+        border: '1px solid rgba(255,255,255,0.06)',
+        borderRadius: 0,
+        minHeight: 200,
+      }}
+    >
+      {/* Top edge shine */}
+      <div
+        className="pointer-events-none absolute top-0 left-0 right-0 h-px"
+        style={{
+          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
+        }}
+      />
+      <div className="p-5 md:p-6">
+        {book ? (
+          <div
+            className="transition-opacity duration-300"
+            style={{ opacity: 1 }}
+          >
+            <h3 className="text-sm md:text-base font-bold mb-3" style={{ color: '#ffffff' }}>
+              {book.title}
+            </h3>
+            <p className="text-xs md:text-sm leading-relaxed" style={{ color: '#a1a1a6' }}>
+              {book.description}
+            </p>
           </div>
-        </div>
-
-        {/* Shelf surface */}
-        <div
-          className="h-[6px]"
-          style={{
-            borderRadius: 0,
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)',
-          }}
-        />
-        {/* Shelf shadow */}
-        <div
-          className="h-[8px]"
-          style={{
-            background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%)',
-          }}
-        />
+        ) : (
+          <p className="text-xs md:text-sm italic" style={{ color: '#a1a1a6', opacity: 0.4 }}>
+            Click a book to read about it
+          </p>
+        )}
       </div>
     </div>
   );
@@ -329,11 +321,41 @@ function ShelfRow({
 export default function About({ setCurrentPage }: AboutProps) {
   const [activeBookIndex, setActiveBookIndex] = useState<number | null>(null);
   const [activeFavIndex, setActiveFavIndex] = useState<number | null>(null);
+  const activeBook = activeBookIndex !== null ? ALL_BOOKS[activeBookIndex] : null;
 
   return (
     <div className="py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
 
-      {/* PHOTO CAROUSEL */}
+      {/* HERO — full width */}
+      <div className="px-4 md:px-8 mb-8 md:mb-12">
+        <AnimateIn direction="up" className="pt-4 md:pt-8">
+          <TextCard padding="lg">
+            <h1
+              className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
+              style={{
+                fontFamily: "var(--font-family-bungee), sans-serif",
+                WebkitTextStroke: '4px #ffffff',
+                WebkitTextFillColor: 'transparent',
+                color: 'transparent',
+                paintOrder: 'stroke fill',
+              }}
+            >
+              ABOUT
+            </h1>
+            <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+              I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
+            </p>
+            <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+              That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
+            </p>
+            <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
+              Outside of work, I read constantly, climb, and tinker with aquascaping and home audio setups. The books below have shaped how I think about design, leadership, and communication.
+            </p>
+          </TextCard>
+        </AnimateIn>
+      </div>
+
+      {/* PHOTO CAROUSEL — below hero */}
       <div className="pb-8 md:pb-12">
         <Carousel
           speed={35}
@@ -350,39 +372,6 @@ export default function About({ setCurrentPage }: AboutProps) {
             />
           ))}
         />
-      </div>
-
-      <div className="max-w-[90rem] mx-auto px-4 md:px-8">
-
-        {/* HERO */}
-        <AnimateIn direction="up" className="pt-4 md:pt-8 mb-12 md:mb-16">
-          <div className="max-w-2xl">
-            <TextCard padding="lg">
-              <h1
-                className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
-                style={{
-                  fontFamily: "var(--font-family-bungee), sans-serif",
-                  WebkitTextStroke: '4px #ffffff',
-                  WebkitTextFillColor: 'transparent',
-                  color: 'transparent',
-                  paintOrder: 'stroke fill',
-                }}
-              >
-                ABOUT
-              </h1>
-              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-                I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
-              </p>
-              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-                That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
-              </p>
-              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
-                Outside of work, I read constantly, climb, and tinker with aquascaping and home audio setups. The books below have shaped how I think about design, leadership, and communication.
-              </p>
-            </TextCard>
-          </div>
-        </AnimateIn>
-
       </div>
 
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
@@ -532,28 +521,56 @@ export default function About({ setCurrentPage }: AboutProps) {
           </div>
         </AnimateIn>
 
-        {/* BOOKSHELF — 3 rows with center gap */}
+      </div>
+
+      {/* BOOKSHELF — glossy black shelves with side description panel */}
+      <div className="px-4 md:px-8">
         <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
-          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
-            <h2
-              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
-            >
-              BOOKSHELF
-            </h2>
-          </TextCard>
+          <div className="max-w-[90rem] mx-auto">
+            <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+              <h2
+                className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+                style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              >
+                BOOKSHELF
+              </h2>
+            </TextCard>
+          </div>
 
-          {SHELF_ROWS.map((rowBooks, rowIndex) => (
-            <ShelfRow
-              key={rowIndex}
-              books={rowBooks}
-              rowIndex={rowIndex}
-              activeBookIndex={activeBookIndex}
-              setActiveBookIndex={setActiveBookIndex}
-            />
-          ))}
+          {/* Desktop: 2 shelves + side description */}
+          <div className="hidden lg:grid gap-6 max-w-[90rem] mx-auto" style={{ gridTemplateColumns: '1fr 280px' }}>
+            <div>
+              {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
+                <ShelfRow
+                  key={rowIndex}
+                  books={rowBooks}
+                  globalOffset={rowIndex * 15}
+                  activeBookIndex={activeBookIndex}
+                  setActiveBookIndex={setActiveBookIndex}
+                />
+              ))}
+            </div>
+            <div className="self-stretch">
+              <BookDescriptionPanel book={activeBook} />
+            </div>
+          </div>
+
+          {/* Mobile/Tablet: 3 shelves, description below */}
+          <div className="lg:hidden max-w-[90rem] mx-auto">
+            {MOBILE_ROWS.map((rowBooks, rowIndex) => (
+              <ShelfRow
+                key={rowIndex}
+                books={rowBooks}
+                globalOffset={rowIndex * 10}
+                activeBookIndex={activeBookIndex}
+                setActiveBookIndex={setActiveBookIndex}
+              />
+            ))}
+            <div className="mt-4">
+              <BookDescriptionPanel book={activeBook} />
+            </div>
+          </div>
         </AnimateIn>
-
       </div>
 
       {/* CTA */}
