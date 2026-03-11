@@ -310,6 +310,53 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </StaggerContainer>
         </AnimateIn>
 
+        {/* ── DESIGN LANGUAGE ── */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="lg" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Design Language</p>
+            <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+              Built for a cooler at 2am and a loading dock at 6am.
+            </p>
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              Every visual decision came from the same question: can a merchandiser read this in bad lighting, in a hurry, with cold hands?
+            </p>
+          </TextCard>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6" staggerDelay={0.1}>
+            <StaggerItem>
+              <TextCard padding="lg">
+                <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Monospace everything</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  JetBrains Mono across the entire UI. Numbers align in columns without effort, stock counts scan vertically, and the fixed-width grid means data-dense screens stay readable at a glance. It signals &ldquo;this is a tool, not a toy.&rdquo;
+                </p>
+              </TextCard>
+            </StaggerItem>
+            <StaggerItem>
+              <TextCard padding="lg">
+                <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Traffic-light color system</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  Red means act now. Amber means pay attention. Green means all clear. No gradients, no brand colors competing for attention. The palette is borrowed from warehouse signage and industrial dashboards — universally understood without a legend.
+                </p>
+              </TextCard>
+            </StaggerItem>
+            <StaggerItem>
+              <TextCard padding="lg">
+                <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Zero border radius</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  Sharp corners everywhere. No rounded buttons, no soft cards, no pill-shaped badges. The hard edges reinforce the industrial feel and maximize usable space inside every element. Rounded corners are decoration — every pixel here is information.
+                </p>
+              </TextCard>
+            </StaggerItem>
+            <StaggerItem>
+              <TextCard padding="lg">
+                <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Dark-first, high contrast</p>
+                <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                  Dark backgrounds with bright data. Optimized for dim cooler aisles and early-morning loading docks where screen glare is the enemy. The contrast ratio on critical numbers exceeds WCAG AAA — not for compliance, but because squinting costs seconds.
+                </p>
+              </TextCard>
+            </StaggerItem>
+          </StaggerContainer>
+        </AnimateIn>
+
         {/* ── TRADE-OFFS ── */}
         <AnimateIn direction="up" className="py-16 md:py-24">
           <TextCard padding="lg" className="mb-10">
@@ -368,14 +415,6 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               <p className="text-xs font-bold tracking-wider" style={{ color: redColor }}>KILLED: Compact header with more content space</p>
             </TextCard>
 
-            {/* Trade-off 6 */}
-            <TextCard padding="lg">
-              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Data density over decoration</p>
-              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                Data density wins over polish. JetBrains Mono, sharp corners, traffic-light colors, zero shadows, no border radius anywhere. The design system was built for a cooler at 2am and a loading dock at 6am, not a pitch deck. Every pixel is information. If it doesn&apos;t tell you something actionable, it doesn&apos;t belong on the screen.
-              </p>
-              <p className="text-xs font-bold tracking-wider" style={{ color: redColor }}>KILLED: Visual polish, rounded corners, decorative elements</p>
-            </TextCard>
           </div>
         </AnimateIn>
       </div>
