@@ -185,24 +185,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
         </div>
       </div>
 
-      {/* 2. AUTO-SCROLL SCREENSHOT CAROUSEL */}
-      <div className="py-10 md:py-16">
-        <Carousel
-          speed={40}
-          direction="left"
-          pauseOnHover
-          items={CAROUSEL_ITEMS.map((item) => (
-            <CarouselPhoneCard
-              key={item.src}
-              videoSrc={item.src}
-              alt={item.alt}
-              lightRef={lightRef}
-            />
-          ))}
-        />
-      </div>
-
-      {/* 3. WORK — featured project + supporting grid */}
+      {/* 2. WORK — featured project + supporting grid */}
       <AnimateIn direction="up" className="px-4 md:px-8 py-12 md:py-20">
         <div className="max-w-[90rem] mx-auto">
           <TextCard padding="md" className="inline-block mb-10 md:mb-14">
@@ -218,6 +201,23 @@ export default function Home({ setCurrentPage }: HomeProps) {
               </span>
             </div>
           </TextCard>
+
+          {/* Auto-scroll screenshot carousel */}
+          <div className="mb-12 md:mb-16 -mx-4 md:-mx-8">
+            <Carousel
+              speed={40}
+              direction="left"
+              pauseOnHover
+              items={CAROUSEL_ITEMS.map((item) => (
+                <CarouselPhoneCard
+                  key={item.src}
+                  videoSrc={item.src}
+                  alt={item.alt}
+                  lightRef={lightRef}
+                />
+              ))}
+            />
+          </div>
 
           {/* All projects — unified split layout (phone left, text right) */}
           {PROJECTS.map((project, i) => (
