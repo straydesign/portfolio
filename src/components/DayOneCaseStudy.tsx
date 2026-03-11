@@ -97,21 +97,17 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           </TextCard>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" staggerDelay={0.12}>
             {[
-              { src: '/images/carousel/fd-goal-create.mp4', label: 'Type your dream', desc: 'Say what matters in your own words.' },
-              { src: '/images/carousel/fd-calendar.mp4', label: 'Get your plan', desc: 'AI turns it into 30 days of action.' },
-              { src: '/images/carousel/fd-complete-day.mp4', label: 'Do the work', desc: 'Check off tasks. Watch momentum build.' },
-            ].map(({ src, label, desc }, i) => (
-              <StaggerItem key={i}>
+              { src: '/images/firstday/goal-creation.png', label: 'Type your dream', desc: 'Say what matters in your own words.' },
+              { src: '/images/firstday/calendar-view.png', label: 'Get your plan', desc: 'AI turns it into 30 days of action.' },
+              { src: '/images/firstday/day-view.png', label: 'Do the work', desc: 'Check off tasks. Watch momentum build.' },
+            ].map(({ src, label, desc }) => (
+              <StaggerItem key={label}>
                 <div className="text-center">
                   <div className="mb-4">
-                    <video
+                    <ImageWithSkeleton
                       src={src}
+                      alt={label}
                       className="w-full"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      aria-label={label}
                       style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
                     />
                   </div>
@@ -127,20 +123,16 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           {/* More of the app */}
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4" staggerDelay={0.08}>
             {[
-              { src: '/images/carousel/fd-achievements.mp4', label: 'Celebrate wins' },
-              { src: '/images/carousel/fd-landing.mp4', label: 'The pitch' },
-              { src: '/images/carousel/fd-login.mp4', label: 'Get started' },
-            ].map(({ src, label }, i) => (
-              <StaggerItem key={i}>
+              { src: '/images/firstday/congrats-view.png', label: 'Celebrate wins' },
+              { src: '/images/firstday/hero.png', label: 'The pitch' },
+              { src: '/images/firstday/loading-screen.png', label: 'Get started' },
+            ].map(({ src, label }) => (
+              <StaggerItem key={label}>
                 <div className="text-center">
-                  <video
+                  <ImageWithSkeleton
                     src={src}
+                    alt={label}
                     className="w-full"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-label={label}
                     style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
                   />
                   <TextCard padding="sm" noTilt className="mt-2">
