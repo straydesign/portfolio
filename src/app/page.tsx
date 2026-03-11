@@ -10,8 +10,7 @@ import Footer from '@/components/Footer';
 import Home from '@/components/Home';
 import { type Page, getPageFromPath, getPathFromPage, getDocumentTitle } from '@/data/projects';
 
-// Lazy-load heavy canvas animation — nothing to SSR (it's a <canvas>)
-const Waves = dynamic(() => import('@/components/Waves'), { ssr: false });
+import { BrickWallWrapper } from '@/components/three/BrickWallWrapper';
 
 // Lazy-load pages that aren't the default view
 const About = dynamic(() => import('@/components/About'));
@@ -52,22 +51,8 @@ export default function App() {
       <a href="#main-content" className="skip-link">Skip to main content</a>
       {currentPage !== 'work' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
       <main id="main-content" className="flex-1 relative overflow-hidden">
-        <div className="fixed inset-0 pointer-events-none z-0" style={{ background: theme === 'dark' ? '#000000' : '#ffffff' }} />
         <div className="fixed inset-0 z-[2] pointer-events-none">
-          <Waves
-            lineColor={primaryColor}
-            backgroundColor="rgba(255, 255, 255, 0)"
-            isDarkMode={theme === 'dark'}
-            waveSpeedX={0.01}
-            waveSpeedY={0.005}
-            waveAmpX={15}
-            waveAmpY={8}
-            friction={0.975}
-            tension={0.00125}
-            maxCursorMove={15}
-            xGap={12}
-            yGap={36}
-          />
+          <BrickWallWrapper theme={theme} accentColor={primaryColor} />
         </div>
         <div className="relative z-10">
           <AnimatePresence mode="wait">
