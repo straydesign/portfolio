@@ -23,7 +23,7 @@ const RECOMMENDATIONS = [
     name: 'Kurt Simione',
     role: 'TechxRev, Client',
     initials: 'KS',
-    href: 'https://techxrev.com',
+    href: 'https://techxrev-rebuild.vercel.app',
   },
   {
     quote: 'I had the pleasure of teaching Tom Sesler in both Financial and Managerial Accounting, where he consistently stood out as a top student\u2014earning close to a perfect in each course. What impressed me most was not just Tom\u2019s mastery of the material, but his ability to connect concepts and apply them thoughtfully to real business situations. He was an active participant in class discussions, often raising insightful questions and offering perspectives that pushed conversations deeper. Tom was always prepared, met every deadline, and demonstrated a professional and focused mindset from day one. He\u2019s exactly the kind of driven, analytical thinker that any team would be lucky to have.',
