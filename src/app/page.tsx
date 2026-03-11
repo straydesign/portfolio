@@ -60,7 +60,7 @@ export default function App() {
               {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
               {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
               {currentPage === 'work' && <Work />}
-              {currentPage === 'resume' && <Resume setCurrentPage={setCurrentPage} />}
+              {currentPage === 'resume' && <Resume />}
               {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
               {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
               {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}

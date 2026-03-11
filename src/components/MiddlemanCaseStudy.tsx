@@ -75,7 +75,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               screenshot="/images/middleman/dashboard.png"
               gradientFrom={primaryColor}
               gradientTo="#000000"
-              alt="Middleman app dashboard with revenue at risk"
+              alt="Middleman app dashboard with risk overview and quick actions"
               introVideoSrc="/videos/middleman-intro.mp4"
               size="large"
             />
@@ -112,9 +112,9 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           {/* Primary screen showcase */}
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12" staggerDelay={0.08}>
             {[
-              { src: '/images/middleman/dashboard.png', label: 'Dashboard', desc: 'Revenue at risk, quick actions, activity feed' },
-              { src: '/images/middleman/stock.png', label: 'Stock View', desc: 'Frontstock, backstock, risk levels per SKU' },
-              { src: '/images/middleman/orders.png', label: 'Orders', desc: 'Auto-generated POs with on-route tracking' },
+              { src: '/images/middleman/dashboard.png', label: 'Dashboard', desc: 'Risk overview, quick actions, activity feed' },
+              { src: '/images/middleman/stock.png', label: 'Pull List', desc: 'What to pull, how many, mark it done' },
+              { src: '/images/middleman/orders.png', label: 'The Schedule', desc: 'Today\'s truck, upcoming, past deliveries' },
               { src: '/images/middleman/order-edit.png', label: 'Order Edit', desc: 'Adjust quantities before warehouse cutoff' },
             ].map(({ src, label, desc }) => (
               <StaggerItem key={label}>
