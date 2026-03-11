@@ -61,7 +61,6 @@ export const PROJECTS: readonly Project[] = [
     slugAliases: ['day-one', 'day-one-case-study'],
     documentTitle: 'firstday.life Case Study | Tom Sesler',
     type: 'project',
-    introVideoSrc: '/videos/firstday-intro.mp4',
   },
 ] as const;
 
