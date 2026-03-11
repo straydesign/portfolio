@@ -91,9 +91,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
               Sales reps have ordering software. The person restocking shelves has <span style={{ color: primaryColor }}>pen, cardboard, and guesswork.</span>
             </p>
           </TextCard>
-          <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: secondaryTextColor }}>
-            I know because I was the person with the cardboard. As a merchandiser at New Hampshire Distributors, I visited 15+ retail accounts a week. Every store visit started the same way — walk in, squint at the shelves, try to remember what sold since last time. There&apos;s no system telling you what&apos;s low. No list prioritizing what to pull from the back. Just you, your best guess, and a race against the clock before you drive to the next store.
-          </p>
+          <TextCard padding="md" className="mb-8">
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: secondaryTextColor }}>
+              I know because I was the person with the cardboard. As a merchandiser at New Hampshire Distributors, I visited 15+ retail accounts a week. Every store visit started the same way — walk in, squint at the shelves, try to remember what sold since last time. There&apos;s no system telling you what&apos;s low. No list prioritizing what to pull from the back. Just you, your best guess, and a race against the clock before you drive to the next store.
+            </p>
+          </TextCard>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               'Orders come from POS data — the merchandiser shouldn\'t have to guess quantities',
@@ -113,9 +115,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Command Center</p>
             <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>Walk in. See what matters. Act on it.</p>
           </TextCard>
-          <p className="text-base leading-relaxed mb-10" style={{ color: secondaryTextColor }}>
-            The dashboard tells you everything in a glance — how many products are critical, what needs attention, and when your next delivery arrives. Quick actions put the four things you actually do (notes, pull stock, check deliveries, log breakage) one tap away. No menus to dig through. No learning curve.
-          </p>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              The dashboard tells you everything in a glance — how many products are critical, what needs attention, and when your next delivery arrives. Quick actions put the four things you actually do (notes, pull stock, check deliveries, log breakage) one tap away. No menus to dig through. No learning curve.
+            </p>
+          </TextCard>
 
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-full md:w-2/5">
@@ -133,9 +137,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Pull List</p>
             <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>Your job is to fill shelves. This tells you exactly what to pull.</p>
           </TextCard>
-          <p className="text-base leading-relaxed mb-10" style={{ color: secondaryTextColor }}>
-            Instead of a data table you have to interpret, the stock view is a task list. Critical items at the top. Each one tells you how many units to pull from backstock to the shelf. Tap a button, mark it done, move to the next one. Products that are healthy stay out of the way in a quiet list below. You only see what demands your attention.
-          </p>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              Instead of a data table you have to interpret, the stock view is a task list. Critical items at the top. Each one tells you how many units to pull from backstock to the shelf. Tap a button, mark it done, move to the next one. Products that are healthy stay out of the way in a quiet list below. You only see what demands your attention.
+            </p>
+          </TextCard>
 
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-full md:w-1/2">
@@ -161,9 +167,11 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Schedule</p>
             <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>Time is the axis. Today&apos;s truck is the hero.</p>
           </TextCard>
-          <p className="text-base leading-relaxed mb-10" style={{ color: secondaryTextColor }}>
-            Deliveries aren&apos;t organized by PO number — nobody thinks in PO numbers. Today&apos;s incoming truck gets the spotlight: big ETA, progress bar, case count, and a direct line to the driver. Upcoming orders sit below with a clear &ldquo;review and edit&rdquo; window before warehouse cutoff. Past deliveries collapse into a quiet log. You always know what&apos;s coming and when.
-          </p>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              Deliveries aren&apos;t organized by PO number — nobody thinks in PO numbers. Today&apos;s incoming truck gets the spotlight: big ETA, progress bar, case count, and a direct line to the driver. Upcoming orders sit below with a clear &ldquo;review and edit&rdquo; window before warehouse cutoff. Past deliveries collapse into a quiet log. You always know what&apos;s coming and when.
+            </p>
+          </TextCard>
 
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-full md:w-1/2">
