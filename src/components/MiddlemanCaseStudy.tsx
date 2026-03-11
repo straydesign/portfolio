@@ -24,7 +24,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
       <div className="w-full px-4 md:px-8 max-w-[90rem] mx-auto">
 
         {/* Back + Prototype links */}
-        <div className="pt-6 mb-8 flex items-center gap-4">
+        <div className="pt-[72px] mb-8 flex items-center gap-4">
           <button onClick={onBack}
             className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
             style={{ color: '#ffffff', borderRadius: 0 }}>
