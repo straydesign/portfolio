@@ -73,7 +73,6 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
               gradientFrom={primaryColor}
               gradientTo="#000000"
               alt="FirstDay.Life hero — achieve any goal in 30 days"
-              introVideoSrc="/videos/firstday-intro.mp4"
               size="large"
             />
           </AnimateIn>
@@ -235,6 +234,37 @@ export default function DayOneCaseStudy({ onBack }: DayOneCaseStudyProps) {
           <TextCard padding="sm" noTilt className="text-center">
             <p className="text-sm" style={{ color: secondaryTextColor }}>
               Live at <a href="https://firstday.life" target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600 }}>firstday.life</a>
+            </p>
+          </TextCard>
+        </AnimateIn>
+
+        {/* THE VISUAL WORLD */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="lg" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Visual World</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
+              The back end is smart. But smart doesn&apos;t captivate.
+            </p>
+          </TextCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+              <p className="text-base font-bold mb-3" style={{ color: textColor }}>Mosaic tiles and fractured light</p>
+              <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                The landing page leans into mosaic tiles, stained-glass geometry, and dark atmospheric gradients. This wasn&apos;t decoration — it was a deliberate signal. Goal-setting apps tend to feel clinical or aggressively optimistic. FirstDay needed to feel like something deeper. The mosaics suggest complexity being organized into something beautiful, which is exactly what the AI does with your goal. Fractured pieces becoming a coherent picture.
+              </p>
+            </TextCard>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+              <p className="text-base font-bold mb-3" style={{ color: textColor }}>Dark, mysterious, almost sacred</p>
+              <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
+                The dark palette and ambient glow create a sense of quiet power — like walking into a cathedral or a planetarium. That ambience is intentional. When someone types &ldquo;I want to learn guitar&rdquo; and the AI generates a personalized 30-day plan in seconds, that moment should feel magical, not transactional. The visual design borrows from the language of mystery and discovery because that&apos;s what the product delivers.
+              </p>
+            </TextCard>
+          </div>
+
+          <TextCard padding="lg">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              The back end — the AI planning engine, the sprint structure, the daily task system — is a strong idea. But a strong idea trapped in a forgettable interface dies quietly. The mosaic aesthetic, the cinematic dark tones, the sense of entering a world that knows something you don&apos;t yet — that&apos;s what makes someone stop scrolling and actually type their goal. The visual design isn&apos;t wrapping paper. It&apos;s the reason people trust the product enough to be vulnerable about what they want.
             </p>
           </TextCard>
         </AnimateIn>
