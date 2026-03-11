@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface PhoneMockupProps {
   screenshot: string;
@@ -66,8 +67,13 @@ export default function PhoneMockup({
     }
   };
 
-  const phoneWidth = size === 'large' ? 220 : 180;
-  const phoneHeight = size === 'large' ? 440 : 360;
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const phoneWidth = size === 'large'
+    ? (isDesktop ? 300 : 220)
+    : (isDesktop ? 240 : 180);
+  const phoneHeight = size === 'large'
+    ? (isDesktop ? 600 : 440)
+    : (isDesktop ? 480 : 360);
 
   return (
     <div
