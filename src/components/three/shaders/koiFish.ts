@@ -55,29 +55,28 @@ export const KOI_FRAG = /* glsl */ `
       float seed = float(i) * 1.618033 + 0.5;
 
       // Per-fish parameters from hash
-      float sz    = 0.65 + hash21(vec2(seed, 0.0)) * 0.45;
+      float sz    = 0.8 + hash21(vec2(seed, 0.0)) * 0.4;
       int   pType = int(mod(floor(hash21(vec2(seed, 1.0)) * 5.0), 5.0));
-      float spd   = 0.3 + hash21(vec2(seed, 2.0)) * 0.3;
-      float ax    = uViewportSize.x * (0.2 + hash21(vec2(seed, 3.0)) * 0.25);
-      float ay    = uViewportSize.y * (0.15 + hash21(vec2(seed, 4.0)) * 0.2);
-      float fx    = 0.7 + hash21(vec2(seed, 5.0)) * 0.6;
-      float fy    = 0.5 + hash21(vec2(seed, 6.0)) * 0.5;
-      float px    = hash21(vec2(seed, 7.0)) * 6.283;
-      float py    = hash21(vec2(seed, 8.0)) * 6.283;
 
-      float t = uTime * spd;
+      // Elliptical orbit — smooth continuous swimming, no reversals
+      float orbitSpeed = 0.08 + hash21(vec2(seed, 2.0)) * 0.07;
+      float phase = hash21(vec2(seed, 7.0)) * 6.283;
+      float dir = hash21(vec2(seed, 11.0)) > 0.5 ? 1.0 : -1.0;
+      float angle = uTime * orbitSpeed + phase;
 
-      // Lissajous path
-      vec2 center = vec2(
-        sin(t * fx + px) * ax,
-        sin(t * fy + py) * ay
+      float ax = uViewportSize.x * (0.25 + hash21(vec2(seed, 3.0)) * 0.2);
+      float ay = uViewportSize.y * (0.12 + hash21(vec2(seed, 4.0)) * 0.15);
+
+      // Offset orbit center so fish spread across viewport
+      vec2 orbitCenter = vec2(
+        (hash21(vec2(seed, 13.0)) - 0.5) * uViewportSize.x * 0.3,
+        (hash21(vec2(seed, 14.0)) - 0.5) * uViewportSize.y * 0.3
       );
 
-      // Heading from path derivative
-      vec2 vel = vec2(
-        cos(t * fx + px) * ax * fx * spd,
-        cos(t * fy + py) * ay * fy * spd
-      );
+      vec2 center = orbitCenter + vec2(cos(angle) * ax, sin(angle) * ay * dir);
+
+      // Heading from derivative (always smooth for circular paths)
+      vec2 vel = vec2(-sin(angle) * ax, cos(angle) * ay * dir) * orbitSpeed;
       float heading = atan(vel.y, vel.x);
 
       // Mouse avoidance
@@ -103,10 +102,10 @@ export const KOI_FRAG = /* glsl */ `
         mat2 rm = rot2d(-heading);
         vec2 lp = rm * toFrag;
 
-        // Body undulation — amplitude increases head→tail (quadratic)
+        // Body undulation — gentle, amplitude increases head→tail
         float bodyProgress = clamp((-lp.x / sz + 0.25) / 0.6, 0.0, 1.0);
-        float wave = sin(lp.x / sz * 10.0 + uTime * spd * 8.0);
-        lp.y -= wave * bodyProgress * bodyProgress * 0.04 * sz;
+        float wave = sin(lp.x / sz * 10.0 + uTime * 2.5);
+        lp.y -= wave * bodyProgress * bodyProgress * 0.025 * sz;
 
         // SDF evaluation
         float sdf = koiBodySDF(lp, wave * bodyProgress, sz);
