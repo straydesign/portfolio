@@ -343,7 +343,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             ))}
           </StaggerContainer>
 
-          {/* Website screenshots */}
+          {/* Website screenshots — flat images, not phone mockups */}
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" staggerDelay={0.08}>
             {[
               { src: '/images/firstday/hero.png', label: 'Hero' },
@@ -353,7 +353,9 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             ].map(({ src, label }) => (
               <StaggerItem key={label}>
                 <div>
-                  <PhoneMockup screenshot={src} alt={`FirstDay.Life ${label}`} size="tiny" />
+                  <div className="overflow-hidden rounded-lg" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <img src={src} alt={`FirstDay.Life ${label}`} className="w-full h-auto object-cover" loading="lazy" />
+                  </div>
                   <TextCard padding="sm" noTilt className="mt-2 text-center">
                     <p className="text-xs font-bold" style={{ color: secondaryTextColor }}>{label}</p>
                   </TextCard>
