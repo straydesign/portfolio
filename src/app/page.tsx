@@ -43,7 +43,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      {currentPage !== 'work' && <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+      <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
       <main id="main-content" className="flex-1 relative overflow-hidden">
         <div className="fixed inset-0 z-[2] pointer-events-none">
           <BrickWallWrapper theme="dark" accentColor="#ffffff" />
@@ -59,16 +59,16 @@ export default function App() {
             >
               {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
               {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
-              {currentPage === 'work' && <Work />}
+              {currentPage === 'work' && <Work setCurrentPage={setCurrentPage} />}
               {currentPage === 'resume' && <Resume />}
-              {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} />}
-              {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} />}
-              {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} />}
+              {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
+              {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
+              {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
             </motion.div>
           </AnimatePresence>
         </div>
       </main>
-      {currentPage !== 'work' && <Footer setCurrentPage={setCurrentPage} currentPage={currentPage} />}
+      <Footer setCurrentPage={setCurrentPage} currentPage={currentPage} />
     </div>
   );
 }

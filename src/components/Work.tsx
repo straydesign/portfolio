@@ -1,13 +1,17 @@
 'use client';
 
+import { Mail } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
-import ContactForm from './ContactForm';
 import Carousel from './Carousel';
 import TextCard from './TextCard';
-import { PROJECTS } from '@/data/projects';
+import { PROJECTS, type Page, getProjectTypeLabel } from '@/data/projects';
 import { CAROUSEL_ITEMS } from '@/data/carousel';
 
-export default function Work() {
+interface WorkProps {
+  setCurrentPage: (page: Page) => void;
+}
+
+export default function Work({ setCurrentPage }: WorkProps) {
   return (
     <div className="min-h-screen">
 
@@ -79,34 +83,52 @@ export default function Work() {
                   {project.deliverable}
                 </p>
               </TextCard>
-              <div className="max-w-md">
-                <PhoneMockup
-                  screenshot={project.screenshot}
-                  gradientFrom="#888888"
-                  gradientTo="#000000"
-                  alt={project.alt}
-                  introVideoSrc={project.introVideoSrc}
-                />
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <div className="w-full sm:w-[280px] flex-shrink-0">
+                  <PhoneMockup
+                    screenshot={project.screenshot}
+                    gradientFrom={project.gradientFrom ?? '#888888'}
+                    gradientTo={project.gradientTo ?? '#000000'}
+                    alt={project.alt}
+                    introVideoSrc={project.introVideoSrc}
+                  />
+                </div>
+                <div className="pt-2">
+                  <button
+                    onClick={() => setCurrentPage(project.id)}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
+                    style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+                  >
+                    View {getProjectTypeLabel(project.type)}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Contact Form */}
+      {/* Contact CTA */}
       <div className="px-4 md:px-8 py-12 md:py-16">
-        <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto text-center">
           <TextCard padding="lg">
             <h2
-              className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4 text-center"
+              className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4"
               style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
             >
               GET IN TOUCH
             </h2>
-            <p className="text-base mb-8 text-center" style={{ color: '#a1a1a6' }}>
+            <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
               Interested in working together? Drop me a line.
             </p>
-            <ContactForm />
+            <a
+              href="mailto:tom@straydesign.co"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-opacity hover:opacity-80"
+              style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+            >
+              <Mail className="w-4 h-4" />
+              tom@straydesign.co
+            </a>
           </TextCard>
         </div>
       </div>

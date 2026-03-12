@@ -6,12 +6,15 @@ import PhoneMockup from './PhoneMockup';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
+import NextProject from './NextProject';
+import { type Page } from '@/data/projects';
 
 interface MiddlemanCaseStudyProps {
   onBack: () => void;
+  onNavigate: (page: Page) => void;
 }
 
-export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) {
+export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCaseStudyProps) {
   const textColor = '#ffffff';
   const secondaryTextColor = '#a1a1a6';
   const primaryColor = '#22c55e';
@@ -418,6 +421,7 @@ export default function MiddlemanCaseStudy({ onBack }: MiddlemanCaseStudyProps) 
           </div>
         </AnimateIn>
       </div>
+      <NextProject currentProjectId="middleman-case-study" onNavigate={onNavigate} />
       <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
     </div>
   );

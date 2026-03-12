@@ -5,12 +5,15 @@ import ImageWithSkeleton from './ImageWithSkeleton';
 import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
+import NextProject from './NextProject';
+import { type Page } from '@/data/projects';
 
 interface DoorDashCaseStudyProps {
   onBack: () => void;
+  onNavigate: (page: Page) => void;
 }
 
-export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
+export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseStudyProps) {
   const textColor = '#ffffff';
   const secondaryTextColor = '#a1a1a6';
   const primaryColor = '#ffffff';
@@ -235,7 +238,7 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
             </p>
             <div className="p-3 mb-4" style={{ backgroundColor: statBg, borderRadius: 0, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
               <p className="text-sm" style={{ color: secondaryTextColor }}>
-                <strong style={{ color: textColor }}>Why:</strong> Ephemeral data clears on state change &mdash; the system assumes pickup is complete once confirmed.
+                <strong style={{ color: textColor }}>Why:</strong> Temporary data clears on state change &mdash; the system assumes pickup is complete once confirmed.
               </p>
             </div>
             <div className="p-4" style={{ backgroundColor: '#000000', borderRadius: 0, borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
@@ -300,7 +303,34 @@ export default function DoorDashCaseStudy({ onBack }: DoorDashCaseStudyProps) {
             </div>
           </TextCard>
         </AnimateIn>
+
+        {/* CONCLUSION */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <p className="text-xs font-bold tracking-widest mb-6 uppercase" style={{ color: primaryColor }}>Conclusion</p>
+            <p className="text-xl md:text-2xl font-bold leading-relaxed mb-6" style={{ color: textColor }}>
+              Five issues. One philosophy: <span style={{ color: primaryColor }}>the app should protect the driver, not punish them.</span>
+            </p>
+            <p className="text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
+              Every proposal here respects DoorDash&apos;s business constraints &mdash; fraud prevention, data collection, customer privacy &mdash; while removing the friction that puts drivers at risk. Button hierarchy that matches the task at hand. Error recovery that doesn&apos;t erase your progress. Photo validation that adapts to real-world delivery. Codes that stay visible until the job is actually done. And a cancellation flow cut from 12 taps to 4.
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { stat: '12 → 4', label: 'Taps to cancel' },
+                { stat: '5', label: 'Redesign proposals' },
+                { stat: '1,000+', label: 'Deliveries researched' },
+                { stat: '0', label: 'Business constraints broken' },
+              ].map(({ stat, label }) => (
+                <div key={label} className="p-4 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <p className="text-2xl md:text-3xl font-black" style={{ color: primaryColor }}>{stat}</p>
+                  <p className="text-xs font-bold mt-2" style={{ color: secondaryTextColor }}>{label}</p>
+                </div>
+              ))}
+            </div>
+          </TextCard>
+        </AnimateIn>
       </div>
+      <NextProject currentProjectId="doordash-case-study" onNavigate={onNavigate} />
       <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
     </div>
   );
