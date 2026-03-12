@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { type Page } from '@/data/projects';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
 import TextCard from './TextCard';
@@ -87,8 +88,6 @@ const CURRENT_FAVORITES = [
   { title: 'Super Communicators', desc: 'The best communicators ask lots of deep questions to show their interest and make people feel very heard. They understand the reason behind a conversation before they respond.' },
   { title: 'Extreme Ownership', desc: 'Leaders take full responsibility for outcomes, good or bad. In the workplace, it is so common for things to be pushed around--take responsibility for more than just your part.' },
 ];
-
-import { type Page } from '@/data/projects';
 
 interface AboutProps {
   setCurrentPage?: (page: Page) => void;
