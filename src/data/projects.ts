@@ -50,7 +50,7 @@ export const PROJECTS: readonly Project[] = [
     slugAliases: ['middleman-case-study'],
     documentTitle: 'Merchandising System Case Study | Tom Sesler',
     type: 'project',
-    gradientFrom: '#22c55e',
+    gradientFrom: '#888888',
     gradientTo: '#000000',
   },
   {
