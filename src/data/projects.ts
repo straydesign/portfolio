@@ -55,7 +55,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     id: 'doordash-case-study',
-    title: 'DOORDASH DASHER APP',
+    title: 'DOORDASH DASHER APP UX CRITIQUE',
     description: 'Ethnographic UX research across 1,000+ deliveries with five redesign proposals.',
     deliverable: 'Heuristic evaluation + 5 redesign concepts',
     screenshot: '/images/doordash/slide6_Image_0.png',
