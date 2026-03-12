@@ -77,7 +77,7 @@ export const KOI_FRAG = /* glsl */ `
 
       // Heading: derived from actual velocity so fish faces its path
       float vy = cos(uTime * driftFreq + phase) * driftAmp * driftFreq;
-      float heading = atan(vy, swimSpeed * dir);
+      float tilt = atan(vy, swimSpeed);
 
       // Mouse avoidance — subtle nudge away from cursor
       if (uMousePresent > 0.5) {
@@ -95,9 +95,11 @@ export const KOI_FRAG = /* glsl */ `
       vec2 toFrag = wp - center;
       if (dot(toFrag, toFrag) < br * br) {
 
-        // Fish-local space (rotated to face heading)
-        mat2 rm = rot2d(-heading);
-        vec2 lp = rm * toFrag;
+        // Fish-local space (mirror x for left-swimmers, then tilt)
+        vec2 lp = toFrag;
+        lp.x *= dir;
+        mat2 rm = rot2d(-tilt);
+        lp = rm * lp;
 
         // Body undulation — gentle, amplitude increases head→tail
         float bodyProgress = clamp((-lp.x / sz + 0.25) / 0.6, 0.0, 1.0);
