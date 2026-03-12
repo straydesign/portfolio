@@ -555,20 +555,29 @@ export default function About({ setCurrentPage }: AboutProps) {
             </div>
           </div>
 
-          {/* Mobile/Tablet: 3 shelves, description below */}
+          {/* Mobile/Tablet: shelves flanking description in center */}
           <div className="lg:hidden max-w-[90rem] mx-auto">
-            {MOBILE_ROWS.map((rowBooks, rowIndex) => (
-              <ShelfRow
-                key={rowIndex}
-                books={rowBooks}
-                globalOffset={rowIndex * 10}
-                activeBookIndex={activeBookIndex}
-                setActiveBookIndex={setActiveBookIndex}
-              />
-            ))}
-            <div className="mt-4">
+            <ShelfRow
+              books={MOBILE_ROWS[0]}
+              globalOffset={0}
+              activeBookIndex={activeBookIndex}
+              setActiveBookIndex={setActiveBookIndex}
+            />
+            <div className="my-4">
               <BookDescriptionPanel book={activeBook} />
             </div>
+            <ShelfRow
+              books={MOBILE_ROWS[1]}
+              globalOffset={10}
+              activeBookIndex={activeBookIndex}
+              setActiveBookIndex={setActiveBookIndex}
+            />
+            <ShelfRow
+              books={MOBILE_ROWS[2]}
+              globalOffset={20}
+              activeBookIndex={activeBookIndex}
+              setActiveBookIndex={setActiveBookIndex}
+            />
           </div>
         </AnimateIn>
       </div>

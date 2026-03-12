@@ -90,10 +90,10 @@ export default function Resume() {
                 Most of my work lives in that sweet spot between design and development. I interview the owner, map out the user flow, design the system in Figma, and then build it — responsive, accessible, and fast. I&apos;ve shipped everything from restaurant sites with online ordering to full e-commerce storefronts to mobile-first tools for people who work on their feet all day.
               </p>
               <p className="text-base leading-relaxed mb-4" style={{ color: '#ffffff' }}>
-                Lately I&apos;ve been deep in a mobile merchandising app — user research, custom design system, live prototype — replacing pen-and-paper workflows with real-time inventory data. I also designed and launched an AI-powered goal-setting web app, and I&apos;ve been rebuilding local business sites with proper information architecture, booking flows, and e-commerce that actually converts. Every project ships with a custom design system, not borrowed components.
+                I care about the details — the scroll feel, the loading states, the way a card tilts when you hover it. That stuff adds up. It&apos;s the difference between &ldquo;someone made us a website&rdquo; and &ldquo;this actually feels like us.&rdquo;
               </p>
               <p className="text-base leading-relaxed" style={{ color: '#ffffff' }}>
-                I care about the details — the scroll feel, the loading states, the way a card tilts when you hover it. That stuff adds up. It&apos;s the difference between &ldquo;someone made us a website&rdquo; and &ldquo;this actually feels like us.&rdquo;
+                My workflow bridges design and engineering — I use Figma with the MCP integration in Claude Code to go from design to production in a single pass. Design tokens, component specs, and responsive layouts move directly from Figma into code without handoff friction.
               </p>
             </div>
 
@@ -105,8 +105,7 @@ export default function Resume() {
               </div>
               <div className="text-sm mb-3" style={{ color: '#a1a1a6' }}>August 2023 &ndash; May 2024 &middot; Durham, NH</div>
               <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-                <li>Supported 100+ students with Adobe Creative Suite workflows, mentoring on visual design principles including hierarchy, typography, and color theory</li>
-                <li>Created standardized design documentation and workflow guides that improved lab efficiency and student self-service</li>
+                <li>Supported 50+ students with Adobe Creative Suite workflows, mentoring on visual design principles including hierarchy, typography, and color theory</li>
                 <li>Troubleshot technical issues across file preparation, print production, and digital asset management workflows</li>
               </ul>
             </div>
@@ -120,8 +119,6 @@ export default function Resume() {
               <div className="text-sm mb-3" style={{ color: '#a1a1a6' }}>January 2024 &ndash; May 2025 &middot; Rochester, NH</div>
               <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
                 <li>Executed strategic product placement across 15+ retail accounts, developing understanding of operational workflows and user pain points in high-volume environments</li>
-                <li>Conducted contextual inquiry by observing merchandiser workflows in retail settings, identifying friction points that directly informed the design of a POS-Driven Merchandiser App</li>
-                <li>Collaborated with store managers on inventory optimization, building empathy for users working within stressful, time-sensitive operational constraints</li>
               </ul>
             </div>
           </section>

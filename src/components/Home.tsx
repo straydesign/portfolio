@@ -222,7 +222,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
           {/* All projects — unified split layout (phone left, text right) */}
           {PROJECTS.map((project, i) => (
             <AnimateIn key={project.id} direction="up" className="mb-16 md:mb-24">
-              <div className={`flex flex-col md:flex-row items-center gap-8 md:gap-16 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+              <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 <div className="w-full md:w-1/2">
                   <PhoneMockup
                     screenshot={project.screenshot}
