@@ -30,8 +30,8 @@ export const PROJECTS: readonly Project[] = [
   {
     id: 'day-one-case-study',
     title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
-    deliverable: 'Live shipped product + Apple-native design',
+    description: 'AI-powered goal tracker with iterative weekly sprints. Designed, built, and shipped as a live product.',
+    deliverable: 'Live shipped product — design, engineering, AI planning',
     screenshot: '/images/firstday/hero.png',
     alt: 'FirstDay.Life app screenshot',
     slug: 'dayone',
