@@ -83,18 +83,14 @@ export default function Resume() {
                 <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>UX/UI Designer (Freelance)</h3>
               </div>
               <div className="text-sm mb-3" style={{ color: '#a1a1a6' }}>May 2025 &ndash; Present &middot; Remote</div>
-              <p className="text-base leading-relaxed mb-4" style={{ color: '#ffffff' }}>
-                I started freelancing because I kept seeing the same thing — small businesses with real ambition stuck behind websites that didn&apos;t represent them. So I started building for them. Not templates. Not themes. Real products, designed around how they actually work.
-              </p>
-              <p className="text-base leading-relaxed mb-4" style={{ color: '#ffffff' }}>
-                Most of my work lives in that sweet spot between design and development. I interview the owner, map out the user flow, design the system in Figma, and then build it — responsive, accessible, and fast. I&apos;ve shipped everything from restaurant sites with online ordering to full e-commerce storefronts to mobile-first tools for people who work on their feet all day.
-              </p>
-              <p className="text-base leading-relaxed mb-4" style={{ color: '#ffffff' }}>
-                I care about the details — the scroll feel, the loading states, the way a card tilts when you hover it. That stuff adds up. It&apos;s the difference between &ldquo;someone made us a website&rdquo; and &ldquo;this actually feels like us.&rdquo;
-              </p>
-              <p className="text-base leading-relaxed" style={{ color: '#ffffff' }}>
-                My workflow bridges design and engineering — I use Figma with the MCP integration in Claude Code to go from design to production in a single pass. Design tokens, component specs, and responsive layouts move directly from Figma into code without handoff friction.
-              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
+                <li>Designed and shipped 6+ client projects end-to-end — user research, Figma prototypes, custom design systems, and production code (Next.js, React, Tailwind)</li>
+                <li>Built a real-time inventory management app (MIDDLEMAN) with 10-product stock dashboard, risk scoring, and delivery tracking — reducing manual stockout checks by an estimated 80%</li>
+                <li>Designed and launched an AI-powered 30-day goal planning app (First Day) with 30+ unique screens, streak system, and weekly reading recommendations</li>
+                <li>Achieved sub-2s load times and 90+ Lighthouse scores across all client sites through image optimization, code splitting, and semantic HTML</li>
+                <li>Streamlined design-to-code workflow using Figma MCP integration with Claude Code — eliminating handoff friction and shipping from design tokens to production in a single pass</li>
+                <li>Delivered e-commerce, restaurant ordering, and service booking sites for small businesses — each with a custom design system, not borrowed templates</li>
+              </ul>
             </div>
 
             {/* Design Lab */}
