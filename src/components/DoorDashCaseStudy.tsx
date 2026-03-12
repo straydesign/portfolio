@@ -1,7 +1,6 @@
 'use client';
 
 import { ArrowLeft, Smartphone, Shield, Camera, Key, ArrowRight } from 'lucide-react';
-import ImageWithSkeleton from './ImageWithSkeleton';
 import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
@@ -19,7 +18,6 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
   const primaryColor = '#ffffff';
 
   const statBg = '#000000';
-  const imgBorder = '2px solid rgba(255, 255, 255, 0.1)';
   const divider = '1px solid rgba(255,255,255,0.06)';
   const onPrimaryColor = '#000000';
 
@@ -119,13 +117,9 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #1</p>
             </div>
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-              <div className="flex gap-4 justify-center md:w-2/5">
-                <div className="w-[140px] md:w-[180px] flex-shrink-0">
-                  <ImageWithSkeleton src="/images/doordash/slide4_Image_0.png" alt="Continue button prominent" className="rounded-2xl w-full" style={{ border: imgBorder }} />
-                </div>
-                <div className="w-[140px] md:w-[180px] flex-shrink-0">
-                  <ImageWithSkeleton src="/images/doordash/slide4_Image_1.png" alt="Handed to customer" className="rounded-2xl w-full" style={{ border: imgBorder }} />
-                </div>
+              <div className="flex gap-6 justify-center items-center md:w-2/5">
+                <PhoneMockup screenshot="/images/doordash/slide4_Image_0.png" alt="Continue button prominent" size="tiny" />
+                <PhoneMockup screenshot="/images/doordash/slide4_Image_1.png" alt="Handed to customer" size="tiny" />
               </div>
               <div className="md:w-3/5">
                 <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
@@ -213,9 +207,12 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 </div>
               </div>
               <div className="flex justify-center md:w-2/5">
-                <div className="w-[180px] md:w-[220px]">
-                  <ImageWithSkeleton src="/images/doordash/slide6_Image_0.png" alt="Photo rejection screen" className="rounded-2xl w-full" style={{ border: imgBorder }} />
-                </div>
+                <PhoneMockup
+                  screenshot="/images/doordash/slide6_Image_0.png"
+                  gradientFrom={primaryColor}
+                  gradientTo="#000000"
+                  alt="Photo rejection screen"
+                />
               </div>
             </div>
           </TextCard>
@@ -279,15 +276,13 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
               </div>
             </div>
 
-            <div className="flex gap-3 md:gap-4 justify-center mb-6 overflow-x-auto pb-2">
+            <div className="flex gap-4 md:gap-6 justify-center mb-6">
               {[
                 { src: '/images/doordash/slide8_Image_0.png', alt: 'Unassigned confirmation' },
                 { src: '/images/doordash/slide8_Image_1.png', alt: 'Survey prompt' },
                 { src: '/images/doordash/slide8_Image_2.png', alt: 'Full satisfaction survey' },
               ].map((img) => (
-                <div key={img.src} className="w-[120px] md:w-[160px] flex-shrink-0">
-                  <ImageWithSkeleton src={img.src} alt={img.alt} className="rounded-2xl w-full" style={{ border: imgBorder }} />
-                </div>
+                <PhoneMockup key={img.src} screenshot={img.src} alt={img.alt} size="tiny" />
               ))}
             </div>
 

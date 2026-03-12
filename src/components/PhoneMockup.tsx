@@ -16,7 +16,7 @@ interface PhoneMockupProps {
   secondaryTextColor?: string;
   onClick?: () => void;
   introVideoSrc?: string;
-  size?: 'default' | 'large';
+  size?: 'default' | 'large' | 'tiny';
 }
 
 export default function PhoneMockup({
@@ -68,12 +68,68 @@ export default function PhoneMockup({
   };
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isTiny = size === 'tiny';
   const phoneWidth = size === 'large'
     ? (isDesktop ? 300 : 330)
+    : isTiny
+    ? (isDesktop ? 110 : 100)
     : (isDesktop ? 240 : 270);
   const phoneHeight = size === 'large'
     ? (isDesktop ? 600 : 660)
+    : isTiny
+    ? (isDesktop ? 238 : 217)
     : (isDesktop ? 480 : 540);
+
+  if (isTiny) {
+    return (
+      <div className="flex flex-col items-center">
+        <div className="relative" style={{ width: phoneWidth, height: phoneHeight }}>
+          <div
+            className="absolute inset-0"
+            style={{
+              borderRadius: 16,
+              background: 'linear-gradient(145deg, #3a3a3a, #1a1a1a, #0a0a0a, #2a2a2a)',
+              boxShadow: `
+                inset 0 1px 0 rgba(255,255,255,0.12),
+                inset 0 -1px 0 rgba(0,0,0,0.4),
+                0 0 0 0.5px rgba(255,255,255,0.06),
+                0 8px 20px rgba(0,0,0,0.3)
+              `,
+            }}
+          />
+          <div
+            className="absolute overflow-hidden"
+            style={{
+              top: 2, left: 2, right: 2, bottom: 2,
+              borderRadius: 14,
+              background: '#000',
+            }}
+          >
+            <img
+              src={screenshot}
+              alt={alt}
+              className="w-full h-full object-cover object-top"
+              loading="lazy"
+            />
+            <div
+              className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+              style={{
+                top: 4, width: 36, height: 10, borderRadius: 5,
+                background: '#000', zIndex: 10,
+              }}
+            />
+            <div
+              className="absolute bottom-1 left-1/2 -translate-x-1/2 pointer-events-none"
+              style={{
+                width: phoneWidth * 0.35, height: 2, borderRadius: 1,
+                background: 'rgba(255,255,255,0.25)', zIndex: 11,
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

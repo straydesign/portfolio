@@ -3,7 +3,6 @@
 import MiddlemanLogo from './MiddlemanLogo';
 import { ArrowLeft, ExternalLink, Clock, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
-import ImageWithSkeleton from './ImageWithSkeleton';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
 import NextProject from './NextProject';
@@ -22,7 +21,6 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
   const redColor = '#ef4444';
 
   const divider = '1px solid rgba(255,255,255,0.06)';
-  const imgBorder = '2px solid rgba(255,255,255,0.1)';
 
   return (
     <div className="min-h-screen">
@@ -124,12 +122,22 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             </p>
           </TextCard>
 
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="w-full md:w-2/5">
-              <ImageWithSkeleton src="/images/middleman/dashboard.png" alt="Dashboard — risk stats, quick actions, activity feed" className="w-full" style={{ border: imgBorder }} />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+            <div className="w-full md:w-1/2">
+              <PhoneMockup
+                screenshot="/images/middleman/dashboard.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Dashboard — risk stats, quick actions, activity feed"
+              />
             </div>
-            <div className="w-full md:w-3/5">
-              <ImageWithSkeleton src="/images/middleman/dashboard-scrolled.png" alt="Dashboard scrolled — KPIs and recent activity" className="w-full" style={{ border: imgBorder }} />
+            <div className="w-full md:w-1/2">
+              <PhoneMockup
+                screenshot="/images/middleman/dashboard-scrolled.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Dashboard scrolled — KPIs and recent activity"
+              />
             </div>
           </div>
         </AnimateIn>
@@ -146,16 +154,26 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             </p>
           </TextCard>
 
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             <div className="w-full md:w-1/2">
-              <ImageWithSkeleton src="/images/middleman/stock.png" alt="Pull List — critical and warning items with pull-to-shelf CTAs" className="w-full" style={{ border: imgBorder }} />
+              <PhoneMockup
+                screenshot="/images/middleman/stock.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Pull List — critical and warning items with pull-to-shelf CTAs"
+              />
               <TextCard padding="sm" noTilt className="mt-3">
                 <p className="text-sm font-bold" style={{ color: primaryColor }}>Pull List</p>
                 <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>Critical and warning items sorted by urgency. Tap to mark as pulled.</p>
               </TextCard>
             </div>
             <div className="w-full md:w-1/2">
-              <ImageWithSkeleton src="/images/middleman/product-detail.png" alt="Product detail — stock history, sales velocity, frontstock/backstock" className="w-full" style={{ border: imgBorder }} />
+              <PhoneMockup
+                screenshot="/images/middleman/product-detail.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Product detail — stock history, sales velocity, frontstock/backstock"
+              />
               <TextCard padding="sm" noTilt className="mt-3">
                 <p className="text-sm font-bold" style={{ color: primaryColor }}>Product Detail</p>
                 <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>Full history, sales velocity, and stock breakdown for any SKU.</p>
@@ -176,16 +194,26 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             </p>
           </TextCard>
 
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
             <div className="w-full md:w-1/2">
-              <ImageWithSkeleton src="/images/middleman/orders.png" alt="The Schedule — today's truck, upcoming orders, past deliveries" className="w-full" style={{ border: imgBorder }} />
+              <PhoneMockup
+                screenshot="/images/middleman/orders.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="The Schedule — today's truck, upcoming orders, past deliveries"
+              />
               <TextCard padding="sm" noTilt className="mt-3">
                 <p className="text-sm font-bold" style={{ color: primaryColor }}>The Schedule</p>
                 <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>Today&apos;s delivery as hero, upcoming as editable, past as a log.</p>
               </TextCard>
             </div>
             <div className="w-full md:w-1/2">
-              <ImageWithSkeleton src="/images/middleman/order-edit.png" alt="Order Edit — adjust quantities before warehouse cutoff" className="w-full" style={{ border: imgBorder }} />
+              <PhoneMockup
+                screenshot="/images/middleman/order-edit.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Order Edit — adjust quantities before warehouse cutoff"
+              />
               <TextCard padding="sm" noTilt className="mt-3">
                 <p className="text-sm font-bold" style={{ color: primaryColor }}>Order Edit</p>
                 <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>Adjust auto-generated quantities before the warehouse locks it in.</p>
@@ -238,7 +266,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             ].map(({ src, label }) => (
               <StaggerItem key={label}>
                 <div className="text-center">
-                  <ImageWithSkeleton src={src} alt={label} className="w-full" style={{ border: imgBorder }} />
+                  <PhoneMockup screenshot={src} alt={label} size="tiny" />
                   <p className="text-xs font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                 </div>
               </StaggerItem>
@@ -273,7 +301,12 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
           {/* Order detail */}
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             <div className="w-full md:w-1/2">
-              <ImageWithSkeleton src="/images/middleman/order-detail.png" alt="Order detail — line items, case counts, delivery status" className="w-full" style={{ border: imgBorder }} />
+              <PhoneMockup
+                screenshot="/images/middleman/order-detail.png"
+                gradientFrom={primaryColor}
+                gradientTo="#000000"
+                alt="Order detail — line items, case counts, delivery status"
+              />
               <TextCard padding="sm" noTilt className="mt-3">
                 <p className="text-sm font-bold" style={{ color: primaryColor }}>Order Detail</p>
                 <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>Every line item, delivery status, and case count at a glance.</p>
