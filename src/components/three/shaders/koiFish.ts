@@ -104,8 +104,8 @@ export const KOI_FRAG = /* glsl */ `
 
         // Body undulation — gentle, amplitude increases head→tail
         float bodyProgress = clamp((-lp.x / sz + 0.25) / 0.6, 0.0, 1.0);
-        float wave = sin(lp.x / sz * 10.0 + uTime * 2.5);
-        lp.y -= wave * bodyProgress * bodyProgress * 0.025 * sz;
+        float wave = sin(lp.x / sz * 14.0 + uTime * 4.0);
+        lp.y -= wave * bodyProgress * bodyProgress * 0.055 * sz;
 
         // SDF evaluation
         float sdf = koiBodySDF(lp, wave * bodyProgress, sz);
