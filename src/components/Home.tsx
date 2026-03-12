@@ -226,7 +226,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 <div className="w-full md:w-1/2">
                   <PhoneMockup
                     screenshot={project.screenshot}
-                    gradientFrom={project.gradientFrom ?? '#888888'}
+                    gradientFrom={project.gradientFrom ?? '#000000'}
                     gradientTo={project.gradientTo ?? '#000000'}
                     alt={project.alt}
                     onClick={() => setCurrentPage(project.id)}
@@ -239,8 +239,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <span
                       className="inline-block mb-4 px-3 py-1 text-xs font-semibold uppercase tracking-wider"
                       style={{
-                        backgroundColor: project.type === 'case-study' ? '#ffffff' : '#111111',
-                        color: project.type === 'case-study' ? '#000000' : '#ffffff',
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
                         borderRadius: 0,
                       }}
                     >
