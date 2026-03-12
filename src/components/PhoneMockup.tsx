@@ -154,12 +154,11 @@ export default function PhoneMockup({
         </div>
       )}
 
-      {/* Gradient backdrop with 3D phone */}
+      {/* 3D phone container */}
       <motion.div
         ref={containerRef}
-        className="w-full rounded-2xl overflow-hidden flex items-center justify-center relative"
+        className="flex items-center justify-center relative"
         style={{
-          background: `linear-gradient(145deg, ${gradientFrom}18, ${gradientTo}30)`,
           aspectRatio: size === 'large' ? '4/5' : '1/1',
           perspective: '1000px',
           rotateX,
@@ -169,17 +168,6 @@ export default function PhoneMockup({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Subtle gradient orb behind the phone */}
-        <div
-          className="absolute rounded-full blur-3xl transition-all duration-500"
-          style={{
-            width: phoneWidth * 1.8,
-            height: phoneWidth * 1.8,
-            background: `radial-gradient(circle, ${gradientFrom}50, ${gradientFrom}20 50%, transparent 75%)`,
-            opacity: isHovered ? 0.55 : 0.2,
-            transform: `scale(${isHovered ? 1.1 : 1})`,
-          }}
-        />
 
         {/* Phone device */}
         <motion.div
@@ -188,37 +176,17 @@ export default function PhoneMockup({
           animate={{ y: isHovered ? -8 : 0 }}
           transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
         >
-          {/* Drop shadow */}
-          <div
-            className="absolute -inset-4 rounded-full blur-3xl transition-all duration-500"
-            style={{
-              background: isHovered
-                ? `radial-gradient(ellipse, ${gradientFrom}15, rgba(0,0,0,0.35) 60%)`
-                : 'rgba(0, 0, 0, 0.3)',
-              transform: `translateY(${isHovered ? 20 : 12}px)`,
-              opacity: isHovered ? 0.6 : 0.3,
-            }}
-          />
-
           {/* Phone bezel */}
           <div
             className="absolute inset-0 rounded-[28px] transition-shadow duration-500"
             style={{
               background: 'linear-gradient(145deg, #3a3a3a, #1a1a1a, #0a0a0a, #2a2a2a)',
-              boxShadow: isHovered
-                ? `
-                  inset 0 1px 0 rgba(255,255,255,0.2),
-                  inset 0 -1px 0 rgba(0,0,0,0.4),
-                  0 0 0 0.5px rgba(255,255,255,0.08),
-                  0 25px 60px rgba(0,0,0,0.5),
-                  0 0 30px ${gradientFrom}08
-                `
-                : `
-                  inset 0 1px 0 rgba(255,255,255,0.15),
-                  inset 0 -1px 0 rgba(0,0,0,0.4),
-                  0 0 0 0.5px rgba(255,255,255,0.06),
-                  0 20px 50px rgba(0,0,0,0.4)
-                `,
+              boxShadow: `
+                inset 0 1px 0 rgba(255,255,255,0.15),
+                inset 0 -1px 0 rgba(0,0,0,0.4),
+                0 0 0 0.5px rgba(255,255,255,0.06),
+                0 20px 50px rgba(0,0,0,0.4)
+              `,
             }}
           />
 
