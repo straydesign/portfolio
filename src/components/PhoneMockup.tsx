@@ -16,6 +16,7 @@ interface PhoneMockupProps {
   secondaryTextColor?: string;
   onClick?: () => void;
   introVideoSrc?: string;
+  hoverScreenshot?: string;
   size?: 'default' | 'large' | 'tiny';
 }
 
@@ -31,6 +32,7 @@ export default function PhoneMockup({
   secondaryTextColor,
   onClick,
   introVideoSrc,
+  hoverScreenshot,
   size = 'default',
 }: PhoneMockupProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -229,10 +231,23 @@ export default function PhoneMockup({
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
                 style={{
-                  opacity: introVideoSrc && isHovered ? 0 : 1,
+                  opacity: (introVideoSrc || hoverScreenshot) && isHovered ? 0 : 1,
                   transition: 'opacity 0.4s ease',
                 }}
               />
+
+              {hoverScreenshot && (
+                <img
+                  src={hoverScreenshot}
+                  alt={alt}
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  loading="lazy"
+                  style={{
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'opacity 0.4s ease',
+                  }}
+                />
+              )}
 
               {introVideoSrc && (
                 <video

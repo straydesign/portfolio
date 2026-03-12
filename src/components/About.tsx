@@ -195,7 +195,7 @@ function BookSpine({
         <span
           className="absolute flex items-center justify-center text-[9px] md:text-[10px] font-semibold leading-none"
           style={{
-            fontFamily: 'var(--font-family-playfair), Georgia, serif',
+            fontFamily: 'var(--font-family-inter), sans-serif',
             left: 0,
             top: `${topDepth}px`,
             width: `${w}px`,
@@ -472,7 +472,7 @@ export default function About({ setCurrentPage }: AboutProps) {
                       >
                         <span
                           className="text-[16px] md:text-[18px] font-bold text-center leading-tight italic"
-                          style={{ fontFamily: 'var(--font-family-playfair), Georgia, serif', color: 'rgba(255,255,255,0.95)', textShadow: '0 2px 4px rgba(0,0,0,0.4)', letterSpacing: '0.01em' }}
+                          style={{ fontFamily: 'var(--font-family-inter), sans-serif', color: 'rgba(255,255,255,0.95)', textShadow: '0 2px 4px rgba(0,0,0,0.4)', letterSpacing: '0.01em' }}
                         >
                           {book.title}
                         </span>

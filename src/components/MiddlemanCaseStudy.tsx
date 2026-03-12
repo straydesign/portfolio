@@ -75,11 +75,11 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
 
           <AnimateIn direction="right" className="w-full md:w-1/2">
             <PhoneMockup
-              screenshot="/images/middleman/dashboard.png"
+              screenshot="/images/middleman/login.png"
+              hoverScreenshot="/images/middleman/dashboard.png"
               gradientFrom={primaryColor}
               gradientTo="#000000"
               alt="Middleman app dashboard — risk overview, quick actions, and activity feed"
-              introVideoSrc="/videos/middleman-intro.mp4"
               size="large"
             />
           </AnimateIn>
@@ -133,10 +133,10 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             </div>
             <div className="w-full md:w-1/2">
               <PhoneMockup
-                screenshot="/images/middleman/dashboard-scrolled.png"
+                screenshot="/images/middleman/breakage-modal.png"
                 gradientFrom={primaryColor}
                 gradientTo="#000000"
-                alt="Dashboard scrolled — KPIs and recent activity"
+                alt="Log Breakage — quick action modal for recording damaged product"
               />
             </div>
           </div>
@@ -255,12 +255,17 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
             {[
               { src: '/images/middleman/login.png', label: 'Login' },
               { src: '/images/middleman/dashboard.png', label: 'Dashboard' },
-              { src: '/images/middleman/stock.png', label: 'Pull List' },
+              { src: '/images/middleman/stock.png', label: 'Stock' },
+              { src: '/images/middleman/pull-list.png', label: 'Pull List' },
               { src: '/images/middleman/orders.png', label: 'Deliveries' },
               { src: '/images/middleman/order-edit.png', label: 'Order Edit' },
               { src: '/images/middleman/order-detail.png', label: 'Order Detail' },
               { src: '/images/middleman/product-detail.png', label: 'Product Detail' },
               { src: '/images/middleman/statistics.png', label: 'Statistics' },
+              { src: '/images/middleman/breakage-modal.png', label: 'Breakage' },
+              { src: '/images/middleman/shrinkage.png', label: 'Shrinkage' },
+              { src: '/images/middleman/store-switcher.png', label: 'Store Switch' },
+              { src: '/images/middleman/note-to-driver.png', label: 'Driver Note' },
               { src: '/images/middleman/settings.png', label: 'Settings' },
               { src: '/images/middleman/merch-notes-modal.png', label: 'Notes' },
             ].map(({ src, label }) => (

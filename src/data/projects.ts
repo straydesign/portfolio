@@ -70,7 +70,6 @@ export const PROJECTS: readonly Project[] = [
 export const STATIC_PAGES: ReadonlyMap<Page, string> = new Map([
   ['home', 'Tom Sesler — Product Designer'],
   ['about', 'About | Tom Sesler — Product Designer'],
-  ['work', 'Work | Tom Sesler — Product Designer'],
   ['resume', 'Resume | Tom Sesler — Product Designer'],
 ]);
 

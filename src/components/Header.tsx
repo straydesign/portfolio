@@ -15,8 +15,7 @@ type NavItem = {
 };
 
 const NAV_ITEMS: readonly NavItem[] = [
-  { id: 'home', label: 'HOME' },
-  { id: 'work', label: 'WORK' },
+  { id: 'home', label: 'WORK' },
   { id: 'resume', label: 'RESUME' },
   { id: 'about', label: 'ABOUT' },
 ];

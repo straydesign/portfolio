@@ -16,7 +16,6 @@ const Resume = dynamic(() => import('@/components/Resume'));
 const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
 const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
 const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
-const Work = dynamic(() => import('@/components/Work'));
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -59,7 +58,6 @@ export default function App() {
             >
               {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
               {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
-              {currentPage === 'work' && <Work setCurrentPage={setCurrentPage} />}
               {currentPage === 'resume' && <Resume />}
               {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
               {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
