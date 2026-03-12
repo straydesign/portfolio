@@ -24,7 +24,14 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {otherProjects.map((project) => (
-            <div key={project.id} className="flex flex-col sm:flex-row items-center gap-6">
+            <div
+              key={project.id}
+              className="flex flex-col sm:flex-row items-center gap-6 cursor-pointer"
+              onClick={() => onNavigate(project.id)}
+              role="link"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(project.id); } }}
+            >
               <div className="w-[160px] md:w-[200px] flex-shrink-0">
                 <PhoneMockup
                   screenshot={project.screenshot}
@@ -40,13 +47,12 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                 <p className="text-sm mb-4 leading-relaxed" style={{ color: '#a1a1a6' }}>
                   {project.description}
                 </p>
-                <button
-                  onClick={() => onNavigate(project.id)}
+                <span
                   className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
                   style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                 >
                   View Project
-                </button>
+                </span>
               </TextCard>
             </div>
           ))}

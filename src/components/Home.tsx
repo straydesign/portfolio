@@ -221,14 +221,19 @@ export default function Home({ setCurrentPage }: HomeProps) {
           {/* All projects — unified split layout (phone left, text right) */}
           {PROJECTS.map((project, i) => (
             <AnimateIn key={project.id} direction="up" className="mb-16 md:mb-24">
-              <div className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+              <div
+                className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 cursor-pointer ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+                onClick={() => setCurrentPage(project.id)}
+                role="link"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
+              >
                 <div className="w-full md:w-1/2">
                   <PhoneMockup
                     screenshot={project.screenshot}
                     gradientFrom={project.gradientFrom ?? '#000000'}
                     gradientTo={project.gradientTo ?? '#000000'}
                     alt={project.alt}
-                    onClick={() => setCurrentPage(project.id)}
                     introVideoSrc={project.introVideoSrc}
                     size="large"
                   />
@@ -257,13 +262,12 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#ffffff' }}>
                       {project.deliverable}
                     </p>
-                    <button
+                    <span
                       className="mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-all hover:scale-105"
                       style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-                      onClick={() => setCurrentPage(project.id)}
                     >
                       View {getProjectTypeLabel(project.type)}
-                    </button>
+                    </span>
                   </TextCard>
                 </div>
               </div>

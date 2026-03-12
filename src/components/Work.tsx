@@ -69,8 +69,12 @@ export default function Work({ setCurrentPage }: WorkProps) {
           {PROJECTS.map((project, i) => (
             <div
               key={project.id}
-              className="mb-16 md:mb-20 last:mb-0"
+              className="mb-16 md:mb-20 last:mb-0 cursor-pointer"
               style={{ borderBottom: i < PROJECTS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
+              onClick={() => setCurrentPage(project.id)}
+              role="link"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
             >
               <TextCard padding="md" className="mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: '#ffffff' }}>
@@ -94,13 +98,12 @@ export default function Work({ setCurrentPage }: WorkProps) {
                   />
                 </div>
                 <div className="pt-2">
-                  <button
-                    onClick={() => setCurrentPage(project.id)}
+                  <span
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
                     style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                   >
                     View {getProjectTypeLabel(project.type)}
-                  </button>
+                  </span>
                 </div>
               </div>
             </div>
