@@ -31,7 +31,7 @@ export const KOI_FRAG = /* glsl */ `
   #define NUM_FISH 7
   #define RIPPLE_TEXEL (1.0 / 512.0)
   #define REFRACTION_STRENGTH 0.12
-  #define SCATTER_RADIUS 1.5
+  #define SCATTER_RADIUS 0.6
 
   void main() {
     vec2 wp = vWorldXY;
@@ -79,17 +79,14 @@ export const KOI_FRAG = /* glsl */ `
       float vy = cos(uTime * driftFreq + phase) * driftAmp * driftFreq;
       float heading = atan(vy, swimSpeed * dir);
 
-      // Mouse avoidance
+      // Mouse avoidance — subtle nudge away from cursor
       if (uMousePresent > 0.5) {
         vec2 toFish = center - uMouse;
         float md = length(toFish);
         if (md < SCATTER_RADIUS) {
           float ps = (SCATTER_RADIUS - md) / SCATTER_RADIUS;
           ps *= ps;
-          vec2 pushDir = normalize(toFish);
-          float perpBias = (hash21(vec2(seed, 9.0)) - 0.5) * 2.0;
-          vec2 perp = vec2(-pushDir.y, pushDir.x) * perpBias;
-          center += (pushDir + perp * 0.5) * ps * 0.8;
+          center += normalize(toFish) * ps * 0.2;
         }
       }
 
