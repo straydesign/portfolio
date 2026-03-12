@@ -75,9 +75,9 @@ export const KOI_FRAG = /* glsl */ `
 
       vec2 center = vec2(rawX, laneY + yOffset);
 
-      // Heading: mostly horizontal, slight tilt from vertical drift
-      float driftSlope = cos(uTime * driftFreq + phase) * driftAmp * driftFreq;
-      float heading = dir > 0.0 ? atan(driftSlope, swimSpeed) : atan(-driftSlope, -swimSpeed);
+      // Heading: derived from actual velocity so fish faces its path
+      float vy = cos(uTime * driftFreq + phase) * driftAmp * driftFreq;
+      float heading = atan(vy, swimSpeed * dir);
 
       // Mouse avoidance
       if (uMousePresent > 0.5) {
