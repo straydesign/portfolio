@@ -146,7 +146,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               transition={{ duration: 0.5, delay: heroTextDuration + 0.15 }}
             >
               <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: '#ffffff' }}>
-                Ethnographic fieldwork, real user observation, and actual data — not assumptions. Marketing background means I design for business outcomes, not just pixels.
+                Ethnographic fieldwork, real user observation, and actual data — not assumptions. I design for business outcomes, not just pixels.
               </p>
               <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: '#ffffff', opacity: 0.8 }}>
                 New Hampshire / Massachusetts. Open to full-time or remote

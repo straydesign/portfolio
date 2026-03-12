@@ -75,14 +75,6 @@ const ABOUT_PHOTOS = [
   { src: '/images/about/photo-6.jpg', alt: 'About photo 6' },
 ];
 
-const INTERESTS = [
-  { label: 'Aquascaping & Aquaponics', text: 'I enjoy creating aesthetically pleasing environments and understanding intricate biological processes.' },
-  { label: 'Karaoke & Home Audio', text: 'I want to bring joy to others and create immersive experiences.' },
-  { label: 'The Great Outdoors & Reading', text: 'I enjoy exploring diverse environments and acquiring new knowledge.' },
-  { label: 'Design, Engineering & Architecture', text: 'I value the process of bringing abstract ideas into tangible forms.' },
-  { label: 'Climbing, Strength Training & Wellness', text: 'I value overcoming obstacles and achieving ambitious goals.' },
-];
-
 const CURRENT_FAVORITES = [
   { title: 'Good to Great', desc: 'The leaders weren\'t driven by ego--they were selfless, worked for the love of it, and knew how to put the right people in the right roles. Success can trap you into repeating what worked before, but great companies stay great by constantly adapting and improving.' },
   { title: 'Super Communicators', desc: 'The best communicators ask lots of deep questions to show their interest and make people feel very heard. They understand the reason behind a conversation before they respond.' },
@@ -357,7 +349,7 @@ export default function About({ setCurrentPage }: AboutProps) {
               That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
             </p>
             <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
-              Outside of work, I read constantly, climb, and tinker with aquascaping and home audio setups. The books below have shaped how I think about design, leadership, and communication.
+              I read constantly. The books below have shaped how I think about design, leadership, and communication.
             </p>
           </TextCard>
         </AnimateIn>
@@ -383,32 +375,6 @@ export default function About({ setCurrentPage }: AboutProps) {
       </div>
 
       <div className="max-w-[90rem] mx-auto px-4 md:px-8">
-
-        {/* INTERESTS */}
-        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
-          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
-            <h2
-              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
-            >
-              INTERESTS
-            </h2>
-          </TextCard>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 md:gap-y-8" staggerDelay={0.08}>
-            {INTERESTS.map((interest) => (
-              <StaggerItem key={interest.label}>
-                <TextCard padding="md">
-                  <h3 className="text-base font-bold mb-1" style={{ color: '#ffffff' }}>
-                    {interest.label}
-                  </h3>
-                  <p className="text-[15px] leading-relaxed" style={{ color: '#a1a1a6' }}>
-                    {interest.text}
-                  </p>
-                </TextCard>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </AnimateIn>
 
         {/* MY FAVORITES — standalone 3D books */}
         <AnimateIn direction="up" className="mb-16 md:mb-24 pb-8 md:pb-12">

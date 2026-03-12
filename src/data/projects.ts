@@ -28,6 +28,20 @@ export interface Project {
 
 export const PROJECTS: readonly Project[] = [
   {
+    id: 'middleman-case-study',
+    title: 'MERCHANDISING SYSTEM',
+    description: 'Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection.',
+    deliverable: 'Live prototype + Bloomberg Terminal design system',
+    screenshot: '/images/middleman/dashboard.png',
+    alt: 'MIDDLEMAN dashboard — risk overview and quick actions',
+    slug: 'middleman',
+    slugAliases: ['middleman-case-study'],
+    documentTitle: 'Merchandising System Case Study | Tom Sesler',
+    type: 'project',
+    gradientFrom: '#888888',
+    gradientTo: '#000000',
+  },
+  {
     id: 'day-one-case-study',
     title: 'FIRSTDAY.LIFE',
     description: 'AI-powered goal tracker with iterative weekly sprints. Designed, built, and shipped as a live product.',
@@ -50,20 +64,6 @@ export const PROJECTS: readonly Project[] = [
     slugAliases: ['doordash-case-study'],
     documentTitle: 'DoorDash UX Evaluation | Tom Sesler',
     type: 'case-study',
-  },
-  {
-    id: 'middleman-case-study',
-    title: 'MERCHANDISING SYSTEM',
-    description: 'Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection.',
-    deliverable: 'Live prototype + Bloomberg Terminal design system',
-    screenshot: '/images/middleman/dashboard.png',
-    alt: 'MIDDLEMAN dashboard — risk overview and quick actions',
-    slug: 'middleman',
-    slugAliases: ['middleman-case-study'],
-    documentTitle: 'Merchandising System Case Study | Tom Sesler',
-    type: 'project',
-    gradientFrom: '#888888',
-    gradientTo: '#000000',
   },
 ] as const;
 

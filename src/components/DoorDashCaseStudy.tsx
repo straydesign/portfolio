@@ -5,7 +5,54 @@ import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
 import NextProject from './NextProject';
+import CancellationFlowDiagram from './CancellationFlowDiagram';
 import { type Page } from '@/data/projects';
+
+const NIELSENS_HEURISTICS = [
+  { id: 1, name: 'Visibility of System Status', applied: true },
+  { id: 2, name: 'Match Between System and Real World', applied: false },
+  { id: 3, name: 'User Control and Freedom', applied: true },
+  { id: 4, name: 'Consistency and Standards', applied: false },
+  { id: 5, name: 'Error Prevention', applied: true },
+  { id: 6, name: 'Recognition Rather Than Recall', applied: true },
+  { id: 7, name: 'Flexibility and Efficiency of Use', applied: true },
+  { id: 8, name: 'Aesthetic and Minimalist Design', applied: true },
+  { id: 9, name: 'Help Users Recover from Errors', applied: true },
+  { id: 10, name: 'Help and Documentation', applied: false },
+];
+
+const ISSUE_HEURISTICS: Record<number, number[]> = {
+  1: [5, 8],
+  2: [3, 9],
+  3: [7, 9],
+  4: [6, 1],
+  5: [3, 7],
+};
+
+function HeuristicBadges({ issueNumber }: { issueNumber: number }) {
+  const heuristicIds = ISSUE_HEURISTICS[issueNumber] || [];
+  return (
+    <div className="flex flex-wrap gap-1.5 ml-auto">
+      {heuristicIds.map((id) => {
+        const h = NIELSENS_HEURISTICS.find((n) => n.id === id);
+        if (!h) return null;
+        return (
+          <span
+            key={id}
+            className="text-[10px] font-semibold px-2 py-0.5 whitespace-nowrap"
+            style={{
+              backgroundColor: 'rgba(255,255,255,0.06)',
+              color: 'rgba(255,255,255,0.7)',
+              border: '1px solid rgba(255,255,255,0.1)',
+            }}
+          >
+            #{id} {h.name}
+          </span>
+        );
+      })}
+    </div>
+  );
+}
 
 interface DoorDashCaseStudyProps {
   onBack: () => void;
@@ -107,14 +154,57 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
           </TextCard>
         </AnimateIn>
 
+        {/* THE FRAMEWORK — Nielsen's 10 Heuristics Grid */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="lg">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Framework</p>
+            <p className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>
+              Nielsen&apos;s 10 Usability Heuristics
+            </p>
+            <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
+              7 of 10 heuristics are violated across the 5 issues identified.
+            </p>
+            <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-3" staggerDelay={0.05}>
+              {NIELSENS_HEURISTICS.map((h) => (
+                <StaggerItem key={h.id}>
+                  <div
+                    className="p-4 h-full"
+                    style={{
+                      backgroundColor: '#000000',
+                      border: h.applied
+                        ? '1px solid rgba(255,255,255,0.2)'
+                        : '1px solid rgba(255,255,255,0.06)',
+                      opacity: h.applied ? 1 : 0.35,
+                    }}
+                  >
+                    <p
+                      className="text-2xl font-black mb-2"
+                      style={{ color: h.applied ? primaryColor : secondaryTextColor }}
+                    >
+                      {h.id}
+                    </p>
+                    <p
+                      className="text-xs font-medium leading-snug"
+                      style={{ color: h.applied ? textColor : secondaryTextColor }}
+                    >
+                      {h.name}
+                    </p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </TextCard>
+        </AnimateIn>
+
         {/* ISSUE #1 — Button Hierarchy */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="lg">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: onPrimaryColor, borderRadius: 0 }}>
                 <Smartphone className="w-4 h-4" />
               </div>
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #1</p>
+              <HeuristicBadges issueNumber={1} />
             </div>
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
               <div className="flex gap-6 justify-center items-center md:w-2/5">
@@ -146,11 +236,12 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
         {/* ISSUE #2 — No Error Recovery */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="lg">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: onPrimaryColor, borderRadius: 0 }}>
                 <Shield className="w-4 h-4" />
               </div>
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #2</p>
+              <HeuristicBadges issueNumber={2} />
             </div>
             <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
               You left the drink in your car. The address is already gone.
@@ -181,11 +272,12 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
         {/* ISSUE #3 — Photo Validation */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="lg">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: onPrimaryColor, borderRadius: 0 }}>
                 <Camera className="w-4 h-4" />
               </div>
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #3</p>
+              <HeuristicBadges issueNumber={3} />
             </div>
             <div className="flex flex-col-reverse md:flex-row gap-8 md:gap-12 items-center">
               <div className="md:w-3/5">
@@ -221,11 +313,12 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
         {/* ISSUE #4 — Code Disappears */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="lg">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: onPrimaryColor, borderRadius: 0 }}>
                 <Key className="w-4 h-4" />
               </div>
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #4</p>
+              <HeuristicBadges issueNumber={4} />
             </div>
             <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
               You&apos;re at the locker, arms full of bags. The pickup code is gone.
@@ -247,13 +340,14 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
         </AnimateIn>
 
         {/* ISSUE #5 — 12 Taps to Cancel */}
-        <AnimateIn direction="up" className="py-16 md:py-24">
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
           <TextCard padding="lg">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-6 flex-wrap">
               <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: onPrimaryColor, borderRadius: 0 }}>
                 <Smartphone className="w-4 h-4" />
               </div>
               <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Issue #5</p>
+              <HeuristicBadges issueNumber={5} />
             </div>
             <p className="text-xl md:text-2xl font-bold mb-8" style={{ color: textColor }}>
               Cancelling an order takes 12 taps. At a red light, you get maybe 3.
@@ -296,6 +390,20 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 <strong style={{ color: primaryColor }}>Fix:</strong> 4-tap cancel. Survey after the shift, not at a red light.
               </p>
             </div>
+          </TextCard>
+        </AnimateIn>
+
+        {/* THE FLOW — Cancellation Flow Diagram */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="lg">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Flow</p>
+            <p className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>
+              12 taps to 4. Here&apos;s exactly what changed.
+            </p>
+            <p className="text-base mb-8" style={{ color: secondaryTextColor }}>
+              The current cancellation flow buries the action in menus, adds friction through embedded surveys, and forces drivers to complete multi-step forms at red lights. The redesign collapses it to 4 taps and moves the survey to the end of the shift.
+            </p>
+            <CancellationFlowDiagram />
           </TextCard>
         </AnimateIn>
 

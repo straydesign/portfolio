@@ -27,20 +27,20 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tom Sesler — Product Designer & Web Developer | Erie, PA",
+    default: "Tom Sesler — Product Designer",
     template: "%s | Tom Sesler",
   },
   description:
-    "Product designer and web developer building digital experiences. Portfolio, case studies, and professional web design services in Erie, PA.",
+    "Product designer building digital experiences. Research-driven UX, interface design, and live products.",
   metadataBase: new URL("https://straydesign.co"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    title: "Tom Sesler — Product Designer & Web Developer",
+    title: "Tom Sesler — Product Designer",
     description:
-      "Product designer building web and mobile experiences. Portfolio, case studies, and web design services in Erie, PA.",
+      "Product designer building web and mobile experiences. Research-driven UX, interface design, and live shipped products.",
     siteName: "Tom Sesler — Product Designer",
     url: "https://straydesign.co",
     locale: "en_US",
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tom Sesler — Product Designer & Web Developer",
+    title: "Tom Sesler — Product Designer",
     description:
-      "Product designer building web and mobile experiences. Portfolio, case studies, and web design services.",
+      "Product designer building web and mobile experiences. Research-driven UX, interface design, and live shipped products.",
     images: ["https://straydesign.co/og-image.png"],
   },
   robots: {
@@ -72,32 +72,23 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "web design Erie PA",
-    "web designer Erie Pennsylvania",
-    "professional web design Erie",
-    "website design Erie PA",
-    "web development Erie PA",
-    "SEO Erie PA",
-    "UX designer Erie PA",
-    "product designer Erie",
+    "product designer",
+    "UX designer",
+    "UI designer",
+    "product design portfolio",
+    "UX research",
+    "interface design",
     "Tom Sesler",
     "Thomas Sesler",
-    "web design Northwestern PA",
-    "Erie PA web developer",
-    "custom website Erie",
-    "small business web design Erie",
-    "responsive web design Erie PA",
-    "product designer Erie",
-    "UI UX design Erie PA",
+    "heuristic evaluation",
+    "usability research",
+    "design case study",
+    "web application design",
+    "mobile app design",
+    "user experience design",
   ],
   authors: [{ name: "Tom Sesler" }],
   creator: "Tom Sesler",
-  other: {
-    "geo.region": "US-PA",
-    "geo.placename": "Erie",
-    "geo.position": "42.1292;-80.0851",
-    "ICBM": "42.1292, -80.0851",
-  },
 };
 
 export default function RootLayout({
@@ -111,58 +102,27 @@ export default function RootLayout({
       {
         "@type": "ProfessionalService",
         "@id": "https://straydesign.co/#business",
-        name: "Tom Sesler — Web Design",
+        name: "Tom Sesler — Product Design",
         alternateName: "Stray Design Co",
         description:
-          "Professional web design and development services in Erie, PA. Custom websites, UX/UI design, SEO, and digital marketing for local businesses.",
+          "Product design, UX research, and interface design. Research-driven UX, live shipped products, and case studies.",
         url: "https://straydesign.co",
-        telephone: "+1-814-964-0081",
         email: "tom@straydesign.co",
-        priceRange: "$$",
         image: "https://straydesign.co/images/about-photo.jpg",
-        areaServed: [
-          {
-            "@type": "City",
-            name: "Erie",
-            containedInPlace: {
-              "@type": "State",
-              name: "Pennsylvania",
-            },
-          },
-          {
-            "@type": "AdministrativeArea",
-            name: "Northwestern Pennsylvania",
-          },
-        ],
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 42.1292,
-          longitude: -80.0851,
-        },
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Erie",
-          addressRegion: "PA",
-          addressCountry: "US",
+        areaServed: {
+          "@type": "Country",
+          name: "United States",
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Web Design Services",
+          name: "Product Design Services",
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Custom Website Design",
-                description: "Hand-crafted, responsive website design and development for Erie, PA businesses.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "SEO & Digital Marketing",
-                description: "Search engine optimization and digital marketing for Erie area businesses.",
+                name: "Product Design",
+                description: "End-to-end product design from research through shipped interfaces.",
               },
             },
             {
@@ -182,20 +142,18 @@ export default function RootLayout({
         "@id": "https://straydesign.co/#person",
         name: "Tom Sesler",
         alternateName: "Thomas Sesler",
-        jobTitle: "Web Designer & Product Designer",
+        jobTitle: "Product Designer",
         description:
-          "Professional web designer in Erie, PA — from ethnographic field research to interactive prototypes to live products.",
+          "Product designer — from ethnographic field research to interactive prototypes to live products.",
         url: "https://straydesign.co",
         sameAs: ["https://www.linkedin.com/in/tom-sesler/"],
         email: "tom@straydesign.co",
-        telephone: "+1-814-964-0081",
         knowsAbout: [
-          "Web Design",
-          "Web Development",
+          "Product Design",
+          "UX Research",
           "UX Design",
           "UI Design",
-          "Product Design",
-          "SEO",
+          "Heuristic Evaluation",
           "Figma",
           "React",
           "Next.js",
@@ -204,19 +162,13 @@ export default function RootLayout({
           "@type": "CollegeOrUniversity",
           name: "University of New Hampshire",
         },
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Erie",
-          addressRegion: "PA",
-          addressCountry: "US",
-        },
       },
       {
         "@type": "WebSite",
         "@id": "https://straydesign.co/#website",
         url: "https://straydesign.co",
-        name: "Tom Sesler — Web Design Erie PA",
-        description: "Professional web design and development in Erie, Pennsylvania.",
+        name: "Tom Sesler — Product Designer",
+        description: "Product design portfolio. Research-driven UX, interface design, and live shipped products.",
         publisher: { "@id": "https://straydesign.co/#person" },
       },
     ],
