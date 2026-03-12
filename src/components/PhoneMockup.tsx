@@ -159,7 +159,6 @@ export default function PhoneMockup({
         ref={containerRef}
         className="flex items-center justify-center relative"
         style={{
-          aspectRatio: size === 'large' ? '4/5' : '1/1',
           perspective: '1000px',
           rotateX,
           rotateY,
