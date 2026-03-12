@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Inter, -apple-system, sans-serif;
+      margin: 0;
+      padding: 16px;
+      background: #1e1e1e;
+      color: #fff;
+    }
+    h2 { font-size: 14px; margin: 0 0 12px; font-weight: 600; }
+    p { font-size: 12px; color: #999; margin: 0 0 16px; line-height: 1.5; }
+    .page-list { list-style: none; padding: 0; margin: 0 0 16px; }
+    .page-list li {
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-list li .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #333;
+      flex-shrink: 0;
+    }
+    .page-list li.done .dot { background: #22c55e; }
+    .page-list li.active .dot { background: #3b82f6; }
+    .page-list li.active { color: #fff; font-weight: 500; }
+    .page-list li.pending { color: #666; }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #e0e0e0; }
+    button:disabled { background: #333; color: #666; cursor: default; }
+    #status {
+      font-size: 11px;
+      color: #666;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .file-input-wrapper {
+      margin-bottom: 16px;
+      padding: 12px;
+      border: 1px dashed #444;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .file-input-wrapper input { display: none; }
+    .file-input-wrapper label {
+      cursor: pointer;
+      font-size: 12px;
+      color: #999;
+    }
+    .file-input-wrapper label:hover { color: #fff; }
+    .file-count { font-size: 11px; color: #22c55e; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <h2>straydesign.co → Figma</h2>
+  <p>Import site screenshots as organized Figma pages with frames, labels, and design system annotations.</p>
+
+  <div class="file-input-wrapper">
+    <label for="files">Drop or select screenshot PNGs</label>
+    <input type="file" id="files" multiple accept="image/png,image/jpeg" />
+    <div class="file-count" id="fileCount"></div>
+  </div>
+
+  <ul class="page-list" id="pageList">
+    <li class="pending" id="step-structure"><span class="dot"></span>Create page structure</li>
+    <li class="pending" id="step-design"><span class="dot"></span>Design system page</li>
+    <li class="pending" id="step-home"><span class="dot"></span>Home page</li>
+    <li class="pending" id="step-work"><span class="dot"></span>Work page</li>
+    <li class="pending" id="step-resume"><span class="dot"></span>Resume page</li>
+    <li class="pending" id="step-about"><span class="dot"></span>About page</li>
+    <li class="pending" id="step-firstday"><span class="dot"></span>FirstDay case study</li>
+    <li class="pending" id="step-doordash"><span class="dot"></span>DoorDash case study</li>
+    <li class="pending" id="step-middleman"><span class="dot"></span>MIDDLEMAN case study</li>
+  </ul>
+
+  <button id="importBtn" disabled>Select screenshots first</button>
+  <div id="status"></div>
+
+  <script>
+    const fileInput = document.getElementById('files');
+    const importBtn = document.getElementById('importBtn');
+    const fileCount = document.getElementById('fileCount');
+    const statusEl = document.getElementById('status');
+
+    const FILE_MAP = {
+      'home-viewport': 'home',
+      'home-full': 'home',
+      'home-mobile': 'home',
+      'work-full': 'work',
+      'resume-full': 'resume',
+      'about-full': 'about',
+      'firstday-full': 'firstday',
+      'doordash-full': 'doordash',
+      'middleman-full': 'middleman'
+    };
+
+    let loadedImages = {};
+
+    fileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      loadedImages = {};
+      let matched = 0;
+
+      for (const file of files) {
+        const baseName = file.name.replace(/\.(png|jpg|jpeg)$/i, '');
+        if (FILE_MAP[baseName] !== undefined) {
+          const buf = await file.arrayBuffer();
+          loadedImages[baseName] = new Uint8Array(buf);
+          matched++;
+        }
+      }
+
+      fileCount.textContent = `${matched} of ${files.length} files matched`;
+      if (matched > 0) {
+        importBtn.disabled = false;
+        importBtn.textContent = `Import ${matched} screenshots`;
+      }
+    });
+
+    importBtn.addEventListener('click', () => {
+      importBtn.disabled = true;
+      importBtn.textContent = 'Importing...';
+
+      const imageData = {};
+      for (const [name, bytes] of Object.entries(loadedImages)) {
+        imageData[name] = Array.from(bytes);
+      }
+
+      parent.postMessage({
+        pluginMessage: {
+          type: 'import',
+          images: imageData
+        }
+      }, '*');
+    });
+
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      if (!msg) return;
+
+      if (msg.type === 'step') {
+        const el = document.getElementById(`step-${msg.id}`);
+        if (el) {
+          el.className = msg.status;
+        }
+      }
+
+      if (msg.type === 'status') {
+        statusEl.textContent = msg.text;
+      }
+
+      if (msg.type === 'done') {
+        importBtn.textContent = 'Done!';
+        statusEl.textContent = `Created ${msg.pageCount} pages with ${msg.frameCount} frames`;
+      }
+    };
+  </script>
+</body>
+</html>
