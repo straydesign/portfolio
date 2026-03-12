@@ -218,61 +218,48 @@ export default function Home({ setCurrentPage }: HomeProps) {
             />
           </div>
 
-          {/* All projects — unified split layout (phone left, text right) */}
-          {PROJECTS.map((project, i) => (
-            <AnimateIn key={project.id} direction="up" className="mb-16 md:mb-24">
-              <div
-                className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 cursor-pointer ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-                onClick={() => setCurrentPage(project.id)}
-                role="link"
-                tabIndex={0}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
-              >
-                <div className="w-full md:w-1/2">
-                  <PhoneMockup
-                    screenshot={project.screenshot}
-                    gradientFrom={project.gradientFrom ?? '#000000'}
-                    gradientTo={project.gradientTo ?? '#000000'}
-                    alt={project.alt}
-                    introVideoSrc={project.introVideoSrc}
-                    size="large"
-                  />
-                </div>
-                <div className="w-full md:w-1/2 md:py-8">
-                  <TextCard padding="lg">
+          {/* All projects — compact cards with tiny phones */}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {PROJECTS.map((project) => (
+              <StaggerItem key={project.id}>
+                <div
+                  className="cursor-pointer group"
+                  onClick={() => setCurrentPage(project.id)}
+                  role="link"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
+                >
+                  <TextCard padding="md" className="h-full flex flex-col items-center text-center">
+                    <div className="mb-4">
+                      <PhoneMockup
+                        screenshot={project.screenshot}
+                        alt={project.alt}
+                        size="tiny"
+                      />
+                    </div>
                     <span
-                      className="inline-block mb-4 px-3 py-1 text-xs font-semibold uppercase tracking-wider"
-                      style={{
-                        backgroundColor: '#ffffff',
-                        color: '#000000',
-                        borderRadius: 0,
-                      }}
+                      className="inline-block mb-2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                      style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                     >
                       {getProjectTypeLabel(project.type)}
                     </span>
-                    <h3
-                      className="text-2xl md:text-4xl font-bold mb-3 tracking-tight"
-                      style={{ color: '#ffffff' }}
-                    >
+                    <h3 className="text-sm md:text-base font-bold mb-1 tracking-tight" style={{ color: '#ffffff' }}>
                       {project.title}
                     </h3>
-                    <p className="text-base md:text-lg leading-relaxed mb-4" style={{ color: '#a1a1a6' }}>
+                    <p className="text-xs leading-relaxed mb-4 line-clamp-2" style={{ color: '#a1a1a6' }}>
                       {project.description}
                     </p>
-                    <p className="text-sm font-semibold uppercase tracking-wider" style={{ color: '#ffffff' }}>
-                      {project.deliverable}
-                    </p>
                     <span
-                      className="mt-6 inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-all hover:scale-105"
+                      className="mt-auto inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
                       style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                     >
                       View {getProjectTypeLabel(project.type)}
                     </span>
                   </TextCard>
                 </div>
-              </div>
-            </AnimateIn>
-          ))}
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </AnimateIn>
 
