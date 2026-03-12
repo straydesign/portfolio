@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, ExternalLink, Brain, Calendar, Target } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Lightbulb, Clock, Flame, Check, Sparkles } from 'lucide-react';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import PhoneMockup from './PhoneMockup';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
@@ -40,33 +40,33 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           </a>
         </div>
 
-        {/* HERO */}
+        {/* ── HERO ── */}
         <div className="min-h-[80vh] flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12 md:py-16" style={{ borderBottom: divider }}>
           <AnimateIn direction="left" className="w-full md:w-1/2">
             <TextCard padding="lg">
               <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>Live Product</p>
               <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>FIRSTDAY.LIFE</h1>
               <p className="text-lg md:text-xl mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
-                You want to learn guitar. But where do you even start?
+                Everyone has a goal they&apos;ve been &ldquo;meaning to start.&rdquo; The problem was never motivation.
               </p>
-              <p className="text-base mb-8 leading-relaxed" style={{ color: textColor }}>
-                Type your goal. Wake up tomorrow with a plan. Designed, built, and shipped as a live product.
+              <p className="text-base mb-10 leading-relaxed" style={{ color: textColor }}>
+                It was the blank page between wanting something and knowing what to do tomorrow morning. I designed, built, and shipped an AI-powered system that turns any goal into a 30-day daily plan — so day one actually happens.
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
                 {[
-                  { label: 'CONCEPT', value: 'AI turns goals into 30-day daily plans' },
-                  { label: 'THE GAP', value: 'No tool turns "I want to" into "here\'s what to do today"' },
-                  { label: 'MY ROLE', value: 'UX Designer & Developer' },
+                  { label: 'THE USER', value: 'Anyone stuck between "I want to" and "I don\'t know how"' },
+                  { label: 'THE PAIN', value: 'Planning fatigue kills goals before day 1', highlight: true },
+                  { label: 'MY ROLE', value: 'Solo designer & developer' },
                   { label: 'STATUS', value: 'Live at firstday.life' },
-                ].map(({ label, value }) => (
+                ].map(({ label, value, highlight }) => (
                   <StaggerItem key={label}>
                     <div>
                       <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
-                      <p className="text-sm" style={{ color: textColor }}>{value}</p>
+                      <p className="text-sm" style={{ color: highlight ? primaryColor : textColor, fontWeight: highlight ? 700 : 400 }}>{value}</p>
                     </div>
                   </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </TextCard>
           </AnimateIn>
 
@@ -75,117 +75,223 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               screenshot="/images/firstday/hero.png"
               gradientFrom={primaryColor}
               gradientTo="#000000"
-              alt="FirstDay.Life hero — achieve any goal in 30 days"
+              alt="FirstDay.Life — achieve any goal in 30 days"
               size="large"
             />
           </AnimateIn>
         </div>
 
-        {/* THE FEELING */}
+        {/* ── THE WEIGHT OF "SOMEDAY" ── */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg">
+          <TextCard padding="lg" className="mb-8" style={{ borderLeft: '4px solid #ffffff' }}>
             <p className="text-xl md:text-3xl leading-relaxed font-bold" style={{ color: textColor }}>
-              Learning guitar. Spending time with your kids. Saving for a house. Whatever the goal &mdash; you get <span style={{ color: primaryColor }}>three simple things to do today.</span>
+              You&apos;ve said it a hundred times. <span style={{ color: primaryColor }}>&ldquo;I&apos;m going to start.&rdquo;</span> Learn guitar. Run a 5K. Read more books. Write that thing you keep thinking about. And then Monday comes, and you don&apos;t know what the first step even looks like.
             </p>
           </TextCard>
-        </AnimateIn>
-
-        {/* THE JOURNEY — main flow videos */}
-        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" className="mb-10">
-            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Journey</p>
-            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
-              From &quot;I want to learn guitar&quot; to your third practice session &mdash; in 72 hours.
+          <TextCard padding="md" className="mb-8">
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: secondaryTextColor }}>
+              The goal-setting space is crowded. Habit trackers, journaling apps, productivity systems with 40-page onboarding flows. I tried most of them. They all make the same assumption: that you already know the steps, and you just need accountability to follow them. But for most people, the steps are the hard part. &ldquo;Learn guitar&rdquo; is a feeling, not a plan. And the gap between that feeling and a structured daily practice is where most goals quietly die.
             </p>
           </TextCard>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" staggerDelay={0.12}>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4" staggerDelay={0.08}>
             {[
-              { src: '/images/firstday/goal-creation.png', label: 'Type your dream', desc: 'Say what matters in your own words.' },
-              { src: '/images/firstday/calendar-view.png', label: 'Get your plan', desc: 'AI turns it into 30 days of action.' },
-              { src: '/images/firstday/day-view.png', label: 'Do the work', desc: 'Check off tasks. Watch momentum build.' },
-            ].map(({ src, label, desc }) => (
-              <StaggerItem key={label}>
-                <div className="text-center">
-                  <div className="mb-4">
-                    <ImageWithSkeleton
-                      src={src}
-                      alt={label}
-                      className="w-full"
-                      style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
-                    />
-                  </div>
-                  <TextCard padding="sm" noTilt>
-                    <p className="text-base font-bold" style={{ color: primaryColor }}>{label}</p>
-                    <p className="text-sm mt-1" style={{ color: secondaryTextColor }}>{desc}</p>
-                  </TextCard>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-
-          {/* More of the app */}
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 gap-4" staggerDelay={0.08}>
-            {[
-              { src: '/images/firstday/congrats-view.png', label: 'Celebrate wins' },
-              { src: '/images/firstday/hero.png', label: 'The pitch' },
-              { src: '/images/firstday/loading-screen.png', label: 'Get started' },
-            ].map(({ src, label }) => (
-              <StaggerItem key={label}>
-                <div className="text-center">
-                  <ImageWithSkeleton
-                    src={src}
-                    alt={label}
-                    className="w-full"
-                    style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
-                  />
-                  <TextCard padding="sm" noTilt className="mt-2">
-                    <p className="text-xs font-bold tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
-                  </TextCard>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </AnimateIn>
-
-        {/* THE CORE LOOP */}
-        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" className="mb-10">
-            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Core Loop</p>
-            <p className="text-xl md:text-2xl font-bold" style={{ color: primaryColor }}>
-              Dream &rarr; Plan &rarr; Do &rarr; Repeat
-            </p>
-          </TextCard>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8" staggerDelay={0.1}>
-            {[
-              { icon: Brain, label: 'Set Your Goal', desc: 'No categories. No setup. Just say what matters.' },
-              { icon: Calendar, label: 'Get Your Plan', desc: 'Wake up knowing exactly what to do today.' },
-              { icon: Target, label: 'Track Progress', desc: 'Three tasks a day. Small wins compound.' },
-            ].map(({ icon: Icon, label, desc }) => (
-              <StaggerItem key={label}>
+              { icon: Lightbulb, pain: 'Goal-setting apps assume you already know the path', detail: 'They give you a blank page and call it "flexibility." But a blank page is just another decision to make — and decision fatigue is the reason you haven\'t started.' },
+              { icon: Clock, pain: 'Planning fatigue kills goals before day 1', detail: 'You spend an hour building a plan. It feels productive. By Wednesday, you\'ve already abandoned it because it was too ambitious or too vague.' },
+              { icon: Flame, pain: 'Without daily direction, ambition becomes anxiety', detail: 'Wanting something and not knowing how to get it isn\'t motivating — it\'s stressful. The guilt of another wasted week compounds until you stop thinking about the goal entirely.' },
+            ].map(({ icon: Icon, pain, detail }) => (
+              <StaggerItem key={pain}>
                 <TextCard padding="md">
-                  <div className="text-center">
-                    <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: '#000000', borderRadius: 0, border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <Icon className="w-7 h-7" style={{ color: primaryColor }} />
-                    </div>
-                    <p className="text-lg font-bold mb-2" style={{ color: textColor }}>{label}</p>
-                    <p className="text-sm" style={{ color: secondaryTextColor }}>{desc}</p>
+                  <div className="w-10 h-10 mb-4 flex items-center justify-center" style={{ backgroundColor: '#000000', border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <Icon className="w-5 h-5" style={{ color: primaryColor }} />
                   </div>
+                  <p className="text-base font-bold mb-2" style={{ color: textColor }}>{pain}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{detail}</p>
                 </TextCard>
               </StaggerItem>
             ))}
           </StaggerContainer>
         </AnimateIn>
 
-        {/* THE LIVE PRODUCT */}
+        {/* ── THE INSIGHT ── */}
         <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" className="mb-10">
-            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Live Product</p>
+          <TextCard padding="md" className="mb-6">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Insight</p>
             <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
-              Every screen polished, every interaction considered.
+              People don&apos;t fail goals because they&apos;re lazy. They fail because every morning requires a decision.
+            </p>
+          </TextCard>
+          <TextCard padding="md" className="mb-8">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              The research pointed to something simple: the most successful goal frameworks — from James Clear&apos;s atomic habits to BJ Fogg&apos;s tiny habits — share one principle. Remove the decision. Make the next step so small and so obvious that starting requires zero willpower. But no existing app did this end-to-end. They all handed you the blank page at some point and said &ldquo;now plan your journey.&rdquo; The design thesis for FirstDay was: <strong style={{ color: textColor }}>what if the user never plans anything?</strong> What if AI does the planning, and the human just wakes up and does three things?
             </p>
           </TextCard>
 
-          {/* App Screens Showcase */}
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4" staggerDelay={0.08}>
+            {[
+              { stat: '3', label: 'Tasks per day', sub: 'The line between "I can" and "too much"' },
+              { stat: '30', label: 'Day sprints', sub: 'Long enough to build. Short enough to finish.' },
+              { stat: '0', label: 'Planning required', sub: 'AI handles the entire breakdown' },
+              { stat: '< 1 min', label: 'To first plan', sub: 'Type your goal. Wake up with a plan.' },
+            ].map(({ stat, label, sub }) => (
+              <StaggerItem key={label}>
+                <div className="p-5 text-center" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <p className="text-3xl md:text-5xl font-black" style={{ color: primaryColor }}>{stat}</p>
+                  <p className="text-sm font-bold mt-2" style={{ color: textColor }}>{label}</p>
+                  <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </AnimateIn>
+
+        {/* ── THE SYSTEM ── */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="md" className="mb-6">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The System</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
+              Each screen solves one specific moment where people normally quit.
+            </p>
+          </TextCard>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              Every screen in FirstDay exists because of a failure point I identified in existing goal-setting tools. The flow is designed to eliminate friction at each stage — from the moment someone feels the impulse to start, through the first week where most people drop off, to the final days where completion actually feels earned.
+            </p>
+          </TextCard>
+
+          {/* Goal Creation → "Where do I even start?" */}
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-16">
+            <div className="w-full md:w-2/5">
+              <ImageWithSkeleton
+                src="/images/firstday/goal-creation.png"
+                alt="Goal creation — type your dream in natural language"
+                className="w-full"
+                style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+              />
+            </div>
+            <div className="w-full md:w-3/5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Failure Point #1</p>
+              </div>
+              <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+                &ldquo;Where do I even start?&rdquo;
+              </p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                Every goal-setting app begins with a form. Categories. Milestones. Sub-goals. Due dates. By the time you&apos;ve finished setting up, you&apos;ve burned the motivation that brought you there. FirstDay gives you a single text field. Type what you want in your own words. No categories. No setup wizard. No friction between the impulse and the commitment.
+              </p>
+              <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
+                <p className="text-sm" style={{ color: textColor }}>
+                  <strong style={{ color: primaryColor }}>Design decision:</strong> Natural language input, not structured forms. The AI interprets intent — the user just speaks.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* AI Planning → "How do I break this down?" */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 mb-16">
+            <div className="w-full md:w-2/5">
+              <ImageWithSkeleton
+                src="/images/firstday/loading-screen.png"
+                alt="AI building your personalized 30-day plan"
+                className="w-full"
+                style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+              />
+            </div>
+            <div className="w-full md:w-3/5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
+                  <Clock className="w-4 h-4" />
+                </div>
+                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Failure Point #2</p>
+              </div>
+              <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+                &ldquo;How do I break this into steps?&rdquo;
+              </p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                This is where most people spend hours and get nowhere. Building a 30-day plan for &ldquo;learn guitar&rdquo; requires knowing what to practice, in what order, at what pace. That expertise is exactly what beginners don&apos;t have. FirstDay&apos;s AI generates the entire plan in seconds — day by day, with activities calibrated to your starting point. The user never sees a planning screen because there isn&apos;t one.
+              </p>
+              <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
+                <p className="text-sm" style={{ color: textColor }}>
+                  <strong style={{ color: primaryColor }}>Design decision:</strong> The AI planning moment is a full-screen animation, not a loading spinner. It should feel like something meaningful is happening — because it is.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Calendar View → "What do I do tomorrow?" */}
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-16">
+            <div className="w-full md:w-2/5">
+              <ImageWithSkeleton
+                src="/images/firstday/calendar-view.png"
+                alt="30-day calendar view — your entire journey at a glance"
+                className="w-full"
+                style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+              />
+            </div>
+            <div className="w-full md:w-3/5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
+                  <Flame className="w-4 h-4" />
+                </div>
+                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Failure Point #3</p>
+              </div>
+              <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+                &ldquo;Am I actually making progress?&rdquo;
+              </p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                Day 4, day 7, day 12 — the middle of any goal is where motivation flatlines. You can&apos;t feel progress because you&apos;re too close to it. The calendar view solves this with visible momentum. Completed days fill in. The streak grows. You can see exactly how far you&apos;ve come and how close you are to the end. It turns abstract progress into something physical — a path you&apos;re walking, not a void you&apos;re shouting into.
+              </p>
+              <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
+                <p className="text-sm" style={{ color: textColor }}>
+                  <strong style={{ color: primaryColor }}>Design decision:</strong> 30-day grid, not an infinite timeline. A visible finish line changes the psychology from endurance to countdown.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Day View → "What do I do right now?" */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12">
+            <div className="w-full md:w-2/5">
+              <ImageWithSkeleton
+                src="/images/firstday/day-view.png"
+                alt="Daily task view — three focused activities"
+                className="w-full"
+                style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
+              />
+            </div>
+            <div className="w-full md:w-3/5">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
+                  <Check className="w-4 h-4" />
+                </div>
+                <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Failure Point #4</p>
+              </div>
+              <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+                &ldquo;What do I do right now?&rdquo;
+              </p>
+              <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
+                This is the screen you see every morning. Three things. Not five, not ten — three. Each one takes 15&ndash;30 minutes. The constraint is the feature. When the daily ask is small enough to fit between coffee and work, compliance goes up dramatically. You don&apos;t need to be disciplined. You just need to check three boxes. And when you do, the dopamine hit of a completed day compounds into something powerful by week two.
+              </p>
+              <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
+                <p className="text-sm" style={{ color: textColor }}>
+                  <strong style={{ color: primaryColor }}>Design decision:</strong> No partial credit. Complete all three or the day stays open. Finishing feels like something.
+                </p>
+              </div>
+            </div>
+          </div>
+        </AnimateIn>
+
+        {/* ── MORE OF THE APP ── */}
+        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+          <TextCard padding="md" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Live Product</p>
+            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
+              Designed, built, and shipped — every screen considered.
+            </p>
+          </TextCard>
+
           <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12" staggerDelay={0.08}>
             {[
               { src: '/images/firstday/goal-creation.png', label: 'Set your goal' },
@@ -233,54 +339,57 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           </TextCard>
         </AnimateIn>
 
-        {/* THE VISUAL WORLD */}
-        <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-          <TextCard padding="lg" className="mb-10">
-            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>The Visual World</p>
-            <p className="text-xl md:text-2xl font-bold" style={{ color: textColor }}>
-              The back end is smart. But smart doesn&apos;t captivate.
-            </p>
-          </TextCard>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-            <TextCard padding="lg">
-              <p className="text-base font-bold mb-3" style={{ color: textColor }}>Mosaic tiles and fractured light</p>
-              <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
-                The landing page leans into mosaic tiles, stained-glass geometry, and dark atmospheric gradients. This wasn&apos;t decoration — it was a deliberate signal. Goal-setting apps tend to feel clinical or aggressively optimistic. FirstDay needed to feel like something deeper. The mosaics suggest complexity being organized into something beautiful, which is exactly what the AI does with your goal. Fractured pieces becoming a coherent picture.
-              </p>
-            </TextCard>
-            <TextCard padding="lg">
-              <p className="text-base font-bold mb-3" style={{ color: textColor }}>Dark, mysterious, almost sacred</p>
-              <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>
-                The dark palette and ambient glow create a sense of quiet power — like walking into a cathedral or a planetarium. That ambience is intentional. When someone types &ldquo;I want to learn guitar&rdquo; and the AI generates a personalized 30-day plan in seconds, that moment should feel magical, not transactional. The visual design borrows from the language of mystery and discovery because that&apos;s what the product delivers.
-              </p>
-            </TextCard>
-          </div>
-
-          <TextCard padding="lg">
-            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-              The back end — the AI planning engine, the sprint structure, the daily task system — is a strong idea. But a strong idea trapped in a forgettable interface dies quietly. The mosaic aesthetic, the cinematic dark tones, the sense of entering a world that knows something you don&apos;t yet — that&apos;s what makes someone stop scrolling and actually type their goal. The visual design isn&apos;t wrapping paper. It&apos;s the reason people trust the product enough to be vulnerable about what they want.
-            </p>
-          </TextCard>
-        </AnimateIn>
-
-        {/* KEY DECISIONS */}
+        {/* ── TRADE-OFFS ── */}
         <AnimateIn direction="up" className="py-16 md:py-24">
-          <TextCard padding="sm" noTilt className="mb-8">
-            <p className="text-xs font-bold tracking-widest uppercase" style={{ color: primaryColor }}>Key Decisions</p>
+          <TextCard padding="lg" className="mb-10">
+            <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Trade-Offs</p>
+            <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
+              Every design decision killed something else. Here&apos;s what I chose and why.
+            </p>
+            <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
+              FirstDay could have been more flexible, more customizable, more feature-rich. Every cut was deliberate — made by asking &ldquo;does this serve the person who&apos;s never followed through on a goal before?&rdquo;
+            </p>
           </TextCard>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <TextCard padding="md">
-              <p className="text-base md:text-lg font-bold mb-2" style={{ color: textColor }}>3 activities per day, not more</p>
-              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                The line between &quot;I can do this&quot; and &quot;this is too much.&quot; Each takes 15&ndash;30 minutes.
+
+          <div className="space-y-6">
+            <TextCard padding="lg">
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>3 tasks per day, never more</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
+                Early versions generated 5&ndash;7 tasks per day. Completion rates collapsed. Three is the number where &ldquo;I can do this&rdquo; doesn&apos;t turn into &ldquo;I&apos;ll do it tomorrow.&rdquo; Each task runs 15&ndash;30 minutes — short enough to fit between commitments, long enough to feel like actual work. The constraint isn&apos;t a limitation. It&apos;s the reason people finish.
               </p>
+              <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Comprehensive daily plans with 5&ndash;7 activities</p>
             </TextCard>
-            <TextCard padding="md">
-              <p className="text-base md:text-lg font-bold mb-2" style={{ color: textColor }}>Natural language, not categories</p>
-              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                Describe your goal in your own words. The AI builds a plan around it.
+
+            <TextCard padding="lg">
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Natural language, not goal categories</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
+                Fitness. Finance. Learning. Career. Every competitor makes you pick a box first. But goals don&apos;t fit boxes — &ldquo;I want to spend more time with my kids&rdquo; isn&apos;t fitness or finance. Categorization adds a decision that doesn&apos;t serve the user. FirstDay takes free-form text and lets the AI figure out the structure. The user describes the feeling. The system does the organizing.
               </p>
+              <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Structured goal taxonomies and category pickers</p>
+            </TextCard>
+
+            <TextCard padding="lg">
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>30-day sprints, not open-ended tracking</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
+                Lifelong habit trackers create an infinite obligation. Miss a day and the streak breaks. Miss a week and you abandon the app forever. 30 days is a psychological sweet spot — long enough to build real momentum, short enough to see the finish line from day one. When a sprint ends, you start fresh. The tool doesn&apos;t guilt you. It gives you another shot.
+              </p>
+              <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>KILLED: Open-ended lifetime habit tracking</p>
+            </TextCard>
+
+            <TextCard padding="lg">
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Dark and atmospheric, not bright and motivational</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
+                Goal-setting apps default to bright pastels and exclamation marks. That energy works for day one. By day twelve, it feels patronizing. FirstDay&apos;s visual language is quiet, dark, and cinematic — mosaic textures, atmospheric gradients, a sense of depth. The design borrows from the language of discovery, not cheerleading. When someone types something vulnerable like &ldquo;I want to be a better parent,&rdquo; the app should feel like it takes that seriously.
+              </p>
+              <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>KILLED: Bright, energetic motivational aesthetic</p>
+            </TextCard>
+
+            <TextCard padding="lg">
+              <p className="text-lg font-bold mb-2" style={{ color: textColor }}>AI plans everything — user plans nothing</p>
+              <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
+                An earlier iteration let users edit the AI-generated plan, rearrange days, swap activities. Nobody used it — and the option itself created anxiety. &ldquo;Should I change this? Is the AI wrong? Maybe I should reorder week two.&rdquo; More decisions. More friction. The final design removes the planning interface entirely. The AI plans. The human executes. Trust the system or don&apos;t use it. That clarity is the product.
+              </p>
+              <p className="text-xs font-bold tracking-wider" style={{ color: '#ef4444' }}>KILLED: User-customizable plan editing and reordering</p>
             </TextCard>
           </div>
         </AnimateIn>
