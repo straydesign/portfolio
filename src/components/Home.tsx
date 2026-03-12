@@ -6,7 +6,6 @@ import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import Carousel from './Carousel';
 import CarouselPhoneCard from './CarouselPhoneCard';
 import PhoneMockup from './PhoneMockup';
-import ContactForm from './ContactForm';
 import TextCard from './TextCard';
 import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
 import { CAROUSEL_ITEMS } from '@/data/carousel';
@@ -360,9 +359,18 @@ export default function Home({ setCurrentPage }: HomeProps) {
             <p className="text-base md:text-lg mb-10 max-w-md mx-auto" style={{ color: '#a1a1a6' }}>
               Have a project in mind? I&apos;d love to hear about it.
             </p>
-            <div className="max-w-md mx-auto">
-              <ContactForm />
-            </div>
+            <a
+              href="mailto:tom@straydesign.co"
+              className="inline-flex items-center gap-3 px-8 py-4 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03]"
+              style={{
+                backgroundColor: '#ffffff',
+                color: '#000000',
+                borderRadius: 0,
+              }}
+            >
+              <Mail className="w-5 h-5" />
+              tom@straydesign.co
+            </a>
           </TextCard>
         </div>
       </AnimateIn>

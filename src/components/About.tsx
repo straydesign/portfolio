@@ -276,42 +276,51 @@ function ShelfRow({
   );
 }
 
-function BookDescriptionPanel({ book }: { book: typeof ALL_BOOKS[0] | null }) {
+function BookModal({
+  book,
+  onClose,
+}: {
+  book: typeof ALL_BOOKS[0] | null;
+  onClose: () => void;
+}) {
+  if (!book) return null;
+
   return (
     <div
-      className="relative h-full flex flex-col justify-center transition-all duration-300"
-      style={{
-        backgroundColor: '#000000',
-        border: '1px solid rgba(255,255,255,0.06)',
-        borderRadius: 0,
-        minHeight: 200,
-      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={book.title}
     >
-      {/* Top edge shine */}
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+      {/* Modal card */}
       <div
-        className="pointer-events-none absolute top-0 left-0 right-0 h-px"
+        className="relative w-full max-w-lg p-6 md:p-8"
         style={{
-          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
+          backgroundColor: '#0a0a0a',
+          border: '1px solid rgba(255,255,255,0.1)',
         }}
-      />
-      <div className="p-5 md:p-6">
-        {book ? (
-          <div
-            className="transition-opacity duration-300"
-            style={{ opacity: 1 }}
-          >
-            <h3 className="text-sm md:text-base font-bold mb-3" style={{ color: '#ffffff' }}>
-              {book.title}
-            </h3>
-            <p className="text-xs md:text-sm leading-relaxed" style={{ color: '#a1a1a6' }}>
-              {book.description}
-            </p>
-          </div>
-        ) : (
-          <p className="text-xs md:text-sm italic" style={{ color: '#a1a1a6', opacity: 0.4 }}>
-            Click a book to read about it
-          </p>
-        )}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-2xl font-light transition-opacity hover:opacity-70"
+          style={{ color: '#ffffff' }}
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        <h3 className="text-lg md:text-xl font-bold mb-4 pr-10" style={{ color: '#ffffff' }}>
+          {book.title}
+        </h3>
+        <p className="text-sm md:text-base leading-relaxed" style={{ color: '#a1a1a6' }}>
+          {book.description}
+        </p>
       </div>
     </div>
   );
@@ -536,48 +545,34 @@ export default function About({ setCurrentPage }: AboutProps) {
             </TextCard>
           </div>
 
-          {/* Desktop: 2 shelves + side description */}
-          <div className="hidden lg:grid gap-6 max-w-[90rem] mx-auto" style={{ gridTemplateColumns: '1fr 280px' }}>
-            <div>
-              {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
-                <ShelfRow
-                  key={rowIndex}
-                  books={rowBooks}
-                  globalOffset={rowIndex * 15}
-                  activeBookIndex={activeBookIndex}
-                  setActiveBookIndex={setActiveBookIndex}
-                />
-              ))}
-            </div>
-            <div className="self-stretch">
-              <BookDescriptionPanel book={activeBook} />
-            </div>
+          {/* Desktop: 2 shelves */}
+          <div className="hidden lg:block max-w-[90rem] mx-auto">
+            {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
+              <ShelfRow
+                key={rowIndex}
+                books={rowBooks}
+                globalOffset={rowIndex * 15}
+                activeBookIndex={activeBookIndex}
+                setActiveBookIndex={setActiveBookIndex}
+              />
+            ))}
           </div>
 
-          {/* Mobile/Tablet: shelves flanking description in center */}
+          {/* Mobile/Tablet: 3 shelves */}
           <div className="lg:hidden max-w-[90rem] mx-auto">
-            <ShelfRow
-              books={MOBILE_ROWS[0]}
-              globalOffset={0}
-              activeBookIndex={activeBookIndex}
-              setActiveBookIndex={setActiveBookIndex}
-            />
-            <div className="my-4">
-              <BookDescriptionPanel book={activeBook} />
-            </div>
-            <ShelfRow
-              books={MOBILE_ROWS[1]}
-              globalOffset={10}
-              activeBookIndex={activeBookIndex}
-              setActiveBookIndex={setActiveBookIndex}
-            />
-            <ShelfRow
-              books={MOBILE_ROWS[2]}
-              globalOffset={20}
-              activeBookIndex={activeBookIndex}
-              setActiveBookIndex={setActiveBookIndex}
-            />
+            {MOBILE_ROWS.map((rowBooks, rowIndex) => (
+              <ShelfRow
+                key={rowIndex}
+                books={rowBooks}
+                globalOffset={rowIndex * 10}
+                activeBookIndex={activeBookIndex}
+                setActiveBookIndex={setActiveBookIndex}
+              />
+            ))}
           </div>
+
+          {/* Book detail modal */}
+          <BookModal book={activeBook} onClose={() => setActiveBookIndex(null)} />
         </AnimateIn>
       </div>
 

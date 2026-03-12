@@ -28,6 +28,18 @@ export interface Project {
 
 export const PROJECTS: readonly Project[] = [
   {
+    id: 'day-one-case-study',
+    title: 'FIRSTDAY.LIFE',
+    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
+    deliverable: 'Live shipped product + Apple-native design',
+    screenshot: '/images/firstday/hero.png',
+    alt: 'FirstDay.Life app screenshot',
+    slug: 'dayone',
+    slugAliases: ['day-one', 'day-one-case-study'],
+    documentTitle: 'firstday.life Case Study | Tom Sesler',
+    type: 'project',
+  },
+  {
     id: 'doordash-case-study',
     title: 'DOORDASH DASHER APP',
     description: 'Ethnographic UX research across 1,000+ deliveries with five redesign proposals.',
@@ -52,18 +64,6 @@ export const PROJECTS: readonly Project[] = [
     type: 'project',
     gradientFrom: '#888888',
     gradientTo: '#000000',
-  },
-  {
-    id: 'day-one-case-study',
-    title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker. Designed, built, and shipped as a live product.',
-    deliverable: 'Live shipped product + Apple-native design',
-    screenshot: '/images/firstday/hero.png',
-    alt: 'FirstDay.Life app screenshot',
-    slug: 'dayone',
-    slugAliases: ['day-one', 'day-one-case-study'],
-    documentTitle: 'firstday.life Case Study | Tom Sesler',
-    type: 'project',
   },
 ] as const;
 
