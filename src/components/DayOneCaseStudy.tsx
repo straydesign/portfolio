@@ -90,14 +90,14 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           </TextCard>
           <TextCard padding="md" className="mb-8">
             <p className="text-base md:text-lg leading-relaxed" style={{ color: secondaryTextColor }}>
-              The goal-setting space is crowded. Habit trackers, journaling apps, productivity systems with 40-page onboarding flows. I tried most of them. They all make the same assumption: that you already know the steps, and you just need accountability to follow them. But for most people, the steps are the hard part. &ldquo;Learn guitar&rdquo; is a feeling, not a plan. And the gap between that feeling and a structured daily practice is where most goals quietly die.
+              Every goal-setting app makes the same assumption: you already know the steps. You just need accountability. But for most people, the steps are the hard part. &ldquo;Learn guitar&rdquo; is a feeling, not a plan. And the gap between that feeling and a structured daily practice is where most goals quietly die.
             </p>
           </TextCard>
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4" staggerDelay={0.08}>
             {[
-              { icon: Lightbulb, pain: 'Goal-setting apps assume you already know the path', detail: 'They give you a blank page and call it "flexibility." But a blank page is just another decision to make — and decision fatigue is the reason you haven\'t started.' },
-              { icon: Clock, pain: 'Planning fatigue kills goals before day 1', detail: 'You spend an hour building a plan. It feels productive. By Wednesday, you\'ve already abandoned it because it was too ambitious or too vague.' },
-              { icon: Flame, pain: 'Without daily direction, ambition becomes anxiety', detail: 'Wanting something and not knowing how to get it isn\'t motivating — it\'s stressful. The guilt of another wasted week compounds until you stop thinking about the goal entirely.' },
+              { icon: Lightbulb, pain: 'Apps assume you know the path', detail: 'A blank page isn\'t flexibility — it\'s another decision. Decision fatigue is why you haven\'t started.' },
+              { icon: Clock, pain: 'Planning fatigue kills goals before day 1', detail: 'You spend an hour building a plan. By Wednesday you\'ve abandoned it — too ambitious or too vague.' },
+              { icon: Flame, pain: 'Without daily direction, ambition becomes anxiety', detail: 'Not knowing how to start isn\'t motivating — it\'s stressful. The guilt compounds until you stop thinking about the goal entirely.' },
             ].map(({ icon: Icon, pain, detail }) => (
               <StaggerItem key={pain}>
                 <TextCard padding="md">
@@ -122,7 +122,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           </TextCard>
           <TextCard padding="md" className="mb-8">
             <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-              The research pointed to something simple: the most successful goal frameworks — from James Clear&apos;s atomic habits to BJ Fogg&apos;s tiny habits — share one principle. Remove the decision. Make the next step so small and so obvious that starting requires zero willpower. But no existing app did this end-to-end. They all handed you the blank page at some point and said &ldquo;now plan your journey.&rdquo; The design thesis for FirstDay was: <strong style={{ color: textColor }}>what if the user never plans anything?</strong> What if AI builds a 7-day plan, the human executes it, and then the system learns from their feedback to build a better next week?
+              The best goal frameworks — atomic habits, tiny habits — share one principle: remove the decision. Make the next step so obvious that starting requires zero willpower. No existing app did this end-to-end. The design thesis for FirstDay: <strong style={{ color: textColor }}>what if the user never plans anything?</strong> AI builds a 7-day plan. The human executes. The system learns from their feedback and builds a better next week.
             </p>
           </TextCard>
 
@@ -134,11 +134,11 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               { stat: '< 1 min', label: 'To first plan', sub: 'Type your goal. Wake up with a plan.' },
             ].map(({ stat, label, sub }) => (
               <StaggerItem key={label}>
-                <div className="p-5 text-center" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                <TextCard padding="md" className="text-center">
                   <p className="text-3xl md:text-5xl font-black" style={{ color: primaryColor }}>{stat}</p>
                   <p className="text-sm font-bold mt-2" style={{ color: textColor }}>{label}</p>
                   <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
-                </div>
+                </TextCard>
               </StaggerItem>
             ))}
           </StaggerContainer>
@@ -154,7 +154,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           </TextCard>
           <TextCard padding="md" className="mb-10">
             <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-              Every screen in FirstDay exists because of a failure point I identified in existing goal-setting tools. The flow is designed to eliminate friction at each stage — from the moment someone feels the impulse to start, through the middle of the week where motivation dips, to the end-of-week reflection where the system learns what worked and builds a smarter next sprint.
+              Every screen exists because of a specific moment where people quit. The flow eliminates friction from first impulse through mid-week dip to end-of-week reflection, where the system learns and adapts.
             </p>
           </TextCard>
 
@@ -168,7 +168,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
               />
             </div>
-            <div className="w-full md:w-3/5">
+            <TextCard padding="lg" className="w-full md:w-3/5">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
                   <Sparkles className="w-4 h-4" />
@@ -179,14 +179,14 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 &ldquo;Where do I even start?&rdquo;
               </p>
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
-                Every goal-setting app begins with a form. Categories. Milestones. Sub-goals. Due dates. By the time you&apos;ve finished setting up, you&apos;ve burned the motivation that brought you there. FirstDay gives you a single text field. Type what you want in your own words. No categories. No setup wizard. No friction between the impulse and the commitment.
+                Categories. Milestones. Sub-goals. Due dates. By the time you&apos;ve finished setting up, you&apos;ve burned the motivation that brought you there. FirstDay gives you one text field. Type what you want in your own words. No friction between the impulse and the commitment.
               </p>
               <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Design decision:</strong> Natural language input, not structured forms. The AI interprets intent — the user just speaks.
                 </p>
               </div>
-            </div>
+            </TextCard>
           </div>
 
           {/* AI Planning → "How do I break this down?" */}
@@ -199,7 +199,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
               />
             </div>
-            <div className="w-full md:w-3/5">
+            <TextCard padding="lg" className="w-full md:w-3/5">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
                   <Clock className="w-4 h-4" />
@@ -210,14 +210,14 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 &ldquo;How do I break this into steps?&rdquo;
               </p>
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
-                This is where most people spend hours and get nowhere. Building a plan for &ldquo;learn guitar&rdquo; requires knowing what to practice, in what order, at what pace. That expertise is exactly what beginners don&apos;t have. FirstDay&apos;s AI generates a full 7-day plan in seconds — day by day, with activities calibrated to your starting point. And when the week ends, it asks what worked and what didn&apos;t, then builds a smarter week two. The user never sees a planning screen because there isn&apos;t one.
+                &ldquo;Learn guitar&rdquo; requires knowing what to practice, in what order, at what pace — expertise beginners don&apos;t have. FirstDay&apos;s AI generates a full 7-day plan in seconds. When the week ends, it asks what worked, then builds a smarter week two. There is no planning screen.
               </p>
               <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Design decision:</strong> The AI planning moment is a full-screen animation, not a loading spinner. It should feel like something meaningful is happening — because it is.
                 </p>
               </div>
-            </div>
+            </TextCard>
           </div>
 
           {/* Calendar View → "What do I do tomorrow?" */}
@@ -230,7 +230,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
               />
             </div>
-            <div className="w-full md:w-3/5">
+            <TextCard padding="lg" className="w-full md:w-3/5">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
                   <Flame className="w-4 h-4" />
@@ -241,14 +241,14 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 &ldquo;Am I actually making progress?&rdquo;
               </p>
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
-                Day 3, day 5 — the middle of any sprint is where motivation dips. You can&apos;t feel progress because you&apos;re too close to it. The calendar view solves this with visible momentum. Completed days fill in. The week takes shape. You can see exactly how far you&apos;ve come and how close you are to the finish line. And because each sprint is only 7 days, that finish line is always within reach — not a month away but days.
+                Mid-sprint is where motivation dips. The calendar view makes progress visible — completed days fill in, the week takes shape. Because each sprint is only 7 days, the finish line is always within reach.
               </p>
               <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Design decision:</strong> 7-day grid, not an infinite timeline. A visible finish line changes the psychology from endurance to countdown — and weekly feedback makes each new sprint sharper than the last.
                 </p>
               </div>
-            </div>
+            </TextCard>
           </div>
 
           {/* Day View → "What do I do right now?" */}
@@ -261,7 +261,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 style={{ aspectRatio: '9/19', objectFit: 'cover', border: videoBorder }}
               />
             </div>
-            <div className="w-full md:w-3/5">
+            <TextCard padding="lg" className="w-full md:w-3/5">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-8 h-8 flex items-center justify-center" style={{ backgroundColor: primaryColor, color: '#000000' }}>
                   <Check className="w-4 h-4" />
@@ -272,14 +272,14 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 &ldquo;What do I do right now?&rdquo;
               </p>
               <p className="text-base mb-4" style={{ color: secondaryTextColor }}>
-                This is the screen you see every morning. Three things. Not five, not ten — three. Each one takes 15&ndash;30 minutes. The constraint is the feature. When the daily ask is small enough to fit between coffee and work, compliance goes up dramatically. You don&apos;t need to be disciplined. You just need to check three boxes. And when you do, the dopamine hit of a completed day compounds across the week — then the system asks what felt right, what felt off, and builds a better plan for your next sprint.
+                Three things. Not five, not ten — three. Each takes 15&ndash;30 minutes. When the daily ask fits between coffee and work, you don&apos;t need discipline — you just check three boxes. The dopamine of a completed day compounds across the week, then the system asks what worked and builds a better next sprint.
               </p>
               <div className="p-4" style={{ backgroundColor: '#000000', borderLeft: '3px solid #ffffff', border: '1px solid rgba(255, 255, 255, 0.06)', borderLeftWidth: '3px', borderLeftColor: '#ffffff' }}>
                 <p className="text-sm" style={{ color: textColor }}>
                   <strong style={{ color: primaryColor }}>Design decision:</strong> No partial credit. Complete all three or the day stays open. Finishing feels like something.
                 </p>
               </div>
-            </div>
+            </TextCard>
           </div>
         </AnimateIn>
 
@@ -347,7 +347,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               Every design decision killed something else. Here&apos;s what I chose and why.
             </p>
             <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-              FirstDay could have been more flexible, more customizable, more feature-rich. Every cut was deliberate — made by asking &ldquo;does this serve the person who&apos;s never followed through on a goal before?&rdquo;
+              Every cut was deliberate — made by asking &ldquo;does this serve someone who&apos;s never followed through on a goal before?&rdquo;
             </p>
           </TextCard>
 
@@ -355,7 +355,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>3 tasks per day, never more</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                Early versions generated 5&ndash;7 tasks per day. Completion rates collapsed. Three is the number where &ldquo;I can do this&rdquo; doesn&apos;t turn into &ldquo;I&apos;ll do it tomorrow.&rdquo; Each task runs 15&ndash;30 minutes — short enough to fit between commitments, long enough to feel like actual work. The constraint isn&apos;t a limitation. It&apos;s the reason people finish.
+                Early versions generated 5&ndash;7 tasks. Completion collapsed. Three is where &ldquo;I can do this&rdquo; doesn&apos;t become &ldquo;I&apos;ll do it tomorrow.&rdquo; 15&ndash;30 minutes each. The constraint is the reason people finish.
               </p>
               <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Comprehensive daily plans with 5&ndash;7 activities</p>
             </TextCard>
@@ -363,7 +363,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Natural language, not goal categories</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                Fitness. Finance. Learning. Career. Every competitor makes you pick a box first. But goals don&apos;t fit boxes — &ldquo;I want to spend more time with my kids&rdquo; isn&apos;t fitness or finance. Categorization adds a decision that doesn&apos;t serve the user. FirstDay takes free-form text and lets the AI figure out the structure. The user describes the feeling. The system does the organizing.
+                Fitness. Finance. Learning. Career. Every competitor makes you pick a box. But &ldquo;I want to spend more time with my kids&rdquo; isn&apos;t fitness or finance. FirstDay takes free-form text and lets the AI handle structure. You describe the feeling. The system organizes.
               </p>
               <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Structured goal taxonomies and category pickers</p>
             </TextCard>
@@ -371,7 +371,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>7-day sprints with feedback, not open-ended tracking</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                Lifelong habit trackers create an infinite obligation. Miss a day and the streak breaks. Miss a week and you abandon the app forever. Seven days is short enough to always see the finish line, but long enough to build real momentum. When a sprint ends, you reflect — what worked, what didn&apos;t, what needs to change. The AI takes that feedback and builds a smarter next week. The system gets better because you told it what you actually experienced. That loop is the product.
+                Lifelong habit trackers create infinite obligations. Miss a day, streak breaks. Miss a week, app abandoned. Seven days is short enough to always see the finish line. When a sprint ends, you reflect. The AI takes that feedback and builds a smarter next week. That loop is the product.
               </p>
               <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>KILLED: Open-ended lifetime habit tracking</p>
             </TextCard>
@@ -379,7 +379,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>Dark and atmospheric, not bright and motivational</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                Goal-setting apps default to bright pastels and exclamation marks. That energy works for day one. By day twelve, it feels patronizing. FirstDay&apos;s visual language is quiet, dark, and cinematic — mosaic textures, atmospheric gradients, a sense of depth. The design borrows from the language of discovery, not cheerleading. When someone types something vulnerable like &ldquo;I want to be a better parent,&rdquo; the app should feel like it takes that seriously.
+                Bright pastels and exclamation marks work for day one. By day five, they feel patronizing. FirstDay is quiet, dark, cinematic — mosaic textures, atmospheric depth. When someone types &ldquo;I want to be a better parent,&rdquo; the app should feel like it takes that seriously.
               </p>
               <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>KILLED: Bright, energetic motivational aesthetic</p>
             </TextCard>
@@ -387,7 +387,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
             <TextCard padding="lg">
               <p className="text-lg font-bold mb-2" style={{ color: textColor }}>AI plans everything — user plans nothing</p>
               <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
-                An earlier iteration let users edit the AI-generated plan, rearrange days, swap activities. Nobody used it — and the option itself created anxiety. &ldquo;Should I change this? Is the AI wrong? Maybe I should swap Tuesday and Thursday.&rdquo; More decisions. More friction. The final design removes the planning interface entirely. The AI plans the week. The human executes it. At the end, you give feedback — and the next sprint adapts. Your voice shapes the plan, but through reflection, not micromanagement.
+                An earlier version let users rearrange the AI plan. Nobody used it — and the option created anxiety. &ldquo;Should I change this? Is the AI wrong?&rdquo; More decisions. More friction. The final design has no planning interface. AI plans the week. You execute. At the end, you give feedback — and the next sprint adapts. Reflection, not micromanagement.
               </p>
               <p className="text-xs font-bold tracking-wider" style={{ color: '#ef4444' }}>KILLED: User-customizable plan editing and reordering</p>
             </TextCard>

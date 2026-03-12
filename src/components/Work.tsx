@@ -23,7 +23,7 @@ export default function Work({ setCurrentPage }: WorkProps) {
               Tom Sesler
             </p>
             <h1
-              className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-4 md:mb-6"
+              className="text-[64px] sm:text-[96px] md:text-[128px] leading-none tracking-wider font-black mb-4 md:mb-6"
               style={{
                 fontFamily: "var(--font-family-bungee), sans-serif",
                 WebkitTextStroke: '4px #ffffff',
@@ -133,8 +133,8 @@ export default function Work({ setCurrentPage }: WorkProps) {
         </div>
       </div>
 
-      {/* Bottom spacer */}
-      <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
+      {/* Bottom spacer — extra room for background interaction */}
+      <div className="h-[60vh] md:h-[80vh]" />
     </div>
   );
 }
