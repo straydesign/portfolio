@@ -46,6 +46,11 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
           </div>
         </div>
       </div>
+      <div className="px-6 md:px-8 pb-4 text-center" style={{ position: 'relative', zIndex: 51 }}>
+        <a href="https://straywebdesign.co" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">
+          Built by Stray Web Design
+        </a>
+      </div>
     </footer>
   );
 }
