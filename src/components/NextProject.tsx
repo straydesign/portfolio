@@ -22,50 +22,42 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
           MORE WORK
         </p>
 
-        {/* Project name buttons — spread wide, keyboard navigable */}
+        {/* Project cards — title button aligned above each phone mockup */}
         <div
-          className="flex justify-center gap-3 md:gap-6 mb-10"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12"
           role="navigation"
           aria-label="Other projects"
         >
-          {otherProjects.map((project, i) => (
-            <button
-              key={project.id}
-              onClick={() => onNavigate(project.id)}
-              tabIndex={0}
-              aria-label={`View ${project.title}`}
-              onKeyDown={(e) => {
-                if (e.key === 'ArrowRight') {
-                  e.preventDefault();
-                  const next = e.currentTarget.nextElementSibling as HTMLElement | null;
-                  if (next) next.focus();
-                }
-                if (e.key === 'ArrowLeft') {
-                  e.preventDefault();
-                  const prev = e.currentTarget.previousElementSibling as HTMLElement | null;
-                  if (prev) prev.focus();
-                }
-              }}
-              className="px-6 py-3 text-xs md:text-sm font-bold tracking-widest uppercase transition-all hover:scale-105 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-              style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-            >
-              {project.title}
-            </button>
-          ))}
-        </div>
-
-        {/* Phone mockups only */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {otherProjects.map((project) => (
-            <div
-              key={project.id}
-              className="flex justify-center cursor-pointer"
-              onClick={() => onNavigate(project.id)}
-              role="link"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(project.id); } }}
-            >
-              <div className="w-[200px] md:w-[240px]">
+            <div key={project.id} className="flex flex-col items-center gap-6">
+              <button
+                onClick={() => onNavigate(project.id)}
+                tabIndex={0}
+                aria-label={`View ${project.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    const card = e.currentTarget.closest('.grid')?.querySelector(`[aria-label]:not([aria-label="${`View ${project.title}`}"])`) as HTMLElement | null;
+                    if (card) card.focus();
+                  }
+                  if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    const card = e.currentTarget.closest('.grid')?.querySelector(`[aria-label]:not([aria-label="${`View ${project.title}`}"])`) as HTMLElement | null;
+                    if (card) card.focus();
+                  }
+                }}
+                className="px-6 py-3 text-xs md:text-sm font-bold tracking-widest uppercase transition-all hover:scale-105 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+              >
+                {project.title}
+              </button>
+              <div
+                className="w-[200px] md:w-[240px] cursor-pointer"
+                onClick={() => onNavigate(project.id)}
+                role="link"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(project.id); } }}
+              >
                 <PhoneMockup
                   screenshot={project.screenshot}
                   gradientFrom={project.gradientFrom ?? '#888888'}

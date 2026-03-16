@@ -85,7 +85,7 @@ export default function App() {
             </div>
             {/* Scrim overlay on project pages to reduce background distraction */}
             {(currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study') && (
-              <div className="fixed inset-0 z-[3] pointer-events-none bg-black/80" />
+              <div className="fixed inset-0 z-[3] pointer-events-none bg-black/90" />
             )}
             <div className="relative z-10">
               <SectionNavigationOrchestrator />
