@@ -44,9 +44,6 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                 <h3 className="text-lg md:text-xl font-bold mb-2" style={{ color: '#ffffff' }}>
                   {project.title}
                 </h3>
-                <p className="text-sm mb-4 leading-relaxed" style={{ color: '#a1a1a6' }}>
-                  {project.description}
-                </p>
                 <span
                   className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
                   style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
