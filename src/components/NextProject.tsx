@@ -52,7 +52,7 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                 {project.title}
               </button>
               <div
-                className="w-[200px] md:w-[240px] cursor-pointer"
+                className="w-[200px] md:w-[240px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
                 onClick={() => onNavigate(project.id)}
                 role="link"
                 tabIndex={0}

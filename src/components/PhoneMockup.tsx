@@ -135,7 +135,7 @@ export default function PhoneMockup({
 
   return (
     <div
-      className={`flex flex-col items-center ${onClick ? 'cursor-pointer' : ''}`}
+      className={`flex flex-col items-center ${onClick ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm' : ''}`}
       onClick={onClick}
       role={onClick ? 'link' : undefined}
       tabIndex={onClick ? 0 : undefined}

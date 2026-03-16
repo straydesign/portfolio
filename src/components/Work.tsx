@@ -69,7 +69,7 @@ export default function Work({ setCurrentPage }: WorkProps) {
           {PROJECTS.map((project, i) => (
             <div
               key={project.id}
-              className="mb-16 md:mb-20 last:mb-0 cursor-pointer"
+              className="mb-16 md:mb-20 last:mb-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
               style={{ borderBottom: i < PROJECTS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
               onClick={() => setCurrentPage(project.id)}
               role="link"
