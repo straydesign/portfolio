@@ -2,7 +2,6 @@
 
 import PhoneMockup from './PhoneMockup';
 import AnimateIn from './AnimateIn';
-import TextCard from './TextCard';
 import { PROJECTS, type Page } from '@/data/projects';
 
 interface NextProjectProps {
@@ -17,22 +16,56 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
     <AnimateIn direction="up" className="py-16 md:py-24 px-4 md:px-8">
       <div className="max-w-[90rem] mx-auto">
         <p
-          className="text-xs font-bold tracking-widest mb-10 uppercase text-center"
+          className="text-xs font-bold tracking-widest mb-6 uppercase text-center"
           style={{ color: '#ffffff' }}
         >
           MORE WORK
         </p>
+
+        {/* Project name buttons — spread wide, keyboard navigable */}
+        <div
+          className="flex justify-center gap-3 md:gap-6 mb-10"
+          role="navigation"
+          aria-label="Other projects"
+        >
+          {otherProjects.map((project, i) => (
+            <button
+              key={project.id}
+              onClick={() => onNavigate(project.id)}
+              tabIndex={0}
+              aria-label={`View ${project.title}`}
+              onKeyDown={(e) => {
+                if (e.key === 'ArrowRight') {
+                  e.preventDefault();
+                  const next = e.currentTarget.nextElementSibling as HTMLElement | null;
+                  if (next) next.focus();
+                }
+                if (e.key === 'ArrowLeft') {
+                  e.preventDefault();
+                  const prev = e.currentTarget.previousElementSibling as HTMLElement | null;
+                  if (prev) prev.focus();
+                }
+              }}
+              className="px-6 py-3 text-xs md:text-sm font-bold tracking-widest uppercase transition-all hover:scale-105 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+            >
+              {project.title}
+            </button>
+          ))}
+        </div>
+
+        {/* Phone mockups only */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {otherProjects.map((project) => (
             <div
               key={project.id}
-              className="flex flex-col sm:flex-row items-center gap-6 cursor-pointer"
+              className="flex justify-center cursor-pointer"
               onClick={() => onNavigate(project.id)}
               role="link"
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onNavigate(project.id); } }}
             >
-              <div className="w-[160px] md:w-[200px] flex-shrink-0">
+              <div className="w-[200px] md:w-[240px]">
                 <PhoneMockup
                   screenshot={project.screenshot}
                   gradientFrom={project.gradientFrom ?? '#888888'}
@@ -40,17 +73,6 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                   alt={project.alt}
                 />
               </div>
-              <TextCard padding="md" className="flex-1">
-                <h3 className="text-lg md:text-xl font-bold mb-2" style={{ color: '#ffffff' }}>
-                  {project.title}
-                </h3>
-                <span
-                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
-                  style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-                >
-                  View Project
-                </span>
-              </TextCard>
             </div>
           ))}
         </div>
