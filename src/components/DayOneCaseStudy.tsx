@@ -405,7 +405,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
           <TextCard padding="lg">
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Trade-Offs</p>
             <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
-              Every design decision killed something else. Here&apos;s what I chose and why.
+              Every design decision cut something else. Here&apos;s what I chose and why.
             </p>
             <p className="text-base leading-relaxed mb-10" style={{ color: secondaryTextColor }}>
               Every cut was deliberate — made by asking &ldquo;does this serve someone who&apos;s never followed through on a goal before?&rdquo;
@@ -418,7 +418,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                     Early versions generated 5&ndash;7 tasks. I stopped finishing days. Three is where &ldquo;I can do this&rdquo; doesn&apos;t become &ldquo;I&apos;ll do it tomorrow.&rdquo; 15&ndash;30 minutes each. The constraint is the reason people finish.
                   </p>
-                  <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Comprehensive daily plans with 5&ndash;7 activities</p>
+                  <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>CUT: Comprehensive daily plans with 5&ndash;7 activities</p>
                 </div>
               </StaggerItem>
 
@@ -428,7 +428,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                     Fitness. Finance. Learning. Career. Every competitor makes you pick a box. But &ldquo;I want to spend more time with my kids&rdquo; isn&apos;t fitness or finance. FirstDay takes free-form text and lets the AI handle structure. You describe the feeling. The system organizes.
                   </p>
-                  <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Structured goal taxonomies and category pickers</p>
+                  <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>CUT: Structured goal taxonomies and category pickers</p>
                 </div>
               </StaggerItem>
 
@@ -438,7 +438,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                     The first version was a 30-day plan. Too long. By week two, it felt like a chore. Seven days is short enough to always see the finish line. When a sprint ends, you reflect. The AI takes that feedback and builds a smarter next week. That loop — not a month-long commitment — is the product.
                   </p>
-                  <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>KILLED: 30-day plans and open-ended habit tracking</p>
+                  <p className="text-xs font-bold tracking-wider" style={{ color: '#eab308' }}>CUT: 30-day plans and open-ended habit tracking</p>
                 </div>
               </StaggerItem>
 
@@ -448,7 +448,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                     An earlier version let users rearrange the AI plan. I didn&apos;t use it — and the option created anxiety. &ldquo;Should I change this? Is the AI wrong?&rdquo; More decisions. More friction. The final design has no planning interface. AI plans the week. You execute. At the end, you give feedback — and the next sprint adapts. Reflection, not micromanagement.
                   </p>
-                  <p className="text-xs font-bold tracking-wider" style={{ color: '#ef4444' }}>KILLED: User-customizable plan editing and reordering</p>
+                  <p className="text-xs font-bold tracking-wider" style={{ color: '#ef4444' }}>CUT: User-customizable plan editing and reordering</p>
                 </div>
               </StaggerItem>
             </StaggerContainer>

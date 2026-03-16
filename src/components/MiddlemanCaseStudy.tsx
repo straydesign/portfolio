@@ -430,7 +430,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
           <TextCard padding="lg">
             <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Trade-Offs</p>
             <p className="text-xl md:text-2xl font-bold mb-3" style={{ color: textColor }}>
-              Every design decision killed something else. Here&apos;s what I chose and why.
+              Every design decision cut something else. Here&apos;s what I chose and why.
             </p>
             <p className="text-base leading-relaxed mb-10" style={{ color: secondaryTextColor }}>
               These aren&apos;t compromises — they&apos;re deliberate cuts. Each one came from doing the work myself and asking &ldquo;what actually matters in that moment?&rdquo;
@@ -443,7 +443,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                   No unit costs, no revenue, no margin data anywhere in the UI. Merchandisers share their screens constantly — with store managers, with each other, sometimes with competitors standing right there in the aisle. Showing distributor pricing would be a genuine security problem. Financial reporting belongs in back-office tools, not on a phone in a cooler.
                 </p>
-                <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: In-app financial reporting</p>
+                <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>CUT: In-app financial reporting</p>
               </div>
 
               {/* Trade-off 2 */}
@@ -452,7 +452,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                   The stock view could have been a sortable table with columns for every metric. Instead it&apos;s a task list — here&apos;s what&apos;s low, here&apos;s how many to pull, tap when you&apos;re done. Merchandisers don&apos;t analyze inventory. They fill shelves. The app should feel like a checklist, not a spreadsheet. Healthy products stay in a quiet list below. You only see what needs your hands.
                 </p>
-                <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>KILLED: Traditional sortable data table</p>
+                <p className="text-xs font-bold tracking-wider" style={{ color: primaryColor }}>CUT: Traditional sortable data table</p>
               </div>
 
               {/* Trade-off 3 */}
@@ -461,7 +461,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                   Nobody walks into a store thinking &ldquo;I wonder about PO-47293.&rdquo; They think &ldquo;is a truck coming today?&rdquo; So the schedule page organizes by time — today&apos;s delivery is the hero with a big ETA and progress bar. Upcoming orders sit below with an edit window. Past deliveries collapse into a one-line log. The mental model matches the merchandiser&apos;s actual day, not the warehouse&apos;s filing system.
                 </p>
-                <p className="text-xs font-bold tracking-wider" style={{ color: amberColor }}>KILLED: PO-number-centric order management</p>
+                <p className="text-xs font-bold tracking-wider" style={{ color: amberColor }}>CUT: PO-number-centric order management</p>
               </div>
 
               {/* Trade-off 4 */}
@@ -470,7 +470,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                   An early version used amber to indicate &ldquo;on route.&rdquo; But a delivery on its way is good news — it&apos;s not a warning. Amber means &ldquo;something needs attention&rdquo; in this system. So on-route deliveries use a neutral badge with the ETA time front and center. The traffic-light system only fires when something actually needs your intervention.
                 </p>
-                <p className="text-xs font-bold tracking-wider" style={{ color: amberColor }}>KILLED: Color-coded delivery status</p>
+                <p className="text-xs font-bold tracking-wider" style={{ color: amberColor }}>CUT: Color-coded delivery status</p>
               </div>
 
               {/* Trade-off 5 */}
@@ -479,7 +479,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 <p className="text-sm leading-relaxed mb-3" style={{ color: secondaryTextColor }}>
                   The store name takes up prime real estate on every single screen. That&apos;s expensive space on mobile. But merchandisers visit 6-12 stores a day and context-switching is where mistakes happen — pulling product for the wrong account, logging breakage to the wrong store. The store name is the single most important piece of context in the entire app. It earns that space.
                 </p>
-                <p className="text-xs font-bold tracking-wider" style={{ color: redColor }}>KILLED: Compact header with more content space</p>
+                <p className="text-xs font-bold tracking-wider" style={{ color: redColor }}>CUT: Compact header with more content space</p>
               </div>
 
             </div>
