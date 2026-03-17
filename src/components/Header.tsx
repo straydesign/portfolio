@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, type KeyboardEvent } from 'react';
 import { Menu, X } from 'lucide-react';
 import { type Page } from '@/data/projects';
+import { NavigableSection } from './NavigableSection';
+import { useSectionRegistry } from '@/context/SectionRegistryContext';
 
 interface HeaderProps {
   currentPage: Page;
@@ -22,6 +24,14 @@ const NAV_ITEMS: readonly NavItem[] = [
 
 export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuFocusIndex, setMobileMenuFocusIndex] = useState(0);
+  const [menuSubNav, setMenuSubNav] = useState(false);
+  const [menuSubNavIndex, setMenuSubNavIndex] = useState(0);
+  const { activeId } = useSectionRegistry();
+
+  useEffect(() => {
+    if (activeId !== 'header-nav') setMenuSubNav(false);
+  }, [activeId]);
 
   const navRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
@@ -62,6 +72,59 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
     setMobileMenuOpen(false);
   }, [setCurrentPage]);
 
+  const handleHeaderKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    const isMobile = navRef.current && getComputedStyle(navRef.current).display === 'none';
+
+    if (isMobile) {
+      if (!mobileMenuOpen) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setMobileMenuOpen(true);
+          setMobileMenuFocusIndex(0);
+        }
+      } else {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setMobileMenuFocusIndex(prev => prev < NAV_ITEMS.length - 1 ? prev + 1 : 0);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setMobileMenuFocusIndex(prev => prev > 0 ? prev - 1 : NAV_ITEMS.length - 1);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleNavClick(NAV_ITEMS[mobileMenuFocusIndex].id);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          setMobileMenuOpen(false);
+        }
+      }
+      return;
+    }
+
+    // Desktop sub-nav
+    if (!menuSubNav) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setMenuSubNav(true);
+        setMenuSubNavIndex(0);
+      }
+    } else {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setMenuSubNavIndex(prev => prev > 0 ? prev - 1 : NAV_ITEMS.length - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        setMenuSubNavIndex(prev => prev < NAV_ITEMS.length - 1 ? prev + 1 : 0);
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleNavClick(NAV_ITEMS[menuSubNavIndex].id);
+        setMenuSubNav(false);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        setMenuSubNav(false);
+      }
+    }
+  }, [menuSubNav, menuSubNavIndex, mobileMenuOpen, mobileMenuFocusIndex, handleNavClick]);
+
   const isActive = (itemId: string): boolean => currentPage === itemId;
 
   return (
@@ -69,63 +132,67 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       className="sticky top-0 transition-all duration-300 z-[100]"
       style={{ backgroundColor: 'transparent' }}
     >
-      <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Desktop Nav */}
-          <div ref={navRef} className="hidden md:flex items-center gap-3 lg:gap-6 relative">
-            {/* Sliding pill indicator */}
-            {pillReady && (
-              <div
-                className="absolute top-0 border-2 pointer-events-none"
-                style={{
-                  borderColor: '#ffffff',
-                  borderRadius: 0,
-                  left: pillStyle.left,
-                  width: pillStyle.width,
-                  height: '100%',
-                  transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                }}
-              />
-            )}
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                ref={(el) => {
-                  if (el) buttonRefs.current.set(item.id, el);
-                }}
-                onClick={() => handleNavClick(item.id)}
-                className="px-3 py-1 border-2"
-                style={{
-                  borderColor: 'transparent',
-                  borderRadius: 0,
-                  color: '#ffffff',
-                }}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
+      <NavigableSection id="header-nav" label="Navigation" excludeFromScrollSpy onKeyDown={handleHeaderKeyDown}>
+        <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            {/* Desktop Nav */}
+            <div ref={navRef} className="hidden md:flex items-center gap-3 lg:gap-6 relative">
+              {/* Sliding pill indicator */}
+              {pillReady && (
+                <div
+                  className="absolute top-0 border-2 pointer-events-none"
+                  style={{
+                    borderColor: '#ffffff',
+                    borderRadius: 0,
+                    left: pillStyle.left,
+                    width: pillStyle.width,
+                    height: '100%',
+                    transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  }}
+                />
+              )}
+              {NAV_ITEMS.map((item, i) => (
+                <button
+                  key={item.id}
+                  ref={(el) => {
+                    if (el) buttonRefs.current.set(item.id, el);
+                  }}
+                  onClick={() => handleNavClick(item.id)}
+                  className="px-3 py-1 border-2"
+                  style={{
+                    borderColor: 'transparent',
+                    borderRadius: 0,
+                    color: '#ffffff',
+                    outline: menuSubNav && menuSubNavIndex === i ? '2px solid #ffffff' : 'none',
+                    outlineOffset: '2px',
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden px-3 py-1 border-2 flex items-center gap-2"
-            style={{ color: '#ffffff', borderColor: '#ffffff', borderRadius: 0 }}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-expanded={mobileMenuOpen}
-            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          >
-            {mobileMenuOpen ? <X className="w-4 h-4" aria-hidden="true" /> : <Menu className="w-4 h-4" aria-hidden="true" />}
-            {mobileMenuOpen ? 'CLOSE' : 'MENU'}
-          </button>
-        </div>
-      </nav>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden px-3 py-1 border-2 flex items-center gap-2"
+              style={{ color: '#ffffff', borderColor: '#ffffff', borderRadius: 0 }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            >
+              {mobileMenuOpen ? <X className="w-4 h-4" aria-hidden="true" /> : <Menu className="w-4 h-4" aria-hidden="true" />}
+              {mobileMenuOpen ? 'CLOSE' : 'MENU'}
+            </button>
+          </div>
+        </nav>
+      </NavigableSection>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden mt-3 pb-3 px-6" role="navigation" aria-label="Mobile navigation">
           <div className="px-4 py-3" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
             <div className="flex flex-col gap-1.5">
-              {NAV_ITEMS.map((item) => (
+              {NAV_ITEMS.map((item, i) => (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
@@ -134,6 +201,8 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                     borderColor: isActive(item.id) ? '#ffffff' : 'transparent',
                     borderRadius: 0,
                     color: '#ffffff',
+                    outline: mobileMenuFocusIndex === i ? '2px solid #ffffff' : 'none',
+                    outlineOffset: '2px',
                   }}
                 >
                   {item.label}

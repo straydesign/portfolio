@@ -63,6 +63,7 @@ export default function TextCard({
   return (
     <MotionTag
       ref={ref}
+      data-textcard
       className={`relative overflow-hidden ${PADDING_MAP[padding]} ${className}`}
       style={{
         backgroundColor: '#000000',

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import { Mail } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
 import Carousel from './Carousel';
@@ -12,6 +13,8 @@ interface WorkProps {
 }
 
 export default function Work({ setCurrentPage }: WorkProps) {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
   return (
     <div className="min-h-screen">
 
@@ -69,12 +72,17 @@ export default function Work({ setCurrentPage }: WorkProps) {
           {PROJECTS.map((project, i) => (
             <div
               key={project.id}
+              ref={(el) => { cardRefs.current[i] = el; }}
               className="mb-16 md:mb-20 last:mb-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
               style={{ borderBottom: i < PROJECTS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
               onClick={() => setCurrentPage(project.id)}
               role="link"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); }
+                if (e.key === 'ArrowDown') { e.preventDefault(); e.stopPropagation(); const next = cardRefs.current[i + 1]; if (next) { next.focus(); next.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+                if (e.key === 'ArrowUp') { e.preventDefault(); e.stopPropagation(); const prev = cardRefs.current[i - 1]; if (prev) { prev.focus(); prev.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }
+              }}
             >
               <TextCard padding="md" className="mb-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: '#ffffff' }}>

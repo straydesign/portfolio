@@ -1,0 +1,56 @@
+# Tom Sesler — Product Designer
+
+> Product designer building digital experiences. Research-driven UX, interface design, and live shipped products.
+
+## About
+
+Tom Sesler is a product designer based in Erie, PA. He designs and builds digital products end-to-end — from ethnographic field research and UX strategy through interactive prototypes to live, shipped software. His portfolio at straydesign.co showcases case studies, shipped products, and design process work.
+
+## Skills & Expertise
+
+- Product Design (end-to-end)
+- UX Research (ethnographic, heuristic evaluation, usability testing)
+- UX/UI Design (Figma, prototyping, design systems)
+- Frontend Development (React, Next.js, TypeScript, Tailwind CSS)
+- Design Strategy & Systems Thinking
+
+## Key Projects
+
+### MIDDLEMAN — Merchandising System
+Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection. Live prototype with custom design system.
+
+### FirstDay.Life
+AI-powered goal tracker with iterative weekly sprints. Designed, built, and shipped as a live product — covering design, engineering, and AI planning.
+
+### DoorDash Dasher App UX Critique
+Ethnographic UX research across 1,000+ deliveries with five redesign proposals. Heuristic evaluation and redesign concepts.
+
+## Education
+
+University of New Hampshire
+
+## Services
+
+- Product Design — End-to-end product design from research through shipped interfaces
+- UX Research & Design — User experience research, prototyping, and interface design
+- Web Development — Modern web applications built with React, Next.js, and TypeScript
+
+## Contact
+
+- Email: tom@straydesign.co
+- Website: https://straydesign.co
+
+## Related Sites
+
+- https://straywebdesign.co — Stray Web Design, Tom's web design agency building enterprise-grade websites for small businesses
+- https://tomsesler.com — Tom Sesler's personal brand page
+- https://firstday.life — FirstDay, AI-powered goal achievement platform (designed and built by Tom)
+
+## Site Structure
+
+- / — Homepage with project showcase
+- /about — Background, reading list, design philosophy
+- /resume — Professional resume
+- /middleman — MIDDLEMAN merchandising system case study
+- /dayone — FirstDay.Life case study
+- /doordash — DoorDash Dasher app UX evaluation

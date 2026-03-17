@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useRef, useEffect, useState } from 'react';
 
 interface CarouselProps {
   items: ReactNode[];
@@ -8,6 +8,7 @@ interface CarouselProps {
   direction?: 'left' | 'right';
   pauseOnHover?: boolean;
   className?: string;
+  focusedIndex?: number | null;
 }
 
 export default function Carousel({
@@ -16,8 +17,23 @@ export default function Carousel({
   direction = 'left',
   pauseOnHover = true,
   className = '',
+  focusedIndex = null,
 }: CarouselProps) {
   const animationName = direction === 'left' ? 'scroll-left' : 'scroll-right';
+  const isKeyboardMode = focusedIndex != null;
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [translateX, setTranslateX] = useState(0);
+
+  useEffect(() => {
+    if (!isKeyboardMode || !trackRef.current) return;
+    const track = trackRef.current;
+    const children = Array.from(track.children) as HTMLElement[];
+    if (focusedIndex == null || focusedIndex >= items.length) return;
+    const child = children[focusedIndex];
+    const containerWidth = track.parentElement?.clientWidth ?? 0;
+    const itemCenter = child.offsetLeft + child.clientWidth / 2;
+    setTranslateX(-(itemCenter - containerWidth / 2));
+  }, [focusedIndex, isKeyboardMode, items.length]);
 
   return (
     <div
@@ -37,18 +53,22 @@ export default function Carousel({
       />
 
       <div
-        className={`flex gap-4 w-max ${pauseOnHover ? 'hover:[animation-play-state:paused]' : ''}`}
-        style={{
-          animation: `${animationName} ${speed}s linear infinite`,
-        }}
+        ref={trackRef}
+        className={`flex gap-4 w-max ${!isKeyboardMode && pauseOnHover ? 'hover:[animation-play-state:paused]' : ''}`}
+        style={isKeyboardMode
+          ? { transform: `translateX(${translateX}px)`, transition: 'transform 0.3s ease' }
+          : { animation: `${animationName} ${speed}s linear infinite` }
+        }
       >
-        {/* Original items */}
         {items.map((item, i) => (
-          <div key={`a-${i}`} className="shrink-0" aria-hidden={i >= items.length}>
+          <div
+            key={`a-${i}`}
+            className="shrink-0"
+            style={isKeyboardMode && i === focusedIndex ? { outline: '2px solid #ffffff', outlineOffset: '4px' } : {}}
+          >
             {item}
           </div>
         ))}
-        {/* Duplicated items for seamless loop */}
         {items.map((item, i) => (
           <div key={`b-${i}`} className="shrink-0" aria-hidden>
             {item}

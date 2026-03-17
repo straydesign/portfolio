@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three-stdlib";
 import { MouseLight } from "./MouseLight";
 import { GroutPlane } from "./GroutPlane";
-import { KoiFishPlane } from "./KoiFishPlane";
+
 import { useRippleSimulation } from "./useRippleSimulation";
 import { useRipplePointer } from "./useRipplePointer";
 
@@ -217,12 +217,6 @@ export function BrickWallScene({ isDark = true, accentColor }: BrickWallScenePro
         ref={meshRef}
         args={[geometry, material, positions.length]}
         frustumCulled={false}
-      />
-
-      <KoiFishPlane
-        rippleTexture={rippleTexture}
-        viewportSize={[wallWidth, wallHeight]}
-        isDark={isDark}
       />
 
       <MouseLight />

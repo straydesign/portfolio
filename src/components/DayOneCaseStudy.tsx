@@ -25,8 +25,8 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
       <div className="w-full px-4 md:px-8 max-w-[90rem] mx-auto">
 
         {/* ── HERO ── */}
-        {/* Sticky back + visit site bar */}
-        <div className="sticky top-0 z-50 bg-black py-4 flex items-center gap-4">
+        {/* Fixed back + visit site bar */}
+        <div className="fixed top-16 left-0 right-0 z-50 bg-black py-3 px-4 md:px-8 flex items-center gap-4">
           <button onClick={onBack}
             className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
             style={{ color: primaryColor, borderRadius: 0 }}>

@@ -66,6 +66,25 @@ body {
   opacity: 1;
 }
 
+/* Remove browser focus ring from navigable sections — custom outlines only */
+section[tabindex="-1"] {
+  outline: none;
+}
+
+/* Active section highlight — targets any TextCard descendant */
+[data-nav-active] [data-textcard] {
+  outline: 2px solid #ffffff;
+  outline-offset: 0px;
+  transition: outline-color 0.2s ease;
+}
+
+/* Active section highlight — for sections without TextCard (header nav, footer links) */
+[data-nav-active]:not(:has([data-textcard])) {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  transition: outline-color 0.2s ease;
+}
+
 /* Carousel infinite scroll animations */
 @keyframes scroll-left {
   0% { transform: translateX(0); }

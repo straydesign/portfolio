@@ -2,6 +2,7 @@
 
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { type Page } from '@/data/projects';
+import { NavigableSection } from './NavigableSection';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;
@@ -32,24 +33,27 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
           </div>
           <div className="flex items-center gap-3 md:gap-4">
             {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                aria-label={link.label}
-                className="transition-all hover:scale-110"
-                style={{ color: '#ffffff' }}
-              >
-                <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
-              </a>
+              <NavigableSection key={link.label} id={`footer-${link.label.toLowerCase()}`} label={link.label} excludeFromScrollSpy>
+                <a
+                  href={link.href}
+                  {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  aria-label={link.label}
+                  className="transition-all hover:scale-110 inline-block"
+                  style={{ color: '#ffffff' }}
+                >
+                  <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+                </a>
+              </NavigableSection>
             ))}
           </div>
         </div>
       </div>
       <div className="px-6 md:px-8 pb-4 text-center" style={{ position: 'relative', zIndex: 51 }}>
-        <a href="https://straywebdesign.co" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">
-          Built by Stray Web Design
-        </a>
+        <NavigableSection id="footer-attribution" label="Built by Stray Web Design" excludeFromScrollSpy>
+          <a href="https://straywebdesign.co" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">
+            Built by Stray Web Design
+          </a>
+        </NavigableSection>
       </div>
     </footer>
   );

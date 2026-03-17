@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from 'react';
 import { type Page } from '@/data/projects';
-import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
+import { useSectionRegistry } from '@/context/SectionRegistryContext';
 import Carousel from './Carousel';
 import TextCard from './TextCard';
+import { NavigableSection } from './NavigableSection';
 
 const ALL_BOOKS = [
   { title: 'The Art of Innovation', color: 'red', description: 'Creativity isn\'t a flash of genius--it\'s a disciplined process. IDEO proves that the best ideas come from building rapid prototypes, getting feedback early, and iterating relentlessly. Observe real people, prototype fast, and let the work evolve.' },
@@ -37,6 +38,8 @@ const ALL_BOOKS = [
   { title: 'Emotional Design', color: 'cobalt', description: 'Design works on three levels--visceral, behavioral, and reflective--and the emotional response matters as much as usability. Most designers only optimize for behavioral, but the products people love succeed on all three. A beautiful product that\'s hard to use fails, but so does a usable product that feels nothing.' },
   { title: 'Sprint', color: 'mustard', description: 'Five days from problem to tested prototype. Google Ventures created a structured process that forces decisions and puts real user feedback at the center. The speed of validated learning is unmatched--you learn more in one sprint than months of speculation.' },
   { title: 'Inspired', color: 'burgundy', description: 'Marty Cagan breaks down how the best tech companies build products people love--through empowered teams, continuous discovery, and strong product leadership. Great products don\'t come from top-down roadmaps, they come from teams given problems to solve, not features to build.' },
+  { title: 'Delivering Happiness', color: 'royalblue', description: 'The Zappos CEO on building a company culture that prioritizes customer and employee happiness as the path to lasting business success.' },
+  { title: 'American Icon', color: 'steelnavy', description: 'The story of Alan Mulally and how he saved Ford Motor Company from near-bankruptcy through radical transparency, teamwork, and relentless focus on the plan.' },
 ];
 
 const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; side: string; top: string; text: string }> = {
@@ -64,6 +67,8 @@ const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; sid
   wine:       { bg: '#5A0A2A', light: '#781838', edge: '#380518', side: '#480A22', top: '#6A1232', text: 'rgba(255,255,255,0.92)' },
   midnight:   { bg: '#101828', light: '#1A2840', edge: '#080E18', side: '#0C1420', top: '#1E3048', text: 'rgba(255,255,255,0.92)' },
   terracotta: { bg: '#9A5A3A', light: '#B0704A', edge: '#6E3E28', side: '#844C32', top: '#A86242', text: 'rgba(255,255,255,0.92)' },
+  royalblue:  { bg: '#2563eb', light: '#3B7AF5', edge: '#1A4AB0', side: '#1E52C8', top: '#4888F0', text: 'rgba(255,255,255,0.92)' },
+  steelnavy:  { bg: '#1e3a5f', light: '#2A5080', edge: '#122440', side: '#18304E', top: '#2E5A85', text: 'rgba(255,255,255,0.92)' },
 };
 
 const ABOUT_PHOTOS = [
@@ -85,21 +90,23 @@ interface AboutProps {
   setCurrentPage?: (page: Page) => void;
 }
 
-// Desktop: 2 rows of 15 | Mobile: 3 rows of 10
-const DESKTOP_ROWS = [ALL_BOOKS.slice(0, 15), ALL_BOOKS.slice(15, 30)];
-const MOBILE_ROWS = [ALL_BOOKS.slice(0, 10), ALL_BOOKS.slice(10, 20), ALL_BOOKS.slice(20, 30)];
+// Desktop: 2 rows of 16 | Mobile: 4 rows (10, 10, 10, 2)
+const DESKTOP_ROWS = [ALL_BOOKS.slice(0, 16), ALL_BOOKS.slice(16, 32)];
+const MOBILE_ROWS = [ALL_BOOKS.slice(0, 10), ALL_BOOKS.slice(10, 20), ALL_BOOKS.slice(20, 30), ALL_BOOKS.slice(30, 32)];
 
 function BookSpine({
   book,
   index,
   globalIndex,
   isActive,
+  isFocused,
   onToggle,
 }: {
   book: typeof ALL_BOOKS[0];
   index: number;
   globalIndex: number;
   isActive: boolean;
+  isFocused: boolean;
   onToggle: () => void;
 }) {
   const c = BOOK_COLORS[book.color] || BOOK_COLORS.brown;
@@ -113,6 +120,7 @@ function BookSpine({
   const pageEdgeColor = '#D4CFC4';
   const pageEdgeDark = '#B8B0A0';
   const zBase = index + 1;
+  const showOutline = isActive || isFocused;
 
   const bookShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${totalW}px ${h}px, ${w}px ${totalH}px, 0px ${totalH}px, 0px ${topDepth}px)`;
   const topShape = `polygon(${topShift}px 0px, ${totalW}px 0px, ${w}px ${topDepth}px, 0px ${topDepth}px)`;
@@ -124,8 +132,10 @@ function BookSpine({
       style={{
         width: `${totalW}px`,
         height: `${totalH}px`,
-        zIndex: isActive ? ALL_BOOKS.length + 10 : zBase,
+        zIndex: isActive ? ALL_BOOKS.length + 10 : isFocused ? ALL_BOOKS.length + 5 : zBase,
         marginRight: `${-(topShift - 3)}px`,
+        outline: showOutline ? '2px solid #ffffff' : 'none',
+        outlineOffset: '2px',
       }}
       role="button"
       tabIndex={0}
@@ -224,11 +234,13 @@ function ShelfRow({
   globalOffset,
   activeBookIndex,
   setActiveBookIndex,
+  focusedShelfIndex,
 }: {
   books: typeof ALL_BOOKS;
   globalOffset: number;
   activeBookIndex: number | null;
   setActiveBookIndex: (index: number | null) => void;
+  focusedShelfIndex: number | null;
 }) {
   return (
     <div className="mb-4">
@@ -243,6 +255,7 @@ function ShelfRow({
             index={i}
             globalIndex={globalOffset + i}
             isActive={activeBookIndex === globalOffset + i}
+            isFocused={focusedShelfIndex === globalOffset + i}
             onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + i ? null : globalOffset + i)}
           />
         ))}
@@ -268,45 +281,50 @@ function ShelfRow({
   );
 }
 
-function BookModal({
+function BookDetailModal({
   book,
   onClose,
 }: {
   book: typeof ALL_BOOKS[0] | null;
   onClose: () => void;
 }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!book) return;
+    closeButtonRef.current?.focus();
+    function handleKeyDown(e: globalThis.KeyboardEvent) {
+      if (e.key === 'Escape') onClose();
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [book, onClose]);
+
   if (!book) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      onClick={onClose}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg px-4"
       role="dialog"
-      aria-modal="true"
       aria-label={book.title}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
-
-      {/* Modal card */}
       <div
-        className="relative w-full max-w-lg p-6 md:p-8"
+        className="relative p-6 md:p-8"
         style={{
           backgroundColor: '#0a0a0a',
           border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 -4px 20px rgba(0,0,0,0.5)',
         }}
-        onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
           className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-2xl font-light transition-opacity hover:opacity-70"
           style={{ color: '#ffffff' }}
           aria-label="Close"
         >
-          ×
+          &times;
         </button>
-
         <h3 className="text-lg md:text-xl font-bold mb-4 pr-10" style={{ color: '#ffffff' }}>
           {book.title}
         </h3>
@@ -321,64 +339,111 @@ function BookModal({
 export default function About({ setCurrentPage }: AboutProps) {
   const [activeBookIndex, setActiveBookIndex] = useState<number | null>(null);
   const [activeFavIndex, setActiveFavIndex] = useState<number | null>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [focusedShelfIndex, setFocusedShelfIndex] = useState(0);
+  const { activeId } = useSectionRegistry();
   const activeBook = activeBookIndex !== null ? ALL_BOOKS[activeBookIndex] : null;
+
+  const handleCarouselKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setCarouselIndex(prev => prev > 0 ? prev - 1 : ABOUT_PHOTOS.length - 1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setCarouselIndex(prev => prev < ABOUT_PHOTOS.length - 1 ? prev + 1 : 0);
+    }
+  }, []);
+
+  const handleBookshelfKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setFocusedShelfIndex(prev => prev > 0 ? prev - 1 : ALL_BOOKS.length - 1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setFocusedShelfIndex(prev => prev < ALL_BOOKS.length - 1 ? prev + 1 : 0);
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setActiveBookIndex(prev => prev === focusedShelfIndex ? null : focusedShelfIndex);
+    }
+  }, [focusedShelfIndex]);
 
   return (
     <div className="py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
 
-      {/* HERO — full width */}
+      {/* HERO — card-like container with sub-sections */}
       <div className="px-4 md:px-8 mb-8 md:mb-12">
-        <AnimateIn direction="up" className="pt-4 md:pt-8">
-          <TextCard padding="lg">
-            <h1
-              className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
-              style={{
-                fontFamily: "var(--font-family-bungee), sans-serif",
-                WebkitTextStroke: '4px #ffffff',
-                WebkitTextFillColor: 'transparent',
-                color: 'transparent',
-                paintOrder: 'stroke fill',
-              }}
-            >
-              ABOUT
-            </h1>
-            <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-              I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
-            </p>
-            <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-              That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
-            </p>
-            <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
-              I read constantly. The books below have shaped how I think about design, leadership, and communication.
-            </p>
-          </TextCard>
-        </AnimateIn>
+        <div className="pt-4 md:pt-8 relative" style={{ backgroundColor: '#000000', border: '1px solid rgba(255,255,255,0.06)' }}>
+          {/* Top edge shine */}
+          <div className="pointer-events-none absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)' }} />
+
+          <NavigableSection id="about-intro" label="About">
+            <div className="px-6 py-6 md:px-10 md:py-8">
+              <h1
+                className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
+                style={{
+                  fontFamily: "var(--font-family-bungee), sans-serif",
+                  WebkitTextStroke: '4px #ffffff',
+                  WebkitTextFillColor: 'transparent',
+                  color: 'transparent',
+                  paintOrder: 'stroke fill',
+                }}
+              >
+                ABOUT
+              </h1>
+              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
+                I found design the way most people find their best ideas — by being frustrated enough to build something better. I drove for DoorDash, stocked shelves as a beer merchandiser, and kept running into problems that nobody was solving. So I started solving them myself.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
+                I use AI as a core part of my workflow, from morning briefings to full prototypes. And I read constantly — not just design books, but business strategy, psychology, and biographies of people who built things that mattered.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-relaxed" style={{ color: '#ffffff' }}>
+                Every project in this portfolio came from lived experience, not a prompt or a class assignment. That&apos;s the through-line.
+              </p>
+            </div>
+          </NavigableSection>
+
+          <NavigableSection id="about-background" label="Background">
+            <div className="px-6 pb-6 md:px-10 md:pb-8">
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+                I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+                That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
+                I read constantly. The books below have shaped how I think about design, leadership, and communication.
+              </p>
+            </div>
+          </NavigableSection>
+        </div>
       </div>
 
-      {/* PHOTO CAROUSEL — below hero */}
-      <div className="pb-8 md:pb-12">
-        <Carousel
-          speed={35}
-          direction="left"
-          pauseOnHover
-          items={ABOUT_PHOTOS.map((img) => (
-            <img
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              className="h-48 md:h-64 w-48 md:w-64 object-cover aspect-square"
-              style={{ borderRadius: 0 }}
-              loading="lazy"
-            />
-          ))}
-        />
-      </div>
+      {/* PHOTO CAROUSEL */}
+      <NavigableSection id="about-photos" label="Photos" onKeyDown={handleCarouselKeyDown}>
+        <div className="pb-8 md:pb-12">
+          <Carousel
+            speed={35}
+            direction="left"
+            pauseOnHover
+            focusedIndex={activeId === 'about-photos' ? carouselIndex : null}
+            items={ABOUT_PHOTOS.map((img) => (
+              <img
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
+                className="h-48 md:h-64 w-48 md:w-64 object-cover aspect-square"
+                style={{ borderRadius: 0 }}
+                loading="lazy"
+              />
+            ))}
+          />
+        </div>
+      </NavigableSection>
 
-      <div className="max-w-[90rem] mx-auto px-4 md:px-8">
-
-        {/* MY FAVORITES — standalone 3D books */}
-        <AnimateIn direction="up" className="mb-16 md:mb-24 pb-8 md:pb-12">
-          <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+      {/* MY FAVORITES heading */}
+      <NavigableSection id="about-favorites" label="My Favorites">
+        <div className="max-w-[90rem] mx-auto px-4 md:px-8 mb-8 md:mb-12">
+          <TextCard padding="md" className="inline-block">
             <h2
               className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
               style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
@@ -386,20 +451,26 @@ export default function About({ setCurrentPage }: AboutProps) {
               MY FAVORITES
             </h2>
           </TextCard>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-20 justify-items-center" style={{ perspective: '1200px' }}>
-            {CURRENT_FAVORITES.map((book, index) => {
-              const isActive = activeFavIndex === index;
-              const colors = [BOOK_COLORS.red, BOOK_COLORS.blue, BOOK_COLORS.darkgreen];
-              const c = colors[index % colors.length];
-              const coverW = 200;
-              const coverH = 280;
-              const spineW = 26;
-              const pageColor = '#d4cfc4';
+        </div>
+      </NavigableSection>
 
-              return (
+      {/* Individual favorite books */}
+      <div className="max-w-[90rem] mx-auto px-4 md:px-8 mb-16 md:mb-24 pb-8 md:pb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 md:gap-20 justify-items-center">
+          {CURRENT_FAVORITES.map((book, index) => {
+            const isActive = activeFavIndex === index;
+            const isFocusedByKeyboard = activeId === `about-fav-${index}`;
+            const colors = [BOOK_COLORS.red, BOOK_COLORS.blue, BOOK_COLORS.darkgreen];
+            const c = colors[index % colors.length];
+            const coverW = 200;
+            const coverH = 280;
+            const spineW = 26;
+            const pageColor = '#d4cfc4';
+
+            return (
+              <NavigableSection key={book.title} id={`about-fav-${index}`} label={book.title} style={{ perspective: '1200px' }}>
                 <div
-                  key={book.title}
-                  className="relative cursor-pointer"
+                  className="relative cursor-pointer focus:outline-none"
                   style={{
                     width: `${coverW + spineW}px`,
                     height: `${coverH}px`,
@@ -420,6 +491,8 @@ export default function About({ setCurrentPage }: AboutProps) {
                       left: `${spineW}px`,
                       top: 0,
                       transformStyle: 'preserve-3d',
+                      outline: isFocusedByKeyboard ? '2px solid #ffffff' : 'none',
+                      outlineOffset: '4px',
                     }}
                   >
                     <div
@@ -490,87 +563,92 @@ export default function About({ setCurrentPage }: AboutProps) {
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </AnimateIn>
-
+              </NavigableSection>
+            );
+          })}
+        </div>
       </div>
 
-      {/* BOOKSHELF — glossy black shelves with side description panel */}
-      <div className="px-4 md:px-8">
-        <AnimateIn direction="up" className="mb-12 md:mb-16 pb-8 md:pb-12">
-          <div className="max-w-[90rem] mx-auto">
-            <TextCard padding="md" className="inline-block mb-8 md:mb-12">
-              <h2
-                className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-                style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
-              >
-                BOOKSHELF
-              </h2>
-            </TextCard>
-          </div>
+      {/* BOOKSHELF */}
+      <NavigableSection id="about-bookshelf" label="Bookshelf" onKeyDown={handleBookshelfKeyDown}>
+        <div className="px-4 md:px-8">
+          <div className="mb-12 md:mb-16 pb-8 md:pb-12">
+            <div className="max-w-[90rem] mx-auto">
+              <TextCard padding="md" className="inline-block mb-8 md:mb-12">
+                <h2
+                  className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+                  style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+                >
+                  BOOKSHELF
+                </h2>
+              </TextCard>
+            </div>
 
-          {/* Desktop: 2 shelves */}
-          <div className="hidden lg:block max-w-[90rem] mx-auto">
-            {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
-              <ShelfRow
-                key={rowIndex}
-                books={rowBooks}
-                globalOffset={rowIndex * 15}
-                activeBookIndex={activeBookIndex}
-                setActiveBookIndex={setActiveBookIndex}
-              />
-            ))}
-          </div>
+            {/* Desktop: 2 shelves */}
+            <div className="hidden lg:block max-w-[90rem] mx-auto">
+              {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
+                <ShelfRow
+                  key={rowIndex}
+                  books={rowBooks}
+                  globalOffset={rowIndex * 16}
+                  activeBookIndex={activeBookIndex}
+                  setActiveBookIndex={setActiveBookIndex}
+                  focusedShelfIndex={activeId === 'about-bookshelf' ? focusedShelfIndex : null}
+                />
+              ))}
+            </div>
 
-          {/* Mobile/Tablet: 3 shelves */}
-          <div className="lg:hidden max-w-[90rem] mx-auto">
-            {MOBILE_ROWS.map((rowBooks, rowIndex) => (
-              <ShelfRow
-                key={rowIndex}
-                books={rowBooks}
-                globalOffset={rowIndex * 10}
-                activeBookIndex={activeBookIndex}
-                setActiveBookIndex={setActiveBookIndex}
-              />
-            ))}
-          </div>
+            {/* Mobile/Tablet: 4 shelves */}
+            <div className="lg:hidden max-w-[90rem] mx-auto">
+              {MOBILE_ROWS.map((rowBooks, rowIndex) => (
+                <ShelfRow
+                  key={rowIndex}
+                  books={rowBooks}
+                  globalOffset={rowIndex * 10}
+                  activeBookIndex={activeBookIndex}
+                  setActiveBookIndex={setActiveBookIndex}
+                  focusedShelfIndex={activeId === 'about-bookshelf' ? focusedShelfIndex : null}
+                />
+              ))}
+            </div>
 
-          {/* Book detail modal */}
-          <BookModal book={activeBook} onClose={() => setActiveBookIndex(null)} />
-        </AnimateIn>
-      </div>
+            {/* Book detail modal — bottom center, no scrim */}
+            <BookDetailModal book={activeBook} onClose={() => setActiveBookIndex(null)} />
+          </div>
+        </div>
+      </NavigableSection>
 
       {/* CTA */}
-      <div className="max-w-[90rem] mx-auto px-4 md:px-8">
-        <AnimateIn direction="up" className="mb-12 md:mb-16">
-          <div className="max-w-lg mx-auto text-center">
-            <TextCard padding="lg">
-              <h2
-                className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
-                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
-              >
-                WANT TO WORK TOGETHER?
-              </h2>
-              <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
-                Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
-              </p>
-              <a
-                href="mailto:tom@straydesign.co"
-                className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
-                style={{
-                  backgroundColor: '#ffffff',
-                  color: '#000000',
-                  borderRadius: 0,
-                }}
-              >
-                Get in Touch
-              </a>
-            </TextCard>
+      <NavigableSection id="about-cta" label="Get in Touch">
+        <div className="max-w-[90rem] mx-auto px-4 md:px-8">
+          <div className="mb-12 md:mb-16">
+            <div className="max-w-lg mx-auto text-center">
+              <TextCard padding="lg">
+                <h2
+                  className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
+                  style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
+                >
+                  WANT TO WORK TOGETHER?
+                </h2>
+                <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
+                  Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
+                </p>
+                <a
+                  href="mailto:tom@straydesign.co"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
+                  style={{
+                    backgroundColor: '#ffffff',
+                    color: '#000000',
+                    borderRadius: 0,
+                  }}
+                >
+                  Get in Touch
+                </a>
+              </TextCard>
+            </div>
           </div>
-        </AnimateIn>
-      </div>
+        </div>
+      </NavigableSection>
 
       {/* Footer spacer */}
       <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />

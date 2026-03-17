@@ -87,8 +87,8 @@ function AppContent() {
           <div className="fixed inset-0 z-[2] pointer-events-none">
             <BrickWallWrapper theme="dark" accentColor="#ffffff" />
           </div>
-          {/* Scrim overlay on project pages to reduce background distraction */}
-          {(currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study') && (
+          {/* Scrim overlay on project/resume pages to reduce background distraction */}
+          {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study') && (
             <div className="fixed inset-0 z-[3] pointer-events-none bg-black/90" />
           )}
           <div className="relative z-10">
