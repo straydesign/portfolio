@@ -6,7 +6,7 @@ export const contentType = "image/png";
 
 export default async function OgImage() {
   const bungeeFont = await fetch(
-    "https://fonts.gstatic.com/s/bungee/v17/N0bU2SZBIuF2PU_0DXR1C9zfmQ.woff2"
+    "https://fonts.gstatic.com/s/bungee/v17/N0bU2SZBIuF2PU_ECg.ttf"
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
