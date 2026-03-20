@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://straydesign.co/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Tom Sesler — Product Designer",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     title: "Tom Sesler — Product Designer",
     description:
       "Product designer building web and mobile experiences. Research-driven UX, interface design, and live shipped products.",
-    images: ["https://straydesign.co/og-image.png"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
