@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useEffect, type KeyboardEvent } from 'react';
-import { Mail, Phone, Linkedin } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { Mail, Phone, Linkedin, ChevronDown, ChevronUp } from 'lucide-react';
+import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import AnimateIn from './AnimateIn';
 import PhoneMockup from './PhoneMockup';
 import TextCard from './TextCard';
@@ -87,7 +87,7 @@ function HeroTextReveal({ text }: { text: string }) {
       aria-label={text}
     >
       {chars.map((char, i) => (
-        <motion.span
+        <m.span
           key={i}
           initial={{ opacity: 0, filter: 'blur(12px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -99,7 +99,7 @@ function HeroTextReveal({ text }: { text: string }) {
           aria-hidden="true"
         >
           {char === ' ' ? ' ' : char}
-        </motion.span>
+        </m.span>
       ))}
     </h1>
   );
@@ -110,7 +110,20 @@ export default function Home({ setCurrentPage }: HomeProps) {
   const heroTextDuration = HERO_TEXT.length * 0.04 + 0.4;
   const [heroSubNav, setHeroSubNav] = useState(false);
   const [heroSubNavIndex, setHeroSubNavIndex] = useState(0);
+  const [expandedRecs, setExpandedRecs] = useState<Set<number>>(new Set());
   const { activeId } = useSectionRegistry();
+
+  const toggleRec = useCallback((index: number) => {
+    setExpandedRecs(prev => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     if (activeId !== 'home-hero') setHeroSubNav(false);
@@ -154,7 +167,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
         <div className="px-6 md:px-16 pt-12 md:pt-20 pb-8 md:pb-12">
           <div className="max-w-7xl mx-auto">
             <TextCard padding="lg">
-              <motion.p
+              <m.p
                 className="text-[15px] md:text-[17px] font-medium mb-2"
                 style={{ color: '#ffffff' }}
                 initial={prefersReducedMotion ? false : { opacity: 0 }}
@@ -162,11 +175,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 transition={{ duration: 0.4 }}
               >
                 Tom Sesler
-              </motion.p>
+              </m.p>
 
               <HeroTextReveal text={HERO_TEXT} />
 
-              <motion.p
+              <m.p
                 className="text-[20px] md:text-[24px] mb-6 md:mb-8"
                 style={{ color: '#ffffff', fontWeight: 600 }}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
@@ -174,9 +187,9 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 transition={{ duration: 0.5, delay: heroTextDuration }}
               >
                 I build what I wish existed, then ship it.
-              </motion.p>
+              </m.p>
 
-              <motion.div
+              <m.div
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: heroTextDuration + 0.15 }}
@@ -187,10 +200,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: '#ffffff', opacity: 0.8 }}>
                   New Hampshire / Massachusetts. Open to full-time or remote
                 </p>
-              </motion.div>
+              </m.div>
 
               {/* Contact pills */}
-              <motion.div
+              <m.div
                 className="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-4"
                 initial="hidden"
                 animate="visible"
@@ -200,7 +213,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 }}
               >
                 {CONTACT_LINKS.map((link, i) => (
-                  <motion.a
+                  <m.a
                     key={link.label}
                     href={link.href}
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -218,9 +231,9 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   >
                     <link.icon className="w-4 h-4" />
                     <span className="text-sm font-medium">{link.label}</span>
-                  </motion.a>
+                  </m.a>
                 ))}
-              </motion.div>
+              </m.div>
             </TextCard>
           </div>
         </div>
@@ -303,41 +316,67 @@ export default function Home({ setCurrentPage }: HomeProps) {
           </TextCard>
 
           <div className="flex flex-col gap-8">
-            {RECOMMENDATIONS.map((rec, i) => (
-              <NavigableSection key={i} id={`rec-${rec.initials.toLowerCase()}`} label={rec.name}>
-                <TextCard padding="lg">
-                  <p className="text-lg md:text-xl font-bold leading-relaxed mb-4" style={{ color: '#ffffff' }}>
-                    &ldquo;{rec.highlight}&rdquo;
-                  </p>
-                  <p className="text-sm leading-relaxed mb-6" style={{ color: '#a1a1a6' }}>
-                    {rec.quote}
-                  </p>
-                  <div className="flex items-center gap-3">
-                    {rec.href ? (
-                      <a href={rec.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
-                        <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
-                          {rec.initials}
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold group-hover:underline" style={{ color: '#ffffff' }}>{rec.name}</p>
-                          <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
-                        </div>
-                      </a>
-                    ) : (
-                      <>
-                        <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#111111', color: '#ffffff', borderRadius: 0 }}>
-                          {rec.initials}
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold" style={{ color: '#ffffff' }}>{rec.name}</p>
-                          <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </TextCard>
-              </NavigableSection>
-            ))}
+            {RECOMMENDATIONS.map((rec, i) => {
+              const isExpanded = expandedRecs.has(i);
+              return (
+                <NavigableSection key={i} id={`rec-${rec.initials.toLowerCase()}`} label={rec.name}>
+                  <TextCard padding="lg">
+                    <p className="text-lg md:text-xl font-bold leading-relaxed mb-4" style={{ color: '#ffffff' }}>
+                      &ldquo;{rec.highlight}&rdquo;
+                    </p>
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <m.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <p className="text-sm leading-relaxed mb-4" style={{ color: '#a1a1a6' }}>
+                            {rec.quote}
+                          </p>
+                        </m.div>
+                      )}
+                    </AnimatePresence>
+                    <button
+                      onClick={() => toggleRec(i)}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium mb-6 transition-colors"
+                      style={{ color: '#a1a1a6' }}
+                    >
+                      {isExpanded ? (
+                        <>Read less <ChevronUp className="w-3 h-3" /></>
+                      ) : (
+                        <>Read more <ChevronDown className="w-3 h-3" /></>
+                      )}
+                    </button>
+                    <div className="flex items-center gap-3">
+                      {rec.href ? (
+                        <a href={rec.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+                            {rec.initials}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold group-hover:underline" style={{ color: '#ffffff' }}>{rec.name}</p>
+                            <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
+                          </div>
+                        </a>
+                      ) : (
+                        <>
+                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#111111', color: '#ffffff', borderRadius: 0 }}>
+                            {rec.initials}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold" style={{ color: '#ffffff' }}>{rec.name}</p>
+                            <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </TextCard>
+                </NavigableSection>
+              );
+            })}
           </div>
         </div>
       </div>

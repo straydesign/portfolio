@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { AnimatePresence, motion } from 'framer-motion';
+import { LazyMotion, domAnimation, AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Home from '@/components/Home';
@@ -13,7 +13,10 @@ import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
 
-import { BrickWallWrapper } from '@/components/three/BrickWallWrapper';
+const BrickWallWrapper = dynamic(
+  () => import('@/components/three/BrickWallWrapper').then(mod => ({ default: mod.BrickWallWrapper })),
+  { ssr: false }
+);
 
 /** Activates scroll spy + keyboard nav + aria-live announcements */
 function SectionNavigationOrchestrator() {
@@ -53,13 +56,34 @@ const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy')
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+  const [hydrated, setHydrated] = useState(false);
+  const [showBackground, setShowBackground] = useState(false);
   const lenis = useLenis();
+  const reducedMotion = useReducedMotion();
 
+  // Mount effect — read URL, then mark hydrated
   useEffect(() => {
     setCurrentPage(getPageFromPath(window.location.pathname));
+    setHydrated(true);
   }, []);
 
+  // Delay Three.js background until after initial paint to prioritize content
   useEffect(() => {
+    const id = requestIdleCallback
+      ? requestIdleCallback(() => setShowBackground(true), { timeout: 3000 })
+      : window.setTimeout(() => setShowBackground(true), 1500);
+    return () => {
+      if (typeof cancelIdleCallback !== 'undefined') {
+        cancelIdleCallback(id as number);
+      } else {
+        clearTimeout(id as number);
+      }
+    };
+  }, []);
+
+  // URL sync effect — guard with hydrated flag to prevent race condition
+  useEffect(() => {
+    if (!hydrated) return;
     const newPath = getPathFromPage(currentPage);
     if (window.location.pathname !== newPath) {
       window.history.pushState({}, '', newPath);
@@ -70,7 +94,7 @@ function AppContent() {
       window.scrollTo({ top: 0 });
     }
     document.title = getDocumentTitle(currentPage);
-  }, [currentPage, lenis]);
+  }, [currentPage, lenis, hydrated]);
 
   useEffect(() => {
     const handlePopState = () => setCurrentPage(getPageFromPath(window.location.pathname));
@@ -85,7 +109,7 @@ function AppContent() {
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
         <main id="main-content" className="flex-1 relative overflow-hidden">
           <div className="fixed inset-0 z-[2] pointer-events-none">
-            <BrickWallWrapper theme="dark" accentColor="#ffffff" />
+            {showBackground && <BrickWallWrapper theme="dark" accentColor="#ffffff" />}
           </div>
           {/* Scrim overlay on project/resume pages to reduce background distraction */}
           {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study') && (
@@ -94,12 +118,12 @@ function AppContent() {
           <div className="relative z-10">
             <SectionNavigationOrchestrator />
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={currentPage}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                initial={{ opacity: 0, y: reducedMotion ? 0 : 8, filter: reducedMotion ? 'none' : 'blur(4px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: reducedMotion ? 0 : -8, filter: reducedMotion ? 'none' : 'blur(4px)' }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               >
                 {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
                 {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
@@ -107,7 +131,7 @@ function AppContent() {
                 {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
         </main>
@@ -119,8 +143,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <SmoothScroll>
-      <AppContent />
-    </SmoothScroll>
+    <LazyMotion features={domAnimation} strict>
+      <SmoothScroll>
+        <AppContent />
+      </SmoothScroll>
+    </LazyMotion>
   );
 }

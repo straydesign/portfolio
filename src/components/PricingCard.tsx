@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Check, Sparkles } from 'lucide-react';
 import TextCard from './TextCard';
 
@@ -44,7 +44,7 @@ export default function PricingCard({
     : 'rgba(255,255,255,0.2)';
 
   return (
-    <motion.section
+    <m.section
       aria-label={`${name} plan`}
       className={cn('relative group cursor-pointer', className)}
       whileHover={{ y: -6 }}
@@ -183,6 +183,6 @@ export default function PricingCard({
           Start My Project
         </button>
       </div>
-    </motion.section>
+    </m.section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { ExternalLink, ArrowRight, Info } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
 import ContactForm from './ContactForm';
 import PricingCard from './PricingCard';
@@ -158,7 +158,7 @@ function FeatureBadges() {
           ))}
 
           {/* Sliding indicator */}
-          <motion.div
+          <m.div
             className="absolute bottom-0 h-[2px]"
             style={{ backgroundColor: primaryColor, borderRadius: 0 }}
             animate={{ left: indicatorStyle.left, width: indicatorStyle.width }}
@@ -175,7 +175,7 @@ function FeatureBadges() {
 
       {/* Badges grid */}
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={activeCategory}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -214,13 +214,13 @@ function FeatureBadges() {
               </button>
             );
           })}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Explanation panel */}
       <AnimatePresence>
         {selectedFeature && (
-          <motion.div
+          <m.div
             key={selectedFeature.label}
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
             animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
@@ -240,7 +240,7 @@ function FeatureBadges() {
               <p className="text-sm font-bold mb-1" style={{ color: primaryColor }}>{selectedFeature.label}</p>
               <p className="text-sm leading-relaxed" style={{ color: textColor }}>{selectedFeature.desc}</p>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

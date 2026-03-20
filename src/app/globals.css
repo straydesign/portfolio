@@ -71,18 +71,26 @@ section[tabindex="-1"] {
   outline: none;
 }
 
-/* Active section highlight — targets any TextCard descendant */
-[data-nav-active] [data-textcard] {
-  outline: 2px solid #ffffff;
-  outline-offset: 0px;
-  transition: outline-color 0.2s ease;
+/* Marching ants animation for keyboard navigation selection */
+@keyframes marching-ants {
+  to {
+    background-position: 8px 0, -8px 100%, 0 -8px, 100% 8px;
+  }
 }
 
-/* Active section highlight — for sections without TextCard (header nav, footer links) */
-[data-nav-active]:not(:has([data-textcard])) {
-  outline: 2px solid #ffffff;
-  outline-offset: 2px;
-  transition: outline-color 0.2s ease;
+.marching-ants,
+body[data-keyboard-nav] [data-nav-active] [data-textcard],
+body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])) {
+  outline: none;
+  background-image:
+    repeating-linear-gradient(90deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(90deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(0deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(0deg, #fff 0, #fff 4px, transparent 4px, transparent 8px);
+  background-size: 8px 2px, 8px 2px, 2px 8px, 2px 8px;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  animation: marching-ants 0.4s linear infinite;
 }
 
 /* Carousel infinite scroll animations */

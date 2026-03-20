@@ -1,7 +1,7 @@
 'use client';
 
 import { type ReactNode } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 
 type Direction = 'up' | 'down' | 'left' | 'right';
 
@@ -46,7 +46,7 @@ export default function AnimateIn({
   const offset = offsets[direction];
 
   return (
-    <motion.div
+    <m.div
       className={className}
       style={style}
       id={id}
@@ -56,7 +56,7 @@ export default function AnimateIn({
       transition={{ duration, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -79,7 +79,7 @@ export function StaggerContainer({
   }
 
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -90,7 +90,7 @@ export function StaggerContainer({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -110,7 +110,7 @@ export function StaggerItem({
   const offset = offsets[direction];
 
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={{
         hidden: { opacity: 0, x: offset.x * distance, y: offset.y * distance },
@@ -118,6 +118,6 @@ export function StaggerItem({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

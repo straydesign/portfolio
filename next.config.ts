@@ -3,7 +3,7 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   experimental: {
-    optimizePackageImports: ['lucide-react', '@react-three/drei'],
+    optimizePackageImports: ['lucide-react', '@react-three/drei', 'framer-motion', 'three'],
   },
   async rewrites() {
     return {

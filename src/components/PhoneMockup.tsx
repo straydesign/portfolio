@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface PhoneMockupProps {
@@ -107,10 +108,12 @@ export default function PhoneMockup({
               background: '#000',
             }}
           >
-            <img
+            <Image
               src={screenshot}
               alt={alt}
-              className="w-full h-full object-cover object-top"
+              fill
+              sizes="110px"
+              className="object-cover object-top"
               loading="lazy"
             />
             <div
@@ -157,7 +160,7 @@ export default function PhoneMockup({
       )}
 
       {/* 3D phone container */}
-      <motion.div
+      <m.div
         ref={containerRef}
         className="flex items-center justify-center relative"
         style={{
@@ -171,7 +174,7 @@ export default function PhoneMockup({
       >
 
         {/* Phone device */}
-        <motion.div
+        <m.div
           className="relative"
           style={{ width: phoneWidth, height: phoneHeight }}
           animate={{ y: isHovered ? -8 : 0 }}
@@ -225,10 +228,12 @@ export default function PhoneMockup({
           >
             {/* App content — fills entire screen */}
             <div className="absolute inset-0">
-              <img
+              <Image
                 src={screenshot}
                 alt={alt}
-                className="w-full h-full object-cover object-top"
+                fill
+                sizes="(min-width: 768px) 300px, 330px"
+                className="object-cover object-top"
                 loading="lazy"
                 style={{
                   opacity: (introVideoSrc || hoverScreenshot) && isHovered ? 0 : 1,
@@ -237,12 +242,16 @@ export default function PhoneMockup({
               />
 
               {hoverScreenshot && (
-                <img
+                <Image
                   src={hoverScreenshot}
                   alt={alt}
-                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  fill
+                  sizes="(min-width: 768px) 300px, 330px"
+                  className="object-cover object-top"
                   loading="lazy"
                   style={{
+                    position: 'absolute',
+                    inset: 0,
                     opacity: isHovered ? 1 : 0,
                     transition: 'opacity 0.4s ease',
                   }}
@@ -350,8 +359,8 @@ export default function PhoneMockup({
             className="absolute top-0 left-1/4 right-1/4 h-px"
             style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)' }}
           />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
     </div>
   );

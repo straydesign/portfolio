@@ -2,9 +2,11 @@
 
 import { useState, useCallback, useRef, useEffect, type KeyboardEvent } from 'react';
 import { Menu, X } from 'lucide-react';
+import { AnimatePresence, m } from 'framer-motion';
 import { type Page } from '@/data/projects';
 import { NavigableSection } from './NavigableSection';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
+import { useLenis } from './SmoothScroll';
 
 interface HeaderProps {
   currentPage: Page;
@@ -28,6 +30,20 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
   const [menuSubNav, setMenuSubNav] = useState(false);
   const [menuSubNavIndex, setMenuSubNavIndex] = useState(0);
   const { activeId } = useSectionRegistry();
+  const lenis = useLenis();
+
+  // Lock scroll + signal global keyboard handler when mobile menu is open
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    lenis?.stop();
+    document.body.style.overflow = 'hidden';
+    document.body.dataset.menuOpen = '';
+    return () => {
+      lenis?.start();
+      document.body.style.overflow = '';
+      delete document.body.dataset.menuOpen;
+    };
+  }, [mobileMenuOpen, lenis]);
 
   useEffect(() => {
     if (activeId !== 'header-nav') setMenuSubNav(false);
@@ -132,7 +148,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       className="sticky top-0 transition-all duration-300 z-[100]"
       style={{ backgroundColor: 'transparent' }}
     >
-      <NavigableSection id="header-nav" label="Navigation" excludeFromScrollSpy onKeyDown={handleHeaderKeyDown}>
+      <NavigableSection id="header-nav" label="Navigation" excludeFromScrollSpy onKeyDown={handleHeaderKeyDown} className="relative z-[101]">
         <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Desktop Nav */}
@@ -158,13 +174,11 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                     if (el) buttonRefs.current.set(item.id, el);
                   }}
                   onClick={() => handleNavClick(item.id)}
-                  className="px-3 py-1 border-2"
+                  className={`px-3 py-1 border-2${menuSubNav && menuSubNavIndex === i ? ' marching-ants' : ''}`}
                   style={{
                     borderColor: 'transparent',
                     borderRadius: 0,
                     color: '#ffffff',
-                    outline: menuSubNav && menuSubNavIndex === i ? '2px solid #ffffff' : 'none',
-                    outlineOffset: '2px',
                   }}
                 >
                   {item.label}
@@ -188,30 +202,54 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       </NavigableSection>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden mt-3 pb-3 px-6" role="navigation" aria-label="Mobile navigation">
-          <div className="px-4 py-3" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
-            <div className="flex flex-col gap-1.5">
-              {NAV_ITEMS.map((item, i) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className="px-3 py-1.5 border-2 text-left"
-                  style={{
-                    borderColor: isActive(item.id) ? '#ffffff' : 'transparent',
-                    borderRadius: 0,
-                    color: '#ffffff',
-                    outline: mobileMenuFocusIndex === i ? '2px solid #ffffff' : 'none',
-                    outlineOffset: '2px',
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <m.div
+            key="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Backdrop overlay */}
+            <div
+              className="fixed inset-0 z-[99] md:hidden"
+              style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            {/* Menu panel */}
+            <m.div
+              className="md:hidden mt-3 pb-3 px-6 relative z-[100]"
+              role="navigation"
+              aria-label="Mobile navigation"
+              initial={{ y: -12 }}
+              animate={{ y: 0 }}
+              exit={{ y: -12 }}
+              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="px-4 py-3" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                <div className="flex flex-col gap-1.5">
+                  {NAV_ITEMS.map((item, i) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNavClick(item.id)}
+                      className={`px-3 py-1.5 border-2 text-left${mobileMenuFocusIndex === i ? ' marching-ants' : ''}`}
+                      style={{
+                        borderColor: isActive(item.id) ? '#ffffff' : 'transparent',
+                        borderRadius: 0,
+                        color: '#ffffff',
+                      }}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </m.div>
+          </m.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

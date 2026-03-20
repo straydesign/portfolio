@@ -134,8 +134,8 @@ function BookSpine({
         height: `${totalH}px`,
         zIndex: isActive ? ALL_BOOKS.length + 10 : isFocused ? ALL_BOOKS.length + 5 : zBase,
         marginRight: `${-(topShift - 3)}px`,
-        outline: showOutline ? '2px solid #ffffff' : 'none',
-        outlineOffset: '2px',
+        outline: 'none',
+        filter: showOutline ? 'brightness(1.4) drop-shadow(0 0 6px rgba(255,255,255,0.5))' : 'none',
       }}
       role="button"
       tabIndex={0}
@@ -341,6 +341,9 @@ export default function About({ setCurrentPage }: AboutProps) {
   const [activeFavIndex, setActiveFavIndex] = useState<number | null>(null);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [focusedShelfIndex, setFocusedShelfIndex] = useState(0);
+  const [bookInput, setBookInput] = useState('');
+  const [reasonInput, setReasonInput] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const { activeId } = useSectionRegistry();
   const activeBook = activeBookIndex !== null ? ALL_BOOKS[activeBookIndex] : null;
 
@@ -614,6 +617,93 @@ export default function About({ setCurrentPage }: AboutProps) {
 
             {/* Book detail modal — bottom center, no scrim */}
             <BookDetailModal book={activeBook} onClose={() => setActiveBookIndex(null)} />
+          </div>
+        </div>
+      </NavigableSection>
+
+      {/* SUGGEST A BOOK */}
+      <NavigableSection id="about-suggest" label="Suggest a Book">
+        <div className="max-w-[90rem] mx-auto px-4 md:px-8 mb-12 md:mb-16">
+          <div className="max-w-lg mx-auto">
+            <div className="p-6 md:p-8" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <h3
+                className="text-[20px] md:text-[24px] leading-none tracking-wider font-black mb-2"
+                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
+              >
+                SUGGEST A BOOK
+              </h3>
+              <p className="text-sm mb-6" style={{ color: '#a1a1a6' }}>
+                Think I should read something? Drop it here — it&apos;s anonymous.
+              </p>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!bookInput.trim() || submitStatus === 'sending') return;
+                  setSubmitStatus('sending');
+                  try {
+                    const res = await fetch('/api/suggest-book', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ book: bookInput.trim(), reason: reasonInput.trim() || undefined }),
+                    });
+                    if (!res.ok) throw new Error('Failed');
+                    setSubmitStatus('sent');
+                    setBookInput('');
+                    setReasonInput('');
+                    setTimeout(() => setSubmitStatus('idle'), 4000);
+                  } catch {
+                    setSubmitStatus('error');
+                    setTimeout(() => setSubmitStatus('idle'), 4000);
+                  }
+                }}
+                className="flex flex-col gap-4"
+              >
+                <div>
+                  <label htmlFor="book-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: '#a1a1a6' }}>
+                    Book name / author *
+                  </label>
+                  <input
+                    id="book-input"
+                    type="text"
+                    required
+                    value={bookInput}
+                    onChange={(e) => setBookInput(e.target.value)}
+                    placeholder="e.g. Thinking, Fast and Slow — Daniel Kahneman"
+                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-white transition-colors"
+                    style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.15)', borderRadius: 0 }}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="reason-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: '#a1a1a6' }}>
+                    Why it&apos;s worth reading (optional)
+                  </label>
+                  <textarea
+                    id="reason-input"
+                    value={reasonInput}
+                    onChange={(e) => setReasonInput(e.target.value)}
+                    placeholder="What made it stick with you?"
+                    rows={3}
+                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-white transition-colors resize-none"
+                    style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.15)', borderRadius: 0 }}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={submitStatus === 'sending' || submitStatus === 'sent'}
+                  className="self-start px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{
+                    backgroundColor: submitStatus === 'sent' ? '#22c55e' : '#ffffff',
+                    color: '#000000',
+                    borderRadius: 0,
+                  }}
+                >
+                  {submitStatus === 'idle' && 'Submit'}
+                  {submitStatus === 'sending' && 'Sending...'}
+                  {submitStatus === 'sent' && 'Sent — thanks!'}
+                  {submitStatus === 'error' && 'Something went wrong'}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </NavigableSection>

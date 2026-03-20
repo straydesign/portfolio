@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, ReactNode, CSSProperties } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 type Padding = 'sm' | 'md' | 'lg';
 
@@ -58,7 +58,7 @@ export default function TextCard({
     mouseY.set(0.5);
   };
 
-  const MotionTag = motion[as] as typeof motion.div;
+  const MotionTag = m[as] as typeof m.div;
 
   return (
     <MotionTag
@@ -79,7 +79,7 @@ export default function TextCard({
     >
       {/* Glossy highlight overlay */}
       {!noTilt && (
-        <motion.div
+        <m.div
           className="pointer-events-none absolute inset-0"
           style={{
             background: useTransform(

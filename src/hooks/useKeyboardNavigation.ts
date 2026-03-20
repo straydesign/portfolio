@@ -10,6 +10,9 @@ export function useKeyboardNavigation() {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
+      if (e.defaultPrevented) return;
+      if ('menuOpen' in document.body.dataset) return;
+
       const target = e.target as HTMLElement;
       if (
         INTERACTIVE_TAGS.has(target.tagName) ||

@@ -71,11 +71,12 @@ interface SectionRegistryProviderProps {
 export function SectionRegistryProvider({ currentPage, children }: SectionRegistryProviderProps) {
   const sectionsRef = useRef<Map<string, SectionEntry>>(new Map());
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isKeyboardNav, setIsKeyboardNav] = useState(false);
   const suppressScrollSpyUntilRef = useRef<number>(0);
 
   // Clear keyboard nav suppression on manual scroll/touch
   useEffect(() => {
-    const clearSuppress = () => { suppressScrollSpyUntilRef.current = 0; };
+    const clearSuppress = () => { suppressScrollSpyUntilRef.current = 0; setIsKeyboardNav(false); };
     window.addEventListener('wheel', clearSuppress, { passive: true });
     window.addEventListener('touchstart', clearSuppress, { passive: true });
     return () => {
@@ -84,10 +85,19 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
     };
   }, []);
 
-  // Reset when page changes
+  // Sync body attribute for keyboard-nav-only CSS (marching ants)
   useEffect(() => {
-    sectionsRef.current = new Map();
+    if (isKeyboardNav) {
+      document.body.dataset.keyboardNav = '';
+    } else {
+      delete document.body.dataset.keyboardNav;
+    }
+  }, [isKeyboardNav]);
+
+  // Reset when page changes (don't clear sections map — header stays registered)
+  useEffect(() => {
     setActiveId(null);
+    setIsKeyboardNav(false);
   }, [currentPage]);
 
   const register = useCallback((id: string, label: string, element: HTMLElement, options?: RegisterOptions) => {
@@ -114,6 +124,7 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
     const target = sections[nextIndex];
     if (!target) return;
     suppressScrollSpyUntilRef.current = Date.now() + 60000;
+    setIsKeyboardNav(true);
     setActiveId(target.id);
     const top = target.element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
     window.scrollTo({ top, behavior: 'smooth' });
@@ -128,6 +139,7 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
     const target = sections[prevIndex];
     if (!target) return;
     suppressScrollSpyUntilRef.current = Date.now() + 60000;
+    setIsKeyboardNav(true);
     setActiveId(target.id);
     const top = target.element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
     window.scrollTo({ top, behavior: 'smooth' });
