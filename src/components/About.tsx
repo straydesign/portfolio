@@ -394,13 +394,16 @@ export default function About({ setCurrentPage }: AboutProps) {
                 ABOUT
               </h1>
               <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
-                I found design the way most people find their best ideas — by being frustrated enough to build something better. I drove for DoorDash, stocked shelves as a beer merchandiser, and kept running into problems that nobody was solving. So I started solving them myself.
+                I found design the way most people find their best ideas, by being frustrated enough to build something better. I drove for DoorDash, stocked shelves as a beer merchandiser, and kept running into problems that nobody was solving. So I started solving them myself.
               </p>
               <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
-                I use AI as a core part of my workflow, from morning briefings to full prototypes. And I read constantly — not just design books, but business strategy, psychology, and biographies of people who built things that mattered.
+                Design was always the interest. I studied marketing at UNH and got most of the way through a design minor. When I graduated, marketing jobs were scarce and sales didn&apos;t feel right. I made it to the second round at Enterprise. The first interview went great. I walked into the second one confident. I&apos;d researched the company, had answers written down, felt ready. Then they started asking questions I technically had answers for but phrased differently, and I kept trying to come up with something new to say when what I had was already the answer. They got frustrated. I could feel it. I asked them a bunch of questions after because I was genuinely interested in what they did, but by then it was over. I went home and knew.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
+                People ask me why I don&apos;t just take a sales job. It pays well and I could figure the rest out later. But for the first time in my life I feel certain about one thing and I&apos;m going all in on it. If it&apos;s all I put my energy towards I&apos;ll get there.
               </p>
               <p className="text-[15px] md:text-[17px] leading-relaxed" style={{ color: '#ffffff' }}>
-                Every project in this portfolio came from lived experience, not a prompt or a class assignment. That&apos;s the through-line.
+                I learned design in Figma before any of the AI tools existed. Cursor, Figma Make, Claude Code, Lovable, Replit, all came after. I&apos;m competent in the traditional workflow and I&apos;d be happy to work directly in that format because I still believe in early wireframing and ideation that can only happen when you don&apos;t have concrete answers from the start. But it is cheaper than ever to see what your final design would actually look like and how people might feel about it before committing to one direction over another. So I use both.
               </p>
             </div>
           </NavigableSection>
@@ -408,13 +411,22 @@ export default function About({ setCurrentPage }: AboutProps) {
           <NavigableSection id="about-background" label="Background">
             <div className="px-6 pb-6 md:px-10 md:pb-8">
               <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-                I studied marketing at the University of New Hampshire and found my way into design through solving problems I experienced firsthand. Working as a merchandiser, doing gig delivery, and building products from scratch.
+                What I keep thinking about is why some things stick and most don&apos;t. I walked into that Enterprise interview with everything prepared and it didn&apos;t matter. The answers were right but the feeling was wrong. I&apos;ve built projects where the opposite happened, where the design wasn&apos;t perfect but something about using it made you want to stay. The thing that makes something stick isn&apos;t how it looks. It&apos;s a feeling that builds as someone moves through it, and right now nobody really owns that. Designers own layouts. Engineers own systems. Marketers own the message. The thing connecting all of it is nobody&apos;s job yet.
               </p>
               <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
-                That hands-on background shapes how I approach design: start with the real workflow, understand the business constraints, then build something that actually works.
+                And even when you get it right it doesn&apos;t last. The second time is never the first time. The places I remember aren&apos;t the ones I thought were beautiful. They&apos;re the ones I wasn&apos;t ready for.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+                The only constant I can find is that everyone is orbiting two things. Belonging, and the gap between what you know you&apos;re capable of and what you&apos;re actually doing about it. That doesn&apos;t go away with better tools or more experience.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+                I don&apos;t know if I&apos;m a good designer. I know I love to read. I love to rearrange things and think about how they&apos;d look. I love the idea of having an impact. I want to be somewhere where people feel the same way about creating things and where nobody has the same perspective as the person next to them. It&apos;s going to be hard to put me down at this point.
+              </p>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+                At the time of writing this I&apos;m three weeks in. I&apos;ve pitched nine websites to local businesses, built them before the client asked me to and brought the finished site to the conversation. Most said not right now. Too much going on, not looking to grow, timing wasn&apos;t right. Two might go live soon. I&apos;m going to keep going because I feel like nothing could stop me after nine more. At this rate in six years I&apos;ll have 300 websites up, 900 pitched, and if I&apos;m lucky maybe I&apos;ll get an interview.
               </p>
               <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
-                I read constantly. The books below have shaped how I think about design, leadership, and communication.
+                The work is on this page. That&apos;s all I&apos;ve got.
               </p>
             </div>
           </NavigableSection>

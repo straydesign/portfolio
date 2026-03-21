@@ -69,11 +69,12 @@ function AppContent() {
 
   // Delay Three.js background until after initial paint to prioritize content
   useEffect(() => {
-    const id = requestIdleCallback
+    const hasIdleCallback = typeof requestIdleCallback === 'function';
+    const id = hasIdleCallback
       ? requestIdleCallback(() => setShowBackground(true), { timeout: 3000 })
       : window.setTimeout(() => setShowBackground(true), 1500);
     return () => {
-      if (typeof cancelIdleCallback !== 'undefined') {
+      if (hasIdleCallback) {
         cancelIdleCallback(id as number);
       } else {
         clearTimeout(id as number);
