@@ -157,7 +157,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
         <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Desktop Nav */}
-            <div ref={navRef} className={`hidden md:flex items-center gap-3 lg:gap-6 relative w-fit${!menuSubNav && activeId === 'header-nav' ? ' marching-ants' : ''}`}
+            <div ref={navRef} className={`hidden md:flex items-center gap-3 lg:gap-6 relative w-fit${!menuSubNav && activeId === 'header-nav' ? ' marching-ants' : ''}`}>
               {/* Sliding pill indicator */}
               {pillReady && (
                 <div
