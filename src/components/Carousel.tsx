@@ -29,9 +29,11 @@ export default function Carousel({
     const track = trackRef.current;
     const children = Array.from(track.children) as HTMLElement[];
     if (focusedIndex == null || focusedIndex >= items.length) return;
-    const child = children[focusedIndex];
+    // Center on the second copy (b- set, offset by items.length) so there's always content on both sides
+    const targetChild = children[focusedIndex + items.length];
+    if (!targetChild) return;
     const containerWidth = track.parentElement?.clientWidth ?? 0;
-    const itemCenter = child.offsetLeft + child.clientWidth / 2;
+    const itemCenter = targetChild.offsetLeft + targetChild.clientWidth / 2;
     setTranslateX(-(itemCenter - containerWidth / 2));
   }, [focusedIndex, isKeyboardMode, items.length]);
 
@@ -61,16 +63,22 @@ export default function Carousel({
         }
       >
         {items.map((item, i) => (
+          <div key={`a-${i}`} className="shrink-0 inline-flex w-fit h-fit" aria-hidden={isKeyboardMode}>
+            {item}
+          </div>
+        ))}
+        {items.map((item, i) => (
           <div
-            key={`a-${i}`}
-            className="shrink-0"
+            key={`b-${i}`}
+            className="shrink-0 inline-flex w-fit h-fit"
             style={isKeyboardMode && i === focusedIndex ? { outline: '2px solid #ffffff', outlineOffset: '4px' } : {}}
+            aria-hidden={!isKeyboardMode || i !== focusedIndex}
           >
             {item}
           </div>
         ))}
         {items.map((item, i) => (
-          <div key={`b-${i}`} className="shrink-0" aria-hidden>
+          <div key={`c-${i}`} className="shrink-0 inline-flex w-fit h-fit" aria-hidden>
             {item}
           </div>
         ))}

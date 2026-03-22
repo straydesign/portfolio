@@ -344,8 +344,19 @@ export default function About({ setCurrentPage }: AboutProps) {
   const [bookInput, setBookInput] = useState('');
   const [reasonInput, setReasonInput] = useState('');
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const { activeId } = useSectionRegistry();
+  const [expandedPhotoIndex, setExpandedPhotoIndex] = useState<number | null>(null);
+  const { activeId, goNext: registryGoNext, goPrev: registryGoPrev } = useSectionRegistry();
   const activeBook = activeBookIndex !== null ? ALL_BOOKS[activeBookIndex] : null;
+
+  // Close expanded photo on Escape
+  useEffect(() => {
+    if (expandedPhotoIndex === null) return;
+    function handleKeyDown(e: globalThis.KeyboardEvent) {
+      if (e.key === 'Escape') setExpandedPhotoIndex(null);
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [expandedPhotoIndex]);
 
   const handleCarouselKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
     if (e.key === 'ArrowLeft') {
@@ -354,21 +365,75 @@ export default function About({ setCurrentPage }: AboutProps) {
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       setCarouselIndex(prev => prev < ABOUT_PHOTOS.length - 1 ? prev + 1 : 0);
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setExpandedPhotoIndex(carouselIndex);
     }
-  }, []);
+  }, [carouselIndex]);
+
+  // When bookshelf becomes active via keyboard nav, auto-focus the first book
+  useEffect(() => {
+    if (activeId === 'about-bookshelf') {
+      setFocusedShelfIndex(0);
+    }
+  }, [activeId]);
 
   const handleBookshelfKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    // Determine which row layout to use based on viewport
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+    const rows = isDesktop ? DESKTOP_ROWS : MOBILE_ROWS;
+    const rowSize = isDesktop ? 16 : 10;
+
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      setFocusedShelfIndex(prev => prev > 0 ? prev - 1 : ALL_BOOKS.length - 1);
+      setFocusedShelfIndex(prev => {
+        // Find which row we're in and don't wrap across rows
+        const rowStart = Math.floor(prev / rowSize) * rowSize;
+        return prev > rowStart ? prev - 1 : prev;
+      });
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      setFocusedShelfIndex(prev => prev < ALL_BOOKS.length - 1 ? prev + 1 : 0);
+      setFocusedShelfIndex(prev => {
+        const rowStart = Math.floor(prev / rowSize) * rowSize;
+        const currentRow = rows[Math.floor(prev / rowSize)];
+        const rowEnd = rowStart + (currentRow?.length ?? rowSize) - 1;
+        return prev < rowEnd ? prev + 1 : prev;
+      });
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedShelfIndex(prev => {
+        const currentRowIndex = Math.floor(prev / rowSize);
+        const posInRow = prev - currentRowIndex * rowSize;
+        if (currentRowIndex >= rows.length - 1) {
+          // On last row, exit to next section
+          registryGoNext();
+          return prev;
+        }
+        const nextRowStart = (currentRowIndex + 1) * rowSize;
+        const nextRow = rows[currentRowIndex + 1];
+        const nextPos = Math.min(posInRow, (nextRow?.length ?? rowSize) - 1);
+        return nextRowStart + nextPos;
+      });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedShelfIndex(prev => {
+        const currentRowIndex = Math.floor(prev / rowSize);
+        const posInRow = prev - currentRowIndex * rowSize;
+        if (currentRowIndex <= 0) {
+          // On first row, exit to previous section
+          registryGoPrev();
+          return prev;
+        }
+        const prevRowStart = (currentRowIndex - 1) * rowSize;
+        const prevRow = rows[currentRowIndex - 1];
+        const prevPos = Math.min(posInRow, (prevRow?.length ?? rowSize) - 1);
+        return prevRowStart + prevPos;
+      });
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       setActiveBookIndex(prev => prev === focusedShelfIndex ? null : focusedShelfIndex);
     }
-  }, [focusedShelfIndex]);
+  }, [focusedShelfIndex, registryGoNext, registryGoPrev]);
 
   return (
     <div className="py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
@@ -441,19 +506,56 @@ export default function About({ setCurrentPage }: AboutProps) {
             direction="left"
             pauseOnHover
             focusedIndex={activeId === 'about-photos' ? carouselIndex : null}
-            items={ABOUT_PHOTOS.map((img) => (
-              <img
+            items={ABOUT_PHOTOS.map((img, i) => (
+              <button
                 key={img.src}
-                src={img.src}
-                alt={img.alt}
-                className="h-48 md:h-64 w-48 md:w-64 object-cover aspect-square"
-                style={{ borderRadius: 0 }}
-                loading="lazy"
-              />
+                type="button"
+                className="h-48 md:h-64 w-48 md:w-64 p-0 border-0 bg-transparent cursor-pointer focus:outline-none"
+                onClick={() => setExpandedPhotoIndex(i)}
+                aria-label={`View ${img.alt}`}
+                tabIndex={-1}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="h-48 md:h-64 w-48 md:w-64 object-cover aspect-square"
+                  style={{ borderRadius: 0 }}
+                  loading="lazy"
+                />
+              </button>
             ))}
           />
         </div>
       </NavigableSection>
+
+      {/* Photo modal overlay */}
+      {expandedPhotoIndex !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}
+          onClick={() => setExpandedPhotoIndex(null)}
+          role="dialog"
+          aria-label={ABOUT_PHOTOS[expandedPhotoIndex]?.alt ?? 'Photo'}
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-2xl font-light transition-opacity hover:opacity-70 z-50"
+            style={{ color: '#ffffff', background: 'none', border: 'none' }}
+            onClick={() => setExpandedPhotoIndex(null)}
+            aria-label="Close"
+            autoFocus
+          >
+            &times;
+          </button>
+          <img
+            src={ABOUT_PHOTOS[expandedPhotoIndex]?.src}
+            alt={ABOUT_PHOTOS[expandedPhotoIndex]?.alt}
+            className="max-w-[90vw] max-h-[90vh] object-contain"
+            style={{ borderRadius: 0 }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* MY FAVORITES heading */}
       <NavigableSection id="about-favorites" label="My Favorites">
@@ -483,13 +585,15 @@ export default function About({ setCurrentPage }: AboutProps) {
             const pageColor = '#d4cfc4';
 
             return (
-              <NavigableSection key={book.title} id={`about-fav-${index}`} label={book.title} style={{ perspective: '1200px' }}>
+              <NavigableSection key={book.title} id={`about-fav-${index}`} label={book.title} className="w-fit" style={{ perspective: '1200px' }}>
                 <div
                   className="relative cursor-pointer focus:outline-none"
                   style={{
                     width: `${coverW + spineW}px`,
                     height: `${coverH}px`,
                     zIndex: isActive ? 20 : 1,
+                    outline: isFocusedByKeyboard ? '2px solid #ffffff' : 'none',
+                    outlineOffset: '4px',
                   }}
                   role="button"
                   tabIndex={0}
@@ -506,8 +610,6 @@ export default function About({ setCurrentPage }: AboutProps) {
                       left: `${spineW}px`,
                       top: 0,
                       transformStyle: 'preserve-3d',
-                      outline: isFocusedByKeyboard ? '2px solid #ffffff' : 'none',
-                      outlineOffset: '4px',
                     }}
                   >
                     <div
@@ -634,7 +736,7 @@ export default function About({ setCurrentPage }: AboutProps) {
       </NavigableSection>
 
       {/* SUGGEST A BOOK */}
-      <NavigableSection id="about-suggest" label="Suggest a Book">
+      <NavigableSection id="about-suggest" label="Suggest a Book" className="max-w-lg mx-auto">
         <div className="max-w-[90rem] mx-auto px-4 md:px-8 mb-12 md:mb-16">
           <div className="max-w-lg mx-auto">
             <div className="p-6 md:p-8" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)' }}>

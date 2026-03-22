@@ -1,20 +1,47 @@
 'use client';
 
+import { useState, useCallback, useRef, useEffect, type KeyboardEvent } from 'react';
 import { Linkedin, Mail, Phone } from 'lucide-react';
 import { type Page } from '@/data/projects';
 import { NavigableSection } from './NavigableSection';
+import { useSectionRegistry } from '@/context/SectionRegistryContext';
 
 interface FooterProps {
   setCurrentPage?: (page: Page) => void;
   currentPage?: Page;
 }
 
+const SOCIAL_LINKS = [
+  { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
+  { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
+  { icon: Mail, label: 'Email', href: 'mailto:tom@straydesign.co', external: false },
+];
+
 export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
-  const socialLinks = [
-    { icon: Phone, label: 'Phone', href: 'tel:+18149640081', external: false },
-    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/tom-sesler/', external: true },
-    { icon: Mail, label: 'Email', href: 'mailto:tom@straydesign.co', external: false },
-  ];
+  const [focusedIndex, setFocusedIndex] = useState(0);
+  const { activeId } = useSectionRegistry();
+  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const isActive = activeId === 'footer-links';
+
+  // Focus the correct link when active and index changes
+  useEffect(() => {
+    if (isActive && linkRefs.current[focusedIndex]) {
+      linkRefs.current[focusedIndex]?.focus({ preventScroll: true });
+    }
+  }, [isActive, focusedIndex]);
+
+  const handleFooterKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      setFocusedIndex(prev => prev > 0 ? prev - 1 : SOCIAL_LINKS.length - 1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      setFocusedIndex(prev => prev < SOCIAL_LINKS.length - 1 ? prev + 1 : 0);
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      linkRefs.current[focusedIndex]?.click();
+    }
+  }, [focusedIndex]);
 
   return (
     <footer
@@ -31,21 +58,28 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
               LET&apos;S WORK TOGETHER
             </h2>
           </div>
-          <div className="flex items-center gap-3 md:gap-4">
-            {socialLinks.map((link) => (
-              <NavigableSection key={link.label} id={`footer-${link.label.toLowerCase()}`} label={link.label} excludeFromScrollSpy>
+          <NavigableSection id="footer-links" label="Footer links" excludeFromScrollSpy onKeyDown={handleFooterKeyDown}>
+            <div className="flex items-center gap-3 md:gap-4">
+              {SOCIAL_LINKS.map((link, i) => (
                 <a
+                  key={link.label}
+                  ref={(el) => { linkRefs.current[i] = el; }}
                   href={link.href}
                   {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   aria-label={link.label}
                   className="transition-all hover:scale-110 inline-block"
-                  style={{ color: '#ffffff' }}
+                  style={{
+                    color: '#ffffff',
+                    outline: isActive && focusedIndex === i ? '2px solid #ffffff' : 'none',
+                    outlineOffset: '4px',
+                  }}
+                  tabIndex={-1}
                 >
                   <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
                 </a>
-              </NavigableSection>
-            ))}
-          </div>
+              ))}
+            </div>
+          </NavigableSection>
         </div>
       </div>
       <div className="px-6 md:px-8 pb-4 text-center" style={{ position: 'relative', zIndex: 51 }}>

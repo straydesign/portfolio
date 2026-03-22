@@ -99,15 +99,20 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
           setMobileMenuFocusIndex(0);
         }
       } else {
+        // -1 = close button focused, 0+ = menu items
         if (e.key === 'ArrowDown') {
           e.preventDefault();
-          setMobileMenuFocusIndex(prev => prev < NAV_ITEMS.length - 1 ? prev + 1 : 0);
+          setMobileMenuFocusIndex(prev => prev < NAV_ITEMS.length - 1 ? prev + 1 : -1);
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
-          setMobileMenuFocusIndex(prev => prev > 0 ? prev - 1 : NAV_ITEMS.length - 1);
+          setMobileMenuFocusIndex(prev => prev === -1 ? NAV_ITEMS.length - 1 : prev > 0 ? prev - 1 : -1);
         } else if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          handleNavClick(NAV_ITEMS[mobileMenuFocusIndex].id);
+          if (mobileMenuFocusIndex === -1) {
+            setMobileMenuOpen(false);
+          } else {
+            handleNavClick(NAV_ITEMS[mobileMenuFocusIndex].id);
+          }
         } else if (e.key === 'Escape') {
           e.preventDefault();
           setMobileMenuOpen(false);
@@ -188,7 +193,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden px-3 py-1 border-2 flex items-center gap-2"
+              className={`md:hidden px-3 py-1 border-2 flex items-center gap-2${mobileMenuOpen && mobileMenuFocusIndex === -1 ? ' marching-ants' : ''}`}
               style={{ color: '#ffffff', borderColor: '#ffffff', borderRadius: 0 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
