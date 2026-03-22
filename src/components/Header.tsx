@@ -157,7 +157,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
         <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Desktop Nav */}
-            <div ref={navRef} className="hidden md:flex items-center gap-3 lg:gap-6 relative">
+            <div ref={navRef} className={`hidden md:flex items-center gap-3 lg:gap-6 relative w-fit${!menuSubNav && activeId === 'header-nav' ? ' marching-ants' : ''}`}
               {/* Sliding pill indicator */}
               {pillReady && (
                 <div
@@ -193,7 +193,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
 
             {/* Mobile Menu Button */}
             <button
-              className={`md:hidden px-3 py-1 border-2 flex items-center gap-2${mobileMenuOpen && mobileMenuFocusIndex === -1 ? ' marching-ants' : ''}`}
+              className={`md:hidden px-3 py-1 border-2 flex items-center gap-2${(mobileMenuOpen && mobileMenuFocusIndex === -1) || (!mobileMenuOpen && activeId === 'header-nav') ? ' marching-ants' : ''}`}
               style={{ color: '#ffffff', borderColor: '#ffffff', borderRadius: 0 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
