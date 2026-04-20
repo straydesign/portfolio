@@ -291,7 +291,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                           className="inline-flex items-center gap-1.5 px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
                           style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                         >
-                          View {getProjectTypeLabel(project.type)}
+                          View Breakdown
                         </span>
                       </div>
                     </div>

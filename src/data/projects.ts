@@ -5,9 +5,11 @@ export type Page =
   | 'resume'
   | 'middleman-case-study'
   | 'day-one-case-study'
-  | 'doordash-case-study';
+  | 'doordash-case-study'
+  | 'guitar-player-tool'
+  | 'auto-presenter-tool';
 
-export type ProjectType = 'case-study' | 'project';
+export type ProjectType = 'case-study' | 'project' | 'tool';
 
 export interface Project {
   readonly id: Page;
@@ -24,6 +26,8 @@ export interface Project {
   readonly introVideoSrc?: string;
   readonly gradientFrom?: string;
   readonly gradientTo?: string;
+  readonly githubUrl?: string;
+  readonly context?: string;
 }
 
 export const PROJECTS: readonly Project[] = [
@@ -64,6 +68,34 @@ export const PROJECTS: readonly Project[] = [
     slugAliases: ['doordash-case-study'],
     documentTitle: 'DoorDash UX Evaluation | Tom Sesler',
     type: 'case-study',
+  },
+  {
+    id: 'guitar-player-tool',
+    title: 'GUITAR PLAYER',
+    description: 'A personal fingerpicking trainer. Lights up the next fret, slows tempo to 10%, loops sections. I built it because no practice app showed the fretboard the way I wanted.',
+    deliverable: 'Personal tool — Next.js + Zustand, open source',
+    screenshot: '/images/guitar-player/play-coal.png',
+    alt: 'Guitar Player — fretboard view for Coal by Dylan Gossett',
+    slug: 'guitar-player',
+    slugAliases: [],
+    documentTitle: 'Guitar Player | Tom Sesler',
+    type: 'tool',
+    githubUrl: 'https://github.com/straydesign/guitar-player',
+    context: 'Built for me, shared as-is.',
+  },
+  {
+    id: 'auto-presenter-tool',
+    title: 'AUTO-PRESENTER',
+    description: 'Desktop app that watches my slides and my script at the same time. Voice tracking advances the slide as I speak. Built because I hated switching between Keynote and a teleprompter while recording pitch videos.',
+    deliverable: 'Personal tool — Electron + Claude, open source',
+    screenshot: '/images/auto-presenter/setup.png',
+    alt: 'Auto-Presenter setup panel — load slides, script, voice-driven advance',
+    slug: 'auto-presenter',
+    slugAliases: [],
+    documentTitle: 'Auto-Presenter | Tom Sesler',
+    type: 'tool',
+    githubUrl: 'https://github.com/straydesign/auto-presenter',
+    context: 'Built for me, shared as-is.',
   },
 ] as const;
 
@@ -119,5 +151,7 @@ export function getDocumentTitle(page: Page): string {
 }
 
 export function getProjectTypeLabel(type: ProjectType): string {
-  return type === 'case-study' ? 'Case Study' : 'Project';
+  if (type === 'case-study') return 'Case Study';
+  if (type === 'tool') return 'Personal Tool';
+  return 'Project';
 }
