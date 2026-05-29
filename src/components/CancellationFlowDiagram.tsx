@@ -6,8 +6,8 @@ const CURRENT_STEPS = [
   'Open menu',
   'Find "Unassign"',
   'Tap "Unassign"',
-  'Confirmation modal',
-  'Tap "Yes, unassign"',
+  'Confirm modal',
+  'Tap "Yes"',
   '"Why?" prompt',
   'Select reason',
   'Tap "Submit"',
@@ -18,43 +18,38 @@ const CURRENT_STEPS = [
 ];
 
 const PROPOSED_STEPS = [
-  { label: 'Tap "Cancel Order"', note: 'Single visible button — no menu diving' },
-  { label: 'Select reason', note: 'One required field, no free-text' },
-  { label: 'Confirm', note: 'Single confirmation tap' },
+  { label: 'Tap "Cancel"', note: 'Single visible button' },
+  { label: 'Select reason', note: 'One required field' },
+  { label: 'Confirm', note: 'One tap' },
   { label: 'Done', note: 'Survey moves to post-shift' },
 ];
 
 export default function CancellationFlowDiagram() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
       {/* CURRENT FLOW */}
       <div>
-        <p
-          className="text-xs font-bold tracking-widest mb-6 uppercase text-center"
-          style={{ color: '#a1a1a6' }}
-        >
+        <p className="text-[11px] font-bold tracking-widest mb-3 uppercase" style={{ color: '#a1a1a6' }}>
           Current — 12 steps
         </p>
-        <StaggerContainer className="flex flex-col items-center gap-0" staggerDelay={0.04}>
+        <StaggerContainer className="grid grid-cols-3 gap-1.5" staggerDelay={0.025}>
           {CURRENT_STEPS.map((step, i) => (
             <StaggerItem key={step}>
-              <div className="flex flex-col items-center">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[10px] font-bold w-4 text-right" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <div
-                  className="px-5 py-3 text-sm font-medium text-center w-56"
+                  className="px-2 py-1.5 text-[11px] font-medium flex-1 truncate"
                   style={{
                     backgroundColor: '#000000',
-                    color: 'rgba(255,255,255,0.35)',
+                    color: 'rgba(255,255,255,0.4)',
                     border: '1px solid rgba(255,255,255,0.08)',
                   }}
+                  title={step}
                 >
                   {step}
                 </div>
-                {i < CURRENT_STEPS.length - 1 && (
-                  <div
-                    className="w-px h-4"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.1)' }}
-                  />
-                )}
               </div>
             </StaggerItem>
           ))}
@@ -63,40 +58,29 @@ export default function CancellationFlowDiagram() {
 
       {/* PROPOSED FLOW */}
       <div>
-        <p
-          className="text-xs font-bold tracking-widest mb-6 uppercase text-center"
-          style={{ color: '#ffffff' }}
-        >
+        <p className="text-[11px] font-bold tracking-widest mb-3 uppercase" style={{ color: '#ffffff' }}>
           Proposed — 4 steps
         </p>
-        <StaggerContainer className="flex flex-col items-center gap-0" staggerDelay={0.08}>
+        <StaggerContainer className="flex flex-col gap-1.5" staggerDelay={0.06}>
           {PROPOSED_STEPS.map((step, i) => (
             <StaggerItem key={step.label}>
-              <div className="flex flex-col items-center">
-                <div className="flex items-start gap-4 w-full max-w-sm">
-                  <div
-                    className="px-5 py-3 text-sm font-bold text-center w-56 flex-shrink-0"
-                    style={{
-                      backgroundColor: '#000000',
-                      color: '#ffffff',
-                      border: '2px solid rgba(255,255,255,0.2)',
-                    }}
-                  >
-                    {step.label}
-                  </div>
-                  <p
-                    className="text-xs pt-3 hidden md:block"
-                    style={{ color: '#a1a1a6' }}
-                  >
-                    {step.note}
-                  </p>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold w-4 text-right" style={{ color: '#ffffff' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div
+                  className="px-3 py-1.5 text-xs font-bold flex-shrink-0 w-32"
+                  style={{
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    border: '2px solid rgba(255,255,255,0.2)',
+                  }}
+                >
+                  {step.label}
                 </div>
-                {i < PROPOSED_STEPS.length - 1 && (
-                  <div
-                    className="w-px h-4"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
-                  />
-                )}
+                <p className="text-[11px] hidden md:block" style={{ color: '#a1a1a6' }}>
+                  {step.note}
+                </p>
               </div>
             </StaggerItem>
           ))}

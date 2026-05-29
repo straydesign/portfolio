@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import Lenis from 'lenis';
 
 interface SmoothScrollContextValue {
@@ -18,34 +18,36 @@ interface SmoothScrollProps {
 }
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const lenis = new Lenis({
+    const instance = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 2,
     });
 
-    lenisRef.current = lenis;
+    setLenis(instance);
 
+    let rafId = 0;
     function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+      instance.raf(time);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelAnimationFrame(rafId);
+      instance.destroy();
+      setLenis(null);
     };
   }, []);
 
   return (
-    <SmoothScrollContext.Provider value={{ lenis: lenisRef.current }}>
+    <SmoothScrollContext.Provider value={{ lenis }}>
       {children}
     </SmoothScrollContext.Provider>
   );

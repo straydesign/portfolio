@@ -53,7 +53,6 @@ const Resume = dynamic(() => import('@/components/Resume'));
 const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
 const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
 const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
-const GuitarPlayerBreakdown = dynamic(() => import('@/components/GuitarPlayerBreakdown'));
 const AutoPresenterBreakdown = dynamic(() => import('@/components/AutoPresenterBreakdown'));
 
 function AppContent() {
@@ -115,7 +114,7 @@ function AppContent() {
             {showBackground && <BrickWallWrapper theme="dark" accentColor="#ffffff" />}
           </div>
           {/* Scrim overlay on project/resume pages to reduce background distraction */}
-          {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study' || currentPage === 'guitar-player-tool' || currentPage === 'auto-presenter-tool') && (
+          {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study' || currentPage === 'auto-presenter-tool') && (
             <div className="fixed inset-0 z-[3] pointer-events-none bg-black/90" />
           )}
           <div className="relative z-10">
@@ -134,7 +133,6 @@ function AppContent() {
                 {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
-                {currentPage === 'guitar-player-tool' && <GuitarPlayerBreakdown onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'auto-presenter-tool' && <AutoPresenterBreakdown onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
               </m.div>
             </AnimatePresence>

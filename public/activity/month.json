@@ -1,0 +1,92 @@
+{
+  "span": "month",
+  "label": "30 days ending 2026-05-28",
+  "totals": {
+    "prompts": 2850,
+    "hours": 360.4,
+    "tokens": 5736197576,
+    "sessions": 48
+  },
+  "projects": [
+    {
+      "name": "Personal brand site",
+      "prompts": 313,
+      "hours": 80.8,
+      "tokens": 647021278,
+      "sessions": 8
+    },
+    {
+      "name": "Aquarium store website",
+      "prompts": 461,
+      "hours": 55.3,
+      "tokens": 1069635461,
+      "sessions": 7
+    },
+    {
+      "name": "Horror video game",
+      "prompts": 206,
+      "hours": 54.5,
+      "tokens": 168519852,
+      "sessions": 4
+    },
+    {
+      "name": "This portfolio site",
+      "prompts": 372,
+      "hours": 42,
+      "tokens": 613133774,
+      "sessions": 3
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 262,
+      "hours": 37.6,
+      "tokens": 414067675,
+      "sessions": 8
+    },
+    {
+      "name": "Bowling alley pitch site",
+      "prompts": 469,
+      "hours": 28.5,
+      "tokens": 1011209176,
+      "sessions": 3
+    },
+    {
+      "name": "Goal-tracking app",
+      "prompts": 529,
+      "hours": 28,
+      "tokens": 1411043021,
+      "sessions": 2
+    },
+    {
+      "name": "CO2 supplier pitch site",
+      "prompts": 99,
+      "hours": 14,
+      "tokens": 230876016,
+      "sessions": 1
+    },
+    {
+      "name": "Web design business site",
+      "prompts": 78,
+      "hours": 14,
+      "tokens": 102365705,
+      "sessions": 2
+    },
+    {
+      "name": "Other",
+      "prompts": 48,
+      "hours": 4.7,
+      "tokens": 58159719,
+      "sessions": 9
+    },
+    {
+      "name": "Clothing brand site",
+      "prompts": 13,
+      "hours": 0.9,
+      "tokens": 10165899,
+      "sessions": 1
+    }
+  ],
+  "windowStart": "2026-04-29T04:00:00.957Z",
+  "windowEnd": "2026-05-29T04:00:00.957Z",
+  "generatedAt": "2026-05-29T10:11:39.514Z"
+}

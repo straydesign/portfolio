@@ -1,17 +1,107 @@
 'use client';
 
-import { useState, useCallback, useEffect, type KeyboardEvent } from 'react';
-import { Mail, Phone, Linkedin, ChevronDown, ChevronUp } from 'lucide-react';
+import { useState, useCallback, useEffect, useRef, type KeyboardEvent } from 'react';
+import { Mail, Phone, Linkedin, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import AnimateIn from './AnimateIn';
 import PhoneMockup from './PhoneMockup';
 import TextCard from './TextCard';
+import YesterdayStrip from './YesterdayStrip';
 import { NavigableSection } from './NavigableSection';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
-import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
+import { type Page, type Project, PROJECTS, DEMOS_IN_PROGRESS, CLIENT_SITES, getProjectTypeLabel } from '@/data/projects';
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;
+}
+
+function RotatingProjectCell({
+  project,
+  onOpen,
+  intervalMs = 3500,
+  staggerOffsetMs = 0,
+}: {
+  project: Project;
+  onOpen: () => void;
+  intervalMs?: number;
+  staggerOffsetMs?: number;
+}) {
+  const prefersReducedMotion = useReducedMotion();
+  const images = project.screenshots && project.screenshots.length > 0
+    ? project.screenshots
+    : [project.screenshot];
+  const [index, setIndex] = useState(0);
+  const pausedRef = useRef(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion || images.length < 2) return;
+    let intervalId: number | undefined;
+    const startId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        if (!pausedRef.current) {
+          setIndex((i) => (i + 1) % images.length);
+        }
+      }, intervalMs);
+    }, staggerOffsetMs);
+    return () => {
+      window.clearTimeout(startId);
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
+  }, [images.length, intervalMs, staggerOffsetMs, prefersReducedMotion]);
+
+  return (
+    <div
+      role="link"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } }}
+      onMouseEnter={() => { pausedRef.current = true; }}
+      onMouseLeave={() => { pausedRef.current = false; }}
+      className="group cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black p-5 md:p-7 flex flex-col h-full transition-colors hover:bg-white/[0.02]"
+    >
+      <div
+        className="relative w-full overflow-hidden mb-5"
+        style={{ aspectRatio: '4 / 5', backgroundColor: '#000000' }}
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          <m.img
+            key={images[index]}
+            src={images[index]}
+            alt={project.alt}
+            className="absolute inset-0 w-full h-full object-contain"
+            loading="lazy"
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          />
+        </AnimatePresence>
+        {images.length > 1 && (
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {images.map((_, i) => (
+              <span
+                key={i}
+                className="block h-[3px] w-5 transition-opacity"
+                style={{ backgroundColor: '#ffffff', opacity: i === index ? 0.9 : 0.25 }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <span
+        className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+        style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+      >
+        {getProjectTypeLabel(project.type)}
+      </span>
+      <h3 className="text-base md:text-lg font-bold mb-2 tracking-tight leading-snug" style={{ color: '#ffffff' }}>
+        {project.title}
+      </h3>
+      <p className="text-[13px] leading-snug" style={{ color: '#a1a1a6' }}>
+        {project.description}
+      </p>
+    </div>
+  );
 }
 
 const RECOMMENDATIONS = [
@@ -22,6 +112,14 @@ const RECOMMENDATIONS = [
     role: 'TechxRev, Client',
     initials: 'KS',
     href: 'https://techxrev-rebuild.vercel.app',
+  },
+  {
+    quote: 'Been working with Tom from Stray Web Design now for a month. The communication and timeliness of his work is outstanding. I could not be happier with the product also. His web design was awesome. Like with any ongoing project, there are always changes that you want made \u2014 never any kickback on this. He listens, then executes. Great new company to deal with. Pricing is also great.',
+    highlight: 'He listens, then executes.',
+    name: 'Gary P.',
+    role: 'Restaurant Owner, Stray Web Design Client',
+    initials: 'GP',
+    href: 'https://straywebdesign.co',
   },
   {
     quote: 'I had the pleasure of teaching Tom Sesler in both Financial and Managerial Accounting, where he consistently stood out as a top student\u2014earning close to a perfect in each course. What impressed me most was not just Tom\u2019s mastery of the material, but his ability to connect concepts and apply them thoughtfully to real business situations. He was an active participant in class discussions, often raising insightful questions and offering perspectives that pushed conversations deeper. Tom was always prepared, met every deadline, and demonstrated a professional and focused mindset from day one. He\u2019s exactly the kind of driven, analytical thinker that any team would be lucky to have.',
@@ -197,9 +295,6 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: '#ffffff' }}>
                   Every project here started with a real problem I experienced firsthand — as a DoorDash driver, a beer merchandiser, or someone who couldn&apos;t find the right tool. I designed and built each one from scratch.
                 </p>
-                <p className="text-[13px] md:text-[15px] mt-4 leading-relaxed" style={{ color: '#ffffff', opacity: 0.8 }}>
-                  New Hampshire / Massachusetts. Open to full-time or remote
-                </p>
               </m.div>
 
               {/* Contact pills */}
@@ -234,6 +329,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
                   </m.a>
                 ))}
               </m.div>
+
+              <YesterdayStrip delay={heroTextDuration + 0.55} />
             </TextCard>
           </div>
         </div>
@@ -252,53 +349,204 @@ export default function Home({ setCurrentPage }: HomeProps) {
             </h2>
           </TextCard>
 
-          <div className="flex flex-col gap-8">
-            {PROJECTS.map((project) => (
-              <NavigableSection key={project.id} id={`work-${project.slug}`} label={project.title}>
-                <div
-                  className="cursor-pointer group outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
-                  onClick={() => setCurrentPage(project.id)}
-                  role="link"
-                  tabIndex={0}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCurrentPage(project.id); } }}
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+            style={{
+              border: '1px solid rgba(255,255,255,0.14)',
+              backgroundColor: 'rgba(255,255,255,0.14)',
+            }}
+          >
+            {PROJECTS.map((project, i) => (
+              <NavigableSection
+                key={project.id}
+                id={`work-${project.slug}`}
+                label={project.title}
+                style={{ backgroundColor: '#000000' }}
+              >
+                <RotatingProjectCell
+                  project={project}
+                  onOpen={() => setCurrentPage(project.id)}
+                  staggerOffsetMs={i * 600}
+                />
+              </NavigableSection>
+            ))}
+            {/* Filler CTA cell — completes the 3×2 grid */}
+            <a
+              href="#home-contact"
+              style={{ backgroundColor: '#000000' }}
+              className="group p-5 md:p-7 flex flex-col items-center justify-center text-center transition-colors hover:bg-white/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3" style={{ color: '#a1a1a6' }}>
+                Up next
+              </p>
+              <p
+                className="text-2xl md:text-3xl leading-tight tracking-tight mb-4"
+                style={{ color: '#ffffff', fontFamily: "var(--font-family-bungee), sans-serif" }}
+              >
+                YOUR
+                <br />
+                PROBLEM.
+              </p>
+              <span
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
+                style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+              >
+                Let&apos;s talk
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 3a. CLIENT SITES — live sites shipped for paying clients */}
+      <div className="px-4 md:px-8 py-12 md:py-20">
+        <div className="max-w-[90rem] mx-auto">
+          <TextCard padding="md" className="inline-block mb-4">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+            >
+              CLIENT SITES
+            </h2>
+          </TextCard>
+          <TextCard padding="sm" className="inline-block mb-10 md:mb-14 max-w-2xl">
+            <p className="text-sm md:text-base" style={{ color: '#a1a1a6' }}>
+              Sites I designed, built, and host for working businesses.
+            </p>
+          </TextCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {CLIENT_SITES.map((site) => (
+              <NavigableSection key={site.href} id={`client-${site.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`} label={site.title}>
+                <a
+                  href={site.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm h-full"
                 >
-                  <TextCard padding="lg" className="w-full">
-                    <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-                      <div className="shrink-0">
-                        <PhoneMockup
-                          screenshot={project.screenshot}
-                          alt={project.alt}
-                          size="tiny"
+                  <TextCard padding="md" className="h-full">
+                    <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 h-full">
+                      <div
+                        className="relative w-full sm:w-[42%] flex-shrink-0 overflow-hidden mx-auto"
+                        style={{ aspectRatio: '9 / 19.5', maxWidth: '14rem', backgroundColor: '#000000', borderRadius: '14px' }}
+                      >
+                        <m.img
+                          src={site.screenshot}
+                          alt={site.alt}
+                          className="absolute inset-0 w-full h-full object-cover object-top"
+                          loading="lazy"
+                          whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
+                          transition={{ duration: 0.6, ease: 'easeOut' }}
                         />
                       </div>
-                      <div className="flex-1 text-center md:text-left">
+                      <div className="flex-1 flex flex-col">
                         <span
-                          className="inline-block mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-                          style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+                          className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                          style={{ backgroundColor: '#22c55e', color: '#000000', borderRadius: 0 }}
                         >
-                          {getProjectTypeLabel(project.type)}
+                          Live client site
                         </span>
-                        <h3 className="text-xl md:text-2xl font-bold mb-2 tracking-tight" style={{ color: '#ffffff' }}>
-                          {project.title}
+                        <h3 className="text-lg md:text-xl font-bold mb-1 tracking-tight" style={{ color: '#ffffff' }}>
+                          {site.title}
                         </h3>
-                        <p className="text-sm md:text-base leading-relaxed mb-2" style={{ color: '#a1a1a6' }}>
-                          {project.description}
+                        <p className="text-xs mb-3" style={{ color: '#a1a1a6', opacity: 0.7 }}>
+                          {site.category}
                         </p>
-                        <p className="text-xs mb-6" style={{ color: '#a1a1a6', opacity: 0.7 }}>
-                          {project.deliverable}
+                        <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: '#a1a1a6' }}>
+                          {site.blurb}
                         </p>
                         <span
-                          className="inline-flex items-center gap-1.5 px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
+                          className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
                           style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
                         >
-                          View Breakdown
+                          Visit site <ExternalLink className="w-3 h-3" />
                         </span>
                       </div>
                     </div>
                   </TextCard>
-                </div>
+                </a>
               </NavigableSection>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 3b. IN PROGRESS — live demo links for active client builds */}
+      <div className="px-4 md:px-8 py-12 md:py-20">
+        <div className="max-w-[90rem] mx-auto">
+          <TextCard padding="md" className="inline-block mb-4">
+            <h2
+              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+            >
+              IN PROGRESS
+            </h2>
+          </TextCard>
+          <TextCard padding="sm" className="inline-block mb-10 md:mb-14 max-w-2xl">
+            <p className="text-sm md:text-base" style={{ color: '#a1a1a6' }}>
+              Live demos I&apos;m actively building for prospective clients. Open to feedback.
+            </p>
+          </TextCard>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {DEMOS_IN_PROGRESS.map((demo) => {
+              const isPaused = demo.paused || !demo.href;
+              const cardBody = (
+                <TextCard padding="md" className="h-full flex flex-col">
+                  <span
+                    className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                    style={{
+                      backgroundColor: isPaused ? 'transparent' : '#111111',
+                      color: isPaused ? '#a1a1a6' : '#ffffff',
+                      border: isPaused ? '1px solid #3a3a3a' : 'none',
+                      borderRadius: 0,
+                    }}
+                  >
+                    {isPaused ? 'On the backburner' : 'Live demo'}
+                  </span>
+                  <h3 className="text-lg md:text-xl font-bold mb-1 tracking-tight" style={{ color: '#ffffff' }}>
+                    {demo.title}
+                  </h3>
+                  <p className="text-xs mb-3" style={{ color: '#a1a1a6', opacity: 0.7 }}>
+                    {demo.category}
+                  </p>
+                  <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: '#a1a1a6' }}>
+                    {demo.blurb}
+                  </p>
+                  {isPaused ? (
+                    <span
+                      className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider"
+                      style={{ border: '1px solid #3a3a3a', color: '#a1a1a6', borderRadius: 0 }}
+                    >
+                      Paused
+                    </span>
+                  ) : (
+                    <span
+                      className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
+                      style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+                    >
+                      View live <ExternalLink className="w-3 h-3" />
+                    </span>
+                  )}
+                </TextCard>
+              );
+              return (
+                <NavigableSection key={demo.title} id={`demo-${demo.title.toLowerCase().replace(/\s+/g, '-')}`} label={demo.title}>
+                  {isPaused ? (
+                    <div className="block h-full">{cardBody}</div>
+                  ) : (
+                    <a
+                      href={demo.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block group outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm h-full"
+                    >
+                      {cardBody}
+                    </a>
+                  )}
+                </NavigableSection>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,0 +1,178 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { m, useReducedMotion, AnimatePresence } from 'framer-motion';
+
+type Span = 'yesterday' | 'week' | 'month' | 'alltime';
+
+interface ProjectRow {
+  name: string;
+  prompts: number;
+  hours: number;
+  tokens: number;
+  sessions: number;
+}
+
+interface ActivityData {
+  span: Span;
+  label: string;
+  totals: { prompts: number; hours: number; tokens: number; sessions: number };
+  projects: ProjectRow[];
+  generatedAt: string;
+}
+
+const TABS: { key: Span; label: string }[] = [
+  { key: 'yesterday', label: 'Yesterday' },
+  { key: 'week', label: 'Week' },
+  { key: 'month', label: 'Month' },
+  { key: 'alltime', label: 'All-time' },
+];
+
+function formatTokens(n: number): string {
+  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(2)}B`;
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}K`;
+  return String(n);
+}
+
+function formatHours(n: number): string {
+  if (n >= 100) return Math.round(n).toLocaleString();
+  return n.toFixed(1);
+}
+
+interface Props {
+  delay?: number;
+}
+
+export default function YesterdayStrip({ delay = 0 }: Props) {
+  const prefersReducedMotion = useReducedMotion();
+  const [data, setData] = useState<Partial<Record<Span, ActivityData>>>({});
+  const [active, setActive] = useState<Span>('yesterday');
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    Promise.all(
+      TABS.map((t) =>
+        fetch(`/activity/${t.key}.json`, { cache: 'no-store' })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((j) => [t.key, j] as const)
+          .catch(() => [t.key, null] as const)
+      )
+    ).then((entries) => {
+      const next: Partial<Record<Span, ActivityData>> = {};
+      let any = false;
+      for (const [k, v] of entries) {
+        if (v) { next[k] = v; any = true; }
+      }
+      if (!any) setError(true);
+      setData(next);
+    });
+  }, []);
+
+  if (error) return null;
+  const current = data[active];
+
+  return (
+    <m.div
+      className="mt-6 md:mt-8 border border-white/15 p-4 md:p-5"
+      style={{ backgroundColor: '#0a0a0a' }}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay }}
+    >
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        <span
+          className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0"
+          style={{ backgroundColor: '#34d399', color: '#000', borderRadius: 0 }}
+        >
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+          Live activity
+        </span>
+
+        <div role="tablist" aria-label="Activity period" className="flex flex-wrap gap-1">
+          {TABS.map((t) => {
+            const isActive = active === t.key;
+            const disabled = !data[t.key];
+            return (
+              <button
+                key={t.key}
+                role="tab"
+                aria-selected={isActive}
+                disabled={disabled}
+                onClick={() => setActive(t.key)}
+                className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                style={{
+                  backgroundColor: isActive ? '#ffffff' : 'transparent',
+                  color: isActive ? '#000000' : '#ffffff',
+                  border: '1px solid #ffffff',
+                  borderRadius: 0,
+                }}
+              >
+                {t.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <span className="text-[11px] uppercase tracking-wider basis-full md:basis-auto md:ml-auto" style={{ color: '#a1a1a6' }}>
+          Auto-tracked daily from my Claude Code session logs
+        </span>
+      </div>
+
+      <AnimatePresence mode="wait">
+        <m.div
+          key={active}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+          transition={{ duration: 0.2 }}
+        >
+          {!current ? (
+            <p className="text-[13px]" style={{ color: '#a1a1a6' }}>Loading…</p>
+          ) : (
+            <>
+              <div className="flex items-baseline justify-between gap-3 mb-3">
+                <div className="text-[10px] font-mono uppercase tracking-wider" style={{ color: '#a1a1a6' }}>
+                  {current.label}
+                </div>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono uppercase tracking-wider justify-end" style={{ color: '#a1a1a6' }}>
+                  <span><strong style={{ color: '#ffffff' }}>{current.totals.prompts.toLocaleString()}</strong> prompts</span>
+                  <span aria-hidden>·</span>
+                  <span><strong style={{ color: '#ffffff' }}>{formatHours(current.totals.hours)}</strong> agent-hours</span>
+                  <span aria-hidden>·</span>
+                  <span><strong style={{ color: '#ffffff' }}>{formatTokens(current.totals.tokens)}</strong> tokens</span>
+                  <span aria-hidden>·</span>
+                  <span><strong style={{ color: '#ffffff' }}>{current.totals.sessions.toLocaleString()}</strong> sessions</span>
+                </div>
+              </div>
+
+              <ul className="space-y-1">
+                {current.projects.map((p) => (
+                  <li
+                    key={p.name}
+                    className="grid grid-cols-[1fr_auto] items-baseline gap-3 py-1 border-t border-white/5 first:border-t-0"
+                  >
+                    <span className="text-[13px] md:text-[14px] truncate" style={{ color: '#ffffff' }}>
+                      {p.name}
+                    </span>
+                    <span className="text-[10px] md:text-[11px] font-mono uppercase tracking-wider tabular-nums" style={{ color: '#a1a1a6' }}>
+                      <strong style={{ color: '#ffffff' }}>{p.prompts.toLocaleString()}</strong> prompts
+                      <span aria-hidden> · </span>
+                      <strong style={{ color: '#ffffff' }}>{formatHours(p.hours)}</strong>h
+                      <span aria-hidden> · </span>
+                      <strong style={{ color: '#ffffff' }}>{formatTokens(p.tokens)}</strong>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-3 text-[10px] uppercase tracking-wider" style={{ color: '#a1a1a6' }}>
+                Parallel sessions counted in parallel
+              </p>
+            </>
+          )}
+        </m.div>
+      </AnimatePresence>
+    </m.div>
+  );
+}

@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { ArrowLeft, Github, Download, Mic, Zap, Layers, Eye } from 'lucide-react';
-import AnimateIn, { StaggerContainer, StaggerItem } from './AnimateIn';
+import { ArrowLeft, ArrowRight, Github, Download, AlertTriangle } from 'lucide-react';
+import { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
 import NextProject from './NextProject';
 import { NavigableSection } from './NavigableSection';
@@ -16,69 +16,147 @@ interface AutoPresenterBreakdownProps {
 const GITHUB_URL = 'https://github.com/straydesign/auto-presenter';
 const ZIP_URL = `${GITHUB_URL}/archive/refs/heads/main.zip`;
 
+const RECORDING_JOURNEY: { step: string; friction?: string }[] = [
+  { step: 'Open Keynote' },
+  { step: 'Open teleprompter app in second window' },
+  { step: 'Open QuickTime to record' },
+  { step: 'Hit record. Start talking', friction: 'four windows fighting for the screen' },
+  { step: 'Read from teleprompter', friction: 'eyes drift off the lens' },
+  { step: 'Reach for trackpad to click slide', friction: 'breaks eye contact, breaks delivery' },
+  { step: 'Lose my place in the script', friction: 'tab keeps scrolling, mouth stops' },
+  { step: 'Click next slide late' },
+  { step: 'Stumble through next paragraph', friction: 'energy drops, take is gone' },
+  { step: 'Cut. Restart take', friction: 'voice has lost the warmth' },
+  { step: '30 min in, two usable takes', friction: 'most takes die at the trackpad' },
+];
+
+const NEW_JOURNEY = [
+  {
+    label: 'Open Auto-Presenter',
+    folds: 'Folds: Keynote + teleprompter window + QuickTime',
+  },
+  {
+    label: 'Paste in script and slides',
+    folds: 'Folds: manually aligning slide order to script paragraphs (Claude maps cues once)',
+  },
+  {
+    label: 'Press start',
+    folds: 'Folds: hit record + queue teleprompter + start scrolling at the right pace',
+  },
+  {
+    label: 'Present',
+    folds: 'Folds: reaching for the trackpad mid-sentence. Slides advance on your voice. Hands stay where they should.',
+  },
+] as const;
+
+const PROPOSALS = [
+  {
+    n: '01',
+    title: 'Drop in slides + script',
+    before: 'Slide order in Keynote, script in Notes, no link between them.',
+    after: 'Both paste into one window. The app keeps them married.',
+    img: '/images/auto-presenter/config-populated.png',
+  },
+  {
+    n: '02',
+    title: 'Claude maps the cues',
+    before: 'I manually mark slide breaks in the script.',
+    after: 'Claude reads the deck and the script, drops cues where they fit.',
+    img: '/images/auto-presenter/config-mapped.png',
+  },
+  {
+    n: '03',
+    title: 'Voice advances slides',
+    before: 'Reach for trackpad mid-sentence. Lose the room.',
+    after: 'Say the cue, slide moves. Hands stay where they should.',
+    img: '/images/auto-presenter/slide-progression.png',
+  },
+  {
+    n: '04',
+    title: 'Teleprompter dims spoken words',
+    before: 'Eyes lose their place in a wall of script.',
+    after: 'Said words dim. Current word is bright. One line of focus.',
+    img: '/images/auto-presenter/teleprompter-closeup.png',
+  },
+];
+
+const TRADEOFFS = [
+  { cut: 'Built-in recording', why: 'QuickTime already records. I do not need another button.' },
+  { cut: 'Video editor', why: 'Final Cut exists. Stay in scope.' },
+  { cut: 'Take manager', why: 'Folder of MOVs is already a take manager.' },
+  { cut: 'Cloud sync', why: 'Scripts are not worth a backend. Local file is fine.' },
+  { cut: 'Team mode', why: 'Two people on one teleprompter is a different product.' },
+];
+
+const BG = {
+  hero: '#000000',
+  journey: '#18181b',
+  validation: '#050507',
+  ideation: '#18181b',
+  iteration: '#050507',
+  outcome: '#0c0a1f',
+} as const;
+
 export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPresenterBreakdownProps) {
   const textColor = '#ffffff';
   const secondaryTextColor = '#a1a1a6';
   const primaryColor = '#ffffff';
   const statBg = '#000000';
   const divider = '1px solid rgba(255,255,255,0.06)';
+  const sectionPad = 'py-8 md:py-12';
+  const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
 
   return (
-    <div className="min-h-screen">
-      <div className="w-full px-4 md:px-8 max-w-[90rem] mx-auto">
+    <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
+      {/* Fixed back + action bar */}
+      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-3 flex-wrap">
+        <button onClick={onBack}
+          className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
+          style={{ color: primaryColor, borderRadius: 0 }}>
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
+        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
+          style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+          <Github className="w-3.5 h-3.5" /> GitHub
+        </a>
+        <a href={ZIP_URL}
+          className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
+          style={{ backgroundColor: 'transparent', color: '#ffffff', border: '1px solid #ffffff', borderRadius: 0 }}>
+          <Download className="w-3.5 h-3.5" /> Download ZIP
+        </a>
+      </div>
 
-        {/* Fixed back + action bar */}
-        <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-3 flex-wrap">
-          <button onClick={onBack}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: primaryColor, borderRadius: 0 }}>
-            <ArrowLeft className="w-4 h-4" /> Back
-          </button>
-          <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-            style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
-            <Github className="w-3.5 h-3.5" /> GitHub
-          </a>
-          <a href={ZIP_URL}
-            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-            style={{ backgroundColor: 'transparent', color: '#ffffff', border: '1px solid #ffffff', borderRadius: 0 }}>
-            <Download className="w-3.5 h-3.5" /> Download ZIP
-          </a>
-        </div>
-
-        {/* HERO */}
-        <NavigableSection id="ap-hero" label="Hero">
+      {/* HERO */}
+      <NavigableSection id="ap-hero" label="Hero" style={{ backgroundColor: BG.hero }}>
+        <div className={inner}>
           <TextCard padding="lg">
-            <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: secondaryTextColor }}>
-              WHAT
-            </p>
-            <div className="min-h-[80vh] flex flex-col md:flex-row items-center gap-8 md:gap-16 py-12 md:py-16" style={{ borderBottom: divider }}>
+            <div className="min-h-[78vh] flex flex-col md:flex-row items-center gap-8 md:gap-16 py-8 md:py-12" style={{ borderBottom: divider }}>
               <div className="w-full md:w-1/2">
-                <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>Personal Tool</p>
+                <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: primaryColor }}>Personal Tool — Built &amp; Shipped</p>
                 <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight" style={{ color: textColor }}>AUTO-PRESENTER</h1>
                 <p className="text-lg md:text-xl mb-4 leading-relaxed" style={{ color: secondaryTextColor }}>
                   A teleprompter that listens to you. Slides advance when you say the right words.
                 </p>
-                <p className="text-base mb-10 leading-relaxed" style={{ color: textColor }}>
+                <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: textColor }}>
                   I was recording pitch videos and hated switching between Keynote and a teleprompter app. I wanted one window: the script scrolls, the slides advance when I say the right words, and when I stop talking everything stops. So I built that.
                 </p>
                 <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
                   {[
                     { label: 'THE USER', value: 'Me, recording pitch videos at 2am.' },
-                    { label: 'THE PAIN', value: 'Switching between slides and teleprompter kills flow', highlight: true },
+                    { label: 'THE PAIN', value: 'Most takes die at the trackpad.', highlight: true },
                     { label: 'STACK', value: 'Electron · Claude · native Swift' },
-                    { label: 'STATUS', value: 'Open source — MIT · v0.3' },
+                    { label: 'STATUS', value: 'Open source · MIT · v0.3' },
                   ].map(({ label, value, highlight }) => (
                     <StaggerItem key={label}>
                       <div>
-                        <p className="text-xs font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
+                        <p className="text-[11px] font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
                         <p className="text-sm" style={{ color: highlight ? primaryColor : textColor, fontWeight: highlight ? 700 : 400 }}>{value}</p>
                       </div>
                     </StaggerItem>
                   ))}
                 </StaggerContainer>
               </div>
-
               <div className="w-full md:w-1/2">
                 <div className="relative w-full" style={{ aspectRatio: '16/10', backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
                   <Image
@@ -93,164 +171,188 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
               </div>
             </div>
           </TextCard>
-        </NavigableSection>
+        </div>
+      </NavigableSection>
 
-        {/* WHY I BUILT IT */}
-        <NavigableSection id="ap-why" label="Why I Built It">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: secondaryTextColor }}>
-                WHY
-              </p>
-              <p className="text-xl md:text-3xl leading-relaxed font-bold mb-6" style={{ color: textColor }}>
-                Every pitch recording had the same problem: <span style={{ color: primaryColor }}>I was reading, clicking, watching my face, and pretending to look natural</span> at the same time. Four jobs. One person. One take before the energy dies.
-              </p>
-              <p className="text-base md:text-lg leading-relaxed" style={{ color: secondaryTextColor }}>
-                I didn&apos;t want a tool that records me or edits me or manages takes. I wanted one that removed the clicking. If the app could hear me, it could advance the slide when I said the thing. The teleprompter scrolls at my pace because it&apos;s watching me too. If I stop, it waits. That&apos;s the whole app.
-              </p>
-            </TextCard>
-          </AnimateIn>
-        </NavigableSection>
-
-        {/* HOW IT WORKS */}
-        <NavigableSection id="ap-how" label="How It Works">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+      {/* USER JOURNEY */}
+      <NavigableSection id="ap-user-journey" label="User Journey" style={{ backgroundColor: BG.journey }}>
+        <div className={inner}>
+          <div className={sectionPad} style={{ borderBottom: divider }}>
             <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: secondaryTextColor }}>
-                HOW
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 01</p>
+              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>The user journey</h2>
+              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
+                Recording a pitch video at 2am. The user is me. Most of the friction happens between my mouth and the trackpad.
               </p>
-              <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>How It Works</p>
-              <p className="text-xl md:text-2xl font-bold mb-8" style={{ color: textColor }}>
-                Four pieces, one window.
-              </p>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4" staggerDelay={0.08}>
-                {[
-                  { icon: Layers, title: '1. Drop in slides', body: 'PDF, PowerPoint, or images. I export from Keynote or Canva. Anything that renders.' },
-                  { icon: Mic, title: '2. Paste your script', body: 'Just the words you want to say. No slide markers needed. Paste it raw.' },
-                  { icon: Zap, title: '3. Claude maps it', body: 'Claude reads the slides and the script and figures out which slide goes with which paragraph. You can tweak before recording.' },
-                  { icon: Eye, title: '4. Hit start and talk', body: 'On-device speech recognition via a native Swift helper tracks your voice. Slides advance as you speak. Stop talking, everything pauses.' },
-                ].map(({ icon: Icon, title, body }) => (
-                  <StaggerItem key={title}>
-                    <div className="p-5 h-full" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <div className="w-8 h-8 flex items-center justify-center mb-3" style={{ backgroundColor: primaryColor, color: '#000000' }}>
-                        <Icon className="w-4 h-4" />
+
+              <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-3" style={{ color: secondaryTextColor }}>Before — 11 steps, most fail</p>
+              <StaggerContainer className="grid grid-cols-2 md:grid-cols-6 gap-2" staggerDelay={0.04}>
+                {RECORDING_JOURNEY.map(({ step, friction }, i) => (
+                  <StaggerItem key={step}>
+                    <div className="p-2.5 h-full flex flex-col" style={{ backgroundColor: statBg, border: friction ? `1px solid ${primaryColor}` : '1px solid rgba(255,255,255,0.06)' }}>
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <p className="text-xs font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
+                        {friction && <AlertTriangle className="w-3 h-3" style={{ color: primaryColor }} />}
                       </div>
-                      <p className="text-base font-bold mb-2" style={{ color: textColor }}>{title}</p>
-                      <p className="text-sm leading-relaxed" style={{ color: secondaryTextColor }}>{body}</p>
+                      <p className="text-[11px] font-semibold leading-snug" style={{ color: textColor }}>{step}</p>
+                      {friction && <p className="text-[10px] mt-1.5 leading-snug" style={{ color: secondaryTextColor }}>{friction}</p>}
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+
+              <div className="flex items-center gap-3 mt-8 mb-3">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: primaryColor }}>After — 4 steps, no trackpad</p>
+                <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.12)' }} />
+                <p className="text-[10px] font-mono" style={{ color: secondaryTextColor }}>11 → 4 · trackpad → mouth</p>
+              </div>
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-2" staggerDelay={0.05}>
+                {NEW_JOURNEY.map(({ label, folds }, i) => (
+                  <StaggerItem key={label}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: `1px solid ${primaryColor}` }}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <p className="text-xs font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
+                        <ArrowRight className="w-3 h-3" style={{ color: primaryColor, opacity: 0.5 }} />
+                      </div>
+                      <p className="text-sm font-bold leading-snug mb-2" style={{ color: textColor }}>{label}</p>
+                      <p className="text-[10px] leading-snug mt-auto" style={{ color: secondaryTextColor }}>{folds}</p>
                     </div>
                   </StaggerItem>
                 ))}
               </StaggerContainer>
             </TextCard>
-          </AnimateIn>
-        </NavigableSection>
+          </div>
+        </div>
+      </NavigableSection>
 
-        {/* GALLERY */}
-        <NavigableSection id="ap-gallery" label="Screens">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+      {/* VALIDATION */}
+      <NavigableSection id="ap-validation" label="Validation" style={{ backgroundColor: BG.validation }}>
+        <div className={inner}>
+          <div className={sectionPad} style={{ borderBottom: divider }}>
             <TextCard padding="lg">
-              <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Screens</p>
-              <p className="text-xl md:text-2xl font-bold mb-8" style={{ color: textColor }}>
-                Setup → mapping → live teleprompter → review.
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 02</p>
+              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Validation</h2>
+              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
+                I am the validation. Every pitch video on this portfolio gets recorded with this tool. If it breaks, I notice the same night.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {[
-                  { src: '/images/auto-presenter/config-populated.png', alt: 'Config with slides loaded and script pasted', caption: 'Setup' },
-                  { src: '/images/auto-presenter/config-mapped.png', alt: 'Config showing Claude mapped 4 slide cues across the script', caption: 'Mapped by Claude' },
-                  { src: '/images/auto-presenter/presenter-initial.png', alt: 'Presenter window with slide and script ready', caption: 'Initial view' },
-                  { src: '/images/auto-presenter/teleprompter-closeup.png', alt: 'Teleprompter close-up with spoken words dimmed and current word lit', caption: 'Reading guide' },
-                  { src: '/images/auto-presenter/slide-progression.png', alt: 'Presenter on slide two with confidence and WPM telemetry', caption: 'Slide cues fire' },
-                  { src: '/images/auto-presenter/review-complete.png', alt: 'Presentation Complete review screen with stats and Save Video button', caption: 'Review' },
-                ].map((img) => (
-                  <div key={img.src}>
-                    <div className="relative w-full" style={{ aspectRatio: '1/1', backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover object-top"
-                      />
+                  { stat: '1 window', label: 'Replaces Keynote + teleprompter + QuickTime' },
+                  { stat: 'Daily', label: 'Tool I actually use for pitch recordings' },
+                  { stat: 'MIT', label: 'Public on GitHub — fork it, fix it' },
+                ].map(({ stat, label }) => (
+                  <div key={label} className="p-4 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <p className="text-2xl md:text-3xl font-black" style={{ color: primaryColor }}>{stat}</p>
+                    <p className="text-[11px] font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs mt-5 leading-relaxed" style={{ color: secondaryTextColor }}>
+                Not a product validation story — no user research, no funnel. The honest version: I had a problem recording pitch videos, built the smallest thing that fixed it, and use it every week.
+              </p>
+            </TextCard>
+          </div>
+        </div>
+      </NavigableSection>
+
+      {/* IDEATION */}
+      <NavigableSection id="ap-ideation" label="Ideation" style={{ backgroundColor: BG.ideation }}>
+        <div className={inner}>
+          <div className={sectionPad} style={{ borderBottom: divider }}>
+            <TextCard padding="lg">
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 03</p>
+              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Ideation</h2>
+              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
+                Four moves. Each removes one job my hands or eyes shouldn&apos;t have to do mid-take.
+              </p>
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
+                {PROPOSALS.map(({ n, title, before, after, img }) => (
+                  <StaggerItem key={n}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-xl font-black" style={{ color: primaryColor }}>{n}</p>
+                        <p className="text-xs font-bold" style={{ color: textColor }}>{title}</p>
+                      </div>
+                      <div className="mb-2 h-72 flex items-center justify-center p-2" style={{ overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#000000' }}>
+                        <img src={img} alt={title} className="max-w-full max-h-full object-contain" loading="lazy" />
+                      </div>
+                      <div className="mb-1.5">
+                        <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: secondaryTextColor }}>BEFORE</p>
+                        <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{before}</p>
+                      </div>
+                      <div style={{ borderLeft: '2px solid #ffffff', paddingLeft: '8px' }}>
+                        <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: primaryColor }}>AFTER</p>
+                        <p className="text-[11px] leading-snug" style={{ color: textColor }}>{after}</p>
+                      </div>
                     </div>
-                    <p className="text-xs font-bold tracking-wider uppercase mt-3" style={{ color: secondaryTextColor }}>{img.caption}</p>
-                  </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </TextCard>
-          </AnimateIn>
-        </NavigableSection>
+          </div>
+        </div>
+      </NavigableSection>
 
-        {/* STACK */}
-        <NavigableSection id="ap-stack" label="Stack">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+      {/* ITERATION */}
+      <NavigableSection id="ap-iteration" label="Iteration" style={{ backgroundColor: BG.iteration }}>
+        <div className={inner}>
+          <div className={sectionPad} style={{ borderBottom: divider }}>
             <TextCard padding="lg">
-              <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Stack</p>
-              <p className="text-xl md:text-2xl font-bold mb-8" style={{ color: textColor }}>
-                Electron shell. Native speech. Anthropic SDK. No React.
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 04</p>
+              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Iteration</h2>
+              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
+                Five features I almost built. Each one would have made it a different product. Cut them all.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { label: 'Shell', value: 'Electron 41' },
-                  { label: 'UI', value: 'Vanilla JS · no build step' },
-                  { label: 'Speech', value: 'Native Swift helper (on-device)' },
-                  { label: 'Slide mapping', value: '@anthropic-ai/sdk (your API key)' },
-                  { label: 'Key storage', value: 'macOS Keychain' },
-                  { label: 'Packaging', value: 'electron-builder → .dmg' },
-                ].map(({ label, value }) => (
-                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <p className="text-xs font-bold tracking-wider uppercase mb-1" style={{ color: secondaryTextColor }}>{label}</p>
-                    <p className="text-sm" style={{ color: textColor }}>{value}</p>
-                  </div>
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-5 gap-2.5" staggerDelay={0.05}>
+                {TRADEOFFS.map(({ cut, why }, i) => (
+                  <StaggerItem key={cut}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <p className="text-lg font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
+                        <ArrowRight className="w-3.5 h-3.5" style={{ color: primaryColor, opacity: 0.5 }} />
+                      </div>
+                      <p className="text-[11px] font-bold tracking-wider mb-1 uppercase" style={{ color: primaryColor }}>CUT</p>
+                      <p className="text-sm font-bold mb-2" style={{ color: textColor }}>{cut}</p>
+                      <p className="text-[11px] leading-snug mt-auto" style={{ color: secondaryTextColor }}>{why}</p>
+                    </div>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </TextCard>
-          </AnimateIn>
-        </NavigableSection>
+          </div>
+        </div>
+      </NavigableSection>
 
-        {/* HONEST */}
-        <NavigableSection id="ap-honest" label="Honest">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
-            <TextCard padding="lg">
-              <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Honest</p>
-              <p className="text-xl md:text-2xl font-bold mb-6" style={{ color: textColor }}>
-                Mac only. v0.3. Works well for the way I pitch.
-              </p>
-              <p className="text-base leading-relaxed mb-4" style={{ color: secondaryTextColor }}>
-                Voice tracking is on-device, which means your audio never leaves your laptop. Slide mapping does hit the Anthropic API (with your own key, stored in Keychain) once, when you load a new script. After that it&apos;s offline.
-              </p>
-              <p className="text-base leading-relaxed" style={{ color: secondaryTextColor }}>
-                Not a product — I&apos;m not going to tune it for you. But the source is here if you want to make it yours.
-              </p>
-            </TextCard>
-          </AnimateIn>
-        </NavigableSection>
-
-        {/* GET IT */}
-        <NavigableSection id="ap-get" label="Get It">
-          <AnimateIn direction="up" className="py-16 md:py-24" style={{ borderBottom: divider }}>
+      {/* OUTCOME */}
+      <NavigableSection id="ap-outcome" label="Outcome" style={{ backgroundColor: BG.outcome }}>
+        <div className={inner}>
+          <div className={sectionPad} style={{ borderBottom: divider }}>
             <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-4" style={{ color: secondaryTextColor }}>
-                GET IT
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
+              <p className="text-xl md:text-3xl font-bold leading-relaxed mb-3" style={{ color: textColor }}>
+                One window. Mouth runs the show. <span style={{ color: primaryColor }}>Hands stay off the trackpad.</span>
               </p>
-              <p className="text-xl md:text-2xl font-bold leading-relaxed mb-8" style={{ color: textColor }}>
-                Clone, npm install, npm start. Add an Anthropic API key to Keychain. MIT licensed.
+              <p className="text-sm md:text-base mb-5 leading-relaxed" style={{ color: secondaryTextColor }}>
+                Mac-only, v0.3. Voice tracking is on-device — audio never leaves the laptop. Slide mapping hits the Anthropic API once per script, with your own key from Keychain.
               </p>
-              <div className="flex flex-wrap gap-3">
-                <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-                  style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
-                  <Github className="w-4 h-4" /> View on GitHub
-                </a>
-                <a href={ZIP_URL}
-                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-                  style={{ backgroundColor: 'transparent', color: '#ffffff', border: '1px solid #ffffff', borderRadius: 0 }}>
-                  <Download className="w-4 h-4" /> Download ZIP
-                </a>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { stat: '1', label: 'Window replaces three' },
+                  { stat: 'On-device', label: 'Voice never leaves laptop' },
+                  { stat: 'BYO key', label: 'Anthropic key from Keychain' },
+                  { stat: 'MIT', label: 'Fork it, fix it' },
+                ].map(({ stat, label }) => (
+                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
+                    <p className="text-[10px] font-bold mt-1.5 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
+                  </div>
+                ))}
               </div>
             </TextCard>
-          </AnimateIn>
-        </NavigableSection>
-      </div>
+          </div>
+        </div>
+      </NavigableSection>
+
       <NextProject currentProjectId="auto-presenter-tool" onNavigate={onNavigate} />
       <div className="h-[calc(30vh+25px)] md:h-[calc(35vh+25px)]" />
     </div>

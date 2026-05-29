@@ -56,9 +56,9 @@ export default function Resume() {
               <div className="text-sm" style={{ color: '#a1a1a6' }}>February 2026 &ndash; Present &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Completing an 8-week externship focused on AI-driven product strategy for News Corp&apos;s digital news products, with work reviewed by company leadership and opportunities to present design recommendations directly</li>
-              <li>Designing and deploying user surveys to investigate how algorithmic feeds shape trust and engagement, then translating research findings into actionable product feature concepts</li>
-              <li>Designed an AI feature concept aimed at presenting balanced perspectives in news content to counter filter bubble effects, informed by user research and behavioral patterns</li>
+              <li>Designing AI-driven product features for News Corp&apos;s digital news platforms — translating algorithmic concepts into intuitive user experiences reviewed by company leadership</li>
+              <li>Investigating how automated systems shape user trust and engagement</li>
+              <li>Articulating design decisions and tradeoffs in formal presentations to cross-functional stakeholders</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -88,12 +88,11 @@ export default function Resume() {
               <div className="text-sm" style={{ color: '#a1a1a6' }}>May 2025 &ndash; Present &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Designed and shipped 6+ client projects end-to-end — user research, Figma prototypes, custom design systems, and production code (Next.js, React, Tailwind)</li>
-              <li>Built a real-time inventory management app (MIDDLEMAN) with 10-product stock dashboard, risk scoring, and delivery tracking — designed to reduce manual stockout checks</li>
-              <li>Designed and launched an AI-powered 7-day sprint goal-tracking app (First Day) with 30+ unique screens, AI-generated weekly plans, and an iterative feedback loop that adapts each new sprint</li>
-              <li>Achieved sub-2s load times and 90+ Lighthouse scores across all client sites through image optimization, code splitting, and semantic HTML</li>
+              <li>Designed client websites end-to-end in Figma — discovery, custom design systems, component libraries, and high-fidelity prototypes — then shipped them as live sites using an AI-assisted development workflow (Claude, Cursor)</li>
+              <li>Designed an inventory management app (MIDDLEMAN) with stock dashboard, risk scoring, and delivery tracking — built from firsthand experience identifying workflow inefficiencies as a beer merchandiser</li>
+              <li>Designed and launched an AI-powered 7-day sprint goal-tracking app (First Day) with AI-generated weekly plans and a feedback loop that adapts each new sprint to the user&apos;s progress</li>
               <li>Built a design-to-code pipeline that cut handoff time from hours to minutes</li>
-              <li>Delivered e-commerce, restaurant ordering, and service booking sites for small businesses — each with a custom design system, not borrowed templates</li>
+              <li>Delivered restaurant, service, and small-business sites — each with a custom design system, not borrowed templates</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -107,7 +106,7 @@ export default function Resume() {
               <div className="text-sm" style={{ color: '#a1a1a6' }}>August 2023 &ndash; May 2024 &middot; Durham, NH</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Supported 50+ students with Adobe Creative Suite workflows, mentoring on visual design principles including hierarchy, typography, and color theory</li>
+              <li>Mentored 50+ students on visual design principles including hierarchy, typography, and color theory across Adobe Creative Suite workflows</li>
               <li>Troubleshot technical issues across file preparation, print production, and digital asset management workflows</li>
             </ul>
           </TextCard>
@@ -122,7 +121,9 @@ export default function Resume() {
               <div className="text-sm" style={{ color: '#a1a1a6' }}>January 2024 &ndash; May 2025 &middot; Rochester, NH</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Managed inventory across 15+ retail locations, maintaining optimal stock levels and shelf presentation</li>
+              <li>Managed visual merchandising and product placement across retail accounts</li>
+              <li>Identified workflow inefficiencies in inventory tracking that directly inspired the concept for MIDDLEMAN</li>
+              <li>Developed firsthand understanding of practitioner workflows in high-pressure, time-constrained environments</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -132,7 +133,7 @@ export default function Resume() {
           <TextCard padding="lg">
             <div className="text-center">
               <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>
-                Bachelor of Science in Business Administration, Marketing
+                B.S. Marketing
               </h3>
               <div className="text-base" style={{ color: '#a1a1a6' }}>University of New Hampshire | Durham, NH</div>
               <div className="text-sm" style={{ color: '#a1a1a6' }}>August 2021 – May 2025</div>

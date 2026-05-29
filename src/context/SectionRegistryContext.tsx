@@ -10,6 +10,7 @@ import {
   type ReactNode,
   type MutableRefObject,
 } from 'react';
+import { useLenis } from '@/components/SmoothScroll';
 
 interface SectionEntry {
   id: string;
@@ -73,6 +74,15 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isKeyboardNav, setIsKeyboardNav] = useState(false);
   const suppressScrollSpyUntilRef = useRef<number>(0);
+  const lenis = useLenis();
+
+  const scrollToY = useCallback((top: number) => {
+    if (lenis) {
+      lenis.scrollTo(top, { duration: 0.6 });
+    } else {
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  }, [lenis]);
 
   // Clear keyboard nav suppression on manual scroll/touch
   useEffect(() => {
@@ -127,9 +137,9 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
     setIsKeyboardNav(true);
     setActiveId(target.id);
     const top = target.element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-    window.scrollTo({ top, behavior: 'smooth' });
+    scrollToY(top);
     target.element.focus({ preventScroll: true });
-  }, [activeId, getSections]);
+  }, [activeId, getSections, scrollToY]);
 
   const goPrev = useCallback(() => {
     const sections = getSections();
@@ -142,9 +152,9 @@ export function SectionRegistryProvider({ currentPage, children }: SectionRegist
     setIsKeyboardNav(true);
     setActiveId(target.id);
     const top = target.element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
-    window.scrollTo({ top, behavior: 'smooth' });
+    scrollToY(top);
     target.element.focus({ preventScroll: true });
-  }, [activeId, getSections]);
+  }, [activeId, getSections, scrollToY]);
 
   return (
     <SectionRegistryContext.Provider

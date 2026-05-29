@@ -39,6 +39,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# launchd / cron runtime logs
+/logs/
+
+# playwright mcp scratch
+/.playwright-mcp/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

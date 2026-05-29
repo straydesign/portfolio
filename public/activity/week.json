@@ -1,0 +1,71 @@
+{
+  "span": "week",
+  "label": "7 days ending 2026-05-28",
+  "totals": {
+    "prompts": 1089,
+    "hours": 144.9,
+    "tokens": 2458122582,
+    "sessions": 23
+  },
+  "projects": [
+    {
+      "name": "Personal brand site",
+      "prompts": 145,
+      "hours": 38.8,
+      "tokens": 407232522,
+      "sessions": 5
+    },
+    {
+      "name": "Aquarium store website",
+      "prompts": 386,
+      "hours": 25.9,
+      "tokens": 892042063,
+      "sessions": 4
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 100,
+      "hours": 21.7,
+      "tokens": 259816834,
+      "sessions": 4
+    },
+    {
+      "name": "This portfolio site",
+      "prompts": 297,
+      "hours": 14,
+      "tokens": 495136158,
+      "sessions": 1
+    },
+    {
+      "name": "Web design business site",
+      "prompts": 78,
+      "hours": 14,
+      "tokens": 102365705,
+      "sessions": 2
+    },
+    {
+      "name": "Goal-tracking app",
+      "prompts": 48,
+      "hours": 14,
+      "tokens": 252324841,
+      "sessions": 1
+    },
+    {
+      "name": "Horror video game",
+      "prompts": 2,
+      "hours": 14,
+      "tokens": 2875423,
+      "sessions": 1
+    },
+    {
+      "name": "Other",
+      "prompts": 33,
+      "hours": 2.5,
+      "tokens": 46329036,
+      "sessions": 5
+    }
+  ],
+  "windowStart": "2026-05-22T04:00:00.957Z",
+  "windowEnd": "2026-05-29T04:00:00.957Z",
+  "generatedAt": "2026-05-29T10:11:39.513Z"
+}
