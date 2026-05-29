@@ -5,8 +5,10 @@
 
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { gunzipSync } from 'node:zlib';
+import { execSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { put } from '@vercel/blob';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = dirname(__dirname);
@@ -306,6 +308,9 @@ async function main() {
   const buckets = await collectAll(periods);
   await mkdir(OUT_DIR, { recursive: true });
 
+  // name -> serialized JSON, so we can write locally AND upload to Blob.
+  const payloads = new Map();
+
   for (const name of requested) {
     const b = buckets.get(name);
     const { totals, projects } = aggregateBucket(b);
@@ -318,9 +323,51 @@ async function main() {
       windowEnd: b.meta.end.toISOString(),
       generatedAt: new Date().toISOString(),
     };
+    const body = JSON.stringify(out, null, 2) + '\n';
+    payloads.set(name, body);
     const outPath = join(OUT_DIR, `${name}.json`);
-    await writeFile(outPath, JSON.stringify(out, null, 2) + '\n', 'utf8');
+    await writeFile(outPath, body, 'utf8');
     console.log(`Wrote ${outPath}  (${projects.length} projects, ${totals.prompts} prompts, ${totals.hours}h)`);
+  }
+
+  await uploadToBlob(payloads);
+}
+
+// Read-write token for the Vercel Blob store: env first, then macOS Keychain.
+function getBlobToken() {
+  if (process.env.BLOB_READ_WRITE_TOKEN) return process.env.BLOB_READ_WRITE_TOKEN;
+  try {
+    return execSync('security find-generic-password -s "vercel-blob" -a "portfolio-activity" -w', { encoding: 'utf8' }).trim();
+  } catch {
+    return null;
+  }
+}
+
+// Push each period's JSON to the Blob store at a stable public path so the live
+// site can fetch fresh data WITHOUT a redeploy. Soft-fails — local files are the
+// source of truth; a failed upload just means the site serves slightly older data.
+async function uploadToBlob(payloads) {
+  const token = getBlobToken();
+  if (!token) {
+    console.warn('No BLOB_READ_WRITE_TOKEN (env or Keychain) — skipping Blob upload. Local files still written.');
+    return;
+  }
+  for (const [name, body] of payloads) {
+    try {
+      const { url } = await put(`activity/${name}.json`, body, {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        // Short edge cache so the daily overwrite propagates within minutes
+        // (default is 30 days, which would freeze the numbers).
+        cacheControlMaxAge: 300,
+        token,
+      });
+      console.log(`Uploaded ${name} -> ${url}`);
+    } catch (err) {
+      console.warn(`Blob upload failed for ${name}: ${err?.message || err}`);
+    }
   }
 }
 

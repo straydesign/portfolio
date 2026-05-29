@@ -28,6 +28,12 @@ const TABS: { key: Span; label: string }[] = [
   { key: 'alltime', label: 'All-time' },
 ];
 
+// Public Vercel Blob store for the daily activity data (portfolio-activity store).
+// Stable per store — only changes if the Blob store is recreated.
+const BLOB_BASE =
+  process.env.NEXT_PUBLIC_ACTIVITY_BLOB_BASE ||
+  'https://iyn3vk3wnsbjmbf2.public.blob.vercel-storage.com';
+
 function formatTokens(n: number): string {
   if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(2)}B`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
@@ -51,14 +57,22 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    Promise.all(
-      TABS.map((t) =>
-        fetch(`/activity/${t.key}.json`, { cache: 'no-store' })
-          .then((r) => (r.ok ? r.json() : null))
-          .then((j) => [t.key, j] as const)
-          .catch(() => [t.key, null] as const)
-      )
-    ).then((entries) => {
+    // Live data lives in Vercel Blob, refreshed daily by the local cron job — so the
+    // numbers update without a redeploy. The bundled /activity/*.json is the fallback
+    // (last-deployed snapshot) if Blob is unreachable.
+    const fetchSpan = async (key: Span): Promise<readonly [Span, ActivityData | null]> => {
+      try {
+        const r = await fetch(`${BLOB_BASE}/activity/${key}.json`, { cache: 'no-store' });
+        if (r.ok) return [key, await r.json()];
+      } catch { /* fall through to bundled snapshot */ }
+      try {
+        const r = await fetch(`/activity/${key}.json`, { cache: 'no-store' });
+        if (r.ok) return [key, await r.json()];
+      } catch { /* ignore */ }
+      return [key, null];
+    };
+
+    Promise.all(TABS.map((t) => fetchSpan(t.key))).then((entries) => {
       const next: Partial<Record<Span, ActivityData>> = {};
       let any = false;
       for (const [k, v] of entries) {
