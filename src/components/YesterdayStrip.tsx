@@ -80,6 +80,11 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
       }
       if (!any) setError(true);
       setData(next);
+      // Default to the most recent span that actually has activity, so a quiet
+      // "yesterday" (0 prompts) doesn't render an empty strip on first paint.
+      const order: Span[] = ['yesterday', 'week', 'month', 'alltime'];
+      const firstWithData = order.find((k) => (next[k]?.totals.prompts ?? 0) > 0);
+      if (firstWithData) setActive(firstWithData);
     });
   }, []);
 
@@ -106,7 +111,7 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
         <div role="tablist" aria-label="Activity period" className="flex flex-wrap gap-1">
           {TABS.map((t) => {
             const isActive = active === t.key;
-            const disabled = !data[t.key];
+            const disabled = !data[t.key] || (data[t.key]?.totals.prompts ?? 0) === 0;
             return (
               <button
                 key={t.key}

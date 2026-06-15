@@ -1,68 +1,54 @@
 {
   "span": "month",
-  "label": "30 days ending 2026-05-28",
+  "label": "30 days ending 2026-06-14",
   "totals": {
-    "prompts": 2850,
-    "hours": 360.4,
-    "tokens": 5736197576,
-    "sessions": 48
+    "prompts": 2401,
+    "hours": 552.9,
+    "tokens": 8950984614,
+    "sessions": 71
   },
   "projects": [
     {
       "name": "Personal brand site",
-      "prompts": 313,
-      "hours": 80.8,
-      "tokens": 647021278,
-      "sessions": 8
+      "prompts": 746,
+      "hours": 215.3,
+      "tokens": 3386136321,
+      "sessions": 20
     },
     {
       "name": "Aquarium store website",
-      "prompts": 461,
-      "hours": 55.3,
-      "tokens": 1069635461,
-      "sessions": 7
-    },
-    {
-      "name": "Horror video game",
-      "prompts": 206,
-      "hours": 54.5,
-      "tokens": 168519852,
-      "sessions": 4
-    },
-    {
-      "name": "This portfolio site",
-      "prompts": 372,
-      "hours": 42,
-      "tokens": 613133774,
-      "sessions": 3
+      "prompts": 651,
+      "hours": 104.9,
+      "tokens": 2484940702,
+      "sessions": 10
     },
     {
       "name": "Bar & grill pitch site",
-      "prompts": 262,
-      "hours": 37.6,
-      "tokens": 414067675,
-      "sessions": 8
+      "prompts": 331,
+      "hours": 77.6,
+      "tokens": 1187917116,
+      "sessions": 10
     },
     {
-      "name": "Bowling alley pitch site",
-      "prompts": 469,
-      "hours": 28.5,
-      "tokens": 1011209176,
-      "sessions": 3
+      "name": "Other",
+      "prompts": 128,
+      "hours": 43.6,
+      "tokens": 318669207,
+      "sessions": 20
     },
     {
-      "name": "Goal-tracking app",
-      "prompts": 529,
+      "name": "This portfolio site",
+      "prompts": 318,
       "hours": 28,
-      "tokens": 1411043021,
+      "tokens": 690221309,
       "sessions": 2
     },
     {
-      "name": "CO2 supplier pitch site",
-      "prompts": 99,
-      "hours": 14,
-      "tokens": 230876016,
-      "sessions": 1
+      "name": "Horror video game",
+      "prompts": 14,
+      "hours": 21.2,
+      "tokens": 48628164,
+      "sessions": 3
     },
     {
       "name": "Web design business site",
@@ -72,21 +58,35 @@
       "sessions": 2
     },
     {
-      "name": "Other",
+      "name": "Goal-tracking app",
       "prompts": 48,
-      "hours": 4.7,
-      "tokens": 58159719,
-      "sessions": 9
+      "hours": 14,
+      "tokens": 252324841,
+      "sessions": 1
     },
     {
-      "name": "Clothing brand site",
-      "prompts": 13,
-      "hours": 0.9,
-      "tokens": 10165899,
+      "name": "Craft beer bar pitch site",
+      "prompts": 43,
+      "hours": 14,
+      "tokens": 238350335,
+      "sessions": 1
+    },
+    {
+      "name": "Bowling alley pitch site",
+      "prompts": 22,
+      "hours": 14,
+      "tokens": 38684674,
+      "sessions": 1
+    },
+    {
+      "name": "Multi-location tattoo pitch site",
+      "prompts": 22,
+      "hours": 6.3,
+      "tokens": 202746240,
       "sessions": 1
     }
   ],
-  "windowStart": "2026-04-29T04:00:00.787Z",
-  "windowEnd": "2026-05-29T04:00:00.787Z",
-  "generatedAt": "2026-05-29T18:13:18.662Z"
+  "windowStart": "2026-05-16T04:00:00.766Z",
+  "windowEnd": "2026-06-15T04:00:00.766Z",
+  "generatedAt": "2026-06-15T21:49:39.271Z"
 }

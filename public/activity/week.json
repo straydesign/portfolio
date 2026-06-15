@@ -1,71 +1,57 @@
 {
   "span": "week",
-  "label": "7 days ending 2026-05-28",
+  "label": "7 days ending 2026-06-14",
   "totals": {
-    "prompts": 1089,
-    "hours": 144.9,
-    "tokens": 2458122582,
-    "sessions": 23
+    "prompts": 406,
+    "hours": 164,
+    "tokens": 2374381904,
+    "sessions": 20
   },
   "projects": [
     {
       "name": "Personal brand site",
-      "prompts": 145,
-      "hours": 38.8,
-      "tokens": 407232522,
-      "sessions": 5
+      "prompts": 182,
+      "hours": 73.2,
+      "tokens": 1004591739,
+      "sessions": 8
     },
     {
       "name": "Aquarium store website",
-      "prompts": 386,
-      "hours": 25.9,
-      "tokens": 892042063,
-      "sessions": 4
-    },
-    {
-      "name": "Bar & grill pitch site",
-      "prompts": 100,
-      "hours": 21.7,
-      "tokens": 259816834,
-      "sessions": 4
-    },
-    {
-      "name": "This portfolio site",
-      "prompts": 297,
-      "hours": 14,
-      "tokens": 495136158,
-      "sessions": 1
-    },
-    {
-      "name": "Web design business site",
-      "prompts": 78,
-      "hours": 14,
-      "tokens": 102365705,
-      "sessions": 2
-    },
-    {
-      "name": "Goal-tracking app",
-      "prompts": 48,
-      "hours": 14,
-      "tokens": 252324841,
-      "sessions": 1
-    },
-    {
-      "name": "Horror video game",
-      "prompts": 2,
-      "hours": 14,
-      "tokens": 2875423,
-      "sessions": 1
+      "prompts": 121,
+      "hours": 42,
+      "tokens": 818246209,
+      "sessions": 3
     },
     {
       "name": "Other",
-      "prompts": 33,
-      "hours": 2.5,
-      "tokens": 46329036,
-      "sessions": 5
+      "prompts": 27,
+      "hours": 14.5,
+      "tokens": 90614950,
+      "sessions": 6
+    },
+    {
+      "name": "Craft beer bar pitch site",
+      "prompts": 43,
+      "hours": 14,
+      "tokens": 238350335,
+      "sessions": 1
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 11,
+      "hours": 14,
+      "tokens": 19832431,
+      "sessions": 1
+    },
+    {
+      "name": "Multi-location tattoo pitch site",
+      "prompts": 22,
+      "hours": 6.3,
+      "tokens": 202746240,
+      "sessions": 1
     }
   ],
-  "windowStart": "2026-05-22T04:00:00.787Z",
-  "windowEnd": "2026-05-29T04:00:00.787Z",
-  "generatedAt": "2026-05-29T18:13:18.662Z"
+  "windowStart": "2026-06-08T04:00:00.766Z",
+  "windowEnd": "2026-06-15T04:00:00.766Z",
+  "generatedAt": "2026-06-15T21:49:39.270Z"
 }

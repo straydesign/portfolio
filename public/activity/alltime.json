@@ -1,47 +1,54 @@
 {
   "span": "alltime",
-  "label": "through 2026-05-28",
+  "label": "through 2026-06-14",
   "totals": {
-    "prompts": 5845,
-    "hours": 1057.5,
-    "tokens": 10345238810,
-    "sessions": 134
+    "prompts": 7055,
+    "hours": 1433,
+    "tokens": 16643904681,
+    "sessions": 174
   },
   "projects": [
     {
       "name": "Personal brand site",
-      "prompts": 1153,
-      "hours": 225.5,
-      "tokens": 1840055966,
-      "sessions": 29
+      "prompts": 1753,
+      "hours": 402,
+      "tokens": 4818959765,
+      "sessions": 43
     },
     {
       "name": "Bar & grill pitch site",
-      "prompts": 931,
-      "hours": 168.6,
-      "tokens": 1478253615,
-      "sessions": 25
-    },
-    {
-      "name": "This portfolio site",
-      "prompts": 508,
-      "hours": 115.8,
-      "tokens": 911638319,
-      "sessions": 9
+      "prompts": 1131,
+      "hours": 224,
+      "tokens": 2356603254,
+      "sessions": 30
     },
     {
       "name": "Aquarium store website",
-      "prompts": 702,
-      "hours": 102.7,
-      "tokens": 1497335988,
-      "sessions": 11
+      "prompts": 937,
+      "hours": 167.7,
+      "tokens": 3000545637,
+      "sessions": 16
+    },
+    {
+      "name": "This portfolio site",
+      "prompts": 529,
+      "hours": 129.8,
+      "tokens": 1106723470,
+      "sessions": 10
+    },
+    {
+      "name": "Other",
+      "prompts": 206,
+      "hours": 92.9,
+      "tokens": 361206976,
+      "sessions": 33
     },
     {
       "name": "Horror video game",
-      "prompts": 395,
-      "hours": 86.3,
-      "tokens": 457234627,
-      "sessions": 7
+      "prompts": 403,
+      "hours": 91.7,
+      "tokens": 498709377,
+      "sessions": 8
     },
     {
       "name": "CO2 supplier pitch site",
@@ -58,13 +65,6 @@
       "sessions": 5
     },
     {
-      "name": "Other",
-      "prompts": 125,
-      "hours": 54.1,
-      "tokens": 100660668,
-      "sessions": 21
-    },
-    {
       "name": "Web design business site",
       "prompts": 128,
       "hours": 42.9,
@@ -77,6 +77,13 @@
       "hours": 30.1,
       "tokens": 1065104331,
       "sessions": 4
+    },
+    {
+      "name": "Craft beer bar pitch site",
+      "prompts": 196,
+      "hours": 28,
+      "tokens": 410862419,
+      "sessions": 2
     },
     {
       "name": "Billiards bar pitch site",
@@ -93,25 +100,18 @@
       "sessions": 2
     },
     {
+      "name": "Multi-location tattoo pitch site",
+      "prompts": 50,
+      "hours": 22.4,
+      "tokens": 230708707,
+      "sessions": 3
+    },
+    {
       "name": "IT services pitch site",
       "prompts": 37,
       "hours": 18,
       "tokens": 64940248,
       "sessions": 3
-    },
-    {
-      "name": "Multi-location tattoo pitch site",
-      "prompts": 28,
-      "hours": 16.1,
-      "tokens": 27962467,
-      "sessions": 2
-    },
-    {
-      "name": "Craft beer bar pitch site",
-      "prompts": 153,
-      "hours": 14,
-      "tokens": 172512084,
-      "sessions": 1
     },
     {
       "name": "Clothing brand site",
@@ -129,6 +129,6 @@
     }
   ],
   "windowStart": "1970-01-01T00:00:00.000Z",
-  "windowEnd": "2026-05-29T04:00:00.477Z",
-  "generatedAt": "2026-05-29T18:15:04.458Z"
+  "windowEnd": "2026-06-15T04:00:00.766Z",
+  "generatedAt": "2026-06-15T21:49:39.273Z"
 }
