@@ -37,7 +37,7 @@ export default function Resume() {
                   style={{ backgroundColor: '#ffffff', color: '#000000', fontWeight: 600, textDecoration: 'none', borderRadius: 0 }}>
                   LinkedIn <ExternalLink size={16} />
                 </a>
-                <a href="https://docs.google.com/document/d/1kTxSO1ZNzDd9DeFBos4rUYLo0tUII7KU/edit?usp=sharing&ouid=113634400728522442808&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer"
+                <a href="https://drive.google.com/uc?export=download&id=1YVap124QZUpwGPvLdfwgRUlaGP1i67_H" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
                   style={{ backgroundColor: '#ffffff', color: '#000000', fontWeight: 600, textDecoration: 'none', borderRadius: 0 }}>
                   <Download size={16} /> Download Resume
@@ -51,14 +51,14 @@ export default function Resume() {
         <NavigableSection id="resume-newscorp" label="News Corp">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>News Corp &mdash; Extern Program</h3>
+              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>News Corp &mdash; Externship Program</h3>
               <div className="text-base" style={{ color: '#a1a1a6' }}>Product Strategy Extern</div>
-              <div className="text-sm" style={{ color: '#a1a1a6' }}>February 2026 &ndash; Present &middot; Remote</div>
+              <div className="text-sm" style={{ color: '#a1a1a6' }}>February 2026 &ndash; April 2026 &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Designing AI-driven product features for News Corp&apos;s digital news platforms — translating algorithmic concepts into intuitive user experiences reviewed by company leadership</li>
-              <li>Investigating how automated systems shape user trust and engagement</li>
-              <li>Articulating design decisions and tradeoffs in formal presentations to cross-functional stakeholders</li>
+              <li>Remote, project-based externship focused on AI-driven features for digital news products</li>
+              <li>Translated algorithmic concepts into UX deliverables and explored how automated systems shape user trust and engagement</li>
+              <li>Produced a final project presentation articulating design decisions and tradeoffs</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -67,15 +67,14 @@ export default function Resume() {
         <NavigableSection id="resume-tiktok" label="TikTok">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>TikTok / Sapphire Studios &mdash; Extern Program</h3>
+              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>TikTok / Sapphire Studios &mdash; Externship Program</h3>
               <div className="text-base" style={{ color: '#a1a1a6' }}>Brand &amp; Content Strategy Extern</div>
               <div className="text-sm" style={{ color: '#a1a1a6' }}>January 2026 &ndash; February 2026 &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Completed a 4-week brand strategy externship mentored by TikTok&apos;s Head of Agency, developing brand voice frameworks and visual identity systems with reusable templates and content grids</li>
-              <li>Applied design system thinking to ensure cross-platform consistency across Instagram and TikTok, creating systematic caption frameworks and content templates</li>
-              <li>Designed a structured conversation feature inspired by research in Supercommunicators, exploring how platform design can encourage more constructive dialogue between users</li>
-              <li>Synthesized all work into a client-ready Brand Voice &amp; Content Playbook, presenting design decisions and strategy to reviewers</li>
+              <li>Remote, project-based externship developing brand-voice frameworks and visual identity systems with reusable templates and content grids</li>
+              <li>Applied design-system thinking for cross-platform consistency across Instagram and TikTok — caption frameworks and content templates</li>
+              <li>Synthesized the work into a Brand Voice &amp; Content Playbook as the program capstone</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -84,15 +83,15 @@ export default function Resume() {
         <NavigableSection id="resume-freelance" label="Freelance">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>UX/UI Designer (Freelance)</h3>
+              <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>Freelance Product &amp; Web Designer &mdash; Stray Design</h3>
               <div className="text-sm" style={{ color: '#a1a1a6' }}>May 2025 &ndash; Present &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Designed client websites end-to-end in Figma — discovery, custom design systems, component libraries, and high-fidelity prototypes — then shipped them as live sites using an AI-assisted development workflow (Claude, Cursor)</li>
-              <li>Designed an inventory management app (MIDDLEMAN) with stock dashboard, risk scoring, and delivery tracking — built from firsthand experience identifying workflow inefficiencies as a beer merchandiser</li>
-              <li>Designed and launched an AI-powered 7-day sprint goal-tracking app (First Day) with AI-generated weekly plans and a feedback loop that adapts each new sprint to the user&apos;s progress</li>
-              <li>Built a design-to-code pipeline that cut handoff time from hours to minutes</li>
-              <li>Delivered restaurant, service, and small-business sites — each with a custom design system, not borrowed templates</li>
+              <li>Design client websites end-to-end in Figma — discovery, custom design systems, component libraries, and high-fidelity prototypes — then ship them as live sites using an AI-assisted development workflow (Claude, Cursor)</li>
+              <li>Build custom, easy-to-use content-management back ends so non-technical business owners can update their own sites without technical help</li>
+              <li>Live client sites: Andy&apos;s (bar &amp; grill), Bullfrog (bar), and Sea Cave (aquatics retail) — one now serves 2,000+ monthly users</li>
+              <li>Produced 15+ complete spec-pitch site concepts for local businesses across hospitality, retail, and services, controlling design and build end-to-end</li>
+              <li>Also design and build my own products: MIDDLEMAN (inventory management) and First Day (AI-powered 7-day goal sprints)</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -106,8 +105,7 @@ export default function Resume() {
               <div className="text-sm" style={{ color: '#a1a1a6' }}>August 2023 &ndash; May 2024 &middot; Durham, NH</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Mentored 50+ students on visual design principles including hierarchy, typography, and color theory across Adobe Creative Suite workflows</li>
-              <li>Troubleshot technical issues across file preparation, print production, and digital asset management workflows</li>
+              <li>Helped students with Adobe Creative Suite (Photoshop, Illustrator, InDesign) and project-design questions during open lab hours</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -118,12 +116,11 @@ export default function Resume() {
             <div className="text-center mb-4">
               <h3 className="text-lg font-semibold" style={{ color: '#ffffff' }}>Merchandiser</h3>
               <div className="text-base" style={{ color: '#a1a1a6' }}>New Hampshire Distributors</div>
-              <div className="text-sm" style={{ color: '#a1a1a6' }}>January 2024 &ndash; May 2025 &middot; Rochester, NH</div>
+              <div className="text-sm" style={{ color: '#a1a1a6' }}>June 2024 &ndash; May 2025 &middot; Rochester, NH</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: '#ffffff' }}>
-              <li>Managed visual merchandising and product placement across retail accounts</li>
-              <li>Identified workflow inefficiencies in inventory tracking that directly inspired the concept for MIDDLEMAN</li>
-              <li>Developed firsthand understanding of practitioner workflows in high-pressure, time-constrained environments</li>
+              <li>Stocked and merchandised beer product across retail accounts</li>
+              <li>Hands-on retail experience that inspired the concept for MIDDLEMAN</li>
             </ul>
           </TextCard>
         </NavigableSection>
