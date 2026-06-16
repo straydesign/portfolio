@@ -37,7 +37,7 @@ export default function Resume() {
                   style={{ backgroundColor: '#ffffff', color: '#000000', fontWeight: 600, textDecoration: 'none', borderRadius: 0 }}>
                   LinkedIn <ExternalLink size={16} />
                 </a>
-                <a href="https://drive.google.com/uc?export=download&id=1YVap124QZUpwGPvLdfwgRUlaGP1i67_H" target="_blank" rel="noopener noreferrer"
+                <a href="/Thomas_Sesler_Resume.pdf" download target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
                   style={{ backgroundColor: '#ffffff', color: '#000000', fontWeight: 600, textDecoration: 'none', borderRadius: 0 }}>
                   <Download size={16} /> Download Resume
