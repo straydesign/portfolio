@@ -12,6 +12,8 @@ import { SectionRegistryProvider } from '@/context/SectionRegistryContext';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
+import { useTheme } from '@/context/ThemeContext';
+import { BeadChainPull } from '@/components/BeadChainPull';
 
 const BrickWallWrapper = dynamic(
   () => import('@/components/three/BrickWallWrapper').then(mod => ({ default: mod.BrickWallWrapper })),
@@ -61,6 +63,7 @@ function AppContent() {
   const [showBackground, setShowBackground] = useState(false);
   const lenis = useLenis();
   const reducedMotion = useReducedMotion();
+  const { theme } = useTheme();
 
   // Mount effect — read URL, then mark hydrated
   useEffect(() => {
@@ -106,20 +109,24 @@ function AppContent() {
 
   return (
     <SectionRegistryProvider currentPage={currentPage}>
-      <div className="min-h-screen flex flex-col bg-black">
+      <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--paper)' }}>
         <a href="#main-content" className="skip-link">Skip to main content</a>
+        <BeadChainPull />
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
         <main id="main-content" className="flex-1 relative overflow-hidden">
           <div className="fixed inset-0 z-[2] pointer-events-none">
-            {showBackground && <BrickWallWrapper theme="dark" accentColor="#ffffff" />}
+            {showBackground && <BrickWallWrapper theme={theme} accentColor="#ffffff" />}
           </div>
           {/* Scrim overlay on project/resume pages to reduce background distraction */}
           {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study' || currentPage === 'auto-presenter-tool') && (
-            <div className="fixed inset-0 z-[3] pointer-events-none bg-black/90" />
+            <div className="fixed inset-0 z-[3] pointer-events-none" style={{ backgroundColor: 'rgba(var(--veil),0.9)' }} />
           )}
           <div className="relative z-10">
             <SectionNavigationOrchestrator />
-            <AnimatePresence mode="wait">
+            {/* initial={false}: the first-loaded page paints at its visible
+                state immediately (keeps LCP ≈ FCP) — only page-to-page
+                navigations animate. */}
+            <AnimatePresence mode="wait" initial={false}>
               <m.div
                 key={currentPage}
                 initial={{ opacity: 0, y: reducedMotion ? 0 : 8, filter: reducedMotion ? 'none' : 'blur(4px)' }}

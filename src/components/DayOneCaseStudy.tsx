@@ -66,13 +66,13 @@ const TRADEOFFS = [
 ] as const;
 
 const BG = {
-  hero: '#000000',
-  journey: '#18181b',
-  validation: '#050507',
-  ideation: '#18181b',
-  decisions: '#0c0c10',
-  iteration: '#050507',
-  outcome: '#04101c',
+  hero: 'var(--paper)',
+  journey: 'var(--surface-2)',
+  validation: 'var(--surface-3)',
+  ideation: 'var(--surface-2)',
+  decisions: 'var(--surface-2)',
+  iteration: 'var(--surface-3)',
+  outcome: 'var(--out-navy)',
 } as const;
 
 const DECISIONS = [
@@ -111,17 +111,17 @@ const DECISIONS = [
 ] as const;
 
 export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyProps) {
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
-  const primaryColor = '#ffffff';
-  const statBg = 'rgba(255,255,255,0.02)';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
+  const primaryColor = 'var(--ink)';
+  const statBg = 'rgba(var(--hairline),0.02)';
   const sectionPad = 'py-8 md:py-12';
   const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
       {/* Fixed back + visit site bar */}
-      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-4">
+      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-[var(--paper)] py-3 px-4 md:px-8 flex items-center gap-4">
         <button onClick={onBack}
           className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
           style={{ color: primaryColor, borderRadius: 0 }}>
@@ -129,7 +129,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </button>
         <a href="https://firstday.life" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
-          style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+          style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}>
           <ExternalLink className="w-4 h-4" /> Visit Live Site
         </a>
       </div>
@@ -169,7 +169,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                 <PhoneMockup
                   screenshot="/images/firstday/hero.png"
                   gradientFrom={primaryColor}
-                  gradientTo="#000000"
+                  gradientTo="var(--paper)"
                   alt="FirstDay.Life hero"
                   size="large"
                 />
@@ -194,7 +194,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   <StaggerItem key={step}>
                     <div className="p-3 h-full flex flex-col" style={{
                       backgroundColor: statBg,
-                      border: friction ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.06)',
+                      border: friction ? '1px solid rgba(var(--hairline),0.25)' : '1px solid rgba(var(--hairline),0.06)',
                     }}>
                       <div className="flex items-baseline justify-between mb-1">
                         <p className="text-[10px] font-bold tracking-wider" style={{ color: secondaryTextColor }}>STEP {String(step).padStart(2, '0')}</p>
@@ -230,7 +230,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   { stat: '< 1 min', label: 'To first plan', sub: 'Type goal. Wake up with a plan.' },
                   { stat: 'Self', label: 'As first user', sub: 'I quit guitar 4 times before this' },
                 ].map(({ stat, label, sub }) => (
-                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px dashed rgba(255,255,255,0.12)' }}>
+                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px dashed rgba(var(--hairline),0.12)' }}>
                     <p className="text-2xl md:text-3xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-sm font-bold mt-1" style={{ color: textColor }}>{label}</p>
                     <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
@@ -245,7 +245,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   { tag: 'Get up at 6am', body: 'Built a Notion habit tracker. Spent the hour I should have slept designing the tracker. Quit by day three.' },
                   { tag: 'Run a 5K', body: 'Couch-to-5K plan was 9 weeks. Week 4 hurt. Skipped one run. Skipped a week. The plan still sits in my Notes app.' },
                 ].map(({ tag, body }) => (
-                  <div key={tag} className="p-3" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={tag} className="p-3" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-[10px] font-bold tracking-wider mb-1.5 uppercase" style={{ color: primaryColor }}>{tag}</p>
                     <p className="text-[12px] leading-snug" style={{ color: textColor }}>{body}</p>
                   </div>
@@ -269,20 +269,20 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
                 {DESIGN_MOVES.map(({ n, title, failure, move, img }) => (
                   <StaggerItem key={n}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-xl font-black" style={{ color: primaryColor }}>{n}</p>
                         <p className="text-xs font-bold" style={{ color: textColor }}>{title}</p>
                       </div>
-                      <div className="mb-2 h-72 flex items-center justify-center p-2 relative" style={{ overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#f5f5f7' }}>
-                        <span className="absolute top-1.5 left-1.5 text-[8px] font-bold tracking-[0.18em] uppercase px-1.5 py-0.5" style={{ color: '#6b6b73', border: '1px solid #0d0d10', backgroundColor: '#ffffff' }}>Wireframe</span>
+                      <div className="mb-2 h-72 flex items-center justify-center p-2 relative" style={{ overflow: 'hidden', border: '1px solid rgba(var(--hairline),0.08)', backgroundColor: '#f5f5f7' }}>
+                        <span className="absolute top-1.5 left-1.5 text-[8px] font-bold tracking-[0.18em] uppercase px-1.5 py-0.5" style={{ color: '#595959', border: '1px solid #e2e2e2', backgroundColor: '#ffffff' }}>Wireframe</span>
                         <img src={img} alt={title} className="max-w-full max-h-full object-contain" loading="lazy" />
                       </div>
                       <div className="mb-1.5">
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: secondaryTextColor }}>FAILURE POINT</p>
                         <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{failure}</p>
                       </div>
-                      <div style={{ borderLeft: '2px solid #ffffff', paddingLeft: '8px' }}>
+                      <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '8px' }}>
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: primaryColor }}>MOVE</p>
                         <p className="text-[11px] leading-snug" style={{ color: textColor }}>{move}</p>
                       </div>
@@ -308,7 +308,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5" staggerDelay={0.06}>
                 {DECISIONS.map(({ n, title, shipped, explored, rationale, decision }) => (
                   <StaggerItem key={n}>
-                    <div className="p-4 md:p-5 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.08)' }}>
+                    <div className="p-4 md:p-5 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.10)' }}>
                       <div className="flex items-baseline gap-3 mb-4">
                         <p className="text-2xl font-black" style={{ color: primaryColor }}>{n}</p>
                         <p className="text-base font-bold" style={{ color: textColor }}>{title}</p>
@@ -331,9 +331,9 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                           <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{explored.note}</p>
                         </div>
                       </div>
-                      <div className="mt-auto pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                      <div className="mt-auto pt-3" style={{ borderTop: '1px solid rgba(var(--hairline),0.08)' }}>
                         <p className="text-[11px] leading-relaxed mb-3" style={{ color: secondaryTextColor }}>{rationale}</p>
-                        <div className="flex items-start gap-2" style={{ borderLeft: '2px solid #ffffff', paddingLeft: '8px' }}>
+                        <div className="flex items-start gap-2" style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '8px' }}>
                           <p className="text-[10px] font-bold tracking-wider uppercase shrink-0" style={{ color: primaryColor }}>Decision</p>
                           <p className="text-[11px] leading-snug" style={{ color: textColor }}>{decision}</p>
                         </div>
@@ -360,7 +360,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
                 {TRADEOFFS.map(({ cut, why }, i) => (
                   <StaggerItem key={cut}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                       <div className="flex items-center gap-2 mb-2">
                         <p className="text-lg font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
                         <ArrowRight className="w-3.5 h-3.5" style={{ color: primaryColor, opacity: 0.5 }} />
@@ -381,7 +381,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
       <NavigableSection id="d1-outcome" label="Outcome" style={{ backgroundColor: BG.outcome }}>
         <div className={inner}>
           <div className={sectionPad}>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid var(--ink)' }}>
               <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
               <p className="text-xl md:text-3xl font-bold leading-relaxed mb-3" style={{ color: textColor }}>
                 Designed, built, and shipped. <span style={{ color: primaryColor }}>Day one actually happens.</span>
@@ -396,7 +396,7 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   { stat: '0', label: 'Planning required' },
                   { stat: '< 1 min', label: 'To first plan' },
                 ].map(({ stat, label }) => (
-                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-[10px] font-bold mt-1.5 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                   </div>

@@ -22,7 +22,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: 'c2441e47-8ca0-4f87-a2dc-928015553d51',
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '',
           name,
           email,
           message,
@@ -46,13 +46,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   if (status === 'success') {
     return (
       <div className={`text-center ${compact ? 'py-4' : 'py-8'}`}>
-        <CheckCircle className="w-10 h-10 mx-auto mb-3" style={{ color: '#ffffff' }} />
-        <p className="text-lg font-bold mb-1" style={{ color: '#ffffff' }}>Message sent</p>
-        <p className="text-sm" style={{ color: '#a1a1a6' }}>I&apos;ll get back to you within 24 hours.</p>
+        <CheckCircle className="w-10 h-10 mx-auto mb-3" style={{ color: 'var(--ink)' }} />
+        <p className="text-lg font-bold mb-1" style={{ color: 'var(--ink)' }}>Message sent</p>
+        <p className="text-sm" style={{ color: 'var(--ink-2)' }}>I&apos;ll get back to you within 24 hours.</p>
         <button
           onClick={() => setStatus('idle')}
           className="mt-4 text-sm underline"
-          style={{ color: '#ffffff' }}
+          style={{ color: 'var(--ink)' }}
         >
           Send another message
         </button>
@@ -63,7 +63,7 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
       <div>
-        <label htmlFor="contact-name" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
+        <label htmlFor="contact-name" className="block text-sm font-medium mb-1" style={{ color: 'var(--ink-2)' }}>
           Name
         </label>
         <input
@@ -72,13 +72,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           required
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20"
-          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-[rgba(var(--hairline),0.20)]"
+          style={{ backgroundColor: 'var(--chip)', border: '1px solid rgba(var(--hairline),0.12)', borderRadius: 0, color: 'var(--ink)' }}
           placeholder="Your name"
         />
       </div>
       <div>
-        <label htmlFor="contact-email" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
+        <label htmlFor="contact-email" className="block text-sm font-medium mb-1" style={{ color: 'var(--ink-2)' }}>
           Email
         </label>
         <input
@@ -87,13 +87,13 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20"
-          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-[rgba(var(--hairline),0.20)]"
+          style={{ backgroundColor: 'var(--chip)', border: '1px solid rgba(var(--hairline),0.12)', borderRadius: 0, color: 'var(--ink)' }}
           placeholder="your@email.com"
         />
       </div>
       <div>
-        <label htmlFor="contact-message" className="block text-sm font-medium mb-1" style={{ color: '#a1a1a6' }}>
+        <label htmlFor="contact-message" className="block text-sm font-medium mb-1" style={{ color: 'var(--ink-2)' }}>
           Message
         </label>
         <textarea
@@ -102,8 +102,8 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={compact ? 3 : 4}
-          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-white/20 resize-none"
-          style={{ backgroundColor: '#111111', border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 0, color: '#ffffff' }}
+          className="w-full px-4 py-2.5 text-base outline-none transition-all focus:ring-2 focus:ring-[rgba(var(--hairline),0.20)] resize-none"
+          style={{ backgroundColor: 'var(--chip)', border: '1px solid rgba(var(--hairline),0.12)', borderRadius: 0, color: 'var(--ink)' }}
           placeholder="Tell me about your project..."
         />
       </div>
@@ -119,14 +119,14 @@ export default function ContactForm({ compact = false }: ContactFormProps) {
         type="submit"
         disabled={status === 'sending'}
         className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-base transition-all hover:scale-105 font-bold disabled:opacity-60"
-        style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+        style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
       >
         <Send className="w-4 h-4" />
         {status === 'sending' ? 'Sending...' : 'Send Message'}
       </button>
 
-      <p className="text-xs text-center" style={{ color: '#a1a1a6' }}>
-        Or email directly at <a href="mailto:tom@straydesign.co" style={{ color: '#ffffff' }}>tom@straydesign.co</a>
+      <p className="text-xs text-center" style={{ color: 'var(--ink-2)' }}>
+        Or email directly at <a href="mailto:tom@straydesign.co" style={{ color: 'var(--ink)' }}>tom@straydesign.co</a>
       </p>
     </form>
   );

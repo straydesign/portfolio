@@ -91,11 +91,11 @@ export default function PhoneMockup({
             className="absolute inset-0"
             style={{
               borderRadius: 16,
-              background: 'linear-gradient(145deg, #3a3a3a, #1a1a1a, #0a0a0a, #2a2a2a)',
+              background: 'linear-gradient(145deg, #c5c5c5, #e5e5e5, #f5f5f5, #d5d5d5)',
               boxShadow: `
-                inset 0 1px 0 rgba(255,255,255,0.12),
-                inset 0 -1px 0 rgba(0,0,0,0.4),
-                0 0 0 0.5px rgba(255,255,255,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.60),
+                inset 0 -1px 0 rgba(0,0,0,0.15),
+                0 0 0 0.5px rgba(0,0,0,0.06),
                 0 8px 20px rgba(0,0,0,0.3)
               `,
             }}
@@ -105,7 +105,7 @@ export default function PhoneMockup({
             style={{
               top: 2, left: 2, right: 2, bottom: 2,
               borderRadius: 14,
-              background: '#000',
+              background: '#111111',
             }}
           >
             <Image
@@ -138,7 +138,7 @@ export default function PhoneMockup({
 
   return (
     <div
-      className={`flex flex-col items-center ${onClick ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm' : ''}`}
+      className={`flex flex-col items-center ${onClick ? 'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[color:var(--paper)] rounded-sm' : ''}`}
       onClick={onClick}
       role={onClick ? 'link' : undefined}
       tabIndex={onClick ? 0 : undefined}
@@ -184,11 +184,11 @@ export default function PhoneMockup({
           <div
             className="absolute inset-0 rounded-[28px] transition-shadow duration-500"
             style={{
-              background: 'linear-gradient(145deg, #3a3a3a, #1a1a1a, #0a0a0a, #2a2a2a)',
+              background: 'linear-gradient(145deg, #c5c5c5, #e5e5e5, #f5f5f5, #d5d5d5)',
               boxShadow: `
-                inset 0 1px 0 rgba(255,255,255,0.15),
-                inset 0 -1px 0 rgba(0,0,0,0.4),
-                0 0 0 0.5px rgba(255,255,255,0.06),
+                inset 0 1px 0 rgba(255,255,255,0.70),
+                inset 0 -1px 0 rgba(0,0,0,0.15),
+                0 0 0 0.5px rgba(0,0,0,0.06),
                 0 20px 50px rgba(0,0,0,0.4)
               `,
             }}
@@ -223,7 +223,7 @@ export default function PhoneMockup({
             style={{
               top: 4, left: 4, right: 4, bottom: 4,
               borderRadius: 24,
-              background: '#000',
+              background: '#111111',
             }}
           >
             {/* App content — fills entire screen */}

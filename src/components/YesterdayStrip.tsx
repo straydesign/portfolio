@@ -93,8 +93,8 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
 
   return (
     <m.div
-      className="mt-6 md:mt-8 border border-white/15 p-4 md:p-5"
-      style={{ backgroundColor: '#0a0a0a' }}
+      className="mt-6 md:mt-8 border border-[rgba(var(--hairline),0.15)] p-4 md:p-5"
+      style={{ backgroundColor: 'var(--paper)' }}
       initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
@@ -104,7 +104,7 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
           className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0"
           style={{ backgroundColor: '#34d399', color: '#000', borderRadius: 0 }}
         >
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           Live activity
         </span>
 
@@ -121,9 +121,9 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
                 onClick={() => setActive(t.key)}
                 className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                 style={{
-                  backgroundColor: isActive ? '#ffffff' : 'transparent',
-                  color: isActive ? '#000000' : '#ffffff',
-                  border: '1px solid #ffffff',
+                  backgroundColor: isActive ? 'var(--ink)' : 'transparent',
+                  color: isActive ? 'var(--paper)' : 'var(--ink)',
+                  border: '1px solid var(--ink)',
                   borderRadius: 0,
                 }}
               >
@@ -133,7 +133,7 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
           })}
         </div>
 
-        <span className="text-[11px] uppercase tracking-wider basis-full md:basis-auto md:ml-auto" style={{ color: '#a1a1a6' }}>
+        <span className="text-[11px] uppercase tracking-wider basis-full md:basis-auto md:ml-auto" style={{ color: 'var(--ink-2)' }}>
           Auto-tracked daily from my Claude Code session logs
         </span>
       </div>
@@ -147,21 +147,21 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
           transition={{ duration: 0.2 }}
         >
           {!current ? (
-            <p className="text-[13px]" style={{ color: '#a1a1a6' }}>Loading…</p>
+            <p className="text-[13px]" style={{ color: 'var(--ink-2)' }}>Loading…</p>
           ) : (
             <>
               <div className="flex items-baseline justify-between gap-3 mb-3">
-                <div className="text-[10px] font-mono uppercase tracking-wider" style={{ color: '#a1a1a6' }}>
+                <div className="text-[10px] font-mono uppercase tracking-wider" style={{ color: 'var(--ink-2)' }}>
                   {current.label}
                 </div>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono uppercase tracking-wider justify-end" style={{ color: '#a1a1a6' }}>
-                  <span><strong style={{ color: '#ffffff' }}>{current.totals.prompts.toLocaleString()}</strong> prompts</span>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono uppercase tracking-wider justify-end" style={{ color: 'var(--ink-2)' }}>
+                  <span><strong style={{ color: 'var(--ink)' }}>{current.totals.prompts.toLocaleString()}</strong> prompts</span>
                   <span aria-hidden>·</span>
-                  <span><strong style={{ color: '#ffffff' }}>{formatHours(current.totals.hours)}</strong> agent-hours</span>
+                  <span><strong style={{ color: 'var(--ink)' }}>{formatHours(current.totals.hours)}</strong> agent-hours</span>
                   <span aria-hidden>·</span>
-                  <span><strong style={{ color: '#ffffff' }}>{formatTokens(current.totals.tokens)}</strong> tokens</span>
+                  <span><strong style={{ color: 'var(--ink)' }}>{formatTokens(current.totals.tokens)}</strong> tokens</span>
                   <span aria-hidden>·</span>
-                  <span><strong style={{ color: '#ffffff' }}>{current.totals.sessions.toLocaleString()}</strong> sessions</span>
+                  <span><strong style={{ color: 'var(--ink)' }}>{current.totals.sessions.toLocaleString()}</strong> sessions</span>
                 </div>
               </div>
 
@@ -169,23 +169,23 @@ export default function YesterdayStrip({ delay = 0 }: Props) {
                 {current.projects.map((p) => (
                   <li
                     key={p.name}
-                    className="grid grid-cols-[1fr_auto] items-baseline gap-3 py-1 border-t border-white/5 first:border-t-0"
+                    className="grid grid-cols-[1fr_auto] items-baseline gap-3 py-1 border-t border-[rgba(var(--hairline),0.05)] first:border-t-0"
                   >
-                    <span className="text-[13px] md:text-[14px] truncate" style={{ color: '#ffffff' }}>
+                    <span className="text-[13px] md:text-[14px] truncate" style={{ color: 'var(--ink)' }}>
                       {p.name}
                     </span>
-                    <span className="text-[10px] md:text-[11px] font-mono uppercase tracking-wider tabular-nums" style={{ color: '#a1a1a6' }}>
-                      <strong style={{ color: '#ffffff' }}>{p.prompts.toLocaleString()}</strong> prompts
+                    <span className="text-[10px] md:text-[11px] font-mono uppercase tracking-wider tabular-nums" style={{ color: 'var(--ink-2)' }}>
+                      <strong style={{ color: 'var(--ink)' }}>{p.prompts.toLocaleString()}</strong> prompts
                       <span aria-hidden> · </span>
-                      <strong style={{ color: '#ffffff' }}>{formatHours(p.hours)}</strong>h
+                      <strong style={{ color: 'var(--ink)' }}>{formatHours(p.hours)}</strong>h
                       <span aria-hidden> · </span>
-                      <strong style={{ color: '#ffffff' }}>{formatTokens(p.tokens)}</strong>
+                      <strong style={{ color: 'var(--ink)' }}>{formatTokens(p.tokens)}</strong>
                     </span>
                   </li>
                 ))}
               </ul>
 
-              <p className="mt-3 text-[10px] uppercase tracking-wider" style={{ color: '#a1a1a6' }}>
+              <p className="mt-3 text-[10px] uppercase tracking-wider" style={{ color: 'var(--ink-2)' }}>
                 Parallel sessions counted in parallel
               </p>
             </>

@@ -66,10 +66,11 @@ export default function TextCard({
       data-textcard
       className={`relative overflow-hidden ${PADDING_MAP[padding]} ${className}`}
       style={{
-        backgroundColor: '#000000',
+        backgroundColor: 'var(--paper)',
         borderRadius: 0,
-        color: '#ffffff',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
+        color: 'var(--ink)',
+        border: '1px solid rgba(var(--hairline),0.08)',
+        boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)',
         perspective: '800px',
         ...(!noTilt ? { rotateX, rotateY } : {}),
         ...style,
@@ -85,7 +86,7 @@ export default function TextCard({
             background: useTransform(
               [glossX, glossY],
               ([x, y]) =>
-                `radial-gradient(ellipse at ${x}% ${y}%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 40%, transparent 70%)`
+                `radial-gradient(ellipse at ${x}% ${y}%, rgba(var(--hairline),0.04) 0%, rgba(var(--hairline),0.01) 40%, transparent 70%)`
             ),
           }}
         />
@@ -95,7 +96,7 @@ export default function TextCard({
         className="pointer-events-none absolute top-0 left-0 right-0 h-px"
         style={{
           background:
-            'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)',
+            'linear-gradient(90deg, transparent, rgba(var(--hairline),0.06), transparent)',
         }}
       />
       <div className="relative z-10">{children}</div>

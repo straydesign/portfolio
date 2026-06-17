@@ -95,18 +95,18 @@ const CATEGORIES: Category[] = [
 ];
 
 function FeatureBadges() {
-  const primaryColor = '#ffffff';
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
+  const primaryColor = 'var(--ink)';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
 
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedFeature, setSelectedFeature] = useState<Feature | null>(null);
   const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
-  const pillBg = 'rgba(255,255,255,0.04)';
-  const pillBorder = 'rgba(255,255,255,0.08)';
-  const glassBorder = 'rgba(255,255,255,0.06)';
+  const pillBg = 'rgba(var(--hairline),0.04)';
+  const pillBorder = 'rgba(var(--hairline),0.08)';
+  const glassBorder = 'rgba(var(--hairline),0.06)';
 
   const updateIndicator = useCallback(() => {
     const tab = tabsRef.current[activeCategory];
@@ -192,15 +192,15 @@ function FeatureBadges() {
                 className="px-4 py-2 text-sm font-medium transition-all duration-200 cursor-pointer"
                 style={{
                   borderRadius: 0,
-                  backgroundColor: isSelected ? '#111111' : pillBg,
+                  backgroundColor: isSelected ? 'var(--paper)' : pillBg,
                   border: `1px solid ${isSelected ? primaryColor : pillBorder}`,
                   color: isSelected ? primaryColor : textColor,
-                  boxShadow: isSelected ? `0 0 12px rgba(255,255,255,0.08)` : 'none',
+                  boxShadow: isSelected ? `0 0 12px rgba(var(--hairline),0.08)` : 'none',
                 }}
                 onMouseEnter={(e) => {
                   if (!isSelected) {
-                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
-                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.06)';
+                    e.currentTarget.style.borderColor = 'rgba(var(--hairline),0.4)';
+                    e.currentTarget.style.backgroundColor = 'rgba(var(--hairline),0.06)';
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -232,11 +232,11 @@ function FeatureBadges() {
               className="p-5 relative"
               style={{
                 borderRadius: 0,
-                backgroundColor: '#000000',
-                border: '1px solid rgba(255,255,255,0.12)',
+                backgroundColor: 'var(--surface-2)',
+                border: '1px solid rgba(var(--hairline),0.12)',
               }}
             >
-              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, #ffffff, transparent)' }} />
+              <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: 'linear-gradient(90deg, var(--ink), transparent)' }} />
               <p className="text-sm font-bold mb-1" style={{ color: primaryColor }}>{selectedFeature.label}</p>
               <p className="text-sm leading-relaxed" style={{ color: textColor }}>{selectedFeature.desc}</p>
             </div>
@@ -248,12 +248,12 @@ function FeatureBadges() {
 }
 
 export default function Services() {
-  const primaryColor = '#ffffff';
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
+  const primaryColor = 'var(--ink)';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
 
-  const glassBg = '#000000';
-  const glassBorder = 'rgba(255,255,255,0.06)';
+  const glassBg = 'var(--surface-2)';
+  const glassBorder = 'rgba(var(--hairline),0.06)';
 
   return (
     <div className="px-4 md:px-8 py-8 md:py-12 min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
@@ -282,8 +282,8 @@ export default function Services() {
               className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
               style={{
                 borderRadius: 0,
-                backgroundColor: '#ffffff',
-                color: '#000000',
+                backgroundColor: 'var(--ink)',
+                color: 'var(--paper)',
               }}
             >
               Start a Project <ArrowRight className="w-4 h-4" />
@@ -422,9 +422,9 @@ export default function Services() {
           </h2>
           <a href="https://techxrev-rebuild.vercel.app" target="_blank" rel="noopener noreferrer"
             className="block p-6 md:p-8 transition-all duration-300 cursor-pointer max-w-2xl"
-            style={{ borderRadius: 0, backgroundColor: '#000000', border: `1px solid ${glassBorder}` }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(255,255,255,0.06)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = glassBorder; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+            style={{ borderRadius: 0, backgroundColor: 'var(--paper)', border: `1px solid ${glassBorder}`, boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(var(--hairline),0.25)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(var(--hairline),0.10)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = glassBorder; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)'; }}
           >
             <p className="text-xs font-bold uppercase tracking-[0.15em] mb-2" style={{ color: primaryColor }}>Client Project</p>
             <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: textColor }}>TechxRev</h3>
@@ -445,7 +445,7 @@ export default function Services() {
               <span
                 key={a}
                 className="px-4 py-2 text-sm font-medium"
-                style={{ borderRadius: 0, backgroundColor: '#111111', border: '1px solid rgba(255,255,255,0.08)', color: textColor }}
+                style={{ borderRadius: 0, backgroundColor: 'var(--chip)', border: '1px solid rgba(var(--hairline),0.08)', color: textColor }}
               >
                 {a}
               </span>

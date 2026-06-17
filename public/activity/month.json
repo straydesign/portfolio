@@ -1,47 +1,47 @@
 {
   "span": "month",
-  "label": "30 days ending 2026-06-14",
+  "label": "30 days ending 2026-06-16",
   "totals": {
-    "prompts": 2401,
-    "hours": 552.9,
-    "tokens": 8950984614,
-    "sessions": 71
+    "prompts": 2592,
+    "hours": 595.3,
+    "tokens": 10149273138,
+    "sessions": 74
   },
   "projects": [
     {
       "name": "Personal brand site",
-      "prompts": 746,
-      "hours": 215.3,
-      "tokens": 3386136321,
+      "prompts": 762,
+      "hours": 228.1,
+      "tokens": 3594883280,
       "sessions": 20
     },
     {
       "name": "Aquarium store website",
-      "prompts": 651,
-      "hours": 104.9,
-      "tokens": 2484940702,
-      "sessions": 10
+      "prompts": 711,
+      "hours": 118.9,
+      "tokens": 2816789948,
+      "sessions": 11
     },
     {
       "name": "Bar & grill pitch site",
-      "prompts": 331,
-      "hours": 77.6,
-      "tokens": 1187917116,
-      "sessions": 10
-    },
-    {
-      "name": "Other",
-      "prompts": 128,
-      "hours": 43.6,
-      "tokens": 318669207,
-      "sessions": 20
+      "prompts": 466,
+      "hours": 105.6,
+      "tokens": 1866329361,
+      "sessions": 12
     },
     {
       "name": "This portfolio site",
-      "prompts": 318,
-      "hours": 28,
-      "tokens": 690221309,
-      "sessions": 2
+      "prompts": 324,
+      "hours": 29.6,
+      "tokens": 783244393,
+      "sessions": 3
+    },
+    {
+      "name": "Other",
+      "prompts": 117,
+      "hours": 29.6,
+      "tokens": 234931782,
+      "sessions": 19
     },
     {
       "name": "Horror video game",
@@ -73,9 +73,9 @@
     },
     {
       "name": "Bowling alley pitch site",
-      "prompts": 22,
+      "prompts": 7,
       "hours": 14,
-      "tokens": 38684674,
+      "tokens": 8679089,
       "sessions": 1
     },
     {
@@ -86,7 +86,7 @@
       "sessions": 1
     }
   ],
-  "windowStart": "2026-05-16T04:00:00.766Z",
-  "windowEnd": "2026-06-15T04:00:00.766Z",
-  "generatedAt": "2026-06-15T21:49:39.271Z"
+  "windowStart": "2026-05-18T04:00:00.867Z",
+  "windowEnd": "2026-06-17T04:00:00.867Z",
+  "generatedAt": "2026-06-17T10:07:16.554Z"
 }

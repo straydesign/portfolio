@@ -43,7 +43,7 @@ export default function CarouselPhoneCard({
         // Bezel chrome band — shifts with light
         if (chromeRef.current) {
           chromeRef.current.style.background =
-            `linear-gradient(${135 + (x - 50) * 0.4}deg, #4a4a4a, #2a2a2a ${30 + (y - 50) * 0.2}%, #0a0a0a 50%, #1a1a1a ${70 + (x - 50) * 0.15}%, #3a3a3a)`;
+            `linear-gradient(${135 + (x - 50) * 0.4}deg, #b5b5b5, #d5d5d5 ${30 + (y - 50) * 0.2}%, #f5f5f5 50%, #e5e5e5 ${70 + (x - 50) * 0.15}%, #c5c5c5)`;
         }
       }
       rafId.current = requestAnimationFrame(tick);
@@ -58,9 +58,10 @@ export default function CarouselPhoneCard({
       style={{
         width: CARD_W,
         height: CARD_H,
-        backgroundColor: '#050505',
+        backgroundColor: 'var(--paper)',
         borderRadius: 0,
-        border: '1px solid rgba(255,255,255,0.08)',
+        border: '1px solid rgba(var(--hairline),0.08)',
+        boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)',
       }}
     >
       {/* Light-tracked chrome gloss — dual hotspot */}
@@ -96,12 +97,12 @@ export default function CarouselPhoneCard({
           className="absolute inset-0"
           style={{
             borderRadius: BEZEL_RADIUS,
-            background: 'linear-gradient(145deg, #4a4a4a, #2a2a2a, #0a0a0a, #1a1a1a, #3a3a3a)',
+            background: 'linear-gradient(145deg, #b5b5b5, #d5d5d5, #f5f5f5, #e5e5e5, #c5c5c5)',
             boxShadow: `
-              inset 0 1px 0 rgba(255,255,255,0.30),
-              inset 0 -1px 0 rgba(255,255,255,0.05),
-              0 0 0 0.5px rgba(255,255,255,0.10),
-              0 1px 2px rgba(255,255,255,0.06),
+              inset 0 1px 0 rgba(255,255,255,0.70),
+              inset 0 -1px 0 rgba(0,0,0,0.05),
+              0 0 0 0.5px rgba(0,0,0,0.10),
+              0 1px 2px rgba(0,0,0,0.06),
               0 12px 30px rgba(0,0,0,0.5)
             `,
           }}

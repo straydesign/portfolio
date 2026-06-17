@@ -9,7 +9,25 @@ import TextCard from './TextCard';
 import YesterdayStrip from './YesterdayStrip';
 import { NavigableSection } from './NavigableSection';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
-import { type Page, type Project, PROJECTS, DEMOS_IN_PROGRESS, CLIENT_SITES, getProjectTypeLabel } from '@/data/projects';
+import { type Page, type Project, PROJECTS, SHOWCASE_DEMOS, getProjectTypeLabel } from '@/data/projects';
+
+/**
+ * Pick legible "on-color" text (near-black or white) for a solid background,
+ * choosing whichever yields the higher WCAG contrast. Keeps near-black on
+ * light brand accents and flips to white on dark ones so accent chips/badges
+ * stay readable instead of vanishing (e.g. #0b0b0b on a deep teal).
+ */
+function onAccentInk(hex: string): string {
+  const h = hex.replace('#', '');
+  if (h.length < 6) return '#0b0b0b';
+  const toLin = (c: number) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+  const r = toLin(parseInt(h.slice(0, 2), 16) / 255);
+  const g = toLin(parseInt(h.slice(2, 4), 16) / 255);
+  const b = toLin(parseInt(h.slice(4, 6), 16) / 255);
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  // Crossover (vs #0b0b0b / #fff) sits at L ≈ 0.186 — above it dark text wins.
+  return L > 0.186 ? '#0b0b0b' : '#ffffff';
+}
 
 interface HomeProps {
   setCurrentPage: (page: Page) => void;
@@ -49,19 +67,20 @@ function RotatingProjectCell({
     };
   }, [images.length, intervalMs, staggerOffsetMs, prefersReducedMotion]);
 
+  const hasCase = !!project.caseStudy;
+  const live = project.liveUrl;
   return (
     <div
-      role="link"
-      tabIndex={0}
-      onClick={onOpen}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(); } }}
       onMouseEnter={() => { pausedRef.current = true; }}
       onMouseLeave={() => { pausedRef.current = false; }}
-      className="group cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black p-5 md:p-7 flex flex-col h-full transition-colors hover:bg-white/[0.02]"
+      className="group p-5 md:p-7 flex flex-col h-full transition-colors hover:bg-black/[0.02]"
     >
-      <div
-        className="relative w-full overflow-hidden mb-5"
-        style={{ aspectRatio: '4 / 5', backgroundColor: '#000000' }}
+      <button
+        type="button"
+        onClick={hasCase ? onOpen : undefined}
+        aria-label={hasCase ? `View ${project.title} case study` : project.title}
+        className={`relative w-full overflow-hidden mb-5 block ${hasCase ? 'cursor-pointer' : 'cursor-default'} outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]`}
+        style={{ aspectRatio: '4 / 5', backgroundColor: 'var(--paper)' }}
       >
         <AnimatePresence mode="wait" initial={false}>
           <m.img
@@ -82,24 +101,54 @@ function RotatingProjectCell({
               <span
                 key={i}
                 className="block h-[3px] w-5 transition-opacity"
-                style={{ backgroundColor: '#ffffff', opacity: i === index ? 0.9 : 0.25 }}
+                style={{ backgroundColor: '#fff', opacity: i === index ? 0.9 : 0.25 }}
               />
             ))}
           </div>
         )}
-      </div>
+      </button>
       <span
         className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-        style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+        style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
       >
         {getProjectTypeLabel(project.type)}
       </span>
-      <h3 className="text-base md:text-lg font-bold mb-2 tracking-tight leading-snug" style={{ color: '#ffffff' }}>
+      <h3 className="text-base md:text-lg font-bold mb-2 tracking-tight leading-snug" style={{ color: 'var(--ink)' }}>
         {project.title}
       </h3>
-      <p className="text-[13px] leading-snug" style={{ color: '#a1a1a6' }}>
+      <p className="text-[13px] leading-snug flex-1" style={{ color: 'var(--ink-2)' }}>
         {project.description}
       </p>
+      {(hasCase || live) && (
+        <div className="flex flex-wrap gap-2 mt-4">
+          {hasCase && (
+            <button
+              type="button"
+              onClick={onOpen}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all hover:scale-105 outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+              style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
+            >
+              View case study
+            </button>
+          )}
+          {live && (
+            <a
+              href={live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all hover:scale-105 outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
+              style={{
+                backgroundColor: hasCase ? 'transparent' : 'var(--ink)',
+                color: hasCase ? 'var(--ink)' : 'var(--paper)',
+                border: hasCase ? '1px solid rgba(var(--hairline),0.4)' : 'none',
+                borderRadius: 0,
+              }}
+            >
+              Try site <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -161,7 +210,7 @@ function HeroTextReveal({ text }: { text: string }) {
         className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full break-words"
         style={{
           fontFamily: "var(--font-family-bungee), sans-serif",
-          WebkitTextStroke: '3px #ffffff',
+          WebkitTextStroke: '3px var(--ink)',
           WebkitTextFillColor: 'transparent',
           color: 'transparent',
           paintOrder: 'stroke fill',
@@ -177,7 +226,7 @@ function HeroTextReveal({ text }: { text: string }) {
       className="text-[36px] sm:text-[48px] md:text-[72px] leading-none tracking-wide sm:tracking-wider font-black mb-4 md:mb-6 max-w-full"
       style={{
         fontFamily: "var(--font-family-bungee), sans-serif",
-        WebkitTextStroke: '3px #ffffff',
+        WebkitTextStroke: '3px var(--ink)',
         WebkitTextFillColor: 'transparent',
         color: 'transparent',
         paintOrder: 'stroke fill',
@@ -267,7 +316,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             <TextCard padding="lg">
               <m.p
                 className="text-[15px] md:text-[17px] font-medium mb-2"
-                style={{ color: '#ffffff' }}
+                style={{ color: 'var(--ink)' }}
                 initial={prefersReducedMotion ? false : { opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
@@ -279,7 +328,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
               <m.p
                 className="text-[20px] md:text-[24px] mb-6 md:mb-8"
-                style={{ color: '#ffffff', fontWeight: 600 }}
+                style={{ color: 'var(--ink)', fontWeight: 600 }}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: heroTextDuration }}
@@ -292,7 +341,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: heroTextDuration + 0.15 }}
               >
-                <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: '#ffffff' }}>
+                <p className="text-[15px] md:text-[17px] leading-snug max-w-3xl" style={{ color: 'var(--ink)' }}>
                   Every project here started with a real problem I experienced firsthand — as a DoorDash driver, a beer merchandiser, or someone who couldn&apos;t find the right tool. I designed and built each one from scratch.
                 </p>
               </m.div>
@@ -314,10 +363,11 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="inline-flex items-center gap-2 px-4 py-2 transition-all hover:scale-105"
                     style={{
-                      backgroundColor: '#111111',
-                      color: '#ffffff',
+                      backgroundColor: 'var(--chip)',
+                      color: 'var(--ink)',
+                      border: '1px solid rgba(var(--hairline),0.08)',
                       borderRadius: 0,
-                      ...(heroSubNav && heroSubNavIndex === i ? { outline: '2px solid #ffffff', outlineOffset: '2px' } : {}),
+                      ...(heroSubNav && heroSubNavIndex === i ? { outline: '2px solid var(--ink)', outlineOffset: '2px' } : {}),
                     }}
                     variants={prefersReducedMotion ? {} : {
                       hidden: { opacity: 0, y: 10 },
@@ -343,7 +393,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
           <TextCard padding="md" className="inline-block mb-10 md:mb-14">
             <h2
               className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
               WORK
             </h2>
@@ -352,8 +402,8 @@ export default function Home({ setCurrentPage }: HomeProps) {
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
             style={{
-              border: '1px solid rgba(255,255,255,0.14)',
-              backgroundColor: 'rgba(255,255,255,0.14)',
+              border: '1px solid rgba(var(--hairline),0.14)',
+              backgroundColor: 'rgba(var(--hairline),0.14)',
             }}
           >
             {PROJECTS.map((project, i) => (
@@ -361,7 +411,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 key={project.id}
                 id={`work-${project.slug}`}
                 label={project.title}
-                style={{ backgroundColor: '#000000' }}
+                style={{ backgroundColor: 'var(--paper)' }}
               >
                 <RotatingProjectCell
                   project={project}
@@ -370,183 +420,110 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 />
               </NavigableSection>
             ))}
-            {/* Filler CTA cell — completes the 3×2 grid */}
-            <a
-              href="#home-contact"
-              style={{ backgroundColor: '#000000' }}
-              className="group p-5 md:p-7 flex flex-col items-center justify-center text-center transition-colors hover:bg-white/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            {/* Filler CTA cell — completes the 3×2 grid (keyboard-navigable) */}
+            <NavigableSection
+              id="work-cta"
+              label="Let's talk"
+              style={{ backgroundColor: 'var(--paper)' }}
             >
-              <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3" style={{ color: '#a1a1a6' }}>
-                Up next
-              </p>
-              <p
-                className="text-2xl md:text-3xl leading-tight tracking-tight mb-4"
-                style={{ color: '#ffffff', fontFamily: "var(--font-family-bungee), sans-serif" }}
+              <a
+                href="#home-contact"
+                className="group h-full p-5 md:p-7 flex flex-col items-center justify-center text-center transition-colors hover:bg-black/[0.03] outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-inset"
               >
-                YOUR
-                <br />
-                PROBLEM.
-              </p>
-              <span
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
-                style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-              >
-                Let&apos;s talk
-              </span>
-            </a>
+                <p className="text-[11px] font-mono uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--ink-2)' }}>
+                  Up next
+                </p>
+                <p
+                  className="text-2xl md:text-3xl leading-tight tracking-tight mb-4"
+                  style={{ color: 'var(--ink)', fontFamily: "var(--font-family-bungee), sans-serif" }}
+                >
+                  YOUR
+                  <br />
+                  PROBLEM.
+                </p>
+                <span
+                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
+                  style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
+                >
+                  Let&apos;s talk
+                </span>
+              </a>
+            </NavigableSection>
           </div>
         </div>
       </div>
 
-      {/* 3a. CLIENT SITES — live sites shipped for paying clients */}
+      {/* 3a. LIVE SITES — real businesses, live and clickable */}
       <div className="px-4 md:px-8 py-12 md:py-20">
         <div className="max-w-[90rem] mx-auto">
           <TextCard padding="md" className="inline-block mb-4">
             <h2
               className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
-              CLIENT SITES
+              LIVE SITES
             </h2>
           </TextCard>
           <TextCard padding="sm" className="inline-block mb-10 md:mb-14 max-w-2xl">
-            <p className="text-sm md:text-base" style={{ color: '#a1a1a6' }}>
-              Sites I designed, built, and host for working businesses.
+            <p className="text-sm md:text-base" style={{ color: 'var(--ink-2)' }}>
+              Real businesses I designed and built — open and click through any of them.
             </p>
           </TextCard>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {CLIENT_SITES.map((site) => (
-              <NavigableSection key={site.href} id={`client-${site.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`} label={site.title}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px"
+            style={{ border: '1px solid rgba(var(--hairline),0.14)', backgroundColor: 'rgba(var(--hairline),0.14)' }}
+          >
+            {SHOWCASE_DEMOS.map((d) => (
+              <NavigableSection
+                key={d.href}
+                id={`demo-${d.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}
+                label={d.title}
+                style={{ backgroundColor: 'var(--paper)' }}
+              >
                 <a
-                  href={site.href}
+                  href={d.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block group outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm h-full"
+                  className="group h-full flex flex-col outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-inset"
                 >
-                  <TextCard padding="md" className="h-full">
-                    <div className="flex flex-col sm:flex-row gap-5 sm:gap-6 h-full">
-                      <div
-                        className="relative w-full sm:w-[42%] flex-shrink-0 overflow-hidden mx-auto"
-                        style={{ aspectRatio: '9 / 19.5', maxWidth: '14rem', backgroundColor: '#000000', borderRadius: '14px' }}
-                      >
-                        <m.img
-                          src={site.screenshot}
-                          alt={site.alt}
-                          className="absolute inset-0 w-full h-full object-cover object-top"
-                          loading="lazy"
-                          whileHover={prefersReducedMotion ? undefined : { scale: 1.03 }}
-                          transition={{ duration: 0.6, ease: 'easeOut' }}
-                        />
-                      </div>
-                      <div className="flex-1 flex flex-col">
-                        <span
-                          className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-                          style={{ backgroundColor: '#22c55e', color: '#000000', borderRadius: 0 }}
-                        >
-                          Live client site
-                        </span>
-                        <h3 className="text-lg md:text-xl font-bold mb-1 tracking-tight" style={{ color: '#ffffff' }}>
-                          {site.title}
-                        </h3>
-                        <p className="text-xs mb-3" style={{ color: '#a1a1a6', opacity: 0.7 }}>
-                          {site.category}
-                        </p>
-                        <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: '#a1a1a6' }}>
-                          {site.blurb}
-                        </p>
-                        <span
-                          className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
-                          style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-                        >
-                          Visit site <ExternalLink className="w-3 h-3" />
-                        </span>
-                      </div>
-                    </div>
-                  </TextCard>
+                  <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4 / 5', backgroundColor: 'var(--paper)' }}>
+                    <m.img
+                      src={d.screenshot}
+                      alt={d.alt}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      loading="lazy"
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
+                      transition={{ duration: 0.7, ease: 'easeOut' }}
+                    />
+                    <div
+                      className="absolute inset-x-0 bottom-0 pointer-events-none"
+                      style={{ height: '60%', background: 'linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0))' }}
+                    />
+                    <span
+                      className="absolute top-3 left-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                      style={{ backgroundColor: d.accent, color: onAccentInk(d.accent), borderRadius: 0 }}
+                    >
+                      {d.badge}
+                    </span>
+                    <h3 className="absolute bottom-3 left-4 right-4 text-white font-black leading-tight tracking-tight" style={{ fontSize: '18px' }}>
+                      {d.title}
+                    </h3>
+                    <div className="absolute bottom-0 left-0 w-full" style={{ height: '4px', backgroundColor: d.accent }} />
+                  </div>
+                  <div className="p-5 md:p-6 flex-1 flex flex-col" style={{ backgroundColor: 'var(--paper)' }}>
+                    <p className="text-xs mb-2" style={{ color: 'var(--ink-2)' }}>{d.category}</p>
+                    <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--ink-2)' }}>{d.blurb}</p>
+                    <span
+                      className="inline-flex items-center gap-1.5 self-start px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all group-hover:scale-105"
+                      style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
+                    >
+                      Visit live <ExternalLink className="w-3 h-3" />
+                    </span>
+                  </div>
                 </a>
               </NavigableSection>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 3b. IN PROGRESS — live demo links for active client builds */}
-      <div className="px-4 md:px-8 py-12 md:py-20">
-        <div className="max-w-[90rem] mx-auto">
-          <TextCard padding="md" className="inline-block mb-4">
-            <h2
-              className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
-            >
-              IN PROGRESS
-            </h2>
-          </TextCard>
-          <TextCard padding="sm" className="inline-block mb-10 md:mb-14 max-w-2xl">
-            <p className="text-sm md:text-base" style={{ color: '#a1a1a6' }}>
-              Live demos I&apos;m actively building for prospective clients. Open to feedback.
-            </p>
-          </TextCard>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {DEMOS_IN_PROGRESS.map((demo) => {
-              const isPaused = demo.paused || !demo.href;
-              const cardBody = (
-                <TextCard padding="md" className="h-full flex flex-col">
-                  <span
-                    className="inline-block self-start mb-3 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-                    style={{
-                      backgroundColor: isPaused ? 'transparent' : '#111111',
-                      color: isPaused ? '#a1a1a6' : '#ffffff',
-                      border: isPaused ? '1px solid #3a3a3a' : 'none',
-                      borderRadius: 0,
-                    }}
-                  >
-                    {isPaused ? 'On the backburner' : 'Live demo'}
-                  </span>
-                  <h3 className="text-lg md:text-xl font-bold mb-1 tracking-tight" style={{ color: '#ffffff' }}>
-                    {demo.title}
-                  </h3>
-                  <p className="text-xs mb-3" style={{ color: '#a1a1a6', opacity: 0.7 }}>
-                    {demo.category}
-                  </p>
-                  <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: '#a1a1a6' }}>
-                    {demo.blurb}
-                  </p>
-                  {isPaused ? (
-                    <span
-                      className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider"
-                      style={{ border: '1px solid #3a3a3a', color: '#a1a1a6', borderRadius: 0 }}
-                    >
-                      Paused
-                    </span>
-                  ) : (
-                    <span
-                      className="inline-flex items-center gap-1.5 self-start px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all group-hover:scale-105"
-                      style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
-                    >
-                      View live <ExternalLink className="w-3 h-3" />
-                    </span>
-                  )}
-                </TextCard>
-              );
-              return (
-                <NavigableSection key={demo.title} id={`demo-${demo.title.toLowerCase().replace(/\s+/g, '-')}`} label={demo.title}>
-                  {isPaused ? (
-                    <div className="block h-full">{cardBody}</div>
-                  ) : (
-                    <a
-                      href={demo.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block group outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm h-full"
-                    >
-                      {cardBody}
-                    </a>
-                  )}
-                </NavigableSection>
-              );
-            })}
           </div>
         </div>
       </div>
@@ -557,7 +534,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
           <TextCard padding="md" className="inline-block mb-10 md:mb-14">
             <h2
               className="text-[28px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
               KIND WORDS
             </h2>
@@ -569,7 +546,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               return (
                 <NavigableSection key={i} id={`rec-${rec.initials.toLowerCase()}`} label={rec.name}>
                   <TextCard padding="lg">
-                    <p className="text-lg md:text-xl font-bold leading-relaxed mb-4" style={{ color: '#ffffff' }}>
+                    <p className="text-lg md:text-xl font-bold leading-relaxed mb-4" style={{ color: 'var(--ink)' }}>
                       &ldquo;{rec.highlight}&rdquo;
                     </p>
                     <AnimatePresence initial={false}>
@@ -581,7 +558,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                           transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                           style={{ overflow: 'hidden' }}
                         >
-                          <p className="text-sm leading-relaxed mb-4" style={{ color: '#a1a1a6' }}>
+                          <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--ink-2)' }}>
                             {rec.quote}
                           </p>
                         </m.div>
@@ -590,7 +567,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <button
                       onClick={() => toggleRec(i)}
                       className="inline-flex items-center gap-1.5 text-xs font-medium mb-6 transition-colors"
-                      style={{ color: '#a1a1a6' }}
+                      style={{ color: 'var(--ink-2)' }}
                     >
                       {isExpanded ? (
                         <>Read less <ChevronUp className="w-3 h-3" /></>
@@ -601,22 +578,22 @@ export default function Home({ setCurrentPage }: HomeProps) {
                     <div className="flex items-center gap-3">
                       {rec.href ? (
                         <a href={rec.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
-                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}>
                             {rec.initials}
                           </div>
                           <div>
-                            <p className="text-sm font-bold group-hover:underline" style={{ color: '#ffffff' }}>{rec.name}</p>
-                            <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
+                            <p className="text-sm font-bold group-hover:underline" style={{ color: 'var(--ink)' }}>{rec.name}</p>
+                            <p className="text-xs" style={{ color: 'var(--ink-2)' }}>{rec.role}</p>
                           </div>
                         </a>
                       ) : (
                         <>
-                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: '#111111', color: '#ffffff', borderRadius: 0 }}>
+                          <div className="w-10 h-10 flex items-center justify-center text-sm font-bold" style={{ backgroundColor: 'var(--chip)', color: 'var(--ink)', borderRadius: 0 }}>
                             {rec.initials}
                           </div>
                           <div>
-                            <p className="text-sm font-bold" style={{ color: '#ffffff' }}>{rec.name}</p>
-                            <p className="text-xs" style={{ color: '#a1a1a6' }}>{rec.role}</p>
+                            <p className="text-sm font-bold" style={{ color: 'var(--ink)' }}>{rec.name}</p>
+                            <p className="text-xs" style={{ color: 'var(--ink-2)' }}>{rec.role}</p>
                           </div>
                         </>
                       )}
@@ -634,24 +611,24 @@ export default function Home({ setCurrentPage }: HomeProps) {
       <AnimateIn direction="up" className="px-4 md:px-8 py-16 md:py-24">
         <div className="max-w-2xl mx-auto text-center">
           <TextCard padding="lg">
-            <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: '#ffffff' }}>
+            <p className="text-xs font-bold tracking-widest mb-4 uppercase" style={{ color: 'var(--ink)' }}>
               Got something interesting?
             </p>
             <h2
               className="text-[32px] md:text-[48px] mb-4 leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
               GET IN TOUCH
             </h2>
-            <p className="text-base md:text-lg mb-10 max-w-md mx-auto" style={{ color: '#a1a1a6' }}>
+            <p className="text-base md:text-lg mb-10 max-w-md mx-auto" style={{ color: 'var(--ink-2)' }}>
               I&apos;m always up for a good problem to solve. Send me what you&apos;re working on.
             </p>
             <a
               href="mailto:tom@straydesign.co"
               className="inline-flex items-center gap-3 px-8 py-4 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03]"
               style={{
-                backgroundColor: '#ffffff',
-                color: '#000000',
+                backgroundColor: 'var(--ink)',
+                color: 'var(--paper)',
                 borderRadius: 0,
               }}
             >

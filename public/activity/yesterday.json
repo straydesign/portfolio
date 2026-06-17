@@ -1,14 +1,36 @@
 {
   "span": "yesterday",
-  "label": "2026-06-14",
+  "label": "2026-06-16",
   "totals": {
-    "prompts": 0,
-    "hours": 0,
-    "tokens": 0,
-    "sessions": 0
+    "prompts": 69,
+    "hours": 43.6,
+    "tokens": 566357722,
+    "sessions": 4
   },
-  "projects": [],
-  "windowStart": "2026-06-14T04:00:00.728Z",
-  "windowEnd": "2026-06-15T04:00:00.728Z",
-  "generatedAt": "2026-06-15T21:49:39.262Z"
+  "projects": [
+    {
+      "name": "Aquarium store website",
+      "prompts": 40,
+      "hours": 28,
+      "tokens": 291766312,
+      "sessions": 2
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 23,
+      "hours": 14,
+      "tokens": 181568326,
+      "sessions": 1
+    },
+    {
+      "name": "This portfolio site",
+      "prompts": 6,
+      "hours": 1.6,
+      "tokens": 93023084,
+      "sessions": 1
+    }
+  ],
+  "windowStart": "2026-06-16T04:00:00.833Z",
+  "windowEnd": "2026-06-17T04:00:00.833Z",
+  "generatedAt": "2026-06-17T10:07:16.551Z"
 }

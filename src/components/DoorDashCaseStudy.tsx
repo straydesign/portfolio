@@ -75,27 +75,27 @@ const PROPOSALS = [
 ] as const;
 
 const BG = {
-  hero: '#000000',
-  journey: '#18181b',
-  validation: '#050507',
-  ideation: '#18181b',
-  iteration: '#050507',
-  outcome: '#1a0808',
+  hero: 'var(--paper)',
+  journey: 'var(--surface-2)',
+  validation: 'var(--surface-3)',
+  ideation: 'var(--surface-2)',
+  iteration: 'var(--surface-3)',
+  outcome: 'var(--out-red)',
 } as const;
 
 export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseStudyProps) {
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
-  const primaryColor = '#ffffff';
-  const statBg = '#000000';
-  const divider = '1px solid rgba(255,255,255,0.06)';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
+  const primaryColor = 'var(--ink)';
+  const statBg = 'var(--chip)';
+  const divider = '1px solid rgba(var(--hairline),0.08)';
   const sectionPad = 'py-8 md:py-12';
   const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
       {/* Fixed back bar */}
-      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-4">
+      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-[var(--paper)] py-3 px-4 md:px-8 flex items-center gap-4">
         <button onClick={onBack}
           className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
           style={{ color: primaryColor, borderRadius: 0 }}>
@@ -113,7 +113,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 <PhoneMockup
                   screenshot="/images/doordash/slide6_Image_0.png"
                   gradientFrom={primaryColor}
-                  gradientTo="#000000"
+                  gradientTo="var(--paper)"
                   alt="DoorDash Dasher app"
                   size="large"
                 />
@@ -163,7 +163,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                   <StaggerItem key={step}>
                     <div className="p-3 h-full flex flex-col" style={{
                       backgroundColor: statBg,
-                      border: friction ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.06)',
+                      border: friction ? '1px solid rgba(var(--hairline),0.25)' : '1px solid rgba(var(--hairline),0.08)',
                     }}>
                       <div className="flex items-baseline justify-between mb-1">
                         <p className="text-[10px] font-bold tracking-wider" style={{ color: secondaryTextColor }}>STEP {String(step).padStart(2, '0')}</p>
@@ -199,7 +199,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                   { stat: '5', label: 'Recurring issues', sub: 'Observed across the full journey' },
                   { stat: '7/10', label: 'Heuristics violated', sub: 'Across the five issues' },
                 ].map(({ stat, label, sub }) => (
-                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px dashed rgba(255,255,255,0.12)' }}>
+                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px dashed rgba(var(--hairline),0.12)' }}>
                     <p className="text-3xl md:text-4xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-sm font-bold mt-1" style={{ color: textColor }}>{label}</p>
                     <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
@@ -213,7 +213,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                   <StaggerItem key={h.id}>
                     <div className="p-2 h-full text-center" style={{
                       backgroundColor: statBg,
-                      border: h.applied ? '1px solid rgba(255,255,255,0.2)' : '1px solid rgba(255,255,255,0.06)',
+                      border: h.applied ? '1px solid rgba(var(--hairline),0.20)' : '1px solid rgba(var(--hairline),0.08)',
                       opacity: h.applied ? 1 : 0.35,
                     }}>
                       <p className="text-lg font-black" style={{ color: h.applied ? primaryColor : secondaryTextColor }}>{h.id}</p>
@@ -240,14 +240,14 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-5 gap-2.5" staggerDelay={0.05}>
                 {PROPOSALS.map(({ n, title, before, after }) => (
                   <StaggerItem key={n}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                       <p className="text-2xl font-black mb-1" style={{ color: primaryColor }}>{n}</p>
                       <p className="text-sm font-bold mb-2" style={{ color: textColor }}>{title}</p>
                       <div className="mb-2">
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: secondaryTextColor }}>BEFORE</p>
                         <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{before}</p>
                       </div>
-                      <div style={{ borderLeft: '2px solid #ffffff', paddingLeft: '8px' }}>
+                      <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '8px' }}>
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: primaryColor }}>AFTER</p>
                         <p className="text-[11px] leading-snug" style={{ color: textColor }}>{after}</p>
                       </div>
@@ -272,7 +272,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center mb-5">
-                <div className="text-center p-4" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="text-center p-4" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                   <p className="text-[10px] font-bold tracking-wider mb-1" style={{ color: secondaryTextColor }}>CURRENT</p>
                   <p className="text-5xl md:text-6xl font-black" style={{ color: textColor, opacity: 0.3 }}>12</p>
                   <p className="text-xs font-bold mt-1" style={{ color: textColor }}>taps to cancel</p>
@@ -280,7 +280,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 <div className="flex justify-center">
                   <ArrowRight className="w-7 h-7" style={{ color: primaryColor }} />
                 </div>
-                <div className="text-center p-4" style={{ backgroundColor: statBg, border: '2px solid rgba(255,255,255,0.2)' }}>
+                <div className="text-center p-4" style={{ backgroundColor: statBg, border: '2px solid rgba(var(--hairline),0.20)' }}>
                   <p className="text-[10px] font-bold tracking-wider mb-1" style={{ color: primaryColor }}>PROPOSED</p>
                   <p className="text-5xl md:text-6xl font-black" style={{ color: primaryColor }}>4</p>
                   <p className="text-xs font-bold mt-1" style={{ color: textColor }}>taps to cancel</p>
@@ -297,7 +297,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
       <NavigableSection id="dd-outcome" label="Outcome" style={{ backgroundColor: BG.outcome }}>
         <div className={inner}>
           <div className={sectionPad} style={{ borderBottom: divider }}>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid var(--ink)' }}>
               <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
               <p className="text-xl md:text-3xl font-bold leading-relaxed mb-5" style={{ color: textColor }}>
                 Five issues. One philosophy: <span style={{ color: primaryColor }}>the app should protect the driver, not punish them.</span>
@@ -311,7 +311,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                   { stat: '5', label: 'Redesign proposals' },
                   { stat: '1,000+', label: 'Deliveries researched' },
                 ].map(({ stat, label }) => (
-                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-[10px] font-bold mt-1.5 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                   </div>

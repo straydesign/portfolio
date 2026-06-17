@@ -89,27 +89,27 @@ const TRADEOFFS = [
 ];
 
 const BG = {
-  hero: '#000000',
-  journey: '#18181b',
-  validation: '#050507',
-  ideation: '#18181b',
-  iteration: '#050507',
-  outcome: '#0c0a1f',
+  hero: 'var(--paper)',
+  journey: 'var(--surface-2)',
+  validation: 'var(--surface-3)',
+  ideation: 'var(--surface-2)',
+  iteration: 'var(--surface-3)',
+  outcome: 'var(--out-indigo)',
 } as const;
 
 export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPresenterBreakdownProps) {
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
-  const primaryColor = '#ffffff';
-  const statBg = '#000000';
-  const divider = '1px solid rgba(255,255,255,0.06)';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
+  const primaryColor = 'var(--ink)';
+  const statBg = 'var(--chip)';
+  const divider = '1px solid rgba(var(--hairline),0.08)';
   const sectionPad = 'py-8 md:py-12';
   const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
       {/* Fixed back + action bar */}
-      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-3 flex-wrap">
+      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-[var(--paper)] py-3 px-4 md:px-8 flex items-center gap-3 flex-wrap">
         <button onClick={onBack}
           className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
           style={{ color: primaryColor, borderRadius: 0 }}>
@@ -117,12 +117,12 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
         </button>
         <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-          style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}>
+          style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}>
           <Github className="w-3.5 h-3.5" /> GitHub
         </a>
         <a href={ZIP_URL}
           className="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-opacity hover:opacity-80"
-          style={{ backgroundColor: 'transparent', color: '#ffffff', border: '1px solid #ffffff', borderRadius: 0 }}>
+          style={{ backgroundColor: 'transparent', color: 'var(--ink)', border: '1px solid var(--ink)', borderRadius: 0 }}>
           <Download className="w-3.5 h-3.5" /> Download ZIP
         </a>
       </div>
@@ -158,7 +158,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
                 </StaggerContainer>
               </div>
               <div className="w-full md:w-1/2">
-                <div className="relative w-full" style={{ aspectRatio: '16/10', backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="relative w-full" style={{ aspectRatio: '16/10', backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                   <Image
                     src="/images/auto-presenter/setup-desktop.png"
                     alt="Auto-Presenter setup screen"
@@ -189,7 +189,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
               <StaggerContainer className="grid grid-cols-2 md:grid-cols-6 gap-2" staggerDelay={0.04}>
                 {RECORDING_JOURNEY.map(({ step, friction }, i) => (
                   <StaggerItem key={step}>
-                    <div className="p-2.5 h-full flex flex-col" style={{ backgroundColor: statBg, border: friction ? `1px solid ${primaryColor}` : '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-2.5 h-full flex flex-col" style={{ backgroundColor: statBg, border: friction ? `1px solid ${primaryColor}` : '1px solid rgba(var(--hairline),0.08)' }}>
                       <div className="flex items-center gap-2 mb-1.5">
                         <p className="text-xs font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
                         {friction && <AlertTriangle className="w-3 h-3" style={{ color: primaryColor }} />}
@@ -203,7 +203,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
 
               <div className="flex items-center gap-3 mt-8 mb-3">
                 <p className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: primaryColor }}>After — 4 steps, no trackpad</p>
-                <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.12)' }} />
+                <div className="flex-1 h-px" style={{ backgroundColor: 'rgba(var(--hairline),0.12)' }} />
                 <p className="text-[10px] font-mono" style={{ color: secondaryTextColor }}>11 → 4 · trackpad → mouth</p>
               </div>
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-2" staggerDelay={0.05}>
@@ -241,7 +241,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
                   { stat: 'Daily', label: 'Tool I actually use for pitch recordings' },
                   { stat: 'MIT', label: 'Public on GitHub — fork it, fix it' },
                 ].map(({ stat, label }) => (
-                  <div key={label} className="p-4 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={label} className="p-4 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-2xl md:text-3xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-[11px] font-bold mt-2 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                   </div>
@@ -268,19 +268,19 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
                 {PROPOSALS.map(({ n, title, before, after, img }) => (
                   <StaggerItem key={n}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-xl font-black" style={{ color: primaryColor }}>{n}</p>
                         <p className="text-xs font-bold" style={{ color: textColor }}>{title}</p>
                       </div>
-                      <div className="mb-2 h-72 flex items-center justify-center p-2" style={{ overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#000000' }}>
+                      <div className="mb-2 h-72 flex items-center justify-center p-2" style={{ overflow: 'hidden', border: '1px solid rgba(var(--hairline),0.08)', backgroundColor: 'var(--chip)' }}>
                         <img src={img} alt={title} className="max-w-full max-h-full object-contain" loading="lazy" />
                       </div>
                       <div className="mb-1.5">
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: secondaryTextColor }}>BEFORE</p>
                         <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{before}</p>
                       </div>
-                      <div style={{ borderLeft: '2px solid #ffffff', paddingLeft: '8px' }}>
+                      <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '8px' }}>
                         <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: primaryColor }}>AFTER</p>
                         <p className="text-[11px] leading-snug" style={{ color: textColor }}>{after}</p>
                       </div>
@@ -306,7 +306,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-5 gap-2.5" staggerDelay={0.05}>
                 {TRADEOFFS.map(({ cut, why }, i) => (
                   <StaggerItem key={cut}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                       <div className="flex items-center gap-2 mb-2">
                         <p className="text-lg font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
                         <ArrowRight className="w-3.5 h-3.5" style={{ color: primaryColor, opacity: 0.5 }} />
@@ -327,7 +327,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
       <NavigableSection id="ap-outcome" label="Outcome" style={{ backgroundColor: BG.outcome }}>
         <div className={inner}>
           <div className={sectionPad} style={{ borderBottom: divider }}>
-            <TextCard padding="lg" style={{ borderLeft: '4px solid #ffffff' }}>
+            <TextCard padding="lg" style={{ borderLeft: '4px solid var(--ink)' }}>
               <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
               <p className="text-xl md:text-3xl font-bold leading-relaxed mb-3" style={{ color: textColor }}>
                 One window. Mouth runs the show. <span style={{ color: primaryColor }}>Hands stay off the trackpad.</span>
@@ -342,7 +342,7 @@ export default function AutoPresenterBreakdown({ onBack, onNavigate }: AutoPrese
                   { stat: 'BYO key', label: 'Anthropic key from Keychain' },
                   { stat: 'MIT', label: 'Fork it, fix it' },
                 ].map(({ stat, label }) => (
-                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-[10px] font-bold mt-1.5 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                   </div>

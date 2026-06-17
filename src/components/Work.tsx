@@ -22,14 +22,14 @@ export default function Work({ setCurrentPage }: WorkProps) {
       <div className="px-6 md:px-16 pt-16 md:pt-24 pb-8 md:pb-12">
         <div className="max-w-5xl mx-auto text-center">
           <TextCard padding="lg" className="inline-block">
-            <p className="text-[15px] md:text-[17px] font-medium mb-2" style={{ color: '#a1a1a6' }}>
+            <p className="text-[15px] md:text-[17px] font-medium mb-2" style={{ color: 'var(--ink-2)' }}>
               Tom Sesler
             </p>
             <h1
               className="text-[64px] sm:text-[96px] md:text-[128px] leading-none tracking-wider font-black mb-4 md:mb-6"
               style={{
                 fontFamily: "var(--font-family-bungee), sans-serif",
-                WebkitTextStroke: '4px #ffffff',
+                WebkitTextStroke: '4px var(--ink)',
                 WebkitTextFillColor: 'transparent',
                 color: 'transparent',
                 paintOrder: 'stroke fill',
@@ -37,7 +37,7 @@ export default function Work({ setCurrentPage }: WorkProps) {
             >
               MY WORK
             </h1>
-            <p className="text-[17px] md:text-[20px] leading-relaxed max-w-2xl mx-auto" style={{ color: '#ffffff' }}>
+            <p className="text-[17px] md:text-[20px] leading-relaxed max-w-2xl mx-auto" style={{ color: 'var(--ink)' }}>
               From ethnographic field research to interactive Figma prototypes to live products.
             </p>
           </TextCard>
@@ -73,8 +73,8 @@ export default function Work({ setCurrentPage }: WorkProps) {
             <div
               key={project.id}
               ref={(el) => { cardRefs.current[i] = el; }}
-              className="mb-16 md:mb-20 last:mb-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
-              style={{ borderBottom: i < PROJECTS.length - 1 ? '1px solid rgba(255,255,255,0.08)' : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
+              className="mb-16 md:mb-20 last:mb-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[color:var(--paper)] rounded-sm"
+              style={{ borderBottom: i < PROJECTS.length - 1 ? '1px solid rgba(var(--hairline),0.08)' : 'none', paddingBottom: i < PROJECTS.length - 1 ? '4rem' : 0 }}
               onClick={() => setCurrentPage(project.id)}
               role="link"
               tabIndex={0}
@@ -85,13 +85,13 @@ export default function Work({ setCurrentPage }: WorkProps) {
               }}
             >
               <TextCard padding="md" className="mb-8">
-                <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: '#ffffff' }}>
+                <h2 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: 'var(--ink)' }}>
                   {project.title}
                 </h2>
-                <p className="text-base md:text-lg mb-2 leading-relaxed" style={{ color: '#ffffff' }}>
+                <p className="text-base md:text-lg mb-2 leading-relaxed" style={{ color: 'var(--ink)' }}>
                   {project.description}
                 </p>
-                <p className="text-sm font-semibold" style={{ color: '#ffffff' }}>
+                <p className="text-sm font-semibold" style={{ color: 'var(--ink)' }}>
                   {project.deliverable}
                 </p>
               </TextCard>
@@ -108,7 +108,7 @@ export default function Work({ setCurrentPage }: WorkProps) {
                 <div className="pt-2">
                   <span
                     className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
-                    style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+                    style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
                   >
                     View {getProjectTypeLabel(project.type)}
                   </span>
@@ -125,17 +125,17 @@ export default function Work({ setCurrentPage }: WorkProps) {
           <TextCard padding="lg">
             <h2
               className="text-[32px] md:text-[48px] leading-none tracking-wider font-black mb-4"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
               GET IN TOUCH
             </h2>
-            <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
+            <p className="text-base mb-8" style={{ color: 'var(--ink-2)' }}>
               Interested in working together? Drop me a line.
             </p>
             <a
               href="mailto:tom@straydesign.co"
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-bold transition-opacity hover:opacity-80"
-              style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+              style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
             >
               <Mail className="w-4 h-4" />
               tom@straydesign.co

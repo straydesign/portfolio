@@ -1,4 +1,4 @@
-export type Theme = 'dark';
+export type Theme = 'light' | 'dark';
 
 export const getPrimaryColor = (): string => '#ffffff';
 

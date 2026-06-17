@@ -12,6 +12,6 @@ interface BrickWallWrapperProps {
   accentColor?: string;
 }
 
-export function BrickWallWrapper({ theme = "dark", accentColor }: BrickWallWrapperProps) {
+export function BrickWallWrapper({ theme = "light", accentColor }: BrickWallWrapperProps) {
   return <BrickWallCanvas theme={theme} accentColor={accentColor} />;
 }

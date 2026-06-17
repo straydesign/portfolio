@@ -32,16 +32,16 @@ export default function PricingCard({
   className,
   onCtaClick,
 }: PricingCardProps) {
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
-  const primaryColor = '#ffffff';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
+  const primaryColor = 'var(--ink)';
 
   const cardBorder = featured
-    ? '#ffffff'
-    : 'rgba(255,255,255,0.08)';
+    ? 'var(--ink)'
+    : 'rgba(var(--hairline),0.08)';
   const hoverBorder = featured
-    ? '#ffffff'
-    : 'rgba(255,255,255,0.2)';
+    ? 'var(--ink)'
+    : 'rgba(var(--hairline),0.2)';
 
   return (
     <m.section
@@ -56,8 +56,8 @@ export default function PricingCard({
           className="absolute -top-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5 px-4 py-1 text-xs font-bold uppercase tracking-wider"
           style={{
             borderRadius: 0,
-            backgroundColor: '#ffffff',
-            color: '#000000',
+            backgroundColor: 'var(--ink)',
+            color: 'var(--paper)',
           }}
         >
           <Sparkles className="w-3 h-3" />
@@ -69,22 +69,22 @@ export default function PricingCard({
         className="px-7 pb-7 pt-9 transition-all duration-300 relative overflow-hidden"
         style={{
           borderRadius: 0,
-          backgroundColor: '#000000',
+          backgroundColor: 'var(--paper)',
           border: `1px solid ${cardBorder}`,
           boxShadow: featured
-            ? '0 0 40px rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.12)'
-            : '0 4px 24px rgba(0,0,0,0.06)',
+            ? '0 0 40px rgba(var(--hairline),0.08), 0 8px 32px rgba(var(--hairline),0.12)'
+            : '0 4px 24px rgba(var(--hairline),0.06)',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = hoverBorder;
           if (!featured) {
-            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(var(--hairline),0.12)';
           }
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = cardBorder;
           if (!featured) {
-            e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06)';
+            e.currentTarget.style.boxShadow = '0 4px 24px rgba(var(--hairline),0.06)';
           }
         }}
       >
@@ -123,7 +123,7 @@ export default function PricingCard({
 
         <div
           className="mt-6 mb-6"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+          style={{ borderTop: '1px solid rgba(var(--hairline),0.08)' }}
         />
 
         <ul className="space-y-3">
@@ -139,7 +139,7 @@ export default function PricingCard({
                   className="inline-grid h-5 w-5 shrink-0 place-items-center"
                   style={{
                     borderRadius: 0,
-                    backgroundColor: ok ? 'rgba(34,197,94,0.15)' : 'rgba(255,255,255,0.15)',
+                    backgroundColor: ok ? 'rgba(34,197,94,0.15)' : 'rgba(var(--hairline),0.08)',
                   }}
                   aria-hidden
                 >
@@ -161,20 +161,20 @@ export default function PricingCard({
           className="mt-7 w-full py-3 text-sm font-bold tracking-wide uppercase transition-all duration-200 cursor-pointer"
           style={{
             borderRadius: 0,
-            backgroundColor: featured ? '#ffffff' : '#111111',
-            color: featured ? '#000000' : '#ffffff',
+            backgroundColor: featured ? 'var(--ink)' : 'var(--chip)',
+            color: featured ? 'var(--paper)' : 'var(--ink)',
             border: 'none',
           }}
           onMouseEnter={(e) => {
             if (!featured) {
-              e.currentTarget.style.backgroundColor = '#222222';
+              e.currentTarget.style.backgroundColor = 'var(--chip-hover)';
             } else {
               e.currentTarget.style.opacity = '0.9';
             }
           }}
           onMouseLeave={(e) => {
             if (!featured) {
-              e.currentTarget.style.backgroundColor = '#111111';
+              e.currentTarget.style.backgroundColor = 'var(--chip)';
             } else {
               e.currentTarget.style.opacity = '1';
             }

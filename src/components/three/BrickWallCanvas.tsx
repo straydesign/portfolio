@@ -61,7 +61,7 @@ interface BrickWallCanvasProps {
   accentColor?: string;
 }
 
-export default function BrickWallCanvas({ theme = "dark", accentColor }: BrickWallCanvasProps) {
+export default function BrickWallCanvas({ theme = "light", accentColor }: BrickWallCanvasProps) {
   const prefersReducedMotion = useMediaQuery(
     "(prefers-reduced-motion: reduce)"
   );

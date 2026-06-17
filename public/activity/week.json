@@ -1,33 +1,33 @@
 {
   "span": "week",
-  "label": "7 days ending 2026-06-14",
+  "label": "7 days ending 2026-06-16",
   "totals": {
-    "prompts": 406,
-    "hours": 164,
-    "tokens": 2374381904,
-    "sessions": 20
+    "prompts": 415,
+    "hours": 151.7,
+    "tokens": 2616387794,
+    "sessions": 14
   },
   "projects": [
     {
-      "name": "Personal brand site",
-      "prompts": 182,
-      "hours": 73.2,
-      "tokens": 1004591739,
-      "sessions": 8
-    },
-    {
       "name": "Aquarium store website",
-      "prompts": 121,
-      "hours": 42,
-      "tokens": 818246209,
-      "sessions": 3
+      "prompts": 159,
+      "hours": 52.1,
+      "tokens": 1064844610,
+      "sessions": 4
     },
     {
-      "name": "Other",
-      "prompts": 27,
-      "hours": 14.5,
-      "tokens": 90614950,
-      "sessions": 6
+      "name": "Personal brand site",
+      "prompts": 62,
+      "hours": 42.3,
+      "tokens": 483962789,
+      "sessions": 4
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 135,
+      "hours": 28,
+      "tokens": 678412245,
+      "sessions": 2
     },
     {
       "name": "Craft beer bar pitch site",
@@ -37,21 +37,21 @@
       "sessions": 1
     },
     {
-      "name": "Bar & grill pitch site",
-      "prompts": 11,
-      "hours": 14,
-      "tokens": 19832431,
-      "sessions": 1
+      "name": "Other",
+      "prompts": 10,
+      "hours": 13.7,
+      "tokens": 57794731,
+      "sessions": 2
     },
     {
-      "name": "Multi-location tattoo pitch site",
-      "prompts": 22,
-      "hours": 6.3,
-      "tokens": 202746240,
+      "name": "This portfolio site",
+      "prompts": 6,
+      "hours": 1.6,
+      "tokens": 93023084,
       "sessions": 1
     }
   ],
-  "windowStart": "2026-06-08T04:00:00.766Z",
-  "windowEnd": "2026-06-15T04:00:00.766Z",
-  "generatedAt": "2026-06-15T21:49:39.270Z"
+  "windowStart": "2026-06-10T04:00:00.867Z",
+  "windowEnd": "2026-06-17T04:00:00.867Z",
+  "generatedAt": "2026-06-17T10:07:16.553Z"
 }

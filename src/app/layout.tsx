@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Bungee, Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -91,6 +91,10 @@ export const metadata: Metadata = {
   creator: "Tom Sesler",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -175,8 +179,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${bungee.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${bungee.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
+        {/* Set the theme before first paint to avoid a flash of the wrong theme */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('straydesign-theme');if(t!=='dark'&&t!=='light'){t='light';}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='light';}})();`,
+          }}
+        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Google Analytics */}

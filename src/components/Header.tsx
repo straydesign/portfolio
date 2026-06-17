@@ -154,7 +154,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
       style={{ backgroundColor: 'transparent' }}
     >
       <NavigableSection id="header-nav" label="Navigation" excludeFromScrollSpy onKeyDown={handleHeaderKeyDown} className="relative z-[101]">
-        <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, #000000 0%, #000000 50%, transparent 100%)' }}>
+        <nav className="px-6 md:px-12 pt-4 md:pt-6 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, var(--paper) 0%, var(--paper) 50%, transparent 100%)' }}>
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Desktop Nav */}
             <div ref={navRef} className={`hidden md:flex items-center gap-3 lg:gap-6 relative w-fit${!menuSubNav && activeId === 'header-nav' ? ' marching-ants' : ''}`}>
@@ -163,7 +163,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                 <div
                   className="absolute top-0 border-2 pointer-events-none"
                   style={{
-                    borderColor: '#ffffff',
+                    borderColor: 'var(--ink)',
                     borderRadius: 0,
                     left: pillStyle.left,
                     width: pillStyle.width,
@@ -183,7 +183,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                   style={{
                     borderColor: 'transparent',
                     borderRadius: 0,
-                    color: '#ffffff',
+                    color: 'var(--ink)',
                   }}
                 >
                   {item.label}
@@ -194,7 +194,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
             {/* Mobile Menu Button */}
             <button
               className={`md:hidden px-3 py-1 border-2 flex items-center gap-2${(mobileMenuOpen && mobileMenuFocusIndex === -1) || (!mobileMenuOpen && activeId === 'header-nav') ? ' marching-ants' : ''}`}
-              style={{ color: '#ffffff', borderColor: '#ffffff', borderRadius: 0 }}
+              style={{ color: 'var(--ink)', borderColor: 'var(--ink)', borderRadius: 0 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
@@ -219,7 +219,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
             {/* Backdrop overlay */}
             <div
               className="fixed inset-0 z-[99] md:hidden"
-              style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
+              style={{ backgroundColor: 'rgba(var(--veil),0.6)', backdropFilter: 'blur(4px)' }}
               onClick={() => setMobileMenuOpen(false)}
               aria-hidden="true"
             />
@@ -233,7 +233,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
               exit={{ y: -12 }}
               transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="px-4 py-3" style={{ backgroundColor: '#000000', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div className="px-4 py-3" style={{ backgroundColor: 'var(--paper)', border: '1px solid rgba(var(--hairline),0.08)', boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)' }}>
                 <div className="flex flex-col gap-1.5">
                   {NAV_ITEMS.map((item, i) => (
                     <button
@@ -241,9 +241,9 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                       onClick={() => handleNavClick(item.id)}
                       className={`px-3 py-1.5 border-2 text-left${mobileMenuFocusIndex === i ? ' marching-ants' : ''}`}
                       style={{
-                        borderColor: isActive(item.id) ? '#ffffff' : 'transparent',
+                        borderColor: isActive(item.id) ? 'var(--ink)' : 'transparent',
                         borderRadius: 0,
-                        color: '#ffffff',
+                        color: 'var(--ink)',
                       }}
                     >
                       {item.label}

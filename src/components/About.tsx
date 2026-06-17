@@ -135,7 +135,7 @@ function BookSpine({
         zIndex: isActive ? ALL_BOOKS.length + 10 : isFocused ? ALL_BOOKS.length + 5 : zBase,
         marginRight: `${-(topShift - 3)}px`,
         outline: 'none',
-        filter: showOutline ? 'brightness(1.4) drop-shadow(0 0 6px rgba(255,255,255,0.5))' : 'none',
+        filter: showOutline ? 'brightness(0.85) drop-shadow(0 0 6px rgba(0,0,0,0.4))' : 'none',
       }}
       role="button"
       tabIndex={0}
@@ -261,20 +261,20 @@ function ShelfRow({
         ))}
       </div>
 
-      {/* Glossy black shelf */}
+      {/* Glossy shelf — light marble in light theme, glossy black in dark */}
       <div
         style={{
           height: 12,
-          background: 'linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 25%, #0a0a0a 50%, #050505 80%, #000000 100%)',
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.30), inset 0 2px 0 rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.6)',
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          background: 'var(--shelf)',
+          boxShadow: 'inset 0 1px 0 rgba(0,0,0,0.15), inset 0 2px 0 rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.15)',
+          borderBottom: '1px solid rgba(0,0,0,0.08)',
         }}
       />
       {/* Shelf underside shadow */}
       <div
         style={{
           height: 10,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 40%, transparent 100%)',
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 40%, transparent 100%)',
         }}
       />
     </div>
@@ -311,24 +311,24 @@ function BookDetailModal({
       <div
         className="relative p-6 md:p-8"
         style={{
-          backgroundColor: '#0a0a0a',
-          border: '1px solid rgba(255,255,255,0.1)',
-          boxShadow: '0 -4px 20px rgba(0,0,0,0.5)',
+          backgroundColor: 'var(--paper)',
+          border: '1px solid rgba(var(--hairline),0.10)',
+          boxShadow: '0 -4px 20px rgba(var(--hairline),0.12)',
         }}
       >
         <button
           ref={closeButtonRef}
           onClick={onClose}
           className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-2xl font-light transition-opacity hover:opacity-70"
-          style={{ color: '#ffffff' }}
+          style={{ color: 'var(--ink)' }}
           aria-label="Close"
         >
           &times;
         </button>
-        <h3 className="text-lg md:text-xl font-bold mb-4 pr-10" style={{ color: '#ffffff' }}>
+        <h3 className="text-lg md:text-xl font-bold mb-4 pr-10" style={{ color: 'var(--ink)' }}>
           {book.title}
         </h3>
-        <p className="text-sm md:text-base leading-relaxed" style={{ color: '#a1a1a6' }}>
+        <p className="text-sm md:text-base leading-relaxed" style={{ color: 'var(--ink-2)' }}>
           {book.description}
         </p>
       </div>
@@ -440,9 +440,9 @@ export default function About({ setCurrentPage }: AboutProps) {
 
       {/* HERO — card-like container with sub-sections */}
       <div className="px-4 md:px-8 mb-8 md:mb-12">
-        <div className="pt-4 md:pt-8 relative" style={{ backgroundColor: '#000000', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="pt-4 md:pt-8 relative" style={{ backgroundColor: 'var(--paper)', border: '1px solid rgba(var(--hairline),0.08)', boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)' }}>
           {/* Top edge shine */}
-          <div className="pointer-events-none absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)' }} />
+          <div className="pointer-events-none absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(var(--hairline),0.06), transparent)' }} />
 
           <NavigableSection id="about-intro" label="About">
             <div className="px-6 py-6 md:px-10 md:py-8">
@@ -450,7 +450,7 @@ export default function About({ setCurrentPage }: AboutProps) {
                 className="text-[48px] sm:text-[60px] md:text-[72px] leading-none tracking-wider font-black mb-6 md:mb-8"
                 style={{
                   fontFamily: "var(--font-family-bungee), sans-serif",
-                  WebkitTextStroke: '4px #ffffff',
+                  WebkitTextStroke: '4px var(--ink)',
                   WebkitTextFillColor: 'transparent',
                   color: 'transparent',
                   paintOrder: 'stroke fill',
@@ -458,13 +458,13 @@ export default function About({ setCurrentPage }: AboutProps) {
               >
                 ABOUT
               </h1>
-              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
+              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: 'var(--ink)' }}>
                 I found design the way most people find their best ideas: frustrated enough to build something better. I drove for DoorDash, stocked shelves as a beer merchandiser, and kept hitting problems nobody was solving. So I started solving them myself.
               </p>
-              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: '#ffffff' }}>
+              <p className="text-[15px] md:text-[17px] leading-relaxed mb-6" style={{ color: 'var(--ink)' }}>
                 Marketing jobs were scarce when I graduated from UNH, and sales never felt right. For the first time in my life I&apos;m certain about one thing, and I&apos;m putting everything into it. That turned into a freelance studio, and three local businesses now run on sites I designed and built: a bar &amp; grill, a bar, and an aquarium shop that&apos;s been open fifty years. For the bar &amp; grill I shot the food photography and wired Claude into the back end, so the owner uploads his menu once a month and the specials update themselves. The bar&apos;s site clears 2,000 visitors a month.
               </p>
-              <p className="text-[15px] md:text-[17px] leading-relaxed" style={{ color: '#ffffff' }}>
+              <p className="text-[15px] md:text-[17px] leading-relaxed" style={{ color: 'var(--ink)' }}>
                 I learned design in Figma before any of the AI tools existed, so I still believe in the early wireframing and ideation that only happens when you don&apos;t have the answers yet. But it&apos;s cheaper than ever to see what a finished design feels like before you commit to a direction. So I use both.
               </p>
             </div>
@@ -472,10 +472,10 @@ export default function About({ setCurrentPage }: AboutProps) {
 
           <NavigableSection id="about-background" label="Background">
             <div className="px-6 pb-6 md:px-10 md:pb-8">
-              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: '#ffffff' }}>
+              <p className="text-[15px] md:text-[17px] leading-[1.8] mb-5" style={{ color: 'var(--ink)' }}>
                 What I keep coming back to is why some things stick and most don&apos;t. The thing that makes a product stay with you isn&apos;t how it looks — it&apos;s a feeling that builds as you move through it, and right now that&apos;s nobody&apos;s job. Designers own layouts, engineers own systems, marketers own the message. The part connecting all of it is still up for grabs.
               </p>
-              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: '#ffffff' }}>
+              <p className="text-[15px] md:text-[17px] leading-[1.8]" style={{ color: 'var(--ink)' }}>
                 So that&apos;s what I&apos;m building toward: taking a local business&apos;s catalog — a menu, a product list, an inventory — and turning it into something people can actually find, in search and in the AI tools they now ask instead of Google. Most small shops are sitting on all of it with no way to be seen. The work is on this page.
               </p>
             </div>
@@ -517,7 +517,7 @@ export default function About({ setCurrentPage }: AboutProps) {
       {expandedPhotoIndex !== null && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}
+          style={{ backgroundColor: 'rgba(var(--veil),0.9)' }}
           onClick={() => setExpandedPhotoIndex(null)}
           role="dialog"
           aria-label={ABOUT_PHOTOS[expandedPhotoIndex]?.alt ?? 'Photo'}
@@ -525,7 +525,7 @@ export default function About({ setCurrentPage }: AboutProps) {
           <button
             type="button"
             className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-2xl font-light transition-opacity hover:opacity-70 z-50"
-            style={{ color: '#ffffff', background: 'none', border: 'none' }}
+            style={{ color: 'var(--ink)', background: 'none', border: 'none' }}
             onClick={() => setExpandedPhotoIndex(null)}
             aria-label="Close"
             autoFocus
@@ -548,7 +548,7 @@ export default function About({ setCurrentPage }: AboutProps) {
           <TextCard padding="md" className="inline-block">
             <h2
               className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
             >
               MY FAVORITES
             </h2>
@@ -577,7 +577,7 @@ export default function About({ setCurrentPage }: AboutProps) {
                     width: `${coverW + spineW}px`,
                     height: `${coverH}px`,
                     zIndex: isActive ? 20 : 1,
-                    outline: isFocusedByKeyboard ? '2px solid #ffffff' : 'none',
+                    outline: isFocusedByKeyboard ? '2px solid var(--ink)' : 'none',
                     outlineOffset: '4px',
                   }}
                   role="button"
@@ -679,7 +679,7 @@ export default function About({ setCurrentPage }: AboutProps) {
               <TextCard padding="md" className="inline-block mb-8 md:mb-12">
                 <h2
                   className="text-[36px] md:text-[56px] leading-none tracking-wider font-black"
-                  style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: '#ffffff' }}
+                  style={{ fontFamily: "var(--font-family-bungee), sans-serif", color: 'var(--ink)' }}
                 >
                   BOOKSHELF
                 </h2>
@@ -724,14 +724,14 @@ export default function About({ setCurrentPage }: AboutProps) {
       <NavigableSection id="about-suggest" label="Suggest a Book" className="max-w-lg mx-auto">
         <div className="max-w-[90rem] mx-auto px-4 md:px-8 mb-12 md:mb-16">
           <div className="max-w-lg mx-auto">
-            <div className="p-6 md:p-8" style={{ backgroundColor: '#0a0a0a', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="p-6 md:p-8" style={{ backgroundColor: 'var(--paper)', border: '1px solid rgba(var(--hairline),0.08)', boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)' }}>
               <h3
                 className="text-[20px] md:text-[24px] leading-none tracking-wider font-black mb-2"
-                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
+                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: 'var(--ink)' }}
               >
                 SUGGEST A BOOK
               </h3>
-              <p className="text-sm mb-6" style={{ color: '#a1a1a6' }}>
+              <p className="text-sm mb-6" style={{ color: 'var(--ink-2)' }}>
                 Think I should read something? Drop it here — it&apos;s anonymous.
               </p>
               <form
@@ -758,7 +758,7 @@ export default function About({ setCurrentPage }: AboutProps) {
                 className="flex flex-col gap-4"
               >
                 <div>
-                  <label htmlFor="book-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: '#a1a1a6' }}>
+                  <label htmlFor="book-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--ink-2)' }}>
                     Book name / author *
                   </label>
                   <input
@@ -768,12 +768,12 @@ export default function About({ setCurrentPage }: AboutProps) {
                     value={bookInput}
                     onChange={(e) => setBookInput(e.target.value)}
                     placeholder="e.g. Thinking, Fast and Slow — Daniel Kahneman"
-                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-white transition-colors"
-                    style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.15)', borderRadius: 0 }}
+                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-[var(--ink)] transition-colors"
+                    style={{ color: 'var(--ink)', borderColor: 'rgba(var(--hairline),0.20)', borderRadius: 0 }}
                   />
                 </div>
                 <div>
-                  <label htmlFor="reason-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: '#a1a1a6' }}>
+                  <label htmlFor="reason-input" className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--ink-2)' }}>
                     Why it&apos;s worth reading (optional)
                   </label>
                   <textarea
@@ -782,8 +782,8 @@ export default function About({ setCurrentPage }: AboutProps) {
                     onChange={(e) => setReasonInput(e.target.value)}
                     placeholder="What made it stick with you?"
                     rows={3}
-                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-white transition-colors resize-none"
-                    style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.15)', borderRadius: 0 }}
+                    className="w-full px-4 py-2.5 text-sm bg-transparent border focus:outline-none focus:border-[var(--ink)] transition-colors resize-none"
+                    style={{ color: 'var(--ink)', borderColor: 'rgba(var(--hairline),0.20)', borderRadius: 0 }}
                   />
                 </div>
                 <button
@@ -791,8 +791,8 @@ export default function About({ setCurrentPage }: AboutProps) {
                   disabled={submitStatus === 'sending' || submitStatus === 'sent'}
                   className="self-start px-6 py-2.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] disabled:opacity-50 disabled:cursor-not-allowed"
                   style={{
-                    backgroundColor: submitStatus === 'sent' ? '#22c55e' : '#ffffff',
-                    color: '#000000',
+                    backgroundColor: submitStatus === 'sent' ? '#22c55e' : 'var(--ink)',
+                    color: 'var(--paper)',
                     borderRadius: 0,
                   }}
                 >
@@ -815,19 +815,19 @@ export default function About({ setCurrentPage }: AboutProps) {
               <TextCard padding="lg">
                 <h2
                   className="text-[28px] md:text-[44px] leading-none tracking-wider font-black mb-4"
-                  style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: '#ffffff' }}
+                  style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: 'var(--ink)' }}
                 >
                   WANT TO WORK TOGETHER?
                 </h2>
-                <p className="text-base mb-8" style={{ color: '#a1a1a6' }}>
+                <p className="text-base mb-8" style={{ color: 'var(--ink-2)' }}>
                   Whether you need a website, an app, or a product rethink &mdash; let&apos;s talk.
                 </p>
                 <a
                   href="mailto:tom@straydesign.co"
                   className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.03] cursor-pointer"
                   style={{
-                    backgroundColor: '#ffffff',
-                    color: '#000000',
+                    backgroundColor: 'var(--ink)',
+                    color: 'var(--paper)',
                     borderRadius: 0,
                   }}
                 >

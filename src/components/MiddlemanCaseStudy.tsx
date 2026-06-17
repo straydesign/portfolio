@@ -89,12 +89,12 @@ const HERO_SCREENS = [
 ] as const;
 
 const BG = {
-  hero: '#000000',
-  journey: '#18181b',
-  validation: '#050507',
-  ideation: '#18181b',
-  iteration: '#050507',
-  outcome: '#062818',
+  hero: 'var(--paper)',
+  journey: 'var(--surface-2)',
+  validation: 'var(--surface-3)',
+  ideation: 'var(--surface-2)',
+  iteration: 'var(--surface-3)',
+  outcome: 'var(--out-green)',
 } as const;
 
 // Hand-drawn-style wireframes for the four ideation moves.
@@ -288,17 +288,17 @@ function Wireframe({ variant }: { variant: number }) {
 }
 
 export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCaseStudyProps) {
-  const textColor = '#ffffff';
-  const secondaryTextColor = '#a1a1a6';
+  const textColor = 'var(--ink)';
+  const secondaryTextColor = 'var(--ink-2)';
   const primaryColor = '#22c55e';
-  const cardBg = 'rgba(255,255,255,0.02)';
+  const cardBg = 'rgba(var(--hairline),0.02)';
   const sectionPad = 'py-10 md:py-14';
   const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
       {/* Fixed back + visit site bar */}
-      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-black py-3 px-4 md:px-8 flex items-center gap-4">
+      <div className="fixed top-12 md:top-14 left-0 right-0 z-[100] bg-[var(--paper)] py-3 px-4 md:px-8 flex items-center gap-4">
         <button onClick={onBack}
           className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-70"
           style={{ color: textColor, borderRadius: 0 }}>
@@ -306,7 +306,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
         </button>
         <a href="https://middleman.quest" target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-opacity hover:opacity-80"
-          style={{ backgroundColor: primaryColor, color: '#000000', borderRadius: 0 }}>
+          style={{ backgroundColor: primaryColor, color: 'var(--paper)', borderRadius: 0 }}>
           <ExternalLink className="w-4 h-4" /> Try Live Prototype
         </a>
       </div>
@@ -331,7 +331,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                 </p>
                 <a href="https://middleman.quest" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 px-6 py-3.5 text-base font-bold mb-6 transition-opacity hover:opacity-80"
-                  style={{ backgroundColor: primaryColor, color: '#000000', borderRadius: 0 }}>
+                  style={{ backgroundColor: primaryColor, color: 'var(--paper)', borderRadius: 0 }}>
                   <ExternalLink className="w-5 h-5" /> Try the live prototype
                 </a>
                 <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
@@ -355,7 +355,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                   {HERO_SCREENS.map(({ src, alt, label }, i) => (
                     <StaggerItem key={src}>
                       <div className="flex flex-col gap-2" style={{ transform: i === 1 ? 'translateY(-12px)' : undefined }}>
-                        <div style={{ border: '1px solid rgba(255,255,255,0.08)', backgroundColor: '#0a0a0b' }}>
+                        <div style={{ border: '1px solid rgba(var(--hairline),0.08)', backgroundColor: 'var(--surface-3)' }}>
                           <img src={src} alt={alt} className="w-full h-auto block" loading="lazy" />
                         </div>
                         <p className="text-[10px] font-bold tracking-wider text-center uppercase" style={{ color: secondaryTextColor }}>{label}</p>
@@ -384,7 +384,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                   <StaggerItem key={step}>
                     <div className="group relative p-3 h-full flex flex-col" style={{
                       backgroundColor: cardBg,
-                      border: friction ? `1px solid ${primaryColor}40` : '1px solid rgba(255,255,255,0.06)',
+                      border: friction ? `1px solid ${primaryColor}40` : '1px solid rgba(var(--hairline),0.06)',
                     }}>
                       <div className="flex items-baseline justify-between mb-1">
                         <p className="text-[10px] font-bold tracking-wider" style={{ color: secondaryTextColor }}>STEP {String(step).padStart(2, '0')}</p>
@@ -398,15 +398,15 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                         <div
                           className="pointer-events-none absolute left-0 right-0 bottom-full mb-2 p-3 opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-20"
                           style={{
-                            backgroundColor: '#000000',
+                            backgroundColor: 'var(--paper)',
                             border: `1px solid ${primaryColor}`,
-                            boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+                            boxShadow: '0 8px 24px rgba(var(--hairline),0.12)',
                           }}
                         >
                           <p className="text-[11px] leading-snug" style={{ color: textColor }}>{detail}</p>
                           <span
                             className="absolute left-4 -bottom-1.5 w-3 h-3 rotate-45"
-                            style={{ backgroundColor: '#000000', borderRight: `1px solid ${primaryColor}`, borderBottom: `1px solid ${primaryColor}` }}
+                            style={{ backgroundColor: 'var(--paper)', borderRight: `1px solid ${primaryColor}`, borderBottom: `1px solid ${primaryColor}` }}
                           />
                         </div>
                       )}
@@ -436,7 +436,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                   { stat: '2.5 hrs+', label: 'Per store, thorough', sub: 'Hit fast and miss cases, or stay and count' },
                   { stat: '0', label: 'Tools provided', sub: 'Pen, cardboard, memory' },
                 ].map(({ stat, label, sub }) => (
-                  <div key={label} className="p-4" style={{ backgroundColor: cardBg, border: '1px dashed rgba(255,255,255,0.12)' }}>
+                  <div key={label} className="p-4" style={{ backgroundColor: cardBg, border: '1px dashed rgba(var(--hairline),0.12)' }}>
                     <p className="text-3xl md:text-4xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-sm font-bold mt-1" style={{ color: textColor }}>{label}</p>
                     <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
@@ -451,7 +451,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                   { tag: 'The data behind the wall', body: 'NHD has the POS. Merchandisers don\u2019t. Every shift you feel the gap — this could be easier, faster, more effective.' },
                   { tag: 'Speed vs. detail', body: 'Hit fast and miss cases, or count thorough for 2.5+ hours. There was no middle.' },
                 ].map(({ tag, body }) => (
-                  <div key={tag} className="p-3" style={{ backgroundColor: cardBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={tag} className="p-3" style={{ backgroundColor: cardBg, border: '1px solid rgba(var(--hairline),0.06)' }}>
                     <p className="text-[10px] font-bold tracking-wider mb-1.5 uppercase" style={{ color: primaryColor }}>{tag}</p>
                     <p className="text-[12px] leading-snug" style={{ color: textColor }}>{body}</p>
                   </div>
@@ -475,12 +475,12 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
                 {PROPOSALS.map(({ n, title, before, after, variant }) => (
                   <StaggerItem key={n}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: cardBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: cardBg, border: '1px solid rgba(var(--hairline),0.06)' }}>
                       <div className="flex items-center justify-between mb-2">
                         <p className="text-xl font-black" style={{ color: primaryColor }}>{n}</p>
                         <p className="text-xs font-bold" style={{ color: textColor }}>{title}</p>
                       </div>
-                      <div className="mb-2 h-72 flex items-center justify-center p-2" style={{ overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', backgroundColor: '#ffffff' }}>
+                      <div className="mb-2 h-72 flex items-center justify-center p-2" style={{ overflow: 'hidden', border: '1px solid rgba(var(--hairline),0.06)', backgroundColor: 'var(--paper)' }}>
                         <Wireframe variant={variant} />
                       </div>
                       <div className="mb-1.5">
@@ -513,7 +513,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-5 gap-2.5" staggerDelay={0.05}>
                 {DECISIONS.map(({ move, why }, i) => (
                   <StaggerItem key={move}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: cardBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: cardBg, border: '1px solid rgba(var(--hairline),0.06)' }}>
                       <div className="flex items-center gap-2 mb-2">
                         <p className="text-lg font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
                         <ArrowRight className="w-3.5 h-3.5" style={{ color: primaryColor, opacity: 0.5 }} />
@@ -548,7 +548,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
                   { stat: '1.5h → 45m', label: 'Store hits' },
                   { stat: 'Pinpointed', label: 'Shrinkage tied to small windows, not quarters' },
                 ].map(({ stat, label }) => (
-                  <div key={label} className="p-3 text-center" style={{ backgroundColor: cardBg, border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div key={label} className="p-3 text-center" style={{ backgroundColor: cardBg, border: '1px solid rgba(var(--hairline),0.06)' }}>
                     <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
                     <p className="text-[10px] font-bold mt-1.5 tracking-wider uppercase" style={{ color: secondaryTextColor }}>{label}</p>
                   </div>

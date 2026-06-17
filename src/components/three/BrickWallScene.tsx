@@ -72,16 +72,20 @@ export function BrickWallScene({ isDark = true, accentColor }: BrickWallScenePro
     []
   );
 
-  const brickColor = isDark ? "#111111" : "#e0e0e0";
-  const brickRoughness = isDark ? 0.08 : 0.12;
-  const envBgColor = isDark ? "#050505" : "#d0d0d0";
-  const groutColor = isDark ? "#3a3a3a" : "#c8c8c8";
-  const ambientIntensity = isDark ? 0.5 : 0.8;
+  // Dark theme = glossy black metal (mirrors the dark env). Light theme = a
+  // near-matte white tile: low metalness so the white albedo actually shows
+  // instead of just reflecting the grey environment, with a clear grey grout.
+  const brickColor = isDark ? "#111111" : "#ffffff";
+  const brickRoughness = isDark ? 0.08 : 0.32;
+  const brickMetalness = isDark ? 1 : 0.12;
+  const envBgColor = isDark ? "#050505" : "#eef0f2";
+  const groutColor = isDark ? "#3a3a3a" : "#b0b0b0";
+  const ambientIntensity = isDark ? 0.5 : 0.9;
 
   const material = useMemo(() => {
     const mat = new THREE.MeshStandardMaterial({
       color: new THREE.Color(brickColor),
-      metalness: 1,
+      metalness: brickMetalness,
       roughness: brickRoughness,
     });
 
@@ -146,10 +150,25 @@ export function BrickWallScene({ isDark = true, accentColor }: BrickWallScenePro
       );
     };
 
-    mat.customProgramCacheKey = () => `brick-ripple-${isDark ? "dark" : "light"}`;
+    mat.customProgramCacheKey = () => `brick-ripple`;
 
     return mat;
-  }, [wallWidth, wallHeight, brickColor, brickRoughness, isDark]);
+    // Color/roughness are applied imperatively below (see effect), so a theme
+    // toggle MUTATES this material in place rather than creating a new one.
+    // Recreating it would change the instancedMesh `args`, forcing r3f to
+    // rebuild the mesh and orphan the instance matrices (every brick collapses
+    // to one). Only viewport size genuinely requires a fresh material.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wallWidth, wallHeight]);
+
+  // Keep the brick albedo + roughness in sync with the theme without rebuilding
+  // the material — runs on mount and on every theme toggle.
+  useEffect(() => {
+    material.color.set(brickColor);
+    material.roughness = brickRoughness;
+    material.metalness = brickMetalness;
+    material.needsUpdate = true;
+  }, [material, brickColor, brickRoughness, brickMetalness]);
 
   const positions = useMemo(
     () => generateBrickPositions(wallWidth, wallHeight),
@@ -179,7 +198,7 @@ export function BrickWallScene({ isDark = true, accentColor }: BrickWallScenePro
 
   return (
     <>
-      <Environment resolution={128} background={false}>
+      <Environment key={isDark ? "env-dark" : "env-light"} resolution={128} background={false}>
         <mesh scale={50}>
           <sphereGeometry args={[1, 32, 32]} />
           <meshBasicMaterial color={envBgColor} side={THREE.BackSide} />

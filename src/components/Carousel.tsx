@@ -46,12 +46,12 @@ export default function Carousel({
       {/* Left edge fade */}
       <div
         className="absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to right, #000000, transparent)' }}
+        style={{ background: 'linear-gradient(to right, var(--paper), transparent)' }}
       />
       {/* Right edge fade */}
       <div
         className="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to left, #000000, transparent)' }}
+        style={{ background: 'linear-gradient(to left, var(--paper), transparent)' }}
       />
 
       <div
@@ -71,7 +71,7 @@ export default function Carousel({
           <div
             key={`b-${i}`}
             className="shrink-0 inline-flex w-fit h-fit"
-            style={isKeyboardMode && i === focusedIndex ? { outline: '2px solid #ffffff', outlineOffset: '4px' } : {}}
+            style={isKeyboardMode && i === focusedIndex ? { outline: '2px solid var(--ink)', outlineOffset: '4px' } : {}}
             aria-hidden={!isKeyboardMode || i !== focusedIndex}
           >
             {item}

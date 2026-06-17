@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useThree, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -124,10 +124,19 @@ export function GroutPlane({ rippleTexture, viewportSize, groutColor = "#3a3a3a"
       );
     };
 
-    mat.customProgramCacheKey = () => `grout-ripple-${isDark ? "dark" : "light"}`;
+    mat.customProgramCacheKey = () => `grout-ripple`;
 
     return mat;
   }, [normalMap, vw, vh]);
+
+  // Sync grout color/finish with the theme without rebuilding the material,
+  // so a live toggle updates the mortar instead of leaving it frozen.
+  useEffect(() => {
+    material.color.set(groutColor);
+    material.roughness = isDark ? 0.85 : 0.7;
+    material.metalness = isDark ? 0.08 : 0.05;
+    material.needsUpdate = true;
+  }, [material, groutColor, isDark]);
 
   // Update ripple texture uniform each frame
   useFrame(() => {

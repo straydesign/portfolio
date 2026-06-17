@@ -19,7 +19,7 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
       <div className="max-w-[90rem] mx-auto">
         <p
           className="text-xs font-bold tracking-widest mb-10 uppercase text-center"
-          style={{ color: '#ffffff' }}
+          style={{ color: 'var(--ink)' }}
         >
           MORE WORK
         </p>
@@ -47,11 +47,11 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                   if (prev) prev.focus();
                 }
               }}
-              className="flex flex-col items-center gap-6 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-black rounded-sm"
+              className="flex flex-col items-center gap-6 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-offset-4 focus-visible:ring-offset-[color:var(--paper)] rounded-sm"
             >
               <span
                 className="px-6 py-3 text-xs md:text-sm font-bold tracking-widest uppercase"
-                style={{ backgroundColor: '#ffffff', color: '#000000', borderRadius: 0 }}
+                style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
               >
                 {project.title}
               </span>

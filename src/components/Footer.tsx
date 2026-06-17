@@ -48,12 +48,12 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
       className="mt-auto relative"
       style={{ backgroundColor: 'transparent', zIndex: 50 }}
     >
-      <div className="px-6 md:px-8 pt-8 md:pt-10 pb-3 md:pb-4" style={{ position: 'relative', zIndex: 51, background: 'linear-gradient(to top, #000000 0%, #000000 50%, transparent 100%)' }}>
+      <div className="px-6 md:px-8 pt-8 md:pt-10 pb-3 md:pb-4" style={{ position: 'relative', zIndex: 51, background: 'linear-gradient(to top, var(--paper) 0%, var(--paper) 50%, transparent 100%)' }}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6">
           <div className="flex items-center gap-4 md:gap-6">
             <h2
               className="text-[18px] md:text-[24px]"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: '#ffffff' }}
+              style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: 'var(--ink)' }}
             >
               LET&apos;S WORK TOGETHER
             </h2>
@@ -69,8 +69,8 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
                   aria-label={link.label}
                   className="transition-all hover:scale-110 inline-block"
                   style={{
-                    color: '#ffffff',
-                    outline: isActive && focusedIndex === i ? '2px solid #ffffff' : 'none',
+                    color: 'var(--ink)',
+                    outline: isActive && focusedIndex === i ? '2px solid var(--ink)' : 'none',
                     outlineOffset: '4px',
                   }}
                   tabIndex={-1}
@@ -84,7 +84,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
       </div>
       <div className="px-6 md:px-8 pb-4 text-center" style={{ position: 'relative', zIndex: 51 }}>
         <NavigableSection id="footer-attribution" label="Built by Stray Web Design" excludeFromScrollSpy>
-          <a href="https://straywebdesign.co" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">
+          <a href="https://straywebdesign.co" target="_blank" rel="noopener noreferrer" className="text-xs text-[rgba(var(--hairline),0.55)] hover:text-[rgba(var(--hairline),0.8)] transition-colors">
             Built by Stray Web Design
           </a>
         </NavigableSection>

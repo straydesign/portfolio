@@ -5,14 +5,67 @@
   --font-inter: var(--font-family-inter);
 }
 
+/* ------------------------------------------------------------------ */
+/*  Theme tokens — light is the default (:root), dark overrides via    */
+/*  [data-theme="dark"] on <html>. The whole site reads these vars so  */
+/*  the bead-chain pull can flip between them at runtime.              */
+/*                                                                     */
+/*  --ink    : primary ink (text, emphasis-badge bg, focus, strokes)   */
+/*  --paper  : paper (card/page bg, text that sits on --ink)           */
+/*  --ink-2  : secondary / muted text                                  */
+/*  --chip   : subtle chip / control / input surface                   */
+/*  --surface-2/3 : raised + alternating section backgrounds           */
+/*  --hairline : RGB triplet for borders/dividers — rgba(var(--hairline),A) */
+/*  --veil     : RGB triplet for overlay/frost scrims — rgba(var(--veil),A) */
+/*  --out-*    : case-study "outcome" panel tints (brand hue, theme-lit)*/
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --ink: #111111;
+  --paper: #ffffff;
+  --ink-2: #56565a;
+  --chip: #f0f0f0;
+  --chip-hover: #e4e4e4;
+  --surface-2: #f2f2f2;
+  --surface-3: #fafafa;
+  --shelf: linear-gradient(180deg, #c5c5c5 0%, #e5e5e5 25%, #f5f5f5 50%, #fafafa 80%, #ffffff 100%);
+  --hairline: 0, 0, 0;
+  --veil: 255, 255, 255;
+  --out-green: #e9f6ee;
+  --out-navy: #e9eef6;
+  --out-red: #fcebe9;
+  --out-indigo: #ecebf8;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --paper: #000000;
+  --ink-2: #a1a1a6;
+  --chip: #111111;
+  --chip-hover: #1e1e1e;
+  --surface-2: #18181b;
+  --surface-3: #050507;
+  --shelf: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 25%, #0a0a0a 50%, #050505 80%, #000000 100%);
+  --hairline: 255, 255, 255;
+  --veil: 0, 0, 0;
+  --out-green: #062818;
+  --out-navy: #04101c;
+  --out-red: #1a0808;
+  --out-indigo: #0c0a1f;
+}
+
 body {
   margin: 0;
   padding: 0;
+  background: var(--paper);
+  /* Theme swap should feel like a light turning on, not an instant cut */
+  transition: background-color 0.5s ease;
 }
 
 /* Focus indicators for keyboard navigation (WCAG 2.4.7) */
 *:focus-visible {
-  outline: 2px solid #ffffff;
+  outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 
@@ -22,8 +75,8 @@ body {
   top: -100%;
   left: 50%;
   transform: translateX(-50%);
-  background: #000;
-  color: #fff;
+  background: var(--ink);
+  color: var(--paper);
   padding: 0.5rem 1rem;
   border-radius: 0 0 8px 8px;
   z-index: 9999;
@@ -83,14 +136,23 @@ body[data-keyboard-nav] [data-nav-active] [data-textcard],
 body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header-nav) {
   outline: none;
   background-image:
-    repeating-linear-gradient(90deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
-    repeating-linear-gradient(90deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
-    repeating-linear-gradient(0deg, #fff 0, #fff 4px, transparent 4px, transparent 8px),
-    repeating-linear-gradient(0deg, #fff 0, #fff 4px, transparent 4px, transparent 8px);
+    repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(0deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(0deg, var(--ink) 0, var(--ink) 4px, transparent 4px, transparent 8px);
   background-size: 8px 2px, 8px 2px, 2px 8px, 2px 8px;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   animation: marching-ants 0.4s linear infinite;
+}
+
+/* Bead-chain pull — idle pendulum sway about the ceiling anchor */
+@keyframes bead-chain-sway {
+  0%, 100% { transform: rotate(-2.4deg); }
+  50% { transform: rotate(2.4deg); }
+}
+.bead-chain-sway {
+  animation: bead-chain-sway 4.2s ease-in-out infinite;
 }
 
 /* Carousel infinite scroll animations */
