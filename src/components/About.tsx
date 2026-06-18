@@ -742,16 +742,18 @@ export default function About({ setCurrentPage }: AboutProps) {
                   try {
                     const book = bookInput.trim();
                     const reason = reasonInput.trim();
+                    // FormData (not JSON) is Web3Forms' documented client method:
+                    // it's a CORS "simple request" with no preflight, which is the
+                    // most reliable path from the browser.
+                    const fd = new FormData();
+                    fd.append('access_key', process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '');
+                    fd.append('subject', `Book Suggestion: ${book}`);
+                    fd.append('from_name', 'straydesign.co — Book Suggestion');
+                    fd.append('book', book);
+                    fd.append('reason', reason || '(none given)');
                     const res = await fetch('https://api.web3forms.com/submit', {
                       method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '',
-                        subject: `Book Suggestion: ${book}`,
-                        from_name: 'straydesign.co — Book Suggestion',
-                        book,
-                        reason: reason || '(none given)',
-                      }),
+                      body: fd,
                     });
                     if (!res.ok) throw new Error('Failed');
                     setSubmitStatus('sent');
