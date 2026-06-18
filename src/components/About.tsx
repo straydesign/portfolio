@@ -740,10 +740,18 @@ export default function About({ setCurrentPage }: AboutProps) {
                   if (!bookInput.trim() || submitStatus === 'sending') return;
                   setSubmitStatus('sending');
                   try {
-                    const res = await fetch('/api/suggest-book', {
+                    const book = bookInput.trim();
+                    const reason = reasonInput.trim();
+                    const res = await fetch('https://api.web3forms.com/submit', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ book: bookInput.trim(), reason: reasonInput.trim() || undefined }),
+                      body: JSON.stringify({
+                        access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? '',
+                        subject: `Book Suggestion: ${book}`,
+                        from_name: 'straydesign.co — Book Suggestion',
+                        book,
+                        reason: reason || '(none given)',
+                      }),
                     });
                     if (!res.ok) throw new Error('Failed');
                     setSubmitStatus('sent');

@@ -1,40 +1,40 @@
 {
   "span": "alltime",
-  "label": "through 2026-06-16",
+  "label": "through 2026-06-17",
   "totals": {
-    "prompts": 7261,
-    "hours": 1475.4,
-    "tokens": 17872198790,
-    "sessions": 177
+    "prompts": 7401,
+    "hours": 1523.1,
+    "tokens": 18990656061,
+    "sessions": 186
   },
   "projects": [
     {
       "name": "Personal brand site",
-      "prompts": 1769,
-      "hours": 414.8,
-      "tokens": 5027706724,
-      "sessions": 43
+      "prompts": 1784,
+      "hours": 424.2,
+      "tokens": 5305122361,
+      "sessions": 44
     },
     {
       "name": "Bar & grill pitch site",
-      "prompts": 1266,
-      "hours": 252,
-      "tokens": 3035015499,
-      "sessions": 32
+      "prompts": 1209,
+      "hours": 238,
+      "tokens": 2876044334,
+      "sessions": 31
     },
     {
       "name": "Aquarium store website",
-      "prompts": 997,
+      "prompts": 1021,
       "hours": 181.7,
-      "tokens": 3332394883,
+      "tokens": 3627894592,
       "sessions": 17
     },
     {
       "name": "This portfolio site",
-      "prompts": 535,
-      "hours": 131.4,
-      "tokens": 1199746554,
-      "sessions": 11
+      "prompts": 675,
+      "hours": 170.9,
+      "tokens": 1621787833,
+      "sessions": 16
     },
     {
       "name": "Horror video game",
@@ -45,24 +45,24 @@
     },
     {
       "name": "Other",
-      "prompts": 195,
-      "hours": 78.9,
-      "tokens": 277469551,
-      "sessions": 32
+      "prompts": 198,
+      "hours": 80.4,
+      "tokens": 344814685,
+      "sessions": 34
     },
     {
       "name": "CO2 supplier pitch site",
-      "prompts": 535,
+      "prompts": 536,
       "hours": 71.6,
-      "tokens": 1012565353,
-      "sessions": 6
+      "tokens": 1012943241,
+      "sessions": 7
     },
     {
       "name": "Goal-tracking app",
-      "prompts": 543,
-      "hours": 58.5,
-      "tokens": 1428381142,
-      "sessions": 5
+      "prompts": 557,
+      "hours": 69.8,
+      "tokens": 1643129931,
+      "sessions": 6
     },
     {
       "name": "Web design business site",
@@ -129,6 +129,6 @@
     }
   ],
   "windowStart": "1970-01-01T00:00:00.000Z",
-  "windowEnd": "2026-06-17T04:00:00.867Z",
-  "generatedAt": "2026-06-17T10:07:16.554Z"
+  "windowEnd": "2026-06-18T04:00:00.072Z",
+  "generatedAt": "2026-06-18T10:07:15.900Z"
 }

@@ -1,57 +1,71 @@
 {
   "span": "week",
-  "label": "7 days ending 2026-06-16",
+  "label": "7 days ending 2026-06-17",
   "totals": {
-    "prompts": 415,
-    "hours": 151.7,
-    "tokens": 2616387794,
-    "sessions": 14
+    "prompts": 507,
+    "hours": 175.3,
+    "tokens": 3447312734,
+    "sessions": 19
   },
   "projects": [
     {
-      "name": "Aquarium store website",
-      "prompts": 159,
-      "hours": 52.1,
-      "tokens": 1064844610,
+      "name": "Personal brand site",
+      "prompts": 75,
+      "hours": 51.4,
+      "tokens": 755389930,
       "sessions": 4
     },
     {
-      "name": "Personal brand site",
-      "prompts": 62,
-      "hours": 42.3,
-      "tokens": 483962789,
-      "sessions": 4
+      "name": "Aquarium store website",
+      "prompts": 153,
+      "hours": 42,
+      "tokens": 1215149879,
+      "sessions": 3
+    },
+    {
+      "name": "This portfolio site",
+      "prompts": 146,
+      "hours": 41.1,
+      "tokens": 515064363,
+      "sessions": 6
     },
     {
       "name": "Bar & grill pitch site",
-      "prompts": 135,
-      "hours": 28,
-      "tokens": 678412245,
-      "sessions": 2
+      "prompts": 78,
+      "hours": 14,
+      "tokens": 519441080,
+      "sessions": 1
     },
     {
       "name": "Craft beer bar pitch site",
-      "prompts": 43,
+      "prompts": 37,
       "hours": 14,
-      "tokens": 238350335,
+      "tokens": 159795671,
+      "sessions": 1
+    },
+    {
+      "name": "Goal-tracking app",
+      "prompts": 14,
+      "hours": 11.3,
+      "tokens": 214748789,
       "sessions": 1
     },
     {
       "name": "Other",
-      "prompts": 10,
-      "hours": 13.7,
-      "tokens": 57794731,
+      "prompts": 3,
+      "hours": 1.5,
+      "tokens": 67345134,
       "sessions": 2
     },
     {
-      "name": "This portfolio site",
-      "prompts": 6,
-      "hours": 1.6,
-      "tokens": 93023084,
+      "name": "CO2 supplier pitch site",
+      "prompts": 1,
+      "hours": 0,
+      "tokens": 377888,
       "sessions": 1
     }
   ],
-  "windowStart": "2026-06-10T04:00:00.867Z",
-  "windowEnd": "2026-06-17T04:00:00.867Z",
-  "generatedAt": "2026-06-17T10:07:16.553Z"
+  "windowStart": "2026-06-11T04:00:00.072Z",
+  "windowEnd": "2026-06-18T04:00:00.072Z",
+  "generatedAt": "2026-06-18T10:07:15.899Z"
 }
