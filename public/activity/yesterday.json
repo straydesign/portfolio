@@ -1,57 +1,57 @@
 {
   "span": "yesterday",
-  "label": "2026-06-17",
+  "label": "2026-07-08",
   "totals": {
-    "prompts": 140,
-    "hours": 74.6,
-    "tokens": 1117815103,
-    "sessions": 13
+    "prompts": 118,
+    "hours": 63.2,
+    "tokens": 760438518,
+    "sessions": 9
   },
   "projects": [
     {
-      "name": "Aquarium store website",
-      "prompts": 41,
-      "hours": 27.2,
-      "tokens": 357636222,
-      "sessions": 2
-    },
-    {
       "name": "Personal brand site",
-      "prompts": 45,
-      "hours": 20.5,
-      "tokens": 348383862,
+      "prompts": 28,
+      "hours": 20.6,
+      "tokens": 151791394,
       "sessions": 2
     },
     {
-      "name": "This portfolio site",
-      "prompts": 33,
-      "hours": 13.1,
-      "tokens": 107368033,
-      "sessions": 4
+      "name": "Aquarium store website",
+      "prompts": 31,
+      "hours": 15.9,
+      "tokens": 181000167,
+      "sessions": 3
     },
     {
-      "name": "Goal-tracking app",
+      "name": "Bowling alley pitch site",
+      "prompts": 17,
+      "hours": 9.9,
+      "tokens": 255567412,
+      "sessions": 1
+    },
+    {
+      "name": "IT services pitch site",
+      "prompts": 22,
+      "hours": 7,
+      "tokens": 118646202,
+      "sessions": 1
+    },
+    {
+      "name": "Craft beer bar pitch site",
       "prompts": 14,
-      "hours": 11.3,
-      "tokens": 214748789,
+      "hours": 6.3,
+      "tokens": 46173870,
       "sessions": 1
     },
     {
       "name": "Other",
       "prompts": 6,
-      "hours": 2.5,
-      "tokens": 89300309,
-      "sessions": 3
-    },
-    {
-      "name": "CO2 supplier pitch site",
-      "prompts": 1,
-      "hours": 0,
-      "tokens": 377888,
+      "hours": 3.4,
+      "tokens": 7259473,
       "sessions": 1
     }
   ],
-  "windowStart": "2026-06-17T04:00:00.029Z",
-  "windowEnd": "2026-06-18T04:00:00.029Z",
-  "generatedAt": "2026-06-18T10:07:15.896Z"
+  "windowStart": "2026-07-08T04:00:00.236Z",
+  "windowEnd": "2026-07-09T04:00:00.236Z",
+  "generatedAt": "2026-07-09T10:30:04.447Z"
 }

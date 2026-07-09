@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Tom Sesler",
   },
   description:
-    "Product designer building digital experiences. Research-driven UX, interface design, and live products.",
+    "Product designer building digital experiences — interface design, design systems, and live, shipped products.",
   metadataBase: new URL("https://straydesign.co"),
   alternates: {
     canonical: "/",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "Tom Sesler — Product Designer",
     description:
-      "Product designer building web and mobile experiences. Research-driven UX, interface design, and live shipped products.",
+      "Product designer building web and mobile experiences — interface design, design systems, and live, shipped products.",
     siteName: "Tom Sesler — Product Designer",
     url: "https://straydesign.co",
     locale: "en_US",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tom Sesler — Product Designer",
     description:
-      "Product designer building web and mobile experiences. Research-driven UX, interface design, and live shipped products.",
+      "Product designer building web and mobile experiences — interface design, design systems, and live, shipped products.",
     images: ["/opengraph-image"],
   },
   robots: {
@@ -76,12 +76,12 @@ export const metadata: Metadata = {
     "UX designer",
     "UI designer",
     "product design portfolio",
-    "UX research",
+    "design systems",
     "interface design",
     "Tom Sesler",
     "Thomas Sesler",
     "heuristic evaluation",
-    "usability research",
+    "shipped products",
     "design case study",
     "web application design",
     "mobile app design",
@@ -109,7 +109,7 @@ export default function RootLayout({
         name: "Tom Sesler — Product Design",
         alternateName: "Stray Design Co",
         description:
-          "Product design, UX research, and interface design. Research-driven UX, live shipped products, and case studies.",
+          "Product design, interface design, and design systems — live shipped products and case studies.",
         url: "https://straydesign.co",
         email: "tom@straydesign.co",
         image: "https://straydesign.co/images/about-photo.jpg",
@@ -126,15 +126,15 @@ export default function RootLayout({
               itemOffered: {
                 "@type": "Service",
                 name: "Product Design",
-                description: "End-to-end product design from research through shipped interfaces.",
+                description: "End-to-end product design from concept through shipped interfaces.",
               },
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "UX Research & Design",
-                description: "User experience research, prototyping, and interface design.",
+                name: "UX & Interface Design",
+                description: "Interface design, prototyping, and design systems.",
               },
             },
           ],
@@ -148,19 +148,19 @@ export default function RootLayout({
         alternateName: "Thomas Sesler",
         jobTitle: "Product Designer",
         description:
-          "Product designer — from ethnographic field research to interactive prototypes to live products.",
+          "Product designer — from interactive prototypes to live, shipped products.",
         url: "https://straydesign.co",
         sameAs: ["https://www.linkedin.com/in/tom-sesler/"],
         email: "tom@straydesign.co",
         knowsAbout: [
           "Product Design",
-          "UX Research",
+          "Design Systems",
           "UX Design",
           "UI Design",
           "Heuristic Evaluation",
           "Figma",
-          "React",
-          "Next.js",
+          "Responsive Design",
+          "Prototyping",
         ],
         alumniOf: {
           "@type": "CollegeOrUniversity",
@@ -172,7 +172,7 @@ export default function RootLayout({
         "@id": "https://straydesign.co/#website",
         url: "https://straydesign.co",
         name: "Tom Sesler — Product Designer",
-        description: "Product design portfolio. Research-driven UX, interface design, and live shipped products.",
+        description: "Product design portfolio. Interface design, design systems, and live shipped products.",
         publisher: { "@id": "https://straydesign.co/#person" },
       },
     ],

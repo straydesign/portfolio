@@ -44,7 +44,7 @@ const CATEGORIES: Category[] = [
   {
     name: 'Performance',
     features: [
-      { label: '90+ Lighthouse', desc: 'Scores 90+ across all Google Lighthouse audits — performance, accessibility, SEO, best practices.' },
+      { label: 'Performance-optimized', desc: 'Built for fast loads and strong Core Web Vitals — performance, accessibility, SEO, and best practices baked in.' },
       { label: 'SSR + Static Generation', desc: 'Pages pre-rendered at build time. No database queries. Instant load times.' },
       { label: 'WebP / AVIF Images', desc: 'Images auto-converted to modern formats and sized per device. Faster loads, less bandwidth.' },
       { label: 'Lazy Loading', desc: 'Images and content load only when scrolled into view via Intersection Observer.' },

@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowLeft, ExternalLink, AlertTriangle, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ExternalLink, AlertTriangle } from 'lucide-react';
 import PhoneMockup from './PhoneMockup';
 import { StaggerContainer, StaggerItem } from './AnimateIn';
 import TextCard from './TextCard';
@@ -13,6 +13,15 @@ interface DayOneCaseStudyProps {
   onNavigate: (page: Page) => void;
 }
 
+// CONTEXT — what a recruiter scans for first
+const CONTEXT = [
+  { label: 'Role', value: 'Solo — product design + AI-assisted build' },
+  { label: 'Tools', value: 'Figma → Next.js, Tailwind, Supabase, Vercel' },
+  { label: 'Scope', value: 'End-to-end: problem, UX, visual system, build, ship' },
+  { label: 'Status', value: 'Live at firstday.life — a shipped product, not a concept' },
+] as const;
+
+// PROBLEM — the 11-step path from intention to abandonment
 const STARTER_JOURNEY = [
   { step: 1, label: 'Have a vague goal', friction: '"I should learn guitar"' },
   { step: 2, label: 'Open a notes app', friction: null },
@@ -27,88 +36,72 @@ const STARTER_JOURNEY = [
   { step: 11, label: 'Quietly abandon', friction: 'Goal vanishes from mind' },
 ] as const;
 
-const DESIGN_MOVES = [
+const FAILURES = [
+  { tag: 'Learn guitar', body: 'Bought the guitar. Bought the book. Stared at chord diagrams for a week. Never picked it up again. Day-one paralysis.' },
+  { tag: 'Get up at 6am', body: 'Built a Notion habit tracker. Spent the hour I should have slept designing the tracker. Quit by day three.' },
+  { tag: 'Run a 5K', body: 'Couch-to-5K was 9 weeks. Week 4 hurt. Skipped one run, then a week. The plan still sits in my Notes app.' },
+] as const;
+
+// PROCESS — the four forks that shaped the product. (Rationale reconstructed to match what shipped — confirm wording.)
+const DECISIONS = [
   {
     n: '01',
-    title: 'Natural-language input',
-    failure: 'Categories, milestones, sub-goals',
-    move: 'One text field. AI interprets intent. You speak.',
-    img: '/images/firstday/wf-input.png',
+    title: 'How the goal gets planned',
+    shipped: { label: 'One sentence, AI builds the program', note: 'You describe it in your words.' },
+    explored: { label: 'Categories, milestones, a planning wizard', note: 'User assembles the plan.' },
+    rationale: 'Planning is the friction that kills goals before day one — so removing it is the whole product. You type the goal (or tap a template); the AI does the structuring into days and activities. There is no planning screen to abandon.',
+    decision: 'Shipped one field + templates. The user never plans anything.',
   },
   {
     n: '02',
-    title: 'AI plans the week',
-    failure: '"How do I break this into steps?"',
-    move: 'Full 7-day plan in seconds. No planning screen.',
-    img: '/images/firstday/wf-plan.png',
+    title: 'The shape of the plan',
+    shipped: { label: 'A program, one sprint at a time', note: 'Days unlock as you go.' },
+    explored: { label: 'The whole multi-week plan, dumped at once', note: 'Everything visible immediately.' },
+    rationale: 'A full multi-week plan recreates the overwhelm that kills goals. Revealing the program one short sprint at a time — with later days locked — keeps each step finishable while the overall arc stays ambitious enough to matter.',
+    decision: 'Shipped progressive sprints. Locked days are a feature, not a limit.',
   },
   {
     n: '03',
-    title: '7-day visible finish',
-    failure: 'Mid-sprint motivation dip',
-    move: 'A grid, not an infinite timeline. Finish line in view.',
-    img: '/images/firstday/wf-week-7day.png',
+    title: 'What brings people back',
+    shipped: { label: 'Light gamification — streaks, XP, a daily challenge', note: 'Returning is the rewarded act.' },
+    explored: { label: 'A plain, unscored checklist', note: 'Just the tasks, no mechanics.' },
+    rationale: 'The failure mode isn\'t doing the work — it\'s not coming back. So the app rewards showing up: a streak and XP make consistency visible. I keep the mechanics secondary to the day\'s actual activities so they serve the goal instead of becoming it.',
+    decision: 'Shipped light gamification. The activities lead; the points sit under them.',
   },
   {
     n: '04',
-    title: 'Three things daily',
-    failure: 'Five-to-seven tasks = decision fatigue',
-    move: '15–30 min each. Check three boxes. Day done.',
-    img: '/images/firstday/wf-daily-flat.png',
+    title: 'The daily surface',
+    shipped: { label: 'A few short activities + an optional reflection', note: 'A small, startable day.' },
+    explored: { label: 'A long task list / "builds on yesterday" header', note: 'More context, more to read.' },
+    rationale: 'A handful of startable activities beats a backlog, and a one-line reflection captures momentum without forcing a journaling chore. Today\'s door should open faster than any explanation of why today matters.',
+    decision: 'Shipped a small day with reflection optional.',
   },
 ] as const;
 
-const TRADEOFFS = [
-  { cut: '5–7 tasks per day', why: 'Three is where "I can do this" doesn\'t become "tomorrow."' },
-  { cut: 'Goal categories', why: '"More time with my kids" isn\'t fitness or finance. Free-form text.' },
-  { cut: '30-day plans', why: 'Too long. By week two it\'s a chore. Seven days keeps the finish in view.' },
-  { cut: 'User plan editing', why: 'Customization creates "should I change this?" anxiety. AI plans. You execute.' },
+// SOLUTION — the shipped product, screen by screen, each with its reason (live greyscale build)
+const SOLUTION = [
+  { img: '/images/firstday/live-create.png', step: 'Create', why: 'One sentence, or a template. The AI builds the whole program — no planning screen to abandon.' },
+  { img: '/images/firstday/live-program.png', step: 'Program', why: 'Your goal becomes sprints, revealed a week at a time. Days unlock as you go; a streak and XP track that you kept showing up.' },
+  { img: '/images/firstday/live-day.png', step: 'The day', why: 'A few short activities with a clear start, plus a one-line reflection. Small enough to actually begin.' },
+  { img: '/images/firstday/live-finish.png', step: 'The payoff', why: 'Finish a day and it celebrates. The reward is for returning — the part that was actually hard.' },
+] as const;
+
+// REFLECTION — honest, what I learned and what's next
+const REFLECTION = [
+  { tag: 'What worked', body: 'Removing the setup was the design. One field, no categories, no planning screen — that\'s what gets someone from a vague goal to a real plan in under a minute. The front-door friction is where goals actually die.' },
+  { tag: 'What I\'d revisit', body: 'The gamification. Streaks and XP get people back, but they can quietly become the goal. The thing I watch is whether the points ever start outranking the activities — if they do, they get dialed back down.' },
+  { tag: 'What\'s next', body: 'Tighter feedback between sprints — using how the last week actually went to shape the next one, instead of only unlocking the days that follow.' },
 ] as const;
 
 const BG = {
   hero: 'var(--paper)',
-  journey: 'var(--surface-2)',
-  validation: 'var(--surface-3)',
-  ideation: 'var(--surface-2)',
-  decisions: 'var(--surface-2)',
-  iteration: 'var(--surface-3)',
+  context: 'var(--surface-2)',
+  problem: 'var(--surface-3)',
+  process: 'var(--surface-2)',
+  solution: 'var(--surface-3)',
   outcome: 'var(--out-navy)',
+  reflection: 'var(--surface-2)',
 } as const;
-
-const DECISIONS = [
-  {
-    n: '01',
-    title: 'Sprint length',
-    shipped: { label: '7-day', img: '/images/firstday/calendar-view.png', note: 'Finish in view by day 1.' },
-    explored: { label: '30-day arc, one week at a time', img: '/images/firstday/wf-week.png', note: 'Bigger milestone, week-by-week reveal.' },
-    rationale: '30 days felt more ambitious on paper, but it reintroduces the infinite-timeline feeling I designed away. The visible finish line is the point — once the user can\'t see Saturday from Monday, the app stops working.',
-    decision: 'Shipped 7. Holding the 30-day arc as a v2 wrapper, not a replacement.',
-  },
-  {
-    n: '02',
-    title: 'Daily card surface',
-    shipped: { label: 'Three flat tasks', img: '/images/firstday/day-view.png', note: 'Today reads in five seconds.' },
-    explored: { label: '"Builds on yesterday" header', img: '/images/firstday/wf-daily.png', note: 'Today is contextualized by yesterday.' },
-    rationale: 'The "builds on Day X" framing is honest to how skills compound, but it adds a recall task before the user can check a box. Today\'s door should open faster than the explanation of why today matters.',
-    decision: 'Shipped flat. The contextual header is a Notes-app feature pretending to be a goal app.',
-  },
-  {
-    n: '03',
-    title: 'End-of-week reflection',
-    shipped: { label: 'Implicit re-plan', note: 'AI re-plans week 2 from completion data alone.' },
-    explored: { label: 'Explicit recap — Hold / Push +1 / Pull back', img: '/images/firstday/wf-recap.png', note: 'User writes next week from a checklist.' },
-    rationale: 'Forcing weekly reflection adds friction at the most fragile moment — right after a 7-day commitment closes. Implicit re-planning preserves momentum. But it also means the user has no tiller. This is the decision I\'m least sure about.',
-    decision: 'Shipped implicit. The recap loop is the most likely thing I add back.',
-  },
-  {
-    n: '04',
-    title: 'Social surface',
-    shipped: { label: 'Fully private', note: 'Goal data stays yours. No followers, no exports.' },
-    explored: { label: 'Followable 30-day arc', img: '/images/firstday/wf-share.png', note: 'Profile = live arc. Daily cards export at 9:16.' },
-    rationale: 'Social mechanics drive engagement, but they also drive performative goal-setting — picking goals that look good on a profile instead of goals that actually matter. v1 prioritizes the goal over the audience.',
-    decision: 'Shipped private. Followable arcs are a real growth lever if I ever need one.',
-  },
-] as const;
 
 export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyProps) {
   const textColor = 'var(--ink)';
@@ -117,6 +110,9 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
   const statBg = 'rgba(var(--hairline),0.02)';
   const sectionPad = 'py-8 md:py-12';
   const inner = 'w-full px-4 md:px-8 max-w-[90rem] mx-auto';
+  const eyebrow = 'text-[11px] font-bold tracking-[0.2em] uppercase mb-2';
+  const heading = 'text-2xl md:text-4xl font-bold mb-2';
+  const lede = 'text-sm md:text-base mb-6 leading-relaxed';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: BG.hero }}>
@@ -134,40 +130,27 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </a>
       </div>
 
-      {/* HERO */}
+      {/* 1 · HERO — one-liner + outcome */}
       <NavigableSection id="d1-hero" label="Hero" style={{ backgroundColor: BG.hero }}>
         <div className={inner}>
           <TextCard padding="lg">
-            <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-3" style={{ color: secondaryTextColor }}>WHAT</p>
-            <div className="min-h-[78vh] flex flex-col md:flex-row items-center gap-8 md:gap-14 py-6 md:py-8">
+            <div className="min-h-[72vh] flex flex-col md:flex-row items-center gap-8 md:gap-14 py-6 md:py-8">
               <div className="w-full md:w-1/2">
                 <p className="text-xs font-bold tracking-widest mb-3 uppercase" style={{ color: primaryColor }}>Live Product</p>
                 <h1 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight" style={{ color: textColor }}>FIRSTDAY.LIFE</h1>
                 <p className="text-lg md:text-xl mb-3 leading-relaxed" style={{ color: secondaryTextColor }}>
-                  Everyone has a goal they&apos;ve been &ldquo;meaning to start.&rdquo; The problem was never motivation.
+                  A web app that turns any &ldquo;someday&rdquo; goal into an AI-built program you actually follow. The problem was never motivation.
                 </p>
                 <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: textColor }}>
-                  It was the blank page between wanting something and knowing what to do tomorrow morning. An AI-powered system that turns any goal into a 7-day plan and iterates on your feedback week after week.
+                  It was the blank page between wanting something and knowing what to do tomorrow morning. Type a goal; the AI builds the plan and paces it one sprint at a time.
                 </p>
-                <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.06}>
-                  {[
-                    { label: 'THE USER', value: 'Stuck between "I want to" and "I don\'t know how"' },
-                    { label: 'THE PAIN', value: 'Planning fatigue kills goals before day 1', highlight: true },
-                    { label: 'MY ROLE', value: 'Solo designer & developer' },
-                    { label: 'STATUS', value: 'Live at firstday.life' },
-                  ].map(({ label, value, highlight }) => (
-                    <StaggerItem key={label}>
-                      <div>
-                        <p className="text-[10px] font-bold mb-1 tracking-wider" style={{ color: secondaryTextColor }}>{label}</p>
-                        <p className="text-sm" style={{ color: highlight ? primaryColor : textColor, fontWeight: highlight ? 700 : 400 }}>{value}</p>
-                      </div>
-                    </StaggerItem>
-                  ))}
-                </StaggerContainer>
+                <div className="inline-block px-4 py-2.5" style={{ borderLeft: '4px solid var(--ink)', backgroundColor: statBg }}>
+                  <p className="text-sm font-bold" style={{ color: textColor }}>Designed, built, and shipped live — solo.</p>
+                </div>
               </div>
               <div className="w-full md:w-1/2">
                 <PhoneMockup
-                  screenshot="/images/firstday/hero.png"
+                  screenshot="/images/firstday/live-hero.png"
                   gradientFrom={primaryColor}
                   gradientTo="var(--paper)"
                   alt="FirstDay.Life hero"
@@ -179,17 +162,43 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </div>
       </NavigableSection>
 
-      {/* USER JOURNEY — 11 steps from goal to abandonment */}
-      <NavigableSection id="d1-user-journey" label="User Journey" style={{ backgroundColor: BG.journey }}>
+      {/* 2 · CONTEXT — role, tools, scope, status */}
+      <NavigableSection id="d1-context" label="Context" style={{ backgroundColor: BG.context }}>
         <div className={inner}>
           <div className={sectionPad}>
             <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 01</p>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>User Journey</h2>
-              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
-                Eleven steps from &ldquo;I should&rdquo; to quietly forgotten. Every goal-setting app drops you at step 5 and assumes the rest. The friction is everywhere else.
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>01 — Context</p>
+              <h2 className={heading} style={{ color: textColor }}>Role &amp; scope</h2>
+              <p className={lede} style={{ color: secondaryTextColor }}>
+                A personal product I took from problem to live deployment. No team to hand off to — every decision below is mine.
               </p>
-              <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-2.5" staggerDelay={0.04}>
+              <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" staggerDelay={0.05}>
+                {CONTEXT.map(({ label, value }) => (
+                  <StaggerItem key={label}>
+                    <div className="p-4 h-full" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
+                      <p className="text-[10px] font-bold mb-1.5 tracking-wider uppercase" style={{ color: primaryColor }}>{label}</p>
+                      <p className="text-sm leading-snug" style={{ color: textColor }}>{value}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
+            </TextCard>
+          </div>
+        </div>
+      </NavigableSection>
+
+      {/* 3 · PROBLEM — the friction path + I was the user */}
+      <NavigableSection id="d1-problem" label="Problem" style={{ backgroundColor: BG.problem }}>
+        <div className={inner}>
+          <div className={sectionPad}>
+            <TextCard padding="lg">
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>02 — Problem</p>
+              <h2 className={heading} style={{ color: textColor }}>Goals die before day one</h2>
+              <p className={lede} style={{ color: secondaryTextColor }}>
+                Eleven steps from &ldquo;I should&rdquo; to quietly forgotten. Every goal-setting app drops you at step 5 and assumes the rest. The friction is everywhere else — and I know it because I was the user.
+              </p>
+
+              <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-2.5 mb-6" staggerDelay={0.04}>
                 {STARTER_JOURNEY.map(({ step, label, friction }) => (
                   <StaggerItem key={step}>
                     <div className="p-3 h-full flex flex-col" style={{
@@ -208,43 +217,21 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   </StaggerItem>
                 ))}
               </StaggerContainer>
-            </TextCard>
-          </div>
-        </div>
-      </NavigableSection>
 
-      {/* VALIDATION — own experience + frameworks */}
-      <NavigableSection id="d1-validation" label="Validation" style={{ backgroundColor: BG.validation }}>
-        <div className={inner}>
-          <div className={sectionPad}>
-            <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 02</p>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Validation</h2>
-              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
-                I was the user. I&apos;d started and abandoned the same goals enough times to recognize the pattern — and the literature on habit formation says the same thing.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
-                {[
-                  { stat: '92%', label: 'New Year\'s resolutions', sub: 'Abandoned by mid-February (U. of Scranton)' },
-                  { stat: '< 1 min', label: 'To first plan', sub: 'Type goal. Wake up with a plan.' },
-                  { stat: 'Self', label: 'As first user', sub: 'I quit guitar 4 times before this' },
-                ].map(({ stat, label, sub }) => (
-                  <div key={label} className="p-4" style={{ backgroundColor: statBg, border: '1px dashed rgba(var(--hairline),0.12)' }}>
-                    <p className="text-2xl md:text-3xl font-black" style={{ color: primaryColor }}>{stat}</p>
-                    <p className="text-sm font-bold mt-1" style={{ color: textColor }}>{label}</p>
-                    <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>{sub}</p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                <div className="p-4 flex flex-col justify-center" style={{ backgroundColor: statBg, border: '1px dashed rgba(var(--hairline),0.18)' }}>
+                  <p className="text-3xl md:text-4xl font-black" style={{ color: primaryColor }}>92%</p>
+                  <p className="text-sm font-bold mt-1" style={{ color: textColor }}>of New Year&apos;s resolutions are abandoned by mid-February</p>
+                  <p className="text-xs mt-1" style={{ color: secondaryTextColor }}>University of Scranton</p>
+                </div>
+                <div className="p-4 flex flex-col justify-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
+                  <p className="text-[10px] font-bold tracking-wider uppercase mb-1" style={{ color: primaryColor }}>User 0</p>
+                  <p className="text-sm leading-snug" style={{ color: textColor }}>I quit guitar four times before this existed. I built it for the version of me that kept abandoning the same goals — then tested every decision on myself.</p>
+                </div>
               </div>
 
-              <p className="text-[11px] font-bold tracking-wider mb-3 uppercase" style={{ color: primaryColor }}>Three goals I quit before this existed</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {[
-                  { tag: 'Learn guitar', body: 'Bought the guitar. Bought the book. Stared at chord diagrams for a week. Never picked it up again. Day-one paralysis.' },
-                  { tag: 'Get up at 6am', body: 'Built a Notion habit tracker. Spent the hour I should have slept designing the tracker. Quit by day three.' },
-                  { tag: 'Run a 5K', body: 'Couch-to-5K plan was 9 weeks. Week 4 hurt. Skipped one run. Skipped a week. The plan still sits in my Notes app.' },
-                ].map(({ tag, body }) => (
+                {FAILURES.map(({ tag, body }) => (
                   <div key={tag} className="p-3" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-[10px] font-bold tracking-wider mb-1.5 uppercase" style={{ color: primaryColor }}>{tag}</p>
                     <p className="text-[12px] leading-snug" style={{ color: textColor }}>{body}</p>
@@ -256,54 +243,15 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </div>
       </NavigableSection>
 
-      {/* IDEATION — 4 design moves */}
-      <NavigableSection id="d1-ideation" label="Ideation" style={{ backgroundColor: BG.ideation }}>
+      {/* 4 · PROCESS — the four forks */}
+      <NavigableSection id="d1-process" label="Process" style={{ backgroundColor: BG.process }}>
         <div className={inner}>
           <div className={sectionPad}>
             <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 03</p>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Ideation</h2>
-              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
-                Four design moves, each collapsing a moment from the journey above. Thesis: <em>what if the user never plans anything?</em> Lo-fi wireframes below — the structure I drew before anything got polished.
-              </p>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
-                {DESIGN_MOVES.map(({ n, title, failure, move, img }) => (
-                  <StaggerItem key={n}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="text-xl font-black" style={{ color: primaryColor }}>{n}</p>
-                        <p className="text-xs font-bold" style={{ color: textColor }}>{title}</p>
-                      </div>
-                      <div className="mb-2 h-72 flex items-center justify-center p-2 relative" style={{ overflow: 'hidden', border: '1px solid rgba(var(--hairline),0.08)', backgroundColor: '#f5f5f7' }}>
-                        <span className="absolute top-1.5 left-1.5 text-[8px] font-bold tracking-[0.18em] uppercase px-1.5 py-0.5" style={{ color: '#595959', border: '1px solid #e2e2e2', backgroundColor: '#ffffff' }}>Wireframe</span>
-                        <img src={img} alt={title} className="max-w-full max-h-full object-contain" loading="lazy" />
-                      </div>
-                      <div className="mb-1.5">
-                        <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: secondaryTextColor }}>FAILURE POINT</p>
-                        <p className="text-[11px] leading-snug" style={{ color: secondaryTextColor }}>{failure}</p>
-                      </div>
-                      <div style={{ borderLeft: '2px solid var(--ink)', paddingLeft: '8px' }}>
-                        <p className="text-[10px] font-bold tracking-wider mb-0.5" style={{ color: primaryColor }}>MOVE</p>
-                        <p className="text-[11px] leading-snug" style={{ color: textColor }}>{move}</p>
-                      </div>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            </TextCard>
-          </div>
-        </div>
-      </NavigableSection>
-
-      {/* DECISIONS — 4 tradeoffs, text-only */}
-      <NavigableSection id="d1-decisions" label="Decisions" style={{ backgroundColor: BG.decisions }}>
-        <div className={inner}>
-          <div className={sectionPad}>
-            <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 04</p>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Decisions</h2>
-              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
-                Four tradeoffs where I considered a heavier alternative and chose the lighter one. The reasons are the case study.
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>03 — Process</p>
+              <h2 className={heading} style={{ color: textColor }}>What if the user never plans anything?</h2>
+              <p className={lede} style={{ color: secondaryTextColor }}>
+                That thesis set the whole product: one sentence, and the AI turns it into a plan. From there, four forks — each with an easy default I didn&apos;t take. The reasons are the case study.
               </p>
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5" staggerDelay={0.06}>
                 {DECISIONS.map(({ n, title, shipped, explored, rationale, decision }) => (
@@ -347,27 +295,27 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </div>
       </NavigableSection>
 
-      {/* ITERATION — 4 deliberate cuts */}
-      <NavigableSection id="d1-iteration" label="Iteration" style={{ backgroundColor: BG.iteration }}>
+      {/* 5 · SOLUTION — the shipped product, annotated */}
+      <NavigableSection id="d1-solution" label="Solution" style={{ backgroundColor: BG.solution }}>
         <div className={inner}>
           <div className={sectionPad}>
             <TextCard padding="lg">
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>DESIGN PROCESS — 05</p>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2" style={{ color: textColor }}>Iteration</h2>
-              <p className="text-sm md:text-base mb-6 leading-relaxed" style={{ color: secondaryTextColor }}>
-                I shipped each cut after testing the alternative on myself. Every one of these started as a feature I had to remove.
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>04 — Solution</p>
+              <h2 className={heading} style={{ color: textColor }}>Four screens, one loop</h2>
+              <p className={lede} style={{ color: secondaryTextColor }}>
+                The whole product is a loop you keep returning to: describe the goal → get a program → do the day → get the payoff. Here it is shipped — each screen with the reason it looks the way it does.
               </p>
-              <StaggerContainer className="grid grid-cols-1 md:grid-cols-4 gap-3" staggerDelay={0.05}>
-                {TRADEOFFS.map(({ cut, why }, i) => (
-                  <StaggerItem key={cut}>
-                    <div className="p-3 h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
-                      <div className="flex items-center gap-2 mb-2">
-                        <p className="text-lg font-black" style={{ color: primaryColor }}>{String(i + 1).padStart(2, '0')}</p>
-                        <ArrowRight className="w-3.5 h-3.5" style={{ color: primaryColor, opacity: 0.5 }} />
+              <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4" staggerDelay={0.06}>
+                {SOLUTION.map(({ img, step, why }) => (
+                  <StaggerItem key={step}>
+                    <div className="h-full flex flex-col" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
+                      <div className="p-3 flex items-center justify-center" style={{ backgroundColor: '#f5f5f7', borderBottom: '1px solid rgba(var(--hairline),0.08)' }}>
+                        <img src={img} alt={step} className="w-full h-auto max-h-[420px] object-contain" loading="lazy" />
                       </div>
-                      <p className="text-[11px] font-bold tracking-wider mb-1 uppercase" style={{ color: primaryColor }}>CUT</p>
-                      <p className="text-sm font-bold mb-2" style={{ color: textColor }}>{cut}</p>
-                      <p className="text-[11px] leading-snug mt-auto" style={{ color: secondaryTextColor }}>{why}</p>
+                      <div className="p-3">
+                        <p className="text-[10px] font-bold tracking-wider mb-1 uppercase" style={{ color: primaryColor }}>{step}</p>
+                        <p className="text-[12px] leading-snug" style={{ color: textColor }}>{why}</p>
+                      </div>
                     </div>
                   </StaggerItem>
                 ))}
@@ -377,22 +325,22 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
         </div>
       </NavigableSection>
 
-      {/* OUTCOME */}
+      {/* 6 · OUTCOME */}
       <NavigableSection id="d1-outcome" label="Outcome" style={{ backgroundColor: BG.outcome }}>
         <div className={inner}>
           <div className={sectionPad}>
             <TextCard padding="lg" style={{ borderLeft: '4px solid var(--ink)' }}>
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>05 — Outcome</p>
               <p className="text-xl md:text-3xl font-bold leading-relaxed mb-3" style={{ color: textColor }}>
                 Designed, built, and shipped. <span style={{ color: primaryColor }}>Day one actually happens.</span>
               </p>
               <p className="text-sm md:text-base mb-5 leading-relaxed" style={{ color: secondaryTextColor }}>
-                Live at <a href="https://firstday.life" target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600 }}>firstday.life</a> — type a goal, wake up with a plan.
+                Live at <a href="https://firstday.life" target="_blank" rel="noopener noreferrer" style={{ color: primaryColor, fontWeight: 600 }}>firstday.life</a> — a real, deployed product on its own backend. Type a goal, wake up with a plan.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[
-                  { stat: '3', label: 'Tasks per day' },
-                  { stat: '7', label: 'Day sprints' },
+                  { stat: '3', label: 'Activities per day' },
+                  { stat: '1 wk', label: 'At a time' },
                   { stat: '0', label: 'Planning required' },
                   { stat: '< 1 min', label: 'To first plan' },
                 ].map(({ stat, label }) => (
@@ -402,6 +350,31 @@ export default function DayOneCaseStudy({ onBack, onNavigate }: DayOneCaseStudyP
                   </div>
                 ))}
               </div>
+            </TextCard>
+          </div>
+        </div>
+      </NavigableSection>
+
+      {/* 7 · REFLECTION */}
+      <NavigableSection id="d1-reflection" label="Reflection" style={{ backgroundColor: BG.reflection }}>
+        <div className={inner}>
+          <div className={sectionPad}>
+            <TextCard padding="lg">
+              <p className={eyebrow} style={{ color: secondaryTextColor }}>06 — Reflection</p>
+              <h2 className={heading} style={{ color: textColor }}>What I learned, what&apos;s next</h2>
+              <p className={lede} style={{ color: secondaryTextColor }}>
+                The honest version — what held up, what I&apos;m still unsure about, and where it goes from here.
+              </p>
+              <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-4" staggerDelay={0.06}>
+                {REFLECTION.map(({ tag, body }) => (
+                  <StaggerItem key={tag}>
+                    <div className="p-4 h-full" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
+                      <p className="text-[10px] font-bold tracking-wider mb-2 uppercase" style={{ color: primaryColor }}>{tag}</p>
+                      <p className="text-[13px] leading-relaxed" style={{ color: textColor }}>{body}</p>
+                    </div>
+                  </StaggerItem>
+                ))}
+              </StaggerContainer>
             </TextCard>
           </div>
         </div>

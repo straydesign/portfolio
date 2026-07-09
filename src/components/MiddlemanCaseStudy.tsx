@@ -535,7 +535,7 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
         <div className={inner}>
           <div className={sectionPad}>
             <TextCard padding="lg" style={{ borderLeft: `4px solid ${primaryColor}` }}>
-              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>OUTCOME</p>
+              <p className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2" style={{ color: secondaryTextColor }}>PROJECTED OUTCOME</p>
               <p className="text-xl md:text-3xl font-bold leading-relaxed mb-3" style={{ color: textColor }}>
                 A formula that tracks variance from expected stock to what&apos;s counted and pulled.
               </p>
@@ -544,8 +544,8 @@ export default function MiddlemanCaseStudy({ onBack, onNavigate }: MiddlemanCase
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { stat: '3h → 2h', label: 'Deliveries' },
-                  { stat: '1.5h → 45m', label: 'Store hits' },
+                  { stat: '3h → 2h', label: 'Deliveries (target)' },
+                  { stat: '1.5h → 45m', label: 'Store hits (target)' },
                   { stat: 'Pinpointed', label: 'Shrinkage tied to small windows, not quarters' },
                 ].map(({ stat, label }) => (
                   <div key={label} className="p-3 text-center" style={{ backgroundColor: cardBg, border: '1px solid rgba(var(--hairline),0.06)' }}>

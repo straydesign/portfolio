@@ -1,71 +1,71 @@
 {
   "span": "week",
-  "label": "7 days ending 2026-06-17",
+  "label": "7 days ending 2026-07-08",
   "totals": {
-    "prompts": 507,
-    "hours": 175.3,
-    "tokens": 3447312734,
-    "sessions": 19
+    "prompts": 302,
+    "hours": 126.5,
+    "tokens": 1522279356,
+    "sessions": 13
   },
   "projects": [
     {
-      "name": "Personal brand site",
-      "prompts": 75,
-      "hours": 51.4,
-      "tokens": 755389930,
+      "name": "Aquarium store website",
+      "prompts": 48,
+      "hours": 42.1,
+      "tokens": 280251173,
       "sessions": 4
     },
     {
-      "name": "Aquarium store website",
-      "prompts": 153,
-      "hours": 42,
-      "tokens": 1215149879,
-      "sessions": 3
+      "name": "Personal brand site",
+      "prompts": 31,
+      "hours": 20.6,
+      "tokens": 156427862,
+      "sessions": 2
     },
     {
       "name": "This portfolio site",
-      "prompts": 146,
-      "hours": 41.1,
-      "tokens": 515064363,
-      "sessions": 6
-    },
-    {
-      "name": "Bar & grill pitch site",
-      "prompts": 78,
+      "prompts": 127,
       "hours": 14,
-      "tokens": 519441080,
+      "tokens": 523305217,
       "sessions": 1
     },
     {
-      "name": "Craft beer bar pitch site",
-      "prompts": 37,
+      "name": "Web design business site",
+      "prompts": 40,
       "hours": 14,
-      "tokens": 159795671,
+      "tokens": 139307877,
       "sessions": 1
     },
     {
-      "name": "Goal-tracking app",
-      "prompts": 14,
-      "hours": 11.3,
-      "tokens": 214748789,
+      "name": "Bowling alley pitch site",
+      "prompts": 22,
+      "hours": 14,
+      "tokens": 288917942,
       "sessions": 1
     },
     {
       "name": "Other",
-      "prompts": 3,
-      "hours": 1.5,
-      "tokens": 67345134,
+      "prompts": 10,
+      "hours": 14,
+      "tokens": 8094993,
       "sessions": 2
     },
     {
-      "name": "CO2 supplier pitch site",
-      "prompts": 1,
-      "hours": 0,
-      "tokens": 377888,
+      "name": "IT services pitch site",
+      "prompts": 22,
+      "hours": 7,
+      "tokens": 118646202,
+      "sessions": 1
+    },
+    {
+      "name": "Bar & grill pitch site",
+      "prompts": 2,
+      "hours": 0.8,
+      "tokens": 7328090,
       "sessions": 1
     }
   ],
-  "windowStart": "2026-06-11T04:00:00.072Z",
-  "windowEnd": "2026-06-18T04:00:00.072Z",
-  "generatedAt": "2026-06-18T10:07:15.899Z"
+  "windowStart": "2026-07-02T04:00:00.250Z",
+  "windowEnd": "2026-07-09T04:00:00.250Z",
+  "generatedAt": "2026-07-09T10:30:04.452Z"
 }

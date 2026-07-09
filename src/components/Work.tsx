@@ -38,7 +38,7 @@ export default function Work({ setCurrentPage }: WorkProps) {
               MY WORK
             </h1>
             <p className="text-[17px] md:text-[20px] leading-relaxed max-w-2xl mx-auto" style={{ color: 'var(--ink)' }}>
-              From ethnographic field research to interactive Figma prototypes to live products.
+              From Figma prototypes to live, deployed products.
             </p>
           </TextCard>
         </div>

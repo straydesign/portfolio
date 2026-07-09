@@ -132,7 +132,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 <div className="grid grid-cols-2 gap-4">
                   {[
                     { label: 'SCOPE', value: 'Heuristic eval of error recovery' },
-                    { label: 'RESEARCH', value: '1,000+ deliveries as a Dasher', highlight: true },
+                    { label: 'FIRSTHAND', value: '1,000+ deliveries as a Dasher', highlight: true },
                     { label: 'ROLE', value: 'Independent UX Evaluator' },
                     { label: 'FRAMEWORK', value: "Nielsen's 10 Heuristics" },
                   ].map(({ label, value, highlight }) => (
@@ -309,7 +309,7 @@ export default function DoorDashCaseStudy({ onBack, onNavigate }: DoorDashCaseSt
                 {[
                   { stat: '12 → 4', label: 'Taps to cancel' },
                   { stat: '5', label: 'Redesign proposals' },
-                  { stat: '1,000+', label: 'Deliveries researched' },
+                  { stat: '1,000+', label: 'Deliveries driven' },
                 ].map(({ stat, label }) => (
                   <div key={label} className="p-3 text-center" style={{ backgroundColor: statBg, border: '1px solid rgba(var(--hairline),0.08)' }}>
                     <p className="text-xl md:text-2xl font-black" style={{ color: primaryColor }}>{stat}</p>
