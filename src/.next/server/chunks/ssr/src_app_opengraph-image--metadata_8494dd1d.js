@@ -1,0 +1,5 @@
+;!function(){try { var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof global?global:"undefined"!=typeof window?window:"undefined"!=typeof self?self:{},n=(new e.Error).stack;n&&((e._debugIds|| (e._debugIds={}))[n]="c1a49056-53fe-3855-062a-5583103fadd9")}catch(e){}}();
+module.exports=[89221,a=>{"use strict";a.i(7997),a.i(99475);var b=a.i(52425);let c={alt:"Tom Sesler — Product Designer",contentType:"image/png",size:{width:1200,height:630}};async function d(a){let{__metadata_id__:d,...e}=await a.params,f=(0,b.fillMetadataSegment)("/",e,"opengraph-image");return[function(a,b){let c={alt:a.alt,type:a.contentType||"image/png",url:f+"?dc8c2b0a3c7eadad"},{size:d}=a;return d&&(c.width=d.width,c.height=d.height),c}(c,0)]}a.s(["default",0,d],89221)}];
+
+//# debugId=c1a49056-53fe-3855-062a-5583103fadd9
+//# sourceMappingURL=src_app_opengraph-image--metadata_8494dd1d.js.map

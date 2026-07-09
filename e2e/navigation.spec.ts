@@ -27,28 +27,28 @@ test.describe('Navigation', () => {
       await expect(page).toHaveURL(/\/resume/);
     });
 
-    test('clicking ABOUT navigates to about page', async ({ page }) => {
+    test('clicking ABOUT scrolls to the about section', async ({ page }) => {
       await page.goto('/');
       await page.setViewportSize({ width: 1280, height: 720 });
 
       const aboutLink = page.locator('nav button', { hasText: 'ABOUT' });
       await aboutLink.click();
 
-      // URL should change to /about
-      await expect(page).toHaveURL(/\/about/);
-      // About heading should be visible
-      const aboutHeading = page.getByRole('heading', { name: 'ABOUT', level: 1 });
-      await expect(aboutHeading).toBeVisible();
+      // Single page now — the about section scrolls into view
+      const aboutSection = page.locator('section#about');
+      await expect(aboutSection).toBeInViewport({ timeout: 10_000 });
     });
 
-    test('clicking WORK returns to home', async ({ page }) => {
-      await page.goto('/about');
+    test('clicking WORK from the resume page returns home and scrolls to work', async ({ page }) => {
+      await page.goto('/resume');
       await page.setViewportSize({ width: 1280, height: 720 });
 
       const workLink = page.locator('nav button', { hasText: 'WORK' });
       await workLink.click();
 
       await expect(page).toHaveURL('/');
+      const workSection = page.locator('section#work');
+      await expect(workSection).toBeInViewport({ timeout: 10_000 });
     });
   });
 
@@ -91,10 +91,10 @@ test.describe('Navigation', () => {
       // Click ABOUT in mobile nav
       await mobileNav.locator('button', { hasText: 'ABOUT' }).click();
 
-      // Mobile nav should close
+      // Mobile nav should close, and the about section scrolls into view
       await expect(mobileNav).not.toBeVisible();
-      // Page should navigate
-      await expect(page).toHaveURL(/\/about/);
+      const aboutSection = page.locator('section#about');
+      await expect(aboutSection).toBeInViewport({ timeout: 10_000 });
     });
 
     test('mobile menu button has proper aria-expanded', async ({ page }) => {

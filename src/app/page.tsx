@@ -50,7 +50,6 @@ function SectionNavigationOrchestrator() {
 }
 
 // Lazy-load pages that aren't the default view
-const About = dynamic(() => import('@/components/About'));
 const Resume = dynamic(() => import('@/components/Resume'));
 const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
 const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
@@ -70,6 +69,27 @@ function AppContent() {
     setCurrentPage(getPageFromPath(window.location.pathname));
     setHydrated(true);
   }, []);
+
+  // Landing with a hash (e.g. /#about via the old /about redirect):
+  // scroll to the section once it exists.
+  useEffect(() => {
+    if (!hydrated) return;
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    let attempts = 0;
+    const tryScroll = () => {
+      const el = document.getElementById(hash);
+      if (el) {
+        el.scrollIntoView();
+      } else if (attempts < 20) {
+        attempts += 1;
+        window.setTimeout(tryScroll, 100);
+      }
+    };
+    // Wait out the URL-sync effect's initial scroll-to-top before jumping
+    window.setTimeout(tryScroll, 250);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
 
   // Delay Three.js background until after initial paint to prioritize content
   useEffect(() => {
@@ -135,7 +155,6 @@ function AppContent() {
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               >
                 {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
-                {currentPage === 'about' && <About setCurrentPage={setCurrentPage} />}
                 {currentPage === 'resume' && <Resume />}
                 {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
                 {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}

@@ -35,15 +35,17 @@ test.describe('Contact Section', () => {
     });
   });
 
-  test.describe('About page contact CTA', () => {
-    test('about page has "want to work together" section', async ({ page }) => {
+  test.describe('About anchor (old /about page)', () => {
+    test('/about redirects to the home about section', async ({ page }) => {
       await page.goto('/about');
 
-      const cta = page.getByRole('heading', { name: /WANT TO WORK TOGETHER/i });
-      await expect(cta).toBeVisible();
+      // Permanent redirect to /#about
+      await expect(page).toHaveURL(/#about/);
+      const aboutSection = page.locator('section#about');
+      await expect(aboutSection).toBeVisible();
     });
 
-    test('about page email CTA links correctly', async ({ page }) => {
+    test('email CTA still reachable after the redirect', async ({ page }) => {
       await page.goto('/about');
 
       const emailLink = page.locator('a[href="mailto:tom@straydesign.co"]');

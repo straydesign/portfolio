@@ -13,11 +13,11 @@ test.describe('Smoke Tests', () => {
 
   test('hero section is visible', async ({ page }) => {
     await page.goto('/');
-    // The hero heading "PRODUCT DESIGNER" is rendered character-by-character
-    // with aria-label on the h1
     const hero = page.locator('h1').first();
     await expect(hero).toBeVisible();
-    await expect(hero).toContainText('PRODUCT DESIGNER');
+    await expect(hero).toContainText("HI, I'M TOM.");
+    // The role label lives in the kicker above the h1
+    await expect(page.getByText('// product designer')).toBeVisible();
   });
 
   test('work section heading is visible', async ({ page }) => {
