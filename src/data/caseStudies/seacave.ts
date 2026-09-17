@@ -44,16 +44,16 @@ export const SEACAVE: CaseStudy = {
     },
     {
       label: 'One species',
-      lead: 'Every species the shop keeps has a page. Each one answers the questions that would otherwise have to be asked out loud at the counter.',
+      lead: 'Every species the shop keeps has a page. Each is built to answer what would otherwise have to be asked out loud at the counter.',
       items: [
         {
           heading: 'Care at a glance',
-          body: 'Care level, temperament, community, adult size, minimum tank, diet and the scientific name, in one grid.',
+          body: 'This one grid holds care level, temperament, community, adult size, minimum tank, diet and the scientific name.',
           shot: 'seacave/species-care',
         },
         {
           heading: 'It grows into the tank',
-          body: 'The gallons a juvenile needs and the gallons the adult will need sit on the same card.',
+          body: 'Sixteen species outgrow the tank they are bought for, and only those pages carry the juvenile gallons beside the adult gallons.',
           shot: 'seacave/species-grows',
         },
         {
@@ -113,7 +113,7 @@ export const SEACAVE: CaseStudy = {
       { value: '~25,000', label: 'Google search impressions a month' },
       { value: '0', label: 'Baskets on a species page, by design' },
     ],
-    note: "Impressions measured in Search Console across full months, July–August 2026. Page count is 728 products plus 172 species, read off the sitemap.",
+    note: "Impressions measured in Search Console across full months, July–August 2026. Page count is 728 products plus 172 species pages, read off the sitemap; the catalogue index lists 156 of them.",
   },
   learnings: [
     {

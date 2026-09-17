@@ -46,11 +46,11 @@ export const PRESQUEISLE: CaseStudy = {
     },
     {
       label: 'The counters',
-      lead: 'Twelve counters, one page each, 234 products under them. Prices come off stickers at the counter, so the page had to be honest about going stale.',
+      lead: 'Twelve counters, one page each, 283 products under them. Prices come off stickers at the counter, so the page had to be honest about going stale.',
       items: [
         {
           heading: 'Photographs lead',
-          body: 'A fish tile carries the photograph, the name, the price by the pound and a tag saying fresh, frozen or both.',
+          body: 'This tile carries the photograph, the name, the price by the pound and a tag saying fresh, frozen or both.',
           shot: 'presqueisle/card-photo',
         },
         {
@@ -67,7 +67,7 @@ export const PRESQUEISLE: CaseStudy = {
     },
     {
       label: 'A fish',
-      lead: 'Every product on the counters has a page of its own. Each one answers what a customer standing at the counter would otherwise have to ask somebody.',
+      lead: '234 of those products open a page. Each answers what a customer standing at the counter would otherwise have to ask somebody.',
       items: [
         {
           heading: 'What it tastes like',
@@ -109,13 +109,13 @@ export const PRESQUEISLE: CaseStudy = {
     },
   ],
   impact: {
-    lead: 'Live since August 2026. The shop runs its own prices and photographs, and every one of the 234 products has a page of its own.',
+    lead: 'Live since August 2026. The shop runs its own prices and photographs, and 234 of the counter products have a page each.',
     metrics: [
       { value: '234', label: 'Products with a page of their own' },
       { value: '293', label: 'Price signs read against the shelf' },
       { value: '12', label: 'Counters, one page each' },
     ],
-    note: 'Family owned, and the Captain fishes Lake Erie himself.',
+    note: 'Products and counters counted off the sitemap, September 2026. The price signs are the ones photographed at the shelf to build the catalogue.',
   },
   learnings: [
     {
