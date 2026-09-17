@@ -181,11 +181,25 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
      measured off the reference. Hierarchy comes from weight and colour. */
   --cs-body: clamp(1.0625rem, 1.5vw, 1.375rem);
   --cs-pad: clamp(1.25rem, 6vw, 7.75rem);
+  /* The site header, measured: 88px under 768 and 100px above it. Every
+     sticky offset and every scroll anchor on this page is derived from it
+     rather than picked, because a hand-picked number is only right at the one
+     viewport it was picked at — the short-viewport rule below used 3rem and
+     parked the pinned label 52px underneath the nav.
+
+     It is the full header box, not the 60px its text occupies: the header
+     fades to transparent over its bottom 45%, so type passing through that
+     band is dimmed rather than hidden, which is worse than either. */
+  --cs-header: 5.5rem;
 
   background: var(--cs-ground);
   color: var(--cs-ink);
   padding: 0 0 clamp(4rem, 9vw, 9rem);
   overflow-x: clip;
+}
+
+@media (min-width: 768px) {
+  .cs { --cs-header: 6.25rem; }
 }
 
 .cs-back {
@@ -595,8 +609,9 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   color: var(--cs-ink-2);
 }
 
-/* Landing spot for the rail's own scrollIntoView. */
-[data-cs-section] { scroll-margin-top: 2rem; }
+/* Landing spot for the rail's own scrollIntoView. 2rem put the heading of
+   every section it jumped to underneath the header. */
+[data-cs-section] { scroll-margin-top: calc(var(--cs-header) + 1rem); }
 
 /* The rail is only drawn where there is a gutter to draw it in. Below this it
    would be a fixed panel sitting on top of a single-column page. The gutter is
@@ -612,15 +627,29 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   .cs { --cs-pad: clamp(13rem, 17vw, 17.5rem); }
   .cs-cover,
   .cs-topic { grid-template-columns: minmax(0, 42%) minmax(0, 58%); }
+  /* Centred in the space below the header, not in the viewport. Centring on
+     the viewport put "01 Overview" 8px under the nav at 700px tall — the rail
+     is fixed, so that is not a scroll position anybody can get out of. */
   .cs-rail {
-    display: block;
+    display: grid;
+    align-content: center;
     position: fixed;
-    top: 50%;
+    top: var(--cs-header);
+    height: calc(100vh - var(--cs-header));
     left: clamp(1.25rem, 3vw, 3.25rem);
-    transform: translateY(-50%);
     width: clamp(7.75rem, 10vw, 11rem);
     z-index: 4;
   }
+}
+
+/* A 13" laptop window is about 620px of viewport, and the tallest rail —
+   Presque Isle's, where three glosses wrap to two lines — measures 530px
+   against the 520px under the header. It is bought back from the row padding
+   rather than by dropping the rail, which is the half of the navigation that
+   says what each section covers. */
+@media (min-width: 1200px) and (max-height: 720px) {
+  .cs-rail__item { padding-top: 0.28rem; padding-bottom: 0.28rem; }
+  .cs-rail__gloss { margin-top: 0.05rem; }
 }
 
 /* Topics — the engine. Three lines of copy pinned in place while their three
@@ -643,7 +672,7 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 .cs-topic__text .cs-para { font-size: calc(var(--cs-body) * 0.88); }
 .cs-topic__text {
   position: sticky;
-  top: clamp(4.5rem, 12vh, 7.5rem);
+  top: calc(var(--cs-header) + 0.5rem);
 }
 /* This column was assumed to clear a 720px laptop viewport and does not:
    measured at 1440x720 the third sentence loses 58px of its body — two lines —
@@ -652,8 +681,10 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
    the short-viewport case tightens them and starts the column higher. Recovers
    ~90px against a 58px worst case; 800px and up is untouched. */
 @media (min-width: 1001px) and (max-height: 800px) {
-  .cs-topic__text { top: 3rem; }
-  .cs-items { margin-top: 2rem; }
+  /* The height is bought back from the gaps, never from the header clearance.
+     `top: 3rem` recovered 52px by sliding the label under the nav, so the
+     offset is left alone here and only the gaps move. */
+  .cs-items { margin-top: 1.6rem; }
   .cs-item + .cs-item { margin-top: 1.75rem; }
 }
 .cs-topic__shots {
@@ -791,7 +822,7 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 @media (min-width: 1001px) {
   .cs-flow__body { grid-template-columns: minmax(0, 1fr) clamp(190px, 21vw, 290px); }
 }
-.cs-flow__screen { position: sticky; top: clamp(4.5rem, 14vh, 8rem); align-self: start; }
+.cs-flow__screen { position: sticky; top: calc(var(--cs-header) + 0.5rem); align-self: start; }
 .cs-flow__screennote {
   margin: 1rem 0 0;
   max-width: 26ch;
