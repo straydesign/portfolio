@@ -246,52 +246,110 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
    SafariPhone.tsx and sized in `cqw` off this box, so the same component
    serves a 320px column shot and a 95px cover shot. The bezel is fixed at 4px
    — proportionally heavy on a small phone, which is how a real one looks. */
+/* Black Glass. iPhone 16 Pro geometry in points, every value expressed as cqw
+   off the device's own width (393 + 2x8 bezel = 409), so the silhouette is the
+   same shape at 157px and at 400px.
+
+   Nothing here is a percentage. `border-radius: 15%` resolves on both axes and
+   turns a 2.1:1 phone into an ellipse, and a percentage height resolves against
+   whatever box an element sits in rather than the device — which is how the
+   island ended up a sliver in the first attempt. */
 .cs-safari {
   container-type: inline-size;
   position: relative;
-  border: 4px solid #17171a;
-  border-radius: clamp(13px, 6.5%, 34px);
+  display: block;
+}
+/* Every cqw below is spent here, one level inside the container. */
+.cs-safari__body {
+  position: relative;
+  padding: 1.96cqw;                 /* 8pt bezel */
+  border-radius: 15.4cqw;           /* 63pt device radius */
+  background: #08080a;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.30),
+    0 3px 8px rgba(0, 0, 0, 0.16),
+    inset 0 0 0 0.3cqw rgba(255, 255, 255, 0.13);
+}
+.cs-safari__screen {
+  position: relative;
+  display: block;
+  border-radius: 13.45cqw;          /* 55pt screen radius */
   overflow: hidden;
-  background: #17171a;
-  box-shadow: 0 3px 22px rgba(0, 0, 0, 0.13);
+  background: #fff;
 }
-.cs-safari__chrome {
-  background: #f2f2f5;
-  color: #101013;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
-}
+.cs-safari__img { display: block; width: 100%; height: auto; }
+
+/* Both bars overlay the capture, the way iOS draws them over a page. Stacking
+   them above and below is what made the old frame a head taller than a phone. */
 .cs-safari__status {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 13.2cqw;                  /* 54pt */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 13.8cqw;
-  padding: 0 5.5cqw 0 7.5cqw;
+  padding: 0 8.4cqw 0 9.4cqw;
+  color: #101013;
+  background: rgba(242, 242, 245, 0.93);
+  backdrop-filter: blur(14px);
+  z-index: 2;
 }
 .cs-safari__time {
-  font-size: 3.9cqw;
+  font-size: 4.1cqw;
   font-weight: 650;
   letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
 }
 .cs-safari__icons { display: flex; align-items: center; gap: 1.5cqw; }
-.cs-safari__icons svg { height: 3cqw; width: auto; display: block; }
+.cs-safari__icons svg { height: 3.1cqw; width: auto; display: block; }
+
+/* 125x36pt, 11pt below the top of the screen. The camera sits right of centre,
+   which is where it is on the handset. */
+.cs-safari__island {
+  position: absolute;
+  left: 50%;
+  top: 2.69cqw;
+  transform: translateX(-50%);
+  width: 30.56cqw;
+  height: 8.8cqw;
+  border-radius: 99cqw;
+  background: #000;
+  z-index: 4;
+}
+.cs-safari__island::after {
+  content: '';
+  position: absolute;
+  right: 12%;
+  top: 50%;
+  width: 21%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #25304a 0%, #0b0f1c 60%, #000 100%);
+}
+
 .cs-safari__bar {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 15.2cqw;
   display: flex;
   align-items: center;
   gap: 2cqw;
-  height: 12.8cqw;
-  padding: 0 3cqw 2.2cqw;
+  padding: 0 3.4cqw 3.6cqw;
+  background: rgba(242, 242, 245, 0.93);
+  backdrop-filter: blur(14px);
+  z-index: 2;
 }
 .cs-safari__aa,
 .cs-safari__reload {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 8cqw;
+  width: 7cqw;
   color: #3c3c43;
 }
-.cs-safari__aa svg { width: 4.4cqw; }
-.cs-safari__reload svg { width: 3.6cqw; }
+.cs-safari__aa svg { width: 3.9cqw; }
+.cs-safari__reload svg { width: 3.4cqw; }
 .cs-safari__url {
   flex: 1 1 auto;
   display: flex;
@@ -299,17 +357,17 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   justify-content: center;
   gap: 1.2cqw;
   min-width: 0;
-  height: 9.2cqw;
+  height: 8.8cqw;
   padding: 0 2cqw;
   border-radius: 2.6cqw;
-  background: #e4e4e9;
-  font-size: 3.7cqw;
+  background: rgba(0, 0, 0, 0.075);
+  font-size: 3.6cqw;
   font-weight: 450;
   color: #101013;
   white-space: nowrap;
   overflow: hidden;
 }
-.cs-safari__url svg { height: 3.2cqw; width: auto; opacity: 0.68; flex: 0 0 auto; }
+.cs-safari__url svg { height: 3.1cqw; width: auto; opacity: 0.62; flex: 0 0 auto; }
 /* A URL shorter than the pill stays centred, the way Safari draws it. A longer
    one has to clip from ONE end: centring the overflow ate the first characters
    too, so `middleman.quest/orders/PO-10513/edit` read as `niddleman.quest…`,
@@ -320,34 +378,50 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* The chin carries the home indicator. Drawing it here rather than over the
-   capture keeps it legible whatever the page under it happens to be. */
-.cs-safari__chin {
-  display: grid;
-  place-items: center;
-  height: 5.6cqw;
-  background: #f2f2f5;
-}
-.cs-safari__chin span {
-  display: block;
-  width: 34cqw;
-  height: 1.3cqw;
+.cs-safari__home {
+  position: absolute;
+  left: 50%;
+  bottom: 2cqw;
+  transform: translateX(-50%);
+  width: 34.2cqw;
+  height: 1.25cqw;
   border-radius: 1cqw;
-  background: #101013;
-  opacity: 0.82;
+  /* Alpha in the colour, not `opacity`. These four are drawn shapes rather
+     than type, but `opacity` builds a stacking context and hides the real
+     blended value from any contrast check — so the value is written where it
+     can be measured. */
+  background: rgba(16, 16, 19, 0.34);
+  z-index: 3;
 }
-.cs-safari__screen { position: relative; display: block; }
-.cs-safari__img { display: block; width: 100%; height: auto; }
 
 /* The marker — measured on the live page at capture time, never by hand.
    The scrim outside it is what makes "this exact element" unmistakable; the
    outline alone gets lost on a busy page. */
+/* Dark chrome. Not a theme switch — the tint is measured off the strip of the
+   capture that lands behind each bar, so a page with a dark header and a paper
+   body gets a dark status bar and a light toolbar, which is what the phone
+   does. See `scripts/tint-manifests.mjs`. */
+.cs-safari__status.is-dark { background: rgba(22, 22, 26, 0.86); color: #f4f4f6; }
+.cs-safari__bar.is-dark { background: rgba(22, 22, 26, 0.86); }
+.cs-safari__bar.is-dark .cs-safari__aa,
+.cs-safari__bar.is-dark .cs-safari__reload { color: #d3d3d8; }
+.cs-safari__bar.is-dark .cs-safari__url {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f4f4f6;
+}
+.cs-safari__home.is-dark { background: rgba(244, 244, 246, 0.55); }
+
 .cs-mark {
   position: absolute;
   border: 2px solid var(--cs-mark);
   border-radius: 5px;
   box-shadow: 0 0 0 100vmax rgba(9, 9, 14, 0.36);
   pointer-events: none;
+  /* Above the island and both bars. The scrim is a 100vmax spread shadow, and
+     the chrome now sits inside the screen rather than stacked around it — at a
+     lower z-index the two bars would be the only bright things on a dimmed
+     capture, pulling the eye off the element the box is pointing at. */
+  z-index: 5;
 }
 /* The marker's label, under the phone instead of over the capture. It used to
    be a chip floating in the gap above the box — which is exactly where a
@@ -385,27 +459,48 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 }
 
 /* Cover — title bottom-left, a wall of screens off the right edge ------ */
+/* --cs-pad is the section's margin, not a column's. It used to live on
+   .cs-cover__text and .cs-topic__text, inside the 37% track — so every pixel
+   added to the gutter came off the copy twice, once from the track and once
+   from the padding. Opening the rail's gutter under that arrangement took the
+   pinned lead down to 197px, about ten characters a line. It sits on the
+   section now and the tracks divide what is left. */
 .cs-cover {
   display: grid;
-  grid-template-columns: minmax(0, 37%) minmax(0, 63%);
+  grid-template-columns: minmax(0, 42%) minmax(0, 58%);
   align-items: end;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding: clamp(2.5rem, 8vw, 7rem) 0 clamp(3rem, 8vw, 7rem);
+  /* Left only: the wall runs off the right edge on purpose. */
+  padding: clamp(2.5rem, 8vw, 7rem) 0 clamp(3rem, 8vw, 7rem) var(--cs-pad);
 }
-.cs-cover__text { padding-left: var(--cs-pad); padding-bottom: clamp(0rem, 3vw, 3rem); }
+.cs-cover__text { padding-bottom: clamp(0rem, 3vw, 3rem); }
 .cs-eyebrow {
   margin: 0 0 0.85rem;
   font-size: var(--cs-body);
   font-weight: 700;
   color: var(--cs-ink-2);
 }
+/* 2.45, not 3.5. The title used to be four or five words of aphorism, which
+   carried 75px. It is a plain description of the work now — nine words on
+   andys — and at the old size that set three lines of display type before a
+   reader reached a single fact. */
 .cs-title {
-  margin: 0 0 1rem;
-  font-size: calc(var(--cs-body) * 3.5);
+  margin: 0 0 0.9rem;
+  max-width: 17ch;
+  font-size: calc(var(--cs-body) * 2.45);
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.028em;
+  line-height: 1.06;
+  letter-spacing: -0.024em;
   color: var(--cs-ink);
+}
+/* The small description under the heading: why this was the thing to build.
+   It replaces a whole section that held a second headline and a paragraph. */
+.cs-summary {
+  margin: 0 0 1.35rem;
+  max-width: 40ch;
+  font-size: calc(var(--cs-body) * 0.88);
+  line-height: 1.5;
+  color: var(--cs-ink-2);
 }
 .cs-meta {
   margin: 0 0 1.5rem;
@@ -440,20 +535,94 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
    filmstrip. */
 .cs-cover__phones > :nth-child(even) { margin-bottom: clamp(1rem, 3vw, 2.75rem); }
 
-/* Context — a headline and one paragraph. Framing, so it carries no claim
-   that would need a screenshot to back it. */
-.cs-context {
-  padding: clamp(2rem, 6vw, 5rem) var(--cs-pad) clamp(2rem, 6vw, 5rem);
+
+/* The section rail ------------------------------------------------------- */
+/* A study is five or six sections long and a reader three screens in had no
+   way to know that: the page just kept producing phones. This is its table of
+   contents, fixed in the left gutter, with the section crossing the middle of
+   the screen lit.
+
+   Every entry carries a gloss under its label. "Two catalogues" says where you
+   are; "live tanks and hardware, kept apart" says what you are about to read,
+   and that was the half with no home on the page.
+
+   State is carried by colour, weight and the accent bar — never by opacity.
+   Fading an 11px grey gloss to 45% is how a nav ends up below the contrast
+   floor while looking, in a screenshot, like it works. */
+.cs-rail { display: none; }
+
+.cs-rail__list { list-style: none; margin: 0; padding: 0; }
+.cs-rail__item {
+  display: block;
+  width: 100%;
+  padding: 0.45rem 0 0.45rem 0.85rem;
+  border: 0;
+  border-left: 2px solid rgba(25, 25, 25, 0.13);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.25s ease, color 0.25s ease;
 }
-.cs-headline {
-  margin: 0 0 1.25rem;
-  max-width: 20ch;
-  font-size: calc(var(--cs-body) * 2.1);
+.cs-rail__item:hover { border-left-color: rgba(25, 25, 25, 0.38); }
+.cs-rail__item:focus-visible { outline: 2px solid var(--cs-mark); outline-offset: 3px; }
+.cs-rail__item.is-on { border-left-color: var(--cs-mark); }
+
+.cs-rail__n {
+  display: block;
+  margin-bottom: 0.1rem;
+  font-size: 0.625rem;
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.022em;
-  color: var(--cs-ink);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+  color: var(--cs-ink-2);
 }
+.cs-rail__item.is-on .cs-rail__n { color: var(--cs-mark); }
+
+.cs-rail__label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--cs-ink-2);
+}
+.cs-rail__item.is-on .cs-rail__label { color: var(--cs-ink); }
+
+.cs-rail__gloss {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 0.6875rem;
+  line-height: 1.32;
+  color: var(--cs-ink-2);
+}
+
+/* Landing spot for the rail's own scrollIntoView. */
+[data-cs-section] { scroll-margin-top: 2rem; }
+
+/* The rail is only drawn where there is a gutter to draw it in. Below this it
+   would be a fixed panel sitting on top of a single-column page. The gutter is
+   opened by --cs-pad, so the rail costs the copy column nothing — measured at
+   1200 the pinned text is 376px here against 320px before. The phone column
+   gives up width it was not using: .cs-shot caps a handset at 340px long
+   before the column runs out. */
+@media (min-width: 1200px) and (min-height: 620px) {
+  /* Measured, not guessed: at 14vw the rail's right edge sat 12–16px off the
+     first character of the copy, which reads as a margin note attached to the
+     paragraph rather than as the page's navigation. This puts ~50px between
+     them at every width from 1200 to 1920. */
+  .cs { --cs-pad: clamp(13rem, 17vw, 17.5rem); }
+  .cs-cover,
+  .cs-topic { grid-template-columns: minmax(0, 42%) minmax(0, 58%); }
+  .cs-rail {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: clamp(1.25rem, 3vw, 3.25rem);
+    transform: translateY(-50%);
+    width: clamp(7.75rem, 10vw, 11rem);
+    z-index: 4;
+  }
+}
+
 /* Topics — the engine. Three lines of copy pinned in place while their three
    phones scroll past. Whichever phone is crossing the middle of the screen
    lights its line, so the pairing is never in question. ------------------- */
@@ -463,10 +632,10 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   /* 37/63, not 32/68. The phone column is capped at 340px by .cs-shot long
      before it runs out of room, so the five points the copy column takes back
      cost the capture nothing and buy the pinned lead nine characters a line. */
-  grid-template-columns: minmax(0, 37%) minmax(0, 63%);
+  grid-template-columns: minmax(0, 42%) minmax(0, 58%);
   align-items: start;
   gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding: clamp(3rem, 8vw, 7rem) var(--cs-pad) clamp(3rem, 8vw, 7rem) 0;
+  padding: clamp(3rem, 8vw, 7rem) var(--cs-pad);
 }
 /* The pinned lead sits in a 414px column, so at full --cs-body it renders 38
    characters a line. A notch down puts it at 43 and still leaves it clearly
@@ -475,7 +644,6 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 .cs-topic__text {
   position: sticky;
   top: clamp(4.5rem, 12vh, 7.5rem);
-  padding-left: var(--cs-pad);
 }
 /* This column was assumed to clear a 720px laptop viewport and does not:
    measured at 1440x720 the third sentence loses 58px of its body — two lines —
@@ -494,7 +662,12 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   align-items: center;
   gap: clamp(3rem, 9vw, 8rem);
 }
-.cs-shot { width: clamp(230px, 46%, 340px); }
+/* 68%, not 46%. The phone column used to be 63% of the full page width with
+   no gutter taken out of it, so 46% of that still reached the 340px cap. Once
+   --cs-pad moved onto the section the column lost that slack and the handsets
+   fell to the 230px floor — a 100px drop at exactly the width where the rail
+   appears. This reaches the cap from 1280 up and gives 288px at 1200. */
+.cs-shot { width: clamp(240px, 68%, 340px); }
 
 /* The leader line. It runs from the live sentence, across the column of empty
    page between the copy and the phone, to the phone's edge at the exact height
@@ -602,46 +775,123 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 /* Flow — two step lists, no screenshot. The count is the whole argument. */
 .cs-flow { padding: clamp(3rem, 8vw, 7rem) var(--cs-pad); }
 .cs-flow__text { max-width: 54ch; }
-.cs-flow__cols {
+
+/* Paired rows, not two lists. The grid is shared by the head and every row so
+   the two sides stay in the same two columns all the way down — which is the
+   whole point, and is what two independent <ul>s could not do. */
+/* Table left, one pinned screen right. The screen sticks because the table is
+   only seven short rows — it scrolls past in a screen and a half, and a phone
+   that travelled with it would be a second copy of the topic blocks above. */
+.cs-flow__body {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.75rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
   margin-top: clamp(2.5rem, 5vw, 4.25rem);
 }
-.cs-flow__title {
-  margin: 0;
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  font-size: calc(var(--cs-body) * 0.82);
+@media (min-width: 1001px) {
+  .cs-flow__body { grid-template-columns: minmax(0, 1fr) clamp(190px, 21vw, 290px); }
+}
+.cs-flow__screen { position: sticky; top: clamp(4.5rem, 14vh, 8rem); align-self: start; }
+.cs-flow__screennote {
+  margin: 1rem 0 0;
+  max-width: 26ch;
+  font-size: calc(var(--cs-body) * 0.72);
+  line-height: 1.4;
   font-weight: 600;
   color: var(--cs-ink);
 }
-.cs-flow__steps {
-  list-style: none;
-  margin: 1.1rem 0 0;
-  padding: 0;
-  display: grid;
-  gap: 0.55rem;
+/* The dot is what makes "five of the seven" checkable instead of asserted. */
+.cs-flow__row.is-here .cs-flow__after::after {
+  content: '';
+  display: inline-block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: 0.5rem;
+  vertical-align: 0.12em;
+  border-radius: 50%;
+  background: var(--cs-mark);
 }
-.cs-flow__steps li {
-  display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  font-size: calc(var(--cs-body) * 0.86);
+.cs-flow__head,
+.cs-flow__row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) 2.5rem minmax(0, 1fr);
+  align-items: start;
+  column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+.cs-flow__head { padding-bottom: 0.9rem; }
+.cs-flow__title {
+  margin: 0 0 0.3rem;
+  font-size: calc(var(--cs-body) * 0.82);
+  font-weight: 700;
+  color: var(--cs-ink);
+}
+/* One measured line per side. Not a per-step estimate — the only duration
+   anybody recorded on this route is the two and a half hours a proper count
+   took, so that is the only one printed. */
+.cs-flow__note {
+  margin: 0;
+  max-width: 34ch;
+  font-size: calc(var(--cs-body) * 0.7);
+  line-height: 1.4;
   color: var(--cs-ink-2);
 }
+
+.cs-flow__rows { list-style: none; margin: 0; padding: 0; }
+.cs-flow__row {
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(25, 25, 25, 0.11);
+}
+.cs-flow__row:last-child { border-bottom: 1px solid rgba(25, 25, 25, 0.11); }
 .cs-flow__n {
-  flex: none;
-  min-width: 1.35em;
+  padding-top: 0.15em;
+  font-size: calc(var(--cs-body) * 0.66);
+  font-weight: 700;
+  letter-spacing: 0.08em;
   font-variant-numeric: tabular-nums;
   /* Not rgba(0,0,0,0.34). Blended over the #f7f7f7 ground that resolves to
-     #a3a3a3, which is 2.35:1 — the declared 17:1 was never what anybody saw.
-     This is the same ink as the step text beside it, and the before/after
-     contrast is carried by the column, not by dimming its numbers. */
+     #a3a3a3, which is 2.35:1 — the declared 17:1 was never what anybody saw. */
   color: var(--cs-ink-2);
 }
-.cs-flow__col--after .cs-flow__steps li { color: var(--cs-ink); }
-.cs-flow__col--after .cs-flow__n { color: var(--cs-ink); }
+.cs-flow__before,
+.cs-flow__after {
+  margin: 0;
+  font-size: calc(var(--cs-body) * 0.86);
+  line-height: 1.4;
+}
+/* The before side is the one being replaced, so it is the quieter of the two.
+   Still ink-2 rather than a wash — it has to be readable to be compared. */
+.cs-flow__before { color: var(--cs-ink-2); }
+.cs-flow__after { color: var(--cs-ink); font-weight: 550; }
+.cs-flow__arrow {
+  display: grid;
+  place-items: center;
+  padding-top: 0.42em;
+  /* #5c5c5c at 0.55 over the #f7f7f7 ground resolved to #a1a1a1. This is the
+     blend, written down and then darkened a step so the glyph carrying the
+     comparison is not the faintest thing in the row. */
+  color: #8b8b8b;
+}
+.cs-flow__arrow svg { width: 1.35rem; height: auto; display: block; }
+/* The screen that performs the step, under the sentence that claims it. Small
+   on purpose: the evidence for these screens is the topic block above, and
+   this one is showing which four of the seven steps the app actually does. */
+@media (max-width: 760px) {
+  /* Stacked, the arrow column is a hole. The row becomes number + before,
+     then the after indented under it, and the pairing is carried by the
+     indent and the rule instead. */
+  .cs-flow__head { display: none; }
+  .cs-flow__row { grid-template-columns: 2.25rem minmax(0, 1fr); row-gap: 0.4rem; }
+  .cs-flow__arrow { display: none; }
+  .cs-flow__after { grid-column: 2; }
+  .cs-flow__after::before {
+    content: '';
+    display: inline-block;
+    width: 0.9rem;
+    height: 1px;
+    margin: 0 0.45rem 0.3em 0;
+    background: rgba(25, 25, 25, 0.4);
+  }
+}
 
 /* framer-motion writes the pre-animation state into the server HTML. The
    preference hook resolves to false on the server, so a block that should
@@ -696,8 +946,7 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 
 @media (max-width: 640px) {
   .cs-impact__grid,
-  .cs-learnings__grid,
-  .cs-flow__cols { grid-template-columns: minmax(0, 1fr); }
+  .cs-learnings__grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* A scrollable book row fades at its trailing edge, so the spine running off

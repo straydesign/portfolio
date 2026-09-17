@@ -9,7 +9,7 @@ import { type CaseStudy } from './types';
 export const PRESQUEISLE: CaseStudy = {
   slug: 'presqueisle',
   client: 'Presque Isle Fish & Farm',
-  title: 'Honest about going stale.',
+  title: 'A counter catalogue for a fish market',
   meta: 'Erie, PA · fish market and farm · design, build, CMS',
   liveUrl: 'https://presqueislefishandfarm.com',
   cover: [
@@ -18,27 +18,26 @@ export const PRESQUEISLE: CaseStudy = {
     'presqueisle/cover-fish',
     'presqueisle/cover-week',
   ],
-  context: {
-    headline: "Erie's only fishery",
-    lead: "Presque Isle Fish & Farm sells whatever the lake and the boats bring in, out of the old Arby's on W 8th. Prices live on stickers at the counter.",
-  },
+  summary:
+    "Presque Isle works out of the old Arby's on W 8th, and the counter carries whatever the lake and the boats bring in. Prices live on stickers and change with the catch, so every price on the site is printed beside the number to call.",
   topics: [
     {
       label: 'Their own',
+      gloss: 'their red, their photographs',
       lead: "The red is the shop's own and the photographs are the family's, taken on the boat and in the shop. Nothing here came out of a stock library.",
       items: [
         {
-          heading: 'The claim leads',
+          heading: 'The hero lines',
           body: 'Three lines of condensed display type over their own photograph of the lake, above everything else on the page.',
           shot: 'presqueisle/hero-line',
         },
         {
-          heading: 'The red is theirs',
+          heading: 'The compass mark',
           body: "The colour was sampled off this compass mark, which is the shop's own logo and sits on every page.",
           shot: 'presqueisle/roundel',
         },
         {
-          heading: 'Every photograph is theirs',
+          heading: 'The captioned print',
           body: 'Rods off the stern, shot from the boat. The caption under the print says whose photograph it is.',
           shot: 'presqueisle/captain-print',
         },
@@ -46,41 +45,43 @@ export const PRESQUEISLE: CaseStudy = {
     },
     {
       label: 'The counters',
-      lead: 'Twelve counters, one page each, 283 products under them. Prices come off stickers at the counter, so the page had to be honest about going stale.',
+      gloss: 'twelve counters, 283 products',
+      lead: "Twelve counters, one page each, 283 products under them. Prices come off stickers at the counter, so the page carries the number to call for today's price.",
       items: [
         {
-          heading: 'Photographs lead',
+          heading: 'A product tile',
           body: 'This tile carries the photograph, the name, the price by the pound and a tag saying fresh, frozen or both.',
           shot: 'presqueisle/card-photo',
         },
         {
-          heading: 'A card, never a gap',
+          heading: 'The red name card',
           body: 'Where there is no photograph the tile prints a red card with the name on it. A missing price says to ask at the counter.',
           shot: 'presqueisle/card-sign',
         },
         {
-          heading: "Call for today's price",
-          body: 'Fresh prices change at the counter, so a note carries the phone number and admits the page may be behind.',
+          heading: 'The price note',
+          body: 'The note says fresh prices change frequently and that the page may not always be perfectly accurate. The phone number for today’s is printed in it.',
           shot: 'presqueisle/price-note',
         },
       ],
     },
     {
       label: 'A fish',
+      gloss: '234 products with a page',
       lead: '234 of those products open a page. Each answers what a customer standing at the counter would otherwise have to ask somebody.',
       items: [
         {
-          heading: 'What it tastes like',
+          heading: 'The flavour note',
           body: 'A short note on the flavour and the flake, so somebody choosing between two of them never leaves to search.',
           shot: 'presqueisle/fish-taste',
         },
         {
-          heading: 'Call and directions',
+          heading: 'The call and directions buttons',
           body: 'The real phone number is printed in the button, and directions sit right under it.',
           shot: 'presqueisle/fish-actions',
         },
         {
-          heading: 'How people cook it',
+          heading: 'The ON THE TABLE list',
           body: "Meal ideas in the shop's own words, under a heading that reads ON THE TABLE. Nothing here was lifted off a recipe site.",
           shot: 'presqueisle/fish-table',
         },
@@ -88,20 +89,21 @@ export const PRESQUEISLE: CaseStudy = {
     },
     {
       label: 'The week',
+      gloss: 'Friday, Saturday and the boiler',
       lead: 'The shop stays open later on Friday and runs a standing offer on Saturday. Each gets a block of its own, printed with the hours or the price the day actually carries.',
       items: [
         {
-          heading: 'Fridays run late',
+          heading: 'The Friday block',
           body: 'The one day the doors stay open past the usual closing time, with the menu one tap away.',
           shot: 'presqueisle/friday',
         },
         {
-          heading: 'A standing Saturday',
+          heading: 'The Saturday block',
           body: 'Its own block, with the hours, the price and what is in the take-home kit written out.',
           shot: 'presqueisle/saturday',
         },
         {
-          heading: 'The boiler goes home',
+          heading: 'The boiler rental',
           body: 'The day rate and the refundable deposit are printed. The call is to find out whether the one boiler is free that weekend.',
           shot: 'presqueisle/boiler',
         },
@@ -123,11 +125,11 @@ export const PRESQUEISLE: CaseStudy = {
       body: 'Photographing 293 price stickers is dull work, and it is the only reason the site agrees with the counter.',
     },
     {
-      heading: 'A card beats a gap',
+      heading: 'Print a card where a photo is missing',
       body: 'A red card with the name on it reads like a shop. An empty tile just reads broken.',
     },
     {
-      heading: 'One ground, no bands',
+      heading: 'One ground instead of nine',
       body: 'Nine section photographs became one sheet of printed paper, and every seam problem left with them.',
     },
   ],

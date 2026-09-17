@@ -105,7 +105,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
   // The study's own opening line, written about this client and this build.
   const study = getCaseStudy(project.slug);
-  const description = budget(study?.context.lead ?? project.description);
+  const description = budget(study?.summary ?? project.description);
 
   return {
     title: { absolute: title },

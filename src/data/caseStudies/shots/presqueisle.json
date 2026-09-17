@@ -2,34 +2,44 @@
   "cover-home": {
     "src": "/images/case-studies/presqueisle/cover-home.webp",
     "url": "presqueislefishandfarm.com",
-    "alt": "Presque Isle home page on a phone"
+    "alt": "Presque Isle home page on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-counter": {
     "src": "/images/case-studies/presqueisle/cover-counter.webp",
     "url": "presqueislefishandfarm.com/whats-in/off-the-boat-lake-erie",
-    "alt": "The Lake Erie counter on a phone"
+    "alt": "The Lake Erie counter on a phone",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "cover-fish": {
     "src": "/images/case-studies/presqueisle/cover-fish.webp",
     "url": "presqueislefishandfarm.com/item/lake-erie-walleye",
-    "alt": "A Presque Isle fish page on a phone"
+    "alt": "A Presque Isle fish page on a phone",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "cover-week": {
     "src": "/images/case-studies/presqueisle/cover-week.webp",
     "url": "presqueislefishandfarm.com/the-week",
-    "alt": "The week page on a phone"
+    "alt": "The week page on a phone",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "roundel": {
     "src": "/images/case-studies/presqueisle/roundel.webp",
     "url": "presqueislefishandfarm.com/the-captain",
-    "alt": "The shop’s compass roundel in the red header bar",
+    "alt": "The shop’s compass mark in the footer",
     "box": {
       "x": 3.59,
-      "y": 0.24,
-      "w": 16.41,
-      "h": 7.58
+      "y": 82.14,
+      "w": 10.26,
+      "h": 4.74
     },
-    "note": "The red is theirs"
+    "note": "The red is theirs",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "hero-line": {
     "src": "/images/case-studies/presqueisle/hero-line.webp",
@@ -41,7 +51,9 @@
       "w": 86.88,
       "h": 18.62
     },
-    "note": "The claim, three lines deep"
+    "note": "The claim, three lines deep",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "captain-print": {
     "src": "/images/case-studies/presqueisle/captain-print.webp",
@@ -53,7 +65,9 @@
       "w": 72.12,
       "h": 46.26
     },
-    "note": "Their photo, captioned"
+    "note": "Their photo, captioned",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "card-photo": {
     "src": "/images/case-studies/presqueisle/card-photo.webp",
@@ -65,7 +79,9 @@
       "w": 46.67,
       "h": 42.89
     },
-    "note": "Photo, name, price, tag"
+    "note": "Photo, name, price, tag",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "card-sign": {
     "src": "/images/case-studies/presqueisle/card-sign.webp",
@@ -77,7 +93,9 @@
       "w": 46.67,
       "h": 28.28
     },
-    "note": "A card, never a gap"
+    "note": "A card, never a gap",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "price-note": {
     "src": "/images/case-studies/presqueisle/price-note.webp",
@@ -89,7 +107,9 @@
       "w": 91.41,
       "h": 9.77
     },
-    "note": "Call for today's price"
+    "note": "Call for today's price",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "fish-taste": {
     "src": "/images/case-studies/presqueisle/fish-taste.webp",
@@ -101,7 +121,9 @@
       "w": 81.34,
       "h": 12.59
     },
-    "note": "What it tastes like"
+    "note": "What it tastes like",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "fish-actions": {
     "src": "/images/case-studies/presqueisle/fish-actions.webp",
@@ -113,7 +135,9 @@
       "w": 81.34,
       "h": 14.55
     },
-    "note": "Call and directions"
+    "note": "Call and directions",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "fish-table": {
     "src": "/images/case-studies/presqueisle/fish-table.webp",
@@ -125,7 +149,9 @@
       "w": 81.34,
       "h": 19.09
     },
-    "note": "How people cook it"
+    "note": "How people cook it",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "friday": {
     "src": "/images/case-studies/presqueisle/friday.webp",
@@ -137,7 +163,9 @@
       "w": 92.82,
       "h": 39.23
     },
-    "note": "Fridays run late"
+    "note": "Fridays run late",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "saturday": {
     "src": "/images/case-studies/presqueisle/saturday.webp",
@@ -149,7 +177,9 @@
       "w": 92.82,
       "h": 34.19
     },
-    "note": "A standing Saturday"
+    "note": "A standing Saturday",
+    "tintTop": "dark",
+    "tintBottom": "light"
   },
   "boiler": {
     "src": "/images/case-studies/presqueisle/boiler.webp",
@@ -161,6 +191,8 @@
       "w": 92.82,
       "h": 31.58
     },
-    "note": "Rate and deposit, printed"
+    "note": "Rate and deposit, printed",
+    "tintTop": "dark",
+    "tintBottom": "light"
   }
 }

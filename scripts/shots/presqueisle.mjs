@@ -49,9 +49,15 @@ export const SPECS = [
     // EXEMPT from `must` per the contract rule: the target is the wordless
     // compass mark in the header bar, an image link with no visible text of its
     // own. `mustNot` still proves the box did not climb into the page beneath.
-    { id: 'roundel', route: '/the-captain', find: { css: 'header a', nth: 0 }, pad: 0.2,
+    /* The header instance of this mark cannot be used. The header is
+       `position: fixed; top: 0`, so no scroll position moves it down the
+       viewport, and its box measured y=0.24% — under the status bar, which
+       covers the top 6.34% of the screen. It was the only box in 77 that
+       collided with the chrome. The footer carries the same mark and can sit
+       anywhere in the frame. */
+    { id: 'roundel', route: '/the-captain', find: { css: '.foot-mark', nth: 0 }, pad: 0.42,
       mustNot: ['THE CAPTAIN', 'Back to the shop'],
-      alt: 'The shop’s compass roundel in the red header bar', note: 'The red is theirs' },
+      alt: 'The shop’s compass mark in the footer', note: 'The red is theirs' },
     { id: 'captain-print', route: '/the-captain', find: { text: 'Rods off the stern. Our own photo.', up: 1, maxH: 700 }, pad: 0.22,
       must: ['Rods off the stern. Our own photo.'],
       mustNot: ['Yellow perch, walleye, whitefish', 'Presque Isle Fish & Farm is family owned'],

@@ -2,22 +2,30 @@
   "cover-home": {
     "src": "/images/case-studies/bullfrog/cover-home.webp",
     "url": "bullfrogbarerie.com",
-    "alt": "Bullfrog home page on a phone, the next show under the headline"
+    "alt": "Bullfrog home page on a phone, the next show under the headline",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-lineup": {
     "src": "/images/case-studies/bullfrog/cover-lineup.webp",
     "url": "bullfrogbarerie.com",
-    "alt": "The live music list on the Bullfrog home page"
+    "alt": "The live music list on the Bullfrog home page",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-events": {
     "src": "/images/case-studies/bullfrog/cover-events.webp",
     "url": "bullfrogbarerie.com/events",
-    "alt": "The Bullfrog show calendar on a phone"
+    "alt": "The Bullfrog show calendar on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-venue": {
     "src": "/images/case-studies/bullfrog/cover-venue.webp",
     "url": "bullfrogbarerie.com/events",
-    "alt": "The Bullfrog live music room described on a phone"
+    "alt": "The Bullfrog live music room described on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "next-show": {
     "src": "/images/case-studies/bullfrog/next-show.webp",
@@ -29,7 +37,9 @@
       "w": 94.87,
       "h": 36.64
     },
-    "note": "The next act, on the hero"
+    "note": "The next act, on the hero",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "show-time": {
     "src": "/images/case-studies/bullfrog/show-time.webp",
@@ -41,7 +51,9 @@
       "w": 88.21,
       "h": 3.79
     },
-    "note": "Day, date, set time"
+    "note": "Day, date, set time",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "show-cta": {
     "src": "/images/case-studies/bullfrog/show-cta.webp",
@@ -53,7 +65,9 @@
       "w": 88.21,
       "h": 12.91
     },
-    "note": "Two ways off the card"
+    "note": "Two ways off the card",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "calendar-month": {
     "src": "/images/case-studies/bullfrog/calendar-month.webp",
@@ -65,7 +79,9 @@
       "w": 94.87,
       "h": 9
     },
-    "note": "Headed with the month"
+    "note": "Headed with the month",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "band-row": {
     "src": "/images/case-studies/bullfrog/band-row.webp",
@@ -77,7 +93,9 @@
       "w": 94.87,
       "h": 31.64
     },
-    "note": "One row per show"
+    "note": "One row per show",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "band-link": {
     "src": "/images/case-studies/bullfrog/band-link.webp",
@@ -89,7 +107,9 @@
       "w": 76.41,
       "h": 8.29
     },
-    "note": "Genre, admission, the band's page"
+    "note": "Genre, admission, the band's page",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "venue-copy": {
     "src": "/images/case-studies/bullfrog/venue-copy.webp",
@@ -101,7 +121,9 @@
       "w": 94.87,
       "h": 13.74
     },
-    "note": "What a band is walking into"
+    "note": "What a band is walking into",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "amenities": {
     "src": "/images/case-studies/bullfrog/amenities.webp",
@@ -113,7 +135,9 @@
       "w": 94.87,
       "h": 21.33
     },
-    "note": "What the room has"
+    "note": "What the room has",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "about-venue": {
     "src": "/images/case-studies/bullfrog/about-venue.webp",
@@ -125,7 +149,9 @@
       "w": 94.87,
       "h": 18.72
     },
-    "note": "Named a music venue"
+    "note": "Named a music venue",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "reserve-cta": {
     "src": "/images/case-studies/bullfrog/reserve-cta.webp",
@@ -137,7 +163,9 @@
       "w": 100,
       "h": 27.25
     },
-    "note": "Call ahead for a Friday"
+    "note": "Call ahead for a Friday",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "party-stage": {
     "src": "/images/case-studies/bullfrog/party-stage.webp",
@@ -149,7 +177,9 @@
       "w": 94.87,
       "h": 26.3
     },
-    "note": "Stage, PA, dance floor"
+    "note": "Stage, PA, dance floor",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "party-live": {
     "src": "/images/case-studies/bullfrog/party-live.webp",
@@ -161,6 +191,8 @@
       "w": 94.87,
       "h": 12.68
     },
-    "note": "Music on a private night too"
+    "note": "Music on a private night too",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   }
 }

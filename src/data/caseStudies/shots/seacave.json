@@ -2,22 +2,30 @@
   "cover-home": {
     "src": "/images/case-studies/seacave/cover-home.webp",
     "url": "seacaveinc.com",
-    "alt": "Sea Cave home page on a phone"
+    "alt": "Sea Cave home page on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-catalogue": {
     "src": "/images/case-studies/seacave/cover-catalogue.webp",
     "url": "seacaveinc.com/catalogue",
-    "alt": "The Sea Cave species catalogue on a phone"
+    "alt": "The Sea Cave species catalogue on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-species": {
     "src": "/images/case-studies/seacave/cover-species.webp",
     "url": "seacaveinc.com/catalogue/yellow-tang",
-    "alt": "A Sea Cave species page on a phone"
+    "alt": "A Sea Cave species page on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-guides": {
     "src": "/images/case-studies/seacave/cover-guides.webp",
     "url": "seacaveinc.com/guides",
-    "alt": "The Sea Cave build guides on a phone"
+    "alt": "The Sea Cave build guides on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "catalogue-aisles": {
     "src": "/images/case-studies/seacave/catalogue-aisles.webp",
@@ -29,7 +37,9 @@
       "w": 94.87,
       "h": 30.33
     },
-    "note": "Every tile carries its count"
+    "note": "Every tile carries its count",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "shop-instore": {
     "src": "/images/case-studies/seacave/shop-instore.webp",
@@ -41,7 +51,9 @@
       "w": 94.87,
       "h": 13.74
     },
-    "note": "Sold in store only"
+    "note": "Sold in store only",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "species-call": {
     "src": "/images/case-studies/seacave/species-call.webp",
@@ -53,7 +65,9 @@
       "w": 84.1,
       "h": 6.64
     },
-    "note": "Call, not add to cart"
+    "note": "Call, not add to cart",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "species-care": {
     "src": "/images/case-studies/seacave/species-care.webp",
@@ -65,7 +79,9 @@
       "w": 94.87,
       "h": 42.12
     },
-    "note": "Care at a glance"
+    "note": "Care at a glance",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "species-grows": {
     "src": "/images/case-studies/seacave/species-grows.webp",
@@ -77,7 +93,9 @@
       "w": 94.87,
       "h": 13.74
     },
-    "note": "Juvenile and adult gallons"
+    "note": "Juvenile and adult gallons",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "species-tankmates": {
     "src": "/images/case-studies/seacave/species-tankmates.webp",
@@ -89,7 +107,9 @@
       "w": 94.87,
       "h": 31.9
     },
-    "note": "A pairing, with the reason"
+    "note": "A pairing, with the reason",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "guide-cards": {
     "src": "/images/case-studies/seacave/guide-cards.webp",
@@ -101,7 +121,9 @@
       "w": 45.38,
       "h": 5.57
     },
-    "note": "Water type and tank size"
+    "note": "Water type and tank size",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "guide-part": {
     "src": "/images/case-studies/seacave/guide-part.webp",
@@ -113,7 +135,9 @@
       "w": 94.36,
       "h": 18.75
     },
-    "note": "Part, price, and why"
+    "note": "Part, price, and why",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "guide-estimate": {
     "src": "/images/case-studies/seacave/guide-estimate.webp",
@@ -125,7 +149,9 @@
       "w": 68.72,
       "h": 16.14
     },
-    "note": "Marked as an estimate"
+    "note": "Marked as an estimate",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "service-photo": {
     "src": "/images/case-studies/seacave/service-photo.webp",
@@ -137,7 +163,9 @@
       "w": 94.87,
       "h": 29.7
     },
-    "note": "The shop's own tank"
+    "note": "The shop's own tank",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "service-covered": {
     "src": "/images/case-studies/seacave/service-covered.webp",
@@ -149,7 +177,9 @@
       "w": 94.87,
       "h": 46.5
     },
-    "note": "What the service covers"
+    "note": "What the service covers",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "service-call": {
     "src": "/images/case-studies/seacave/service-call.webp",
@@ -161,6 +191,8 @@
       "w": 58.79,
       "h": 6.64
     },
-    "note": "Every block ends here"
+    "note": "Every block ends here",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   }
 }

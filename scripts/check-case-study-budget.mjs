@@ -38,7 +38,14 @@ const BUDGET = {
   lead: [15, 37],
   heading: [2, 8],
   body: [9, 29],
-  headline: [3, 9],
+  /* The title says what the project is, so it is a phrase and not a slogan.
+     Under five words it goes back to being an aphorism; over nine it stops
+     being a title. */
+  title: [5, 9],
+  /* Why it was the thing to build, and the route's meta description. */
+  summary: [28, 52],
+  /* The rail line under a section name: what that section covers. */
+  gloss: [3, 7],
 };
 
 const fails = [];
@@ -57,8 +64,14 @@ const CONVERTED = CASE_STUDIES.filter((s) => {
 });
 
 for (const s of CONVERTED) {
-  check(`${s.slug}/context`, 'headline', s.context.headline);
-  check(`${s.slug}/context`, 'lead', s.context.lead);
+  check(`${s.slug}/title`, 'title', s.title);
+  check(`${s.slug}/summary`, 'summary', s.summary);
+  /* The first sentence of the summary is the meta description, so it carries
+     the ~158-character budget on its own. */
+  const first = (s.summary.match(/^[^.!?]+[.!?]/) ?? [s.summary])[0].trim();
+  if (first.length > 158) {
+    fails.push(`${s.slug}/summary — first sentence is ${first.length} chars (meta budget is 158)`);
+  }
   if (s.cover.length < 3 || s.cover.length > 4) {
     fails.push(`${s.slug}/cover — ${s.cover.length} phones (want 3–4)`);
   }
@@ -69,6 +82,7 @@ for (const s of CONVERTED) {
   if (sections < 3) fails.push(`${s.slug} — only ${sections} sections (want 3+)`);
   for (const t of s.topics) {
     check(`${s.slug}/${t.label}`, 'lead', t.lead);
+    check(`${s.slug}/${t.label}`, 'gloss', t.gloss);
     if (t.items.length !== 3) fails.push(`${s.slug}/${t.label} — ${t.items.length} items (want exactly 3)`);
     t.items.forEach((i) => {
       check(`${s.slug}/${t.label}/${i.heading}`, 'heading', i.heading);

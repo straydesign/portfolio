@@ -1,17 +1,40 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import type { ManifestShot } from '@/data/caseStudies/shots';
+import Image from "next/image";
+import type { ManifestShot } from "@/data/caseStudies/shots";
 
 /* A capture shown the way a customer actually meets it: in Safari, on a
-   handset, with the status bar and the address bar above it.
+   handset, wearing the phone's own furniture.
+
+   The geometry is an iPhone 16 Pro's, in points: a 393x852 screen, a 55pt
+   screen corner radius, an 8pt bezel and a 125x36pt Dynamic Island sitting
+   11pt below the top of the screen. Device width is 393+16 = 409, and every
+   number in the stylesheet is one of those point values expressed as `cqw` off
+   the frame's own width — so one component serves a 350px column shot and a
+   157px cover shot with no second set of numbers, and the silhouette stays
+   right at both.
+
+   Two things had to be true and were not. The frame drew a flat 4px border at
+   roughly half the real corner radius, which is what made it read as "not an
+   iPhone", and it had no island at all. Neither is a detail: the island is the
+   single feature that dates a handset, and a wrong radius is the thing people
+   see without being able to name.
+
+   Percentages cannot express any of this. `border-radius: 15%` resolves
+   against both axes and turns a 2.1:1 phone into an ellipse, and a percentage
+   height on the island resolves against whatever box it sits in rather than
+   the device. Everything here is cqw for that reason.
 
    The chrome is drawn, not photographed. A mockup PSD would bake the screen
    into a raster, and these screens have to stay live — the marker that points
    at the element under discussion is positioned from the capture manifest, so
-   it has to sit in the DOM on top of a real <Image>. Everything here is sized
-   in `cqw` off the frame's own width, so one component serves a 350px column
-   shot and a 90px cover shot without a second set of numbers.
+   it has to sit in the DOM on top of a real <Image>.
+
+   The address bar is at the bottom because that is where iOS Safari has put it
+   since iOS 15, and because it keeps the top of every capture clear. Both bars
+   overlay the screen the way iOS draws them over a page, rather than stacking
+   above and below it — stacking is what made the old frame a head taller than
+   a real phone.
 
    9:41 is the time on the wall in every Apple keynote screenshot. Using
    anything else is the tell that the frame was invented. */
@@ -37,9 +60,21 @@ function StatusIcons() {
       </svg>
       {/* battery — drawn full, because a phone on a shelf is on a charger */}
       <svg viewBox="0 0 27 12" fill="none">
-        <rect x="0.5" y="0.5" width="22" height="11" rx="3.2" stroke="currentColor" opacity="0.38" />
+        <rect
+          x="0.5"
+          y="0.5"
+          width="22"
+          height="11"
+          rx="3.2"
+          stroke="currentColor"
+          opacity="0.38"
+        />
         <rect x="2" y="2" width="17" height="8" rx="2" fill="currentColor" />
-        <path d="M24.5 4.2a2.6 2.6 0 0 1 0 3.6V4.2Z" fill="currentColor" opacity="0.45" />
+        <path
+          d="M24.5 4.2a2.6 2.6 0 0 1 0 3.6V4.2Z"
+          fill="currentColor"
+          opacity="0.45"
+        />
       </svg>
     </span>
   );
@@ -60,7 +95,12 @@ function Marker({ shot }: { shot: ManifestShot }) {
   return (
     <span
       className="cs-mark"
-      style={{ left: `${box.x}%`, top: `${box.y}%`, width: `${box.w}%`, height: `${box.h}%` }}
+      style={{
+        left: `${box.x}%`,
+        top: `${box.y}%`,
+        width: `${box.w}%`,
+        height: `${box.h}%`,
+      }}
       aria-hidden="true"
     />
   );
@@ -70,66 +110,95 @@ export default function SafariPhone({
   shot,
   sizes,
   priority = false,
-  className = '',
+  className = "",
   chrome = true,
 }: {
   shot: ManifestShot;
   sizes: string;
   priority?: boolean;
   className?: string;
-  /** Cover-wall phones drop the address bar — at 90px it is a grey smudge. */
+  /** The cover wall used to drop the chrome. It no longer does — those phones
+   *  measure 157-312px, not the 90px the old comment assumed, so they were the
+   *  first handsets a reader saw and the only ones not in Safari. Kept as a
+   *  prop because a frame with no chrome is still the right call under ~110px. */
   chrome?: boolean;
 }) {
   return (
     <div className={`cs-safari ${className}`}>
-      {chrome && (
-        <div className="cs-safari__chrome">
-          <div className="cs-safari__status">
-            <span className="cs-safari__time">9:41</span>
-            <StatusIcons />
-          </div>
-          <div className="cs-safari__bar">
-            <span className="cs-safari__aa" aria-hidden="true">
-              <svg viewBox="0 0 20 12" fill="currentColor">
-                <path d="M4.4 2.6 1.4 10h1.5l.66-1.75h3l.66 1.75h1.5l-3-7.4H4.4Zm-.36 4.4.95-2.55.95 2.55h-1.9Z" />
-                <path d="M13.9 0 10 10h1.9l.9-2.4h4.2l.9 2.4H19.8L15.9 0h-2Zm-.55 6.2 1.55-4.2 1.55 4.2h-3.1Z" />
-              </svg>
-            </span>
-            <span className="cs-safari__url">
-              <svg viewBox="0 0 10 13" fill="currentColor" aria-hidden="true">
-                <path d="M5 0a3 3 0 0 0-3 3v2h1.5V3a1.5 1.5 0 0 1 3 0v2H8V3a3 3 0 0 0-3-3Z" />
-                <rect x="0.6" y="5" width="8.8" height="8" rx="2.2" />
-              </svg>
-              <span className="cs-safari__urltext">{shot.url}</span>
-            </span>
-            <span className="cs-safari__reload" aria-hidden="true">
-              <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-                <path d="M11.4 6.5a4.9 4.9 0 1 1-1.5-3.5" />
-                <path d="M11.6 0.6v3h-3" />
-              </svg>
-            </span>
-          </div>
-        </div>
-      )}
+      {/* Two elements, not one. `container-type` goes on the outer box and
+          every cqw is spent on the inner one, because an element cannot query
+          its own container — collapsed into a single div, all of this
+          resolved against the viewport instead: a 28px bezel and a 59px
+          clock in a 36px status bar. */}
+      <div className="cs-safari__body">
+        <div className="cs-safari__screen">
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            width={SCREEN_W}
+            height={SCREEN_H}
+            sizes={sizes}
+            priority={priority}
+            className="cs-safari__img"
+          />
+          <Marker shot={shot} />
 
-      <div className="cs-safari__screen">
-        <Image
-          src={shot.src}
-          alt={shot.alt}
-          width={SCREEN_W}
-          height={SCREEN_H}
-          sizes={sizes}
-          priority={priority}
-          className="cs-safari__img"
-        />
-        <Marker shot={shot} />
+          {chrome && (
+            <>
+              <div
+                className={`cs-safari__status${shot.tintTop === "dark" ? " is-dark" : ""}`}
+                aria-hidden="true"
+              >
+                <span className="cs-safari__time">9:41</span>
+                <StatusIcons />
+              </div>
+
+              {/* The Dynamic Island. A black pill with the camera set slightly
+                right of its centre, which is where it actually sits. */}
+              <div className="cs-safari__island" aria-hidden="true" />
+
+              <div
+                className={`cs-safari__bar${shot.tintBottom === "dark" ? " is-dark" : ""}`}
+              >
+                <span className="cs-safari__aa" aria-hidden="true">
+                  <svg viewBox="0 0 20 12" fill="currentColor">
+                    <path d="M4.4 2.6 1.4 10h1.5l.66-1.75h3l.66 1.75h1.5l-3-7.4H4.4Zm-.36 4.4.95-2.55.95 2.55h-1.9Z" />
+                    <path d="M13.9 0 10 10h1.9l.9-2.4h4.2l.9 2.4H19.8L15.9 0h-2Zm-.55 6.2 1.55-4.2 1.55 4.2h-3.1Z" />
+                  </svg>
+                </span>
+                <span className="cs-safari__url">
+                  <svg
+                    viewBox="0 0 10 13"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 0a3 3 0 0 0-3 3v2h1.5V3a1.5 1.5 0 0 1 3 0v2H8V3a3 3 0 0 0-3-3Z" />
+                    <rect x="0.6" y="5" width="8.8" height="8" rx="2.2" />
+                  </svg>
+                  <span className="cs-safari__urltext">{shot.url}</span>
+                </span>
+                <span className="cs-safari__reload" aria-hidden="true">
+                  <svg
+                    viewBox="0 0 13 13"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  >
+                    <path d="M11.4 6.5a4.9 4.9 0 1 1-1.5-3.5" />
+                    <path d="M11.6 0.6v3h-3" />
+                  </svg>
+                </span>
+              </div>
+
+              <div
+                className={`cs-safari__home${shot.tintBottom === "dark" ? " is-dark" : ""}`}
+                aria-hidden="true"
+              />
+            </>
+          )}
+        </div>
       </div>
-
-      {chrome && (
-        <div className="cs-safari__chin" aria-hidden="true">
-          <span />
-        </div>
-      )}
     </div>
   );
 }

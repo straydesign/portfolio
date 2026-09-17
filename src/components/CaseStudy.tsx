@@ -25,7 +25,7 @@ interface CaseStudyProps {
    element its line is talking about, so no sentence on this page is a claim
    without a picture of the thing it claims. */
 
-function TopicBlock({ topic }: { topic: Topic }) {
+function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
   // -1 until the observer claims one, which is what keeps all three lines at
   // full strength for a reader who never scrolls or has JS off.
   const [active, setActive] = useState(-1);
@@ -136,6 +136,8 @@ function TopicBlock({ topic }: { topic: Topic }) {
   return (
     <section
       ref={sectionRef}
+      id={id}
+      data-cs-section=""
       aria-label={topic.label}
       className={`cs-topic${active >= 0 ? ' cs-topic--live' : ''}`}
     >
@@ -174,42 +176,161 @@ function TopicBlock({ topic }: { topic: Topic }) {
   );
 }
 
-/* Two step lists side by side. The only evidence needed is the count, so
-   there is no screenshot here — a picture of a menu would bury the number. */
-function FlowBlock({ flow }: { flow: Flow }) {
+/* The route, paired.
+   One step and what replaced it on the same line, because two lists side by
+   side never compared: to check step four a reader had to hold the left one in
+   their head while finding the right one, and the two columns were not even in
+   the same order — "pull from the back from memory" sat opposite "log the
+   breakage where it happened".
+
+   One screen, pinned, not one per row. Seven handsets ran the block to 2,000px
+   and rendered five dark terminal UIs at 144px, where nothing on them can be
+   read. The pinned screen carries a count instead: the marked rows are the
+   five of seven that happen on it, which is the argument for the app and is
+   checkable against the table. */
+function FlowBlock({ flow, id }: { flow: Flow; id: string }) {
+  const screen = getShot(flow.screen);
   return (
-    <section className="cs-flow">
+    <section id={id} data-cs-section="" className="cs-flow">
       <div className="cs-flow__text">
         <p className="cs-label">{flow.label}</p>
         <p className="cs-para">{flow.lead}</p>
       </div>
-      <div className="cs-flow__cols">
-        {[
-          { title: flow.beforeLabel, steps: flow.before, tone: 'before' },
-          { title: flow.afterLabel, steps: flow.after, tone: 'after' },
-        ].map((col) => (
-          <div key={col.title} className={`cs-flow__col cs-flow__col--${col.tone}`}>
-            <p className="cs-flow__title">{col.title}</p>
-            <ol className="cs-flow__steps">
-              {col.steps.map((step, i) => (
-                <li key={step}>
-                  <span className="cs-flow__n" aria-hidden="true">{i + 1}</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
+
+      <div className="cs-flow__body">
+        <div className="cs-flow__table">
+          <div className="cs-flow__head">
+            <span className="cs-flow__n" aria-hidden="true" />
+            <div>
+              <p className="cs-flow__title">{flow.beforeLabel}</p>
+              <p className="cs-flow__note">{flow.beforeNote}</p>
+            </div>
+            <span className="cs-flow__arrow" aria-hidden="true" />
+            <div>
+              <p className="cs-flow__title">{flow.afterLabel}</p>
+              <p className="cs-flow__note">{flow.afterNote}</p>
+            </div>
           </div>
-        ))}
+
+          <ol className="cs-flow__rows">
+            {flow.steps.map((step, i) => (
+              <li
+                className={`cs-flow__row${step.here ? ' is-here' : ''}`}
+                key={step.before}
+              >
+                <span className="cs-flow__n" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <p className="cs-flow__before">{step.before}</p>
+                {/* The arrow is the comparison itself, so it is neither
+                    decoration nor a character inside either sentence. */}
+                <span className="cs-flow__arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 10" fill="none">
+                    <path d="M0 5h21M17 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+                  </svg>
+                </span>
+                <p className="cs-flow__after">{step.after}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {screen && (
+          <div className="cs-flow__screen">
+            <SafariPhone shot={screen} sizes="(max-width: 1000px) 60vw, 20vw" />
+            <p className="cs-flow__screennote">{flow.screenNote}</p>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
+/* The rail. A case study is five or six sections long and, until now, a reader
+   three screens in had no way to know that — the page just kept producing
+   phones. This is the table of contents, pinned to the left edge, with the
+   section currently crossing the middle of the screen lit.
+
+   Each entry carries a gloss as well as a label. "Two catalogues" tells
+   somebody where they are; "live tanks and hardware, kept apart" tells them
+   what they are about to read, which is the half that was missing.
+
+   It is a scrollspy nav: buttons, not anchors, because the whole site is one
+   client shell and a hash in the URL is a route change it would have to
+   answer for. */
+const railId = (label: string) =>
+  label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+interface RailSection {
+  readonly id: string;
+  readonly label: string;
+  readonly gloss: string;
+}
+
+function SectionRail({ sections, active }: { sections: readonly RailSection[]; active: number }) {
+  return (
+    <nav className="cs-rail" aria-label="Sections">
+      <ol className="cs-rail__list">
+        {sections.map((s, i) => (
+          <li key={s.id}>
+            <button
+              type="button"
+              className={`cs-rail__item${i === active ? ' is-on' : ''}`}
+              aria-current={i === active ? 'true' : undefined}
+              onClick={() =>
+                document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            >
+              <span className="cs-rail__n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span className="cs-rail__label">{s.label}</span>
+              <span className="cs-rail__gloss">{s.gloss}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
 export default function CaseStudy({ slug, projectId, onBack, onNavigate }: CaseStudyProps) {
   const study = getCaseStudy(slug);
+
+  /* Whichever section is crossing the middle of the viewport owns the rail.
+     The margins collapse the root box to a single line at the centre, and
+     every section is taller than that, so exactly one can ever cross it and
+     the rail cannot flicker between two. */
+  const [section, setSection] = useState(0);
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-cs-section]'));
+    if (nodes.length === 0) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const i = nodes.indexOf(entry.target as HTMLElement);
+            if (i >= 0) setSection(i);
+          }
+        }
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+    );
+    nodes.forEach((n) => io.observe(n));
+    return () => io.disconnect();
+  }, [slug]);
+
   if (!study) return null;
 
-  const { context, impact, liveUrl } = study;
+  const { impact, liveUrl } = study;
+
+  const sections: RailSection[] = [
+    { id: 'overview', label: 'Overview', gloss: 'what it is, and why' },
+    ...study.topics.map((t) => ({ id: railId(t.label), label: t.label, gloss: t.gloss })),
+    ...(study.flow
+      ? [{ id: railId(study.flow.label), label: study.flow.label, gloss: study.flow.gloss }]
+      : []),
+    { id: 'impact', label: 'Impact', gloss: 'what shipped, counted' },
+    { id: 'learnings', label: 'Learnings', gloss: 'what I would do again' },
+  ];
 
   return (
     <article className="cs">
@@ -218,11 +339,18 @@ export default function CaseStudy({ slug, projectId, onBack, onNavigate }: CaseS
         Work
       </button>
 
-      {/* Title — copy bottom-left, the build running off the right edge */}
-      <header className="cs-cover">
+      <SectionRail sections={sections} active={section} />
+
+      {/* Title — copy bottom-left, the build running off the right edge.
+          The heading says what the thing is and the line under it says why it
+          was the thing to build. It used to be an aphorism with a second
+          aphorism beneath it in its own section, which meant a reader met two
+          riddles before meeting any work. */}
+      <header className="cs-cover" id="overview" data-cs-section="">
         <div className="cs-cover__text">
           <p className="cs-eyebrow">{study.client}</p>
           <h1 className="cs-title">{study.title}</h1>
+          <p className="cs-summary">{study.summary}</p>
           <p className="cs-meta">{study.meta}</p>
           {liveUrl && (
             <a href={liveUrl} target="_blank" rel="noopener noreferrer" className="cs-live">
@@ -259,21 +387,15 @@ export default function CaseStudy({ slug, projectId, onBack, onNavigate }: CaseS
         </div>
       </header>
 
-      {/* Context — framing only, so it carries no claim needing a picture */}
-      <section className="cs-context">
-        <h2 className="cs-headline">{context.headline}</h2>
-        <p className="cs-para">{context.lead}</p>
-      </section>
-
       {/* Topics */}
       {study.topics.map((topic) => (
-        <TopicBlock key={topic.label} topic={topic} />
+        <TopicBlock key={topic.label} topic={topic} id={railId(topic.label)} />
       ))}
 
-      {study.flow && <FlowBlock flow={study.flow} />}
+      {study.flow && <FlowBlock flow={study.flow} id={railId(study.flow.label)} />}
 
       {/* Impact — the number is the headline */}
-      <section className="cs-impact">
+      <section className="cs-impact" id="impact" data-cs-section="">
         <p className="cs-label">Impact</p>
         <p className="cs-para">{impact.lead}</p>
         <div className="cs-impact__grid">
@@ -288,7 +410,7 @@ export default function CaseStudy({ slug, projectId, onBack, onNavigate }: CaseS
       </section>
 
       {/* Learnings */}
-      <section className="cs-learnings">
+      <section className="cs-learnings" id="learnings" data-cs-section="">
         <p className="cs-label">Learnings</p>
         <div className="cs-learnings__grid">
           {study.learnings.map((l, i) => (

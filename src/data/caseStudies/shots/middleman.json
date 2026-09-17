@@ -2,22 +2,30 @@
   "cover-dashboard": {
     "src": "/images/case-studies/middleman/cover-dashboard.webp",
     "url": "middleman.quest/dashboard",
-    "alt": "The Middleman dashboard on a phone"
+    "alt": "The Middleman dashboard on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-route": {
     "src": "/images/case-studies/middleman/cover-route.webp",
     "url": "middleman.quest/route",
-    "alt": "The day's stores on a map, on a phone"
+    "alt": "The day's stores on a map, on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-stock": {
     "src": "/images/case-studies/middleman/cover-stock.webp",
     "url": "middleman.quest/stock",
-    "alt": "The Middleman stock list on a phone"
+    "alt": "The Middleman stock list on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "cover-order": {
     "src": "/images/case-studies/middleman/cover-order.webp",
     "url": "middleman.quest/orders/PO-10512",
-    "alt": "A Middleman purchase order on a phone"
+    "alt": "A Middleman purchase order on a phone",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "risk-row": {
     "src": "/images/case-studies/middleman/risk-row.webp",
@@ -29,7 +37,9 @@
       "w": 94.87,
       "h": 11.2
     },
-    "note": "Critical, warning, healthy"
+    "note": "Critical, warning, healthy",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "actions-row": {
     "src": "/images/case-studies/middleman/actions-row.webp",
@@ -41,7 +51,9 @@
       "w": 94.87,
       "h": 12.14
     },
-    "note": "Four jobs, one row"
+    "note": "Four jobs, one row",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "activity-feed": {
     "src": "/images/case-studies/middleman/activity-feed.webp",
@@ -53,7 +65,9 @@
       "w": 86.15,
       "h": 19.49
     },
-    "note": "What moved since last visit"
+    "note": "What moved since last visit",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "stock-actions": {
     "src": "/images/case-studies/middleman/stock-actions.webp",
@@ -65,7 +79,9 @@
       "w": 94.87,
       "h": 7.82
     },
-    "note": "Pull, breakage, shrinkage"
+    "note": "Pull, breakage, shrinkage",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "stock-row": {
     "src": "/images/case-studies/middleman/stock-row.webp",
@@ -77,7 +93,9 @@
       "w": 94.87,
       "h": 12.8
     },
-    "note": "One row, the whole shelf"
+    "note": "One row, the whole shelf",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "product-stock": {
     "src": "/images/case-studies/middleman/product-stock.webp",
@@ -89,7 +107,9 @@
       "w": 94.87,
       "h": 21.15
     },
-    "note": "Stock, reorder point, case size"
+    "note": "Stock, reorder point, case size",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "order-enroute": {
     "src": "/images/case-studies/middleman/order-enroute.webp",
@@ -101,7 +121,9 @@
       "w": 94.87,
       "h": 27.61
     },
-    "note": "On the truck now"
+    "note": "On the truck now",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "order-building": {
     "src": "/images/case-studies/middleman/order-building.webp",
@@ -113,7 +135,9 @@
       "w": 94.87,
       "h": 29.56
     },
-    "note": "Still open, still editable"
+    "note": "Still open, still editable",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   },
   "order-edit": {
     "src": "/images/case-studies/middleman/order-edit.webp",
@@ -125,6 +149,8 @@
       "w": 94.87,
       "h": 8.83
     },
-    "note": "Edited by the case"
+    "note": "Edited by the case",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   }
 }
