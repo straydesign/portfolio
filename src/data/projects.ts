@@ -19,6 +19,12 @@ export interface Project {
       the desktop `screenshot` would be object-cover cropped to a sliver of its
       own hero, so a site that has a mobile capture must declare it here. */
   readonly phoneScreenshot?: string;
+  /** A photoreal device render — the handset itself, wearing the iOS status
+      bar and the Safari address bar, cut out on transparency. Built by
+      `scripts/compose-device-screens.mjs` plus `scripts/ps/run-screen-jobs.sh`.
+      Prefer this anywhere a phone is shown: `phoneScreenshot` is a bare screen
+      that still needs a frame drawn around it. */
+  readonly deviceShot?: string;
   readonly screenshots?: readonly string[];
   readonly alt: string;
   readonly slug: string;
@@ -42,6 +48,7 @@ export interface Project {
 export const PROJECTS: readonly Project[] = [
   {
     id: 'middleman-case-study',
+    deviceShot: '/images/devices/phone-middleman.webp',
     title: 'MERCHANDISING SYSTEM',
     description: 'Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection.',
     deliverable: 'Live prototype + Bloomberg Terminal design system',
@@ -67,6 +74,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     id: 'seacave-case-study',
+    deviceShot: '/images/devices/phone-seacave.webp',
     title: 'SEA CAVE',
     description: 'Aquatics retail in Erie since 1975. Shop, live catalogue, care guides and tank servicing — built so the shop runs it themselves.',
     deliverable: 'Live client site — design, build, CMS, design system',
@@ -88,6 +96,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     id: 'presqueisle-case-study',
+    deviceShot: '/images/devices/phone-presqueisle.webp',
     title: 'PRESQUE ISLE FISH & FARM',
     description: "Erie's only fishery. Twelve counters, 234 products with a page each, and every price checked against the sticker on the shelf.",
     deliverable: 'Live client site — design, build, CMS, design system',
@@ -109,6 +118,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     id: 'andys-case-study',
+    deviceShot: '/images/devices/phone-andys.webp',
     title: "ANDY'S ALE HOUSE",
     description: 'Peach Street bar and grill since 1985. Daily specials that open on today, a page per dish, and two sister bars one tap away.',
     deliverable: 'Live client site — design, build, CMS',
@@ -130,6 +140,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     id: 'bullfrog-case-study',
+    deviceShot: '/images/devices/phone-bullfrog.webp',
     title: 'BULLFROG BAR',
     description: "The second bar in the same group. Same architecture as Andy's, restyled end to end — one system, three brands.",
     deliverable: 'Live client site — reskin of a shared system',

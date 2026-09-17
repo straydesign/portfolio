@@ -1,6 +1,7 @@
 'use client';
 
 import PhoneMockup from './PhoneMockup';
+import PhoneFrame from './PhoneFrame';
 import AnimateIn from './AnimateIn';
 import { PROJECTS, type Page } from '@/data/projects';
 import { useRef } from 'react';
@@ -56,14 +57,25 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                 {project.title}
               </span>
               <div className="w-[200px] md:w-[240px]">
-                {/* A phone frame gets a phone capture. Falling back to the
-                    desktop shot crops it to a slice of its own hero. */}
-                <PhoneMockup
-                  screenshot={project.phoneScreenshot ?? project.screenshot}
-                  gradientFrom={project.gradientFrom ?? '#888888'}
-                  gradientTo={project.gradientTo ?? '#000000'}
-                  alt={project.alt}
-                />
+                {/* The photoreal render where there is one. PhoneMockup draws
+                    its own bezel around a bare capture, which on this card
+                    meant a handset with no status bar and no address bar sitting
+                    next to the work grid's photographed ones. */}
+                {project.deviceShot ? (
+                  <PhoneFrame
+                    src={project.deviceShot}
+                    alt={`${project.title} on a phone`}
+                    className="w-full"
+                    sizes="240px"
+                  />
+                ) : (
+                  <PhoneMockup
+                    screenshot={project.phoneScreenshot ?? project.screenshot}
+                    gradientFrom={project.gradientFrom ?? '#888888'}
+                    gradientTo={project.gradientTo ?? '#000000'}
+                    alt={project.alt}
+                  />
+                )}
               </div>
             </button>
           ))}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, ExternalLink, Github } from 'lucide-react';
 import TextCard from '../TextCard';
 import PhoneMockup from '../PhoneMockup';
+import PhoneFrame from '../PhoneFrame';
 import MacBookFrame from '../MacBookFrame';
 import DeviceDuo from '../DeviceDuo';
 import SectionHeading from './SectionHeading';
@@ -13,7 +14,14 @@ import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
 
 // Presentation-only config per project: which device shows it, chips
 // summarizing the deliverable, and the label for the live link.
-const ROW_CONFIG: Record<string, { device: 'phone' | 'macbook' | 'duo'; shot?: string; phoneShot?: string; chips: readonly string[]; liveLabel?: string }> = {
+//
+// `shot` is a device RENDER, not a bare capture — a MacBook window wearing a
+// macOS Safari toolbar, built by `scripts/compose-device-screens.mjs`. The
+// handset beside it comes from `project.deviceShot`, which additionally goes
+// through the Envato kit's smart object via `scripts/ps/run-screen-jobs.sh`.
+// A bare screenshot in a drawn bezel is a picture of a web page, not of
+// somebody using the site.
+const ROW_CONFIG: Record<string, { device: 'phone' | 'macbook' | 'duo'; shot?: string; chips: readonly string[]; liveLabel?: string }> = {
   'middleman-case-study': {
     device: 'phone',
     chips: ['Live prototype', 'Design system'],
@@ -21,25 +29,25 @@ const ROW_CONFIG: Record<string, { device: 'phone' | 'macbook' | 'duo'; shot?: s
   },
   'seacave-case-study': {
     device: 'duo',
-    phoneShot: '/images/case-studies/seacave/home-mobile.webp',
+    shot: '/images/devices/laptop-seacave.webp',
     chips: ['Live client site', 'Design system'],
     liveLabel: 'Visit the site',
   },
   'presqueisle-case-study': {
     device: 'duo',
-    phoneShot: '/images/case-studies/presqueisle/home-mobile.webp',
+    shot: '/images/devices/laptop-presqueisle.webp',
     chips: ['Live client site', 'CMS'],
     liveLabel: 'Visit the site',
   },
   'andys-case-study': {
     device: 'duo',
-    phoneShot: '/images/case-studies/andys/home-mobile.webp',
+    shot: '/images/devices/laptop-andys.webp',
     chips: ['Live client site', 'CMS'],
     liveLabel: 'Visit the site',
   },
   'bullfrog-case-study': {
     device: 'duo',
-    phoneShot: '/images/case-studies/bullfrog/home-mobile.webp',
+    shot: '/images/devices/laptop-bullfrog.webp',
     chips: ['Live client site', 'Reskin'],
     liveLabel: 'Visit the site',
   },
@@ -63,11 +71,11 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
                     {/* Device */}
                     <div className={`flex justify-center ${flipped ? 'lg:order-2' : ''}`}>
-                      {config?.device === 'duo' && config.phoneShot ? (
+                      {config?.device === 'duo' && project.deviceShot ? (
                         <div className="w-full max-w-xl">
                           <DeviceDuo
                             shot={config.shot ?? project.screenshot}
-                            phoneShot={config.phoneShot}
+                            phoneShot={project.deviceShot}
                             alt={project.alt}
                             phoneAlt={`${project.title} on a phone`}
                           />
@@ -79,6 +87,16 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
                             alt={project.alt}
                           />
                         </div>
+                      ) : project.deviceShot ? (
+                        /* The handset alone. Same photoreal render as the duo,
+                           just without a laptop beside it — this project only
+                           ever ran on a phone. */
+                        <PhoneFrame
+                          src={project.deviceShot}
+                          alt={`${project.title} on a phone`}
+                          className="w-full max-w-[16rem]"
+                          sizes="(min-width: 1024px) 16rem, 55vw"
+                        />
                       ) : (
                         <PhoneMockup
                           screenshot={config?.shot ?? project.screenshot}
