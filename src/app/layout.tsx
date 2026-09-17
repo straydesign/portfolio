@@ -1,37 +1,38 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Bungee, Playfair_Display } from "next/font/google";
+import { IBM_Plex_Sans, Instrument_Serif } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeContext";
 
-const inter = Inter({
+// Body. A grotesque with real character — not the default sans.
+const plex = IBM_Plex_Sans({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-family-inter",
+  variable: "--font-family-body",
 });
 
-const bungee = Bungee({
+// The one display face. Preloaded — it sets the hero, so it is the LCP text.
+const instrument = Instrument_Serif({
   weight: "400",
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-family-bungee",
-  preload: false, // Don't preload 48K font — headings render with fallback, swap on load
+  variable: "--font-family-display",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-family-playfair",
-  preload: false,
-});
+const HOME_DESCRIPTION =
+  "Product designer building web and mobile experiences — interface design, design systems, and live, shipped products.";
 
 export const metadata: Metadata = {
   title: {
     default: "Tom Sesler — Product Designer",
     template: "%s | Tom Sesler",
   },
-  description:
-    "Product designer building digital experiences — interface design, design systems, and live, shipped products.",
+  /* One sentence, used everywhere. The meta description and the og:description
+     were two drafts of the same line — "digital experiences" in search,
+     "web and mobile experiences" in a link preview — which is a sentence
+     nobody proofread twice. */
+  description: HOME_DESCRIPTION,
   metadataBase: new URL("https://straydesign.co"),
   alternates: {
     canonical: "/",
@@ -39,8 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "Tom Sesler — Product Designer",
-    description:
-      "Product designer building web and mobile experiences — interface design, design systems, and live, shipped products.",
+    description: HOME_DESCRIPTION,
     siteName: "Tom Sesler — Product Designer",
     url: "https://straydesign.co",
     locale: "en_US",
@@ -56,8 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tom Sesler — Product Designer",
-    description:
-      "Product designer building web and mobile experiences — interface design, design systems, and live, shipped products.",
+    description: HOME_DESCRIPTION,
     images: ["/opengraph-image"],
   },
   robots: {
@@ -92,7 +91,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: "#f7f7f7",
 };
 
 export default function RootLayout({
@@ -160,7 +159,7 @@ export default function RootLayout({
           "Heuristic Evaluation",
           "Figma",
           "Responsive Design",
-          "Prototyping",
+          "Design Systems",
         ],
         alumniOf: {
           "@type": "CollegeOrUniversity",
@@ -179,14 +178,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={`${inter.variable} ${bungee.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${plex.variable} ${instrument.variable}`} suppressHydrationWarning>
       <head>
-        {/* Set the theme before first paint to avoid a flash of the wrong theme */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('straydesign-theme');if(t!=='dark'&&t!=='light'){t='light';}document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='light';}})();`,
-          }}
-        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* Google Analytics */}
@@ -208,9 +201,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* framer-motion bakes the pre-animation state into the server HTML,
+            so with scripting off every revealed block would render at opacity
+            0 and never come back. The reduced-motion twin of this rule lives
+            in globals.css. */}
+        <noscript>
+          <style>{'[data-reveal]{opacity:1!important;transform:none!important}'}</style>
+        </noscript>
       </head>
-      <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className={plex.className}>
+        {children}
       </body>
     </html>
   );

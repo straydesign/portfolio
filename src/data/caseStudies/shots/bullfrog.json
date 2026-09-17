@@ -1,0 +1,166 @@
+{
+  "cover-home": {
+    "src": "/images/case-studies/bullfrog/cover-home.webp",
+    "url": "bullfrogbarerie.com",
+    "alt": "Bullfrog home page on a phone, the next show under the headline"
+  },
+  "cover-lineup": {
+    "src": "/images/case-studies/bullfrog/cover-lineup.webp",
+    "url": "bullfrogbarerie.com",
+    "alt": "The live music list on the Bullfrog home page"
+  },
+  "cover-events": {
+    "src": "/images/case-studies/bullfrog/cover-events.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The Bullfrog show calendar on a phone"
+  },
+  "cover-venue": {
+    "src": "/images/case-studies/bullfrog/cover-venue.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The Bullfrog live music room described on a phone"
+  },
+  "next-show": {
+    "src": "/images/case-studies/bullfrog/next-show.webp",
+    "url": "bullfrogbarerie.com",
+    "alt": "The next live show, carded under the Bullfrog headline",
+    "box": {
+      "x": 2.56,
+      "y": 33.31,
+      "w": 94.87,
+      "h": 36.64
+    },
+    "note": "The next act, on the hero"
+  },
+  "show-time": {
+    "src": "/images/case-studies/bullfrog/show-time.webp",
+    "url": "bullfrogbarerie.com",
+    "alt": "The weekday, date and set time on the next-show card",
+    "box": {
+      "x": 5.9,
+      "y": 44.27,
+      "w": 88.21,
+      "h": 3.79
+    },
+    "note": "Day, date, set time"
+  },
+  "show-cta": {
+    "src": "/images/case-studies/bullfrog/show-cta.webp",
+    "url": "bullfrogbarerie.com",
+    "alt": "The two buttons under the next show — the rest of the calendar, and a table",
+    "box": {
+      "x": 5.9,
+      "y": 39.26,
+      "w": 88.21,
+      "h": 12.91
+    },
+    "note": "Two ways off the card"
+  },
+  "calendar-month": {
+    "src": "/images/case-studies/bullfrog/calendar-month.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The month heading over the Bullfrog show list",
+    "box": {
+      "x": 2.56,
+      "y": 35.31,
+      "w": 94.87,
+      "h": 9
+    },
+    "note": "Headed with the month"
+  },
+  "band-row": {
+    "src": "/images/case-studies/bullfrog/band-row.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "One show in the calendar — date block, band, write-up, genre, admission, time, link and number",
+    "box": {
+      "x": 2.56,
+      "y": 34.24,
+      "w": 94.87,
+      "h": 31.64
+    },
+    "note": "One row per show"
+  },
+  "band-link": {
+    "src": "/images/case-studies/bullfrog/band-link.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The genre and admission chips, and the link out to the band's own page",
+    "box": {
+      "x": 21.03,
+      "y": 39.34,
+      "w": 76.41,
+      "h": 8.29
+    },
+    "note": "Genre, admission, the band's page"
+  },
+  "venue-copy": {
+    "src": "/images/case-studies/bullfrog/venue-copy.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The paragraph describing what the Bullfrog room gives a band",
+    "box": {
+      "x": 2.56,
+      "y": 35.31,
+      "w": 94.87,
+      "h": 13.74
+    },
+    "note": "What a band is walking into"
+  },
+  "amenities": {
+    "src": "/images/case-studies/bullfrog/amenities.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The grid of what the room has — bar, TVs, laser screen, tables, kitchen, parking",
+    "box": {
+      "x": 2.56,
+      "y": 35.31,
+      "w": 94.87,
+      "h": 21.33
+    },
+    "note": "What the room has"
+  },
+  "about-venue": {
+    "src": "/images/case-studies/bullfrog/about-venue.webp",
+    "url": "bullfrogbarerie.com/about",
+    "alt": "The Bullfrog card on the about page, naming it a live music venue",
+    "box": {
+      "x": 2.56,
+      "y": 35.34,
+      "w": 94.87,
+      "h": 18.72
+    },
+    "note": "Named a music venue"
+  },
+  "reserve-cta": {
+    "src": "/images/case-studies/bullfrog/reserve-cta.webp",
+    "url": "bullfrogbarerie.com/events",
+    "alt": "The reserve-a-table panel at the foot of the events page",
+    "box": {
+      "x": 0,
+      "y": 35.31,
+      "w": 100,
+      "h": 27.25
+    },
+    "note": "Call ahead for a Friday"
+  },
+  "party-stage": {
+    "src": "/images/case-studies/bullfrog/party-stage.webp",
+    "url": "bullfrogbarerie.com/parties",
+    "alt": "The Bullfrog room listed as a bookable space, with its capacity",
+    "box": {
+      "x": 2.56,
+      "y": 35.31,
+      "w": 94.87,
+      "h": 26.3
+    },
+    "note": "Stage, PA, dance floor"
+  },
+  "party-live": {
+    "src": "/images/case-studies/bullfrog/party-live.webp",
+    "url": "bullfrogbarerie.com/parties",
+    "alt": "The line offering live entertainment as part of a private booking",
+    "box": {
+      "x": 2.56,
+      "y": 39.34,
+      "w": 94.87,
+      "h": 12.68
+    },
+    "note": "Music on a private night too"
+  }
+}

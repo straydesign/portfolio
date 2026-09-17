@@ -4,18 +4,15 @@ import { PROJECTS } from "@/data/projects";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://straydesign.co";
 
+  // No /about. It is a 308 to /#about — an anchor on the home page, not a
+  // page — and a sitemap entry that redirects is one Google reports as
+  // "Page with redirect" and never indexes.
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/resume`,

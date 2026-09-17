@@ -1,14 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-bungee: var(--font-family-bungee);
-  --font-inter: var(--font-family-inter);
+  --font-body: var(--font-family-body);
 }
 
 /* ------------------------------------------------------------------ */
-/*  Theme tokens — light is the default (:root), dark overrides via    */
-/*  [data-theme="dark"] on <html>. The whole site reads these vars so  */
-/*  the bead-chain pull can flip between them at runtime.              */
+/*  Theme tokens. One ground: white paper, near-black ink. Every        */
+/*  surface in the site reads these, so the palette lives here alone.   */
 /*                                                                     */
 /*  --ink    : primary ink (text, emphasis-badge bg, focus, strokes)   */
 /*  --paper  : paper (card/page bg, text that sits on --ink)           */
@@ -21,46 +19,34 @@
 /* ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
+
+  /* One display face for the whole site. Swap this line, swap the site. */
+  --font-display: var(--font-family-display), Georgia, serif;
+
   --ink: #111111;
-  --paper: #ffffff;
+  --paper: #f7f7f7;
   --ink-2: #56565a;
   --chip: #f0f0f0;
   --chip-hover: #e4e4e4;
   --surface-2: #f2f2f2;
   --surface-3: #fafafa;
-  --shelf: linear-gradient(180deg, #c5c5c5 0%, #e5e5e5 25%, #f5f5f5 50%, #fafafa 80%, #ffffff 100%);
+  --shelf: linear-gradient(180deg, #c5c5c5 0%, #e5e5e5 25%, #f5f5f5 50%, #fafafa 80%, #f7f7f7 100%);
   --hairline: 0, 0, 0;
   --veil: 255, 255, 255;
   --out-green: #e9f6ee;
   --out-navy: #e9eef6;
   --out-red: #fcebe9;
   --out-indigo: #ecebf8;
-}
 
-[data-theme="dark"] {
-  color-scheme: dark;
-  --ink: #ffffff;
-  --paper: #000000;
-  --ink-2: #a1a1a6;
-  --chip: #111111;
-  --chip-hover: #1e1e1e;
-  --surface-2: #18181b;
-  --surface-3: #050507;
-  --shelf: linear-gradient(180deg, #3a3a3a 0%, #1a1a1a 25%, #0a0a0a 50%, #050505 80%, #000000 100%);
-  --hairline: 255, 255, 255;
-  --veil: 0, 0, 0;
-  --out-green: #062818;
-  --out-navy: #04101c;
-  --out-red: #1a0808;
-  --out-indigo: #0c0a1f;
+  /* The one alert colour, for a message the reader has to act on. L* 39.5,
+     6.14:1 against --paper, so it clears AA at any size. */
+  --alert: #b42318;
 }
 
 body {
   margin: 0;
   padding: 0;
   background: var(--paper);
-  /* Theme swap should feel like a light turning on, not an instant cut */
-  transition: background-color 0.5s ease;
 }
 
 /* Focus indicators for keyboard navigation (WCAG 2.4.7) */
@@ -163,4 +149,563 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
 @keyframes scroll-right {
   0% { transform: translateX(-33.333%); }
   100% { transform: translateX(0); }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Client case study — the deck, unrolled into a scroll.              */
+/*                                                                     */
+/*  Built against the reference deck, not invented. What it takes from */
+/*  that reference, in order of how much it matters:                   */
+/*                                                                     */
+/*  1. The text holds still while the screenshots move. Each topic     */
+/*     pins its column and lets two to four captures scroll past, so   */
+/*     you watch the product work instead of reading a claim about it. */
+/*  2. Screens are cropped by the edge, never shrunk to fit. A desktop */
+/*     capture runs off the right of the page at legible size rather   */
+/*     than sitting whole at 40%.                                      */
+/*  3. Almost nothing is styled. One ground, two inks, four sizes, no  */
+/*     borders, no dividers, no shadow you can see. The only thing on  */
+/*     the page with visual weight is the work.                        */
+/*                                                                     */
+/*  Ground and ink are sampled from the reference, not picked.         */
+/* ------------------------------------------------------------------ */
+
+.cs {
+  --cs-ground: var(--paper);
+  --cs-ink: var(--ink);
+  --cs-ink-2: #5c5c5c;
+  /* One annotation accent across every study. No client in the set uses
+     violet, so a marker can never be mistaken for part of the site it sits on. */
+  --cs-mark: #7a5af8;
+  /* Body size. Every other size is a ratio of this one — 3.5 / 1.1 / 1 / 0.73,
+     measured off the reference. Hierarchy comes from weight and colour. */
+  --cs-body: clamp(1.0625rem, 1.5vw, 1.375rem);
+  --cs-pad: clamp(1.25rem, 6vw, 7.75rem);
+
+  background: var(--cs-ground);
+  color: var(--cs-ink);
+  padding: 0 0 clamp(4rem, 9vw, 9rem);
+  overflow-x: clip;
+}
+
+.cs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 0 var(--cs-pad);
+  padding: 0.5rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--cs-ink-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.cs-back:hover { color: var(--cs-ink); }
+
+/* Shared text column -------------------------------------------------- */
+/* Label sits tight to its paragraph; the air belongs between blocks, not
+   inside them. Reference measures that gap at 5–8× the internal one. */
+.cs-label {
+  margin: 0 0 0.35rem;
+  font-size: var(--cs-body);
+  font-weight: 700;
+  color: var(--cs-ink);
+}
+/* 46ch, not 30ch. A measure under about 45 characters makes the eye return to
+   the left margin so often that a three-line paragraph reads as a list. The
+   context lead had a whole page to use and was capped at 30ch — 36 characters
+   on a 1440 screen. */
+.cs-para {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--cs-body);
+  line-height: 1.62;
+  color: var(--cs-ink);
+}
+.cs-items { margin: clamp(2.5rem, 5vw, 4.25rem) 0 0; }
+.cs-item + .cs-item { margin-top: clamp(2rem, 4vw, 3.5rem); }
+.cs-item__heading {
+  margin: 0 0 0.4rem;
+  font-size: calc(var(--cs-body) * 1.1);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--cs-ink);
+}
+.cs-item__body {
+  margin: 0;
+  max-width: 44ch;
+  font-size: calc(var(--cs-body) * 0.73);
+  line-height: 1.58;
+  color: var(--cs-ink-2);
+}
+
+/* Screens ------------------------------------------------------------- */
+/* Every capture is a handset in Safari. The chrome is drawn by
+   SafariPhone.tsx and sized in `cqw` off this box, so the same component
+   serves a 320px column shot and a 95px cover shot. The bezel is fixed at 4px
+   — proportionally heavy on a small phone, which is how a real one looks. */
+.cs-safari {
+  container-type: inline-size;
+  position: relative;
+  border: 4px solid #17171a;
+  border-radius: clamp(13px, 6.5%, 34px);
+  overflow: hidden;
+  background: #17171a;
+  box-shadow: 0 3px 22px rgba(0, 0, 0, 0.13);
+}
+.cs-safari__chrome {
+  background: #f2f2f5;
+  color: #101013;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+.cs-safari__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 13.8cqw;
+  padding: 0 5.5cqw 0 7.5cqw;
+}
+.cs-safari__time {
+  font-size: 3.9cqw;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.cs-safari__icons { display: flex; align-items: center; gap: 1.5cqw; }
+.cs-safari__icons svg { height: 3cqw; width: auto; display: block; }
+.cs-safari__bar {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  height: 12.8cqw;
+  padding: 0 3cqw 2.2cqw;
+}
+.cs-safari__aa,
+.cs-safari__reload {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 8cqw;
+  color: #3c3c43;
+}
+.cs-safari__aa svg { width: 4.4cqw; }
+.cs-safari__reload svg { width: 3.6cqw; }
+.cs-safari__url {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  min-width: 0;
+  height: 9.2cqw;
+  padding: 0 2cqw;
+  border-radius: 2.6cqw;
+  background: #e4e4e9;
+  font-size: 3.7cqw;
+  font-weight: 450;
+  color: #101013;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.cs-safari__url svg { height: 3.2cqw; width: auto; opacity: 0.68; flex: 0 0 auto; }
+/* A URL shorter than the pill stays centred, the way Safari draws it. A longer
+   one has to clip from ONE end: centring the overflow ate the first characters
+   too, so `middleman.quest/orders/PO-10513/edit` read as `niddleman.quest…`,
+   which is a typo as far as a reader is concerned. */
+.cs-safari__urltext {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* The chin carries the home indicator. Drawing it here rather than over the
+   capture keeps it legible whatever the page under it happens to be. */
+.cs-safari__chin {
+  display: grid;
+  place-items: center;
+  height: 5.6cqw;
+  background: #f2f2f5;
+}
+.cs-safari__chin span {
+  display: block;
+  width: 34cqw;
+  height: 1.3cqw;
+  border-radius: 1cqw;
+  background: #101013;
+  opacity: 0.82;
+}
+.cs-safari__screen { position: relative; display: block; }
+.cs-safari__img { display: block; width: 100%; height: auto; }
+
+/* The marker — measured on the live page at capture time, never by hand.
+   The scrim outside it is what makes "this exact element" unmistakable; the
+   outline alone gets lost on a busy page. */
+.cs-mark {
+  position: absolute;
+  border: 2px solid var(--cs-mark);
+  border-radius: 5px;
+  box-shadow: 0 0 0 100vmax rgba(9, 9, 14, 0.36);
+  pointer-events: none;
+}
+/* The marker's label, under the phone instead of over the capture. It used to
+   be a chip floating in the gap above the box — which is exactly where a
+   handset layout puts its section and date headings, so it erased
+   "DASHBOARD", "TODAY · THURSDAY" and a band's name on five shots while
+   claiming to be the thing that made them legible.
+
+   Below the frame it can never cover the evidence. It also carries the whole
+   pairing on a stacked layout, where the leader line is suppressed and the
+   three phones sit under all three sentences rather than beside them. The
+   small square is the marker itself, at caption size. */
+.cs-shot__note {
+  /* Desktop has the leader line, and there the caption was word for word the
+     heading sitting in the same viewport — 24 of the 57 repeated their own
+     sentence back at the reader six inches to the right of it. Below 1000px
+     the line is suppressed and the phones sit under all three sentences
+     rather than beside them, so the caption is the only thing left tying a
+     phone to its line. It is shown there and nowhere else. */
+  display: none;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0.9rem 0 0;
+  font-size: calc(var(--cs-body) * 0.72);
+  line-height: 1.42;
+  color: var(--cs-ink-2);
+}
+.cs-shot__note::before {
+  content: '';
+  flex: 0 0 auto;
+  width: 0.72rem;
+  height: 0.72rem;
+  margin-top: 0.28em;
+  border: 2px solid var(--cs-mark);
+  border-radius: 2px;
+}
+
+/* Cover — title bottom-left, a wall of screens off the right edge ------ */
+.cs-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 37%) minmax(0, 63%);
+  align-items: end;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(2.5rem, 8vw, 7rem) 0 clamp(3rem, 8vw, 7rem);
+}
+.cs-cover__text { padding-left: var(--cs-pad); padding-bottom: clamp(0rem, 3vw, 3rem); }
+.cs-eyebrow {
+  margin: 0 0 0.85rem;
+  font-size: var(--cs-body);
+  font-weight: 700;
+  color: var(--cs-ink-2);
+}
+.cs-title {
+  margin: 0 0 1rem;
+  font-size: calc(var(--cs-body) * 3.5);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--cs-ink);
+}
+.cs-meta {
+  margin: 0 0 1.5rem;
+  font-size: calc(var(--cs-body) * 0.73);
+  color: var(--cs-ink-2);
+}
+.cs-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: calc(var(--cs-body) * 0.73);
+  font-weight: 600;
+  color: var(--cs-ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(25, 25, 25, 0.25);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease;
+}
+.cs-live:hover { border-color: var(--cs-ink); }
+
+/* The wall: handsets at legible size running off the right edge. Cropping is
+   the point — nothing here is scaled down to fit inside the column. */
+.cs-cover__wall { position: relative; }
+.cs-cover__phones {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.6rem, 1.8vw, 1.5rem);
+  width: 118%;
+}
+.cs-cover__phones > * { flex: 1 1 0; }
+/* A stepped baseline, so a row of four handsets reads as a wall rather than a
+   filmstrip. */
+.cs-cover__phones > :nth-child(even) { margin-bottom: clamp(1rem, 3vw, 2.75rem); }
+
+/* Context — a headline and one paragraph. Framing, so it carries no claim
+   that would need a screenshot to back it. */
+.cs-context {
+  padding: clamp(2rem, 6vw, 5rem) var(--cs-pad) clamp(2rem, 6vw, 5rem);
+}
+.cs-headline {
+  margin: 0 0 1.25rem;
+  max-width: 20ch;
+  font-size: calc(var(--cs-body) * 2.1);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--cs-ink);
+}
+/* Topics — the engine. Three lines of copy pinned in place while their three
+   phones scroll past. Whichever phone is crossing the middle of the screen
+   lights its line, so the pairing is never in question. ------------------- */
+.cs-topic {
+  position: relative;
+  display: grid;
+  /* 37/63, not 32/68. The phone column is capped at 340px by .cs-shot long
+     before it runs out of room, so the five points the copy column takes back
+     cost the capture nothing and buy the pinned lead nine characters a line. */
+  grid-template-columns: minmax(0, 37%) minmax(0, 63%);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(3rem, 8vw, 7rem) var(--cs-pad) clamp(3rem, 8vw, 7rem) 0;
+}
+/* The pinned lead sits in a 414px column, so at full --cs-body it renders 38
+   characters a line. A notch down puts it at 43 and still leaves it clearly
+   larger than the three item bodies under it. */
+.cs-topic__text .cs-para { font-size: calc(var(--cs-body) * 0.88); }
+.cs-topic__text {
+  position: sticky;
+  top: clamp(4.5rem, 12vh, 7.5rem);
+  padding-left: var(--cs-pad);
+}
+/* This column was assumed to clear a 720px laptop viewport and does not:
+   measured at 1440x720 the third sentence loses 58px of its body — two lines —
+   for 400px of scroll, which is exactly while its own phone is crossing the
+   middle and its leader line is pointing at it. The gaps are what overflow, so
+   the short-viewport case tightens them and starts the column higher. Recovers
+   ~90px against a 58px worst case; 800px and up is untouched. */
+@media (min-width: 1001px) and (max-height: 800px) {
+  .cs-topic__text { top: 3rem; }
+  .cs-items { margin-top: 2rem; }
+  .cs-item + .cs-item { margin-top: 1.75rem; }
+}
+.cs-topic__shots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3rem, 9vw, 8rem);
+}
+.cs-shot { width: clamp(230px, 46%, 340px); }
+
+/* The leader line. It runs from the live sentence, across the column of empty
+   page between the copy and the phone, to the phone's edge at the exact height
+   of that shot's marker.
+
+   This replaced dimming the other two lines. Dimming said "not this one" and
+   left the reader to work out which phone the surviving line went with; the
+   line answers that directly, and it uses space the layout was wasting. It
+   also let the type go back to a flat, fully legible palette — the first
+   attempt put body copy at 2.1:1 against this ground, which is not a highlight,
+   it is hiding content. */
+.cs-lead {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+.cs-lead path {
+  fill: none;
+  stroke: var(--cs-mark);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* The live sentence. Colour and a rule, never opacity — every state here holds
+   7:1 or better against the ground. */
+.cs-item {
+  padding-left: 1.05rem;
+  border-left: 2px solid transparent;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.cs-topic--live .cs-item__heading { color: var(--cs-ink-2); }
+.cs-topic--live .cs-item.is-active { border-left-color: var(--cs-mark); }
+.cs-topic--live .cs-item.is-active .cs-item__heading { color: var(--cs-ink); }
+
+/* Impact — the number is the headline --------------------------------- */
+.cs-impact { padding: clamp(3rem, 8vw, 7rem) var(--cs-pad) 0; }
+.cs-impact__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4.25rem);
+}
+.cs-impact__value {
+  margin: 0 0 0.4rem;
+  font-size: calc(var(--cs-body) * 2.1);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.024em;
+  color: var(--cs-ink);
+}
+.cs-impact__label {
+  margin: 0;
+  max-width: 24ch;
+  font-size: calc(var(--cs-body) * 0.73);
+  line-height: 1.5;
+  color: var(--cs-ink-2);
+}
+.cs-impact__note {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  font-size: calc(var(--cs-body) * 0.66);
+  color: var(--cs-ink-2);
+}
+
+/* Learnings — three numbered columns, no image ------------------------- */
+.cs-learnings { padding: clamp(3rem, 8vw, 7rem) var(--cs-pad) 0; }
+.cs-learnings__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  margin-top: clamp(2.5rem, 5vw, 4.25rem);
+}
+.cs-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  margin-bottom: 1.1rem;
+  border-radius: 999px;
+  background: var(--cs-ink);
+  color: var(--cs-ground);
+  font-size: calc(var(--cs-body) * 0.73);
+  font-weight: 600;
+}
+.cs-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: clamp(3rem, 7vw, 6rem) 0 0 var(--cs-pad);
+  padding: 0.9rem 1.5rem;
+  font-size: calc(var(--cs-body) * 0.73);
+  font-weight: 600;
+  color: var(--cs-ground);
+  background: var(--cs-ink);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.cs-visit:hover { opacity: 0.86; }
+
+
+/* Flow — two step lists, no screenshot. The count is the whole argument. */
+.cs-flow { padding: clamp(3rem, 8vw, 7rem) var(--cs-pad); }
+.cs-flow__text { max-width: 54ch; }
+.cs-flow__cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.75rem, 4vw, 4rem);
+  margin-top: clamp(2.5rem, 5vw, 4.25rem);
+}
+.cs-flow__title {
+  margin: 0;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: calc(var(--cs-body) * 0.82);
+  font-weight: 600;
+  color: var(--cs-ink);
+}
+.cs-flow__steps {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.cs-flow__steps li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: calc(var(--cs-body) * 0.86);
+  color: var(--cs-ink-2);
+}
+.cs-flow__n {
+  flex: none;
+  min-width: 1.35em;
+  font-variant-numeric: tabular-nums;
+  /* Not rgba(0,0,0,0.34). Blended over the #f7f7f7 ground that resolves to
+     #a3a3a3, which is 2.35:1 — the declared 17:1 was never what anybody saw.
+     This is the same ink as the step text beside it, and the before/after
+     contrast is carried by the column, not by dimming its numbers. */
+  color: var(--cs-ink-2);
+}
+.cs-flow__col--after .cs-flow__steps li { color: var(--cs-ink); }
+.cs-flow__col--after .cs-flow__n { color: var(--cs-ink); }
+
+/* framer-motion writes the pre-animation state into the server HTML. The
+   preference hook resolves to false on the server, so a block that should
+   never animate still ships at opacity 0 and stays there until hydration —
+   up to two and a half seconds of invisible page for exactly the reader who
+   asked for less movement. A stylesheet !important beats a plain inline
+   style, so this lands at first paint, before any JavaScript runs. The
+   <noscript> twin in layout.tsx does the same for scripting off. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive ---------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .cs-cover,
+  .cs-topic {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.75rem, 5vw, 2.5rem);
+    padding-right: 0;
+  }
+  .cs-cover__text,
+  .cs-topic__text {
+    order: 1;
+    padding-left: var(--cs-pad);
+    padding-right: var(--cs-pad);
+    position: static;
+  }
+  .cs-cover__wall,
+  .cs-topic__shots { order: 2; }
+  /* Nothing is pinned here and the phones sit below the copy rather than
+     beside it, so there is no empty column to draw through and no live
+     sentence to draw from. All three read at full strength. */
+  .cs-lead { display: none; }
+  .cs-topic--live .cs-item__heading { color: var(--cs-ink); }
+  /* Fitting four handsets inside 390px makes each one 85px and unreadable.
+     Keep them legible, start at the gutter, let the last crop off the right
+     edge the way the desktop wall does. */
+  .cs-cover__phones {
+    width: 168%;
+    margin-left: var(--cs-pad);
+    margin-top: 1.25rem;
+  }
+  .cs-shot { width: min(74%, 330px); }
+  /* The pairing, now that the leader line above is off. */
+  .cs-shot__note { display: flex; }
+  .cs-para,
+  .cs-item__body { max-width: 46ch; }
+}
+
+@media (max-width: 640px) {
+  .cs-impact__grid,
+  .cs-learnings__grid,
+  .cs-flow__cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* A scrollable book row fades at its trailing edge, so the spine running off
+   the side reads as "more this way" rather than as something clipped. The
+   class is set from a measured scrollWidth, so a row that fits keeps a hard,
+   clean edge. `mask` first — Safari 15.4+ takes it unprefixed, and the
+   -webkit- line keeps older WebKit. */
+.shelf-row--scrolls {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
 }

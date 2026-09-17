@@ -13,7 +13,7 @@ export default function AboutSection() {
       <NavigableSection id="about" label="About">
         <div className="px-4 md:px-8 pt-12 md:pt-16">
           <div className="max-w-7xl mx-auto">
-            <SectionHeading kicker="// the person behind it" title="ABOUT" className="mb-10 md:mb-14" />
+            <SectionHeading kicker="The person behind it" title="ABOUT" className="mb-10 md:mb-14" />
 
             <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-start">
               <AnimateIn direction="up">
@@ -45,15 +45,14 @@ export default function AboutSection() {
                     solving them myself.
                   </p>
                   <p className="text-[15px] md:text-[17px] leading-relaxed mb-5" style={{ color: 'var(--ink)' }}>
-                    That turned into a freelance studio. Three local businesses now run on
-                    sites I designed and built, including an aquarium shop that&apos;s been
-                    open fifty years.
+                    That turned into a freelance studio. Four local sites now run on builds
+                    I designed, including an aquarium shop that&apos;s been open fifty years.
                   </p>
                   <p className="text-[15px] md:text-[17px] leading-relaxed" style={{ color: 'var(--ink)' }}>
-                    I learned design in Figma before any of the AI tools existed, so I still
-                    believe in the early wireframing that only happens when you don&apos;t
-                    have the answers yet. But it&apos;s cheaper than ever to feel a finished
-                    design before committing to a direction. I use both.
+                    I learned design in Figma back when seeing an idea meant drawing it, so I
+                    still believe in the early wireframing that only happens when you
+                    don&apos;t have the answers yet. It is cheaper than ever to feel a
+                    finished design before committing to a direction. I use both.
                   </p>
                 </TextCard>
               </AnimateIn>

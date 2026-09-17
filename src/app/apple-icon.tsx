@@ -20,7 +20,7 @@ export default function AppleIcon() {
           background: "#0A0A0A",
         }}
       >
-        <svg width="140" height="62" viewBox="24 12 114 50" fill="none">
+        <svg width="140" height="62" viewBox="12 12 120 48" fill="none">
           <path d={CAT_PATH} stroke="#FFFFFF" strokeWidth="4" />
         </svg>
       </div>

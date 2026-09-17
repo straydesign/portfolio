@@ -1,0 +1,130 @@
+{
+  "cover-dashboard": {
+    "src": "/images/case-studies/middleman/cover-dashboard.webp",
+    "url": "middleman.quest/dashboard",
+    "alt": "The Middleman dashboard on a phone"
+  },
+  "cover-route": {
+    "src": "/images/case-studies/middleman/cover-route.webp",
+    "url": "middleman.quest/route",
+    "alt": "The day's stores on a map, on a phone"
+  },
+  "cover-stock": {
+    "src": "/images/case-studies/middleman/cover-stock.webp",
+    "url": "middleman.quest/stock",
+    "alt": "The Middleman stock list on a phone"
+  },
+  "cover-order": {
+    "src": "/images/case-studies/middleman/cover-order.webp",
+    "url": "middleman.quest/orders/PO-10512",
+    "alt": "A Middleman purchase order on a phone"
+  },
+  "risk-row": {
+    "src": "/images/case-studies/middleman/risk-row.webp",
+    "url": "middleman.quest/dashboard",
+    "alt": "The three risk counts at the top of the dashboard",
+    "box": {
+      "x": 2.56,
+      "y": 18.66,
+      "w": 94.87,
+      "h": 11.2
+    },
+    "note": "Critical, warning, healthy"
+  },
+  "actions-row": {
+    "src": "/images/case-studies/middleman/actions-row.webp",
+    "url": "middleman.quest/dashboard",
+    "alt": "The four in-store actions under the risk counts",
+    "box": {
+      "x": 2.56,
+      "y": 33.59,
+      "w": 94.87,
+      "h": 12.14
+    },
+    "note": "Four jobs, one row"
+  },
+  "activity-feed": {
+    "src": "/images/case-studies/middleman/activity-feed.webp",
+    "url": "middleman.quest/dashboard",
+    "alt": "The recent activity feed on the dashboard",
+    "box": {
+      "x": 6.92,
+      "y": 51.48,
+      "w": 86.15,
+      "h": 19.49
+    },
+    "note": "What moved since last visit"
+  },
+  "stock-actions": {
+    "src": "/images/case-studies/middleman/stock-actions.webp",
+    "url": "middleman.quest/stock",
+    "alt": "The pull list, breakage and shrinkage buttons on the stock screen",
+    "box": {
+      "x": 2.56,
+      "y": 26.13,
+      "w": 94.87,
+      "h": 7.82
+    },
+    "note": "Pull, breakage, shrinkage"
+  },
+  "stock-row": {
+    "src": "/images/case-studies/middleman/stock-row.webp",
+    "url": "middleman.quest/stock",
+    "alt": "A single product row in the stock list",
+    "box": {
+      "x": 2.56,
+      "y": 51.9,
+      "w": 94.87,
+      "h": 12.8
+    },
+    "note": "One row, the whole shelf"
+  },
+  "product-stock": {
+    "src": "/images/case-studies/middleman/product-stock.webp",
+    "url": "middleman.quest/stock/12",
+    "alt": "The stock panel on a single product page",
+    "box": {
+      "x": 2.56,
+      "y": 19.31,
+      "w": 94.87,
+      "h": 21.15
+    },
+    "note": "Stock, reorder point, case size"
+  },
+  "order-enroute": {
+    "src": "/images/case-studies/middleman/order-enroute.webp",
+    "url": "middleman.quest/orders",
+    "alt": "The card for the delivery that is on the road",
+    "box": {
+      "x": 2.56,
+      "y": 18.31,
+      "w": 94.87,
+      "h": 27.61
+    },
+    "note": "On the truck now"
+  },
+  "order-building": {
+    "src": "/images/case-studies/middleman/order-building.webp",
+    "url": "middleman.quest/orders",
+    "alt": "The card for the next order, still building",
+    "box": {
+      "x": 2.56,
+      "y": 50.71,
+      "w": 94.87,
+      "h": 29.56
+    },
+    "note": "Still open, still editable"
+  },
+  "order-edit": {
+    "src": "/images/case-studies/middleman/order-edit.webp",
+    "url": "middleman.quest/orders/PO-10513/edit",
+    "alt": "One editable line item on an open order",
+    "box": {
+      "x": 2.56,
+      "y": 28.44,
+      "w": 94.87,
+      "h": 8.83
+    },
+    "note": "Edited by the case"
+  }
+}

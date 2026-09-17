@@ -21,7 +21,7 @@ export default function Icon() {
           borderRadius: "6px",
         }}
       >
-        <svg width="28" height="13" viewBox="24 12 114 50" fill="none">
+        <svg width="28" height="13" viewBox="12 12 120 48" fill="none">
           <path d={CAT_PATH} stroke="#FFFFFF" strokeWidth="5" />
         </svg>
       </div>

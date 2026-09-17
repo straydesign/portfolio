@@ -1,9 +1,11 @@
 'use client';
 
-import { ExternalLink, Github } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, ExternalLink, Github } from 'lucide-react';
 import TextCard from '../TextCard';
 import PhoneMockup from '../PhoneMockup';
 import MacBookFrame from '../MacBookFrame';
+import DeviceDuo from '../DeviceDuo';
 import SectionHeading from './SectionHeading';
 import AnimateIn from '../AnimateIn';
 import { NavigableSection } from '../NavigableSection';
@@ -11,25 +13,35 @@ import { type Page, PROJECTS, getProjectTypeLabel } from '@/data/projects';
 
 // Presentation-only config per project: which device shows it, chips
 // summarizing the deliverable, and the label for the live link.
-const ROW_CONFIG: Record<string, { device: 'phone' | 'macbook'; shot?: string; chips: readonly string[]; liveLabel?: string }> = {
+const ROW_CONFIG: Record<string, { device: 'phone' | 'macbook' | 'duo'; shot?: string; phoneShot?: string; chips: readonly string[]; liveLabel?: string }> = {
   'middleman-case-study': {
     device: 'phone',
     chips: ['Live prototype', 'Design system'],
+    liveLabel: 'Try the prototype',
   },
-  'day-one-case-study': {
-    device: 'phone',
-    chips: ['Shipped product', 'AI planning'],
-    liveLabel: 'Try it live',
+  'seacave-case-study': {
+    device: 'duo',
+    phoneShot: '/images/case-studies/seacave/home-mobile.webp',
+    chips: ['Live client site', 'Design system'],
+    liveLabel: 'Visit the site',
   },
-  'doordash-case-study': {
-    device: 'phone',
-    chips: ['Heuristic evaluation', '5 redesign concepts'],
+  'presqueisle-case-study': {
+    device: 'duo',
+    phoneShot: '/images/case-studies/presqueisle/home-mobile.webp',
+    chips: ['Live client site', 'CMS'],
+    liveLabel: 'Visit the site',
   },
-  'auto-presenter-tool': {
-    device: 'macbook',
-    shot: '/images/auto-presenter/presenter-active.png',
-    chips: ['Electron + Claude', 'Open source'],
-    liveLabel: 'View on GitHub',
+  'andys-case-study': {
+    device: 'duo',
+    phoneShot: '/images/case-studies/andys/home-mobile.webp',
+    chips: ['Live client site', 'CMS'],
+    liveLabel: 'Visit the site',
+  },
+  'bullfrog-case-study': {
+    device: 'duo',
+    phoneShot: '/images/case-studies/bullfrog/home-mobile.webp',
+    chips: ['Live client site', 'Reskin'],
+    liveLabel: 'Visit the site',
   },
 };
 
@@ -38,7 +50,7 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
     <NavigableSection id="work" label="Work">
       <div className="px-4 md:px-8 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading kicker="// case studies & shipped work" title="WORK" className="mb-10 md:mb-14" />
+          <SectionHeading kicker="Case studies & shipped work" title="WORK" className="mb-10 md:mb-14" />
 
           <div className="flex flex-col gap-16 md:gap-24">
             {PROJECTS.map((project, i) => {
@@ -49,9 +61,18 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
               return (
                 <AnimateIn key={project.id} direction="up">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-                    {/* Device — sits straight on the brick wall */}
+                    {/* Device */}
                     <div className={`flex justify-center ${flipped ? 'lg:order-2' : ''}`}>
-                      {config?.device === 'macbook' ? (
+                      {config?.device === 'duo' && config.phoneShot ? (
+                        <div className="w-full max-w-xl">
+                          <DeviceDuo
+                            shot={config.shot ?? project.screenshot}
+                            phoneShot={config.phoneShot}
+                            alt={project.alt}
+                            phoneAlt={`${project.title} on a phone`}
+                          />
+                        </div>
+                      ) : config?.device === 'macbook' ? (
                         <div className="w-full max-w-xl">
                           <MacBookFrame
                             src={config.shot ?? project.screenshot}
@@ -71,15 +92,15 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
                     <div className={flipped ? 'lg:order-1' : ''}>
                       <TextCard padding="lg">
                         <p
-                          className="font-mono text-[11px] uppercase tracking-[0.18em] mb-3"
-                          style={{ color: 'var(--ink-2)' }}
+                          className="text-[15px] md:text-base italic mb-3"
+                          style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-display)' }}
                         >
-                          {`// ${getProjectTypeLabel(project.type).toLowerCase()}`}
+                          {getProjectTypeLabel(project.type)}
                         </p>
                         <h3
                           className="leading-[1.1] tracking-wide font-black mb-3"
                           style={{
-                            fontFamily: 'var(--font-family-bungee), sans-serif',
+                            fontFamily: 'var(--font-display)',
                             color: 'var(--ink)',
                             fontSize: 'clamp(1.25rem, 2.4vw, 1.8rem)',
                           }}
@@ -90,42 +111,46 @@ export default function Work({ onOpen }: { onOpen: (id: Page) => void }) {
                           {project.description}
                         </p>
 
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {config?.chips.map((chip) => (
-                            <span
-                              key={chip}
-                              className="px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider whitespace-nowrap"
+                        {/* Metadata, not controls. These were outlined pills
+                            sitting directly above the two real buttons, in
+                            matching geometry — they read as buttons that did
+                            nothing when clicked. Same words, no border, no
+                            box: now they read as what they are. */}
+                        <p
+                          className="mt-4 text-[11px] font-semibold uppercase tracking-wider"
+                          style={{ color: 'var(--ink-2)' }}
+                        >
+                          {config?.chips.join(' · ')}
+                        </p>
+
+                        {/* The case study is the primary action and the live
+                            site is the secondary one. It was the other way
+                            round until 2026-09-17, and since the card carried
+                            no link to the study at all, every visitor who
+                            wanted to see the work left for a client's site
+                            and never came back. */}
+                        <div className="mt-6 flex flex-wrap gap-3">
+                          {project.caseStudy && (
+                            <Link
+                              href={`/${project.slug}`}
+                              onClick={(e) => {
+                                // A real href so the row can be opened in a new
+                                // tab, copied, and crawled. The click itself
+                                // stays on the client router.
+                                e.preventDefault();
+                                onOpen(project.id);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-transform hover:scale-[1.03] outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[color:var(--ink)]"
                               style={{
-                                color: 'var(--ink-2)',
-                                border: '1px solid rgba(var(--hairline),0.2)',
+                                backgroundColor: 'var(--ink)',
+                                color: 'var(--paper)',
+                                border: '1px solid var(--ink)',
                                 borderRadius: 0,
                               }}
                             >
-                              {chip}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="mt-6 flex flex-wrap gap-3">
-                          {project.caseStudy && (
-                            <button
-                              type="button"
-                              onClick={() => onOpen(project.id)}
-                              className="inline-flex items-center px-5 py-2.5 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-transform hover:scale-[1.03] outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
-                              style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
-                            >
                               Read the case study
-                            </button>
-                          )}
-                          {!project.caseStudy && project.id === 'auto-presenter-tool' && (
-                            <button
-                              type="button"
-                              onClick={() => onOpen(project.id)}
-                              className="inline-flex items-center px-5 py-2.5 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-transform hover:scale-[1.03] outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
-                              style={{ backgroundColor: 'var(--ink)', color: 'var(--paper)', borderRadius: 0 }}
-                            >
-                              See the breakdown
-                            </button>
+                              <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
+                            </Link>
                           )}
                           {project.liveUrl && (
                             <a

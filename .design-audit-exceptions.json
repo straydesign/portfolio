@@ -1,0 +1,8 @@
+{
+  "SHOT-NEEDS-DEVICE-FRAME": {
+    "reason": "These two files ARE the frame the rule asks for. SafariPhone.tsx draws an iPhone bezel, an iOS status bar and a Safari address bar around every case-study capture; PhoneMockup.tsx is the handset frame used elsewhere. A frame component renders a bare <Image> by definition — that is the one place the rule cannot apply. CaseStudy.tsx came off this list on 2026-09-17 when its interiors stopped being frameless.",
+    "approvedBy": "Tom",
+    "date": "2026-09-17",
+    "files": ["src/components/SafariPhone.tsx", "src/components/PhoneMockup.tsx"]
+  }
+}

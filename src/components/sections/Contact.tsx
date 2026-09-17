@@ -12,15 +12,15 @@ export default function Contact() {
         <div className="max-w-2xl mx-auto text-center">
           <TextCard padding="lg">
             <p
-              className="font-mono text-[11px] uppercase tracking-[0.18em] mb-4"
-              style={{ color: 'var(--ink-2)' }}
+              className="text-[15px] md:text-base italic mb-4"
+              style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-display)' }}
             >
-              {'// got something interesting?'}
+              {'Got something interesting?'}
             </p>
             <h2
               className="mb-4 leading-none tracking-wide font-black"
               style={{
-                fontFamily: 'var(--font-family-bungee), sans-serif',
+                fontFamily: 'var(--font-display)',
                 color: 'var(--ink)',
                 fontSize: 'clamp(1.6rem, 3.4vw, 2.5rem)',
               }}

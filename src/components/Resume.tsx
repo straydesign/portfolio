@@ -13,7 +13,7 @@ export default function Resume() {
         <NavigableSection id="resume-header" label="Header">
           <TextCard padding="lg">
             <div className="text-center">
-              <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 400, color: 'var(--ink)' }}>
+              <h1 className="text-4xl md:text-5xl mb-3" style={{ fontFamily: "var(--font-display)", fontWeight: 400, color: 'var(--ink)' }}>
                 Thomas Sesler
               </h1>
               <div className="text-xl md:text-2xl mb-2" style={{ color: 'var(--ink)', fontWeight: 600 }}>
@@ -24,7 +24,7 @@ export default function Resume() {
               </div>
               <div className="mb-5 flex justify-center">
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm"
-                  style={{ background: '#064e3b', border: '1px solid #34d399', color: '#34d399', fontWeight: 600, borderRadius: 0 }}>
+                  style={{ background: 'var(--out-green)', border: '1px solid rgba(var(--hairline),0.2)', color: 'var(--ink)', fontWeight: 600, borderRadius: 0 }}>
                   Open to full-time, contract, or remote
                 </span>
               </div>
@@ -51,12 +51,12 @@ export default function Resume() {
         <NavigableSection id="resume-newscorp" label="News Corp">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>News Corp &mdash; Externship Program</h3>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>News Corp &mdash; Externship Program</h2>
               <div className="text-base" style={{ color: 'var(--ink-2)' }}>Product Strategy Extern</div>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>February 2026 &ndash; April 2026 &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: 'var(--ink)' }}>
-              <li>Remote, project-based externship focused on AI-driven features for digital news products</li>
+              <li>Remote, project-based externship focused on algorithm-driven features for digital news products</li>
               <li>Translated algorithmic concepts into UX deliverables and explored how automated systems shape user trust and engagement</li>
               <li>Produced a final project presentation articulating design decisions and tradeoffs</li>
             </ul>
@@ -67,7 +67,7 @@ export default function Resume() {
         <NavigableSection id="resume-tiktok" label="TikTok">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>TikTok / Sapphire Studios &mdash; Externship Program</h3>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>TikTok / Sapphire Studios &mdash; Externship Program</h2>
               <div className="text-base" style={{ color: 'var(--ink-2)' }}>Brand &amp; Content Strategy Extern</div>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>January 2026 &ndash; February 2026 &middot; Remote</div>
             </div>
@@ -83,15 +83,15 @@ export default function Resume() {
         <NavigableSection id="resume-freelance" label="Freelance">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Freelance Product &amp; Web Designer &mdash; Stray Design</h3>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Freelance Product &amp; Web Designer &mdash; Stray Design</h2>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>May 2025 &ndash; Present &middot; Remote</div>
             </div>
             <ul className="list-disc pl-5 space-y-1.5 text-base" style={{ color: 'var(--ink)' }}>
-              <li>Design client websites end-to-end in Figma — discovery, custom design systems, component libraries, and high-fidelity prototypes — then ship them as live sites using an AI-assisted development workflow (Claude, Cursor)</li>
+              <li>Design client websites end-to-end in Figma — discovery, custom design systems, component libraries — then build and ship them as live sites</li>
               <li>Build custom, easy-to-use content-management back ends so non-technical business owners can update their own sites without technical help</li>
-              <li>Live client sites: Andy&apos;s (bar &amp; grill), Bullfrog (bar), and Sea Cave (aquatics retail) — one now serves 2,000+ monthly users</li>
+              <li>Maintain client sites &mdash; Andy&apos;s (bar &amp; grill), Bullfrog (bar), and Sea Cave (aquatics retail) &mdash; with a combined 2,500+ users and 50,000+ Google search impressions a month (Sea Cave alone: ~25,000)</li>
               <li>Produced 15+ complete spec-pitch site concepts for local businesses across hospitality, retail, and services, controlling design and build end-to-end</li>
-              <li>Also design and build my own products: MIDDLEMAN (inventory management) and First Day (AI-powered 7-day goal sprints)</li>
+              <li>Also design and build my own products, including MIDDLEMAN &mdash; a merchandising and inventory system for beer distributors</li>
             </ul>
           </TextCard>
         </NavigableSection>
@@ -100,7 +100,7 @@ export default function Resume() {
         <NavigableSection id="resume-designlab" label="Design Lab">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Design Lab Technical Assistant</h3>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Design Lab Technical Assistant</h2>
               <div className="text-base" style={{ color: 'var(--ink-2)' }}>UNH Paul Creative Arts Center</div>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>August 2023 &ndash; May 2024 &middot; Durham, NH</div>
             </div>
@@ -114,7 +114,7 @@ export default function Resume() {
         <NavigableSection id="resume-nhdist" label="NH Distributors">
           <TextCard padding="lg">
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Merchandiser</h3>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>Merchandiser</h2>
               <div className="text-base" style={{ color: 'var(--ink-2)' }}>New Hampshire Distributors</div>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>June 2024 &ndash; May 2025 &middot; Rochester, NH</div>
             </div>
@@ -129,9 +129,9 @@ export default function Resume() {
         <NavigableSection id="resume-education" label="Education">
           <TextCard padding="lg">
             <div className="text-center">
-              <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>
+              <h2 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>
                 B.S. Marketing
-              </h3>
+              </h2>
               <div className="text-base" style={{ color: 'var(--ink-2)' }}>University of New Hampshire | Durham, NH</div>
               <div className="text-sm" style={{ color: 'var(--ink-2)' }}>August 2021 – May 2025</div>
             </div>

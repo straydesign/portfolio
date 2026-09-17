@@ -1,0 +1,166 @@
+{
+  "cover-home": {
+    "src": "/images/case-studies/presqueisle/cover-home.webp",
+    "url": "presqueislefishandfarm.com",
+    "alt": "Presque Isle home page on a phone"
+  },
+  "cover-counter": {
+    "src": "/images/case-studies/presqueisle/cover-counter.webp",
+    "url": "presqueislefishandfarm.com/whats-in/off-the-boat-lake-erie",
+    "alt": "The Lake Erie counter on a phone"
+  },
+  "cover-fish": {
+    "src": "/images/case-studies/presqueisle/cover-fish.webp",
+    "url": "presqueislefishandfarm.com/item/lake-erie-walleye",
+    "alt": "A Presque Isle fish page on a phone"
+  },
+  "cover-week": {
+    "src": "/images/case-studies/presqueisle/cover-week.webp",
+    "url": "presqueislefishandfarm.com/the-week",
+    "alt": "The week page on a phone"
+  },
+  "roundel": {
+    "src": "/images/case-studies/presqueisle/roundel.webp",
+    "url": "presqueislefishandfarm.com/the-captain",
+    "alt": "The shop’s compass roundel in the red header bar",
+    "box": {
+      "x": 3.59,
+      "y": 0.24,
+      "w": 16.41,
+      "h": 7.58
+    },
+    "note": "The red is theirs"
+  },
+  "hero-line": {
+    "src": "/images/case-studies/presqueisle/hero-line.webp",
+    "url": "presqueislefishandfarm.com",
+    "alt": "The home page headline over the shop’s own photograph of the lake",
+    "box": {
+      "x": 6.56,
+      "y": 53.55,
+      "w": 86.88,
+      "h": 18.62
+    },
+    "note": "The claim, three lines deep"
+  },
+  "captain-print": {
+    "src": "/images/case-studies/presqueisle/captain-print.webp",
+    "url": "presqueislefishandfarm.com/the-captain",
+    "alt": "A photographic print on the Captain page, with its caption",
+    "box": {
+      "x": 2.27,
+      "y": 21.34,
+      "w": 72.12,
+      "h": 46.26
+    },
+    "note": "Their photo, captioned"
+  },
+  "card-photo": {
+    "src": "/images/case-studies/presqueisle/card-photo.webp",
+    "url": "presqueislefishandfarm.com/whats-in/off-the-boat-lake-erie",
+    "alt": "A photographed tile on the Lake Erie counter — photo, name, price and tag",
+    "box": {
+      "x": 3.59,
+      "y": 29.33,
+      "w": 46.67,
+      "h": 42.89
+    },
+    "note": "Photo, name, price, tag"
+  },
+  "card-sign": {
+    "src": "/images/case-studies/presqueisle/card-sign.webp",
+    "url": "presqueislefishandfarm.com/whats-in/off-the-boat-lake-erie",
+    "alt": "The red card that stands in where a product has no photograph",
+    "box": {
+      "x": 49.74,
+      "y": 49.27,
+      "w": 46.67,
+      "h": 28.28
+    },
+    "note": "A card, never a gap"
+  },
+  "price-note": {
+    "src": "/images/case-studies/presqueisle/price-note.webp",
+    "url": "presqueislefishandfarm.com/whats-in/off-the-boat-lake-erie",
+    "alt": "The line under the counter heading asking you to call for today’s price",
+    "box": {
+      "x": 2.34,
+      "y": 29.29,
+      "w": 91.41,
+      "h": 9.77
+    },
+    "note": "Call for today's price"
+  },
+  "fish-taste": {
+    "src": "/images/case-studies/presqueisle/fish-taste.webp",
+    "url": "presqueislefishandfarm.com/item/lake-erie-walleye",
+    "alt": "The tasting note under a fish name on its own page",
+    "box": {
+      "x": 9.33,
+      "y": 29.27,
+      "w": 81.34,
+      "h": 12.59
+    },
+    "note": "What it tastes like"
+  },
+  "fish-actions": {
+    "src": "/images/case-studies/presqueisle/fish-actions.webp",
+    "url": "presqueislefishandfarm.com/item/lake-erie-walleye",
+    "alt": "The call and directions buttons under the price on a fish page",
+    "box": {
+      "x": 9.33,
+      "y": 33.31,
+      "w": 81.34,
+      "h": 14.55
+    },
+    "note": "Call and directions"
+  },
+  "fish-table": {
+    "src": "/images/case-studies/presqueisle/fish-table.webp",
+    "url": "presqueislefishandfarm.com/item/lake-erie-walleye",
+    "alt": "The meal ideas listed on a fish page",
+    "box": {
+      "x": 9.33,
+      "y": 31.23,
+      "w": 81.34,
+      "h": 19.09
+    },
+    "note": "How people cook it"
+  },
+  "friday": {
+    "src": "/images/case-studies/presqueisle/friday.webp",
+    "url": "presqueislefishandfarm.com/the-week",
+    "alt": "The Fish Fry Fridays block on the week page",
+    "box": {
+      "x": 3.59,
+      "y": 21.25,
+      "w": 92.82,
+      "h": 39.23
+    },
+    "note": "Fridays run late"
+  },
+  "saturday": {
+    "src": "/images/case-studies/presqueisle/saturday.webp",
+    "url": "presqueislefishandfarm.com/the-week",
+    "alt": "The Lobster Roll Saturdays block with its hours and price",
+    "box": {
+      "x": 3.59,
+      "y": 23.28,
+      "w": 92.82,
+      "h": 34.19
+    },
+    "note": "A standing Saturday"
+  },
+  "boiler": {
+    "src": "/images/case-studies/presqueisle/boiler.webp",
+    "url": "presqueislefishandfarm.com/the-week",
+    "alt": "The seafood boiler rental block with its day rate and deposit",
+    "box": {
+      "x": 3.59,
+      "y": 25.24,
+      "w": 92.82,
+      "h": 31.58
+    },
+    "note": "Rate and deposit, printed"
+  }
+}

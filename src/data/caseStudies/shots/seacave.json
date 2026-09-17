@@ -1,0 +1,166 @@
+{
+  "cover-home": {
+    "src": "/images/case-studies/seacave/cover-home.webp",
+    "url": "seacaveinc.com",
+    "alt": "Sea Cave home page on a phone"
+  },
+  "cover-catalogue": {
+    "src": "/images/case-studies/seacave/cover-catalogue.webp",
+    "url": "seacaveinc.com/catalogue",
+    "alt": "The Sea Cave species catalogue on a phone"
+  },
+  "cover-species": {
+    "src": "/images/case-studies/seacave/cover-species.webp",
+    "url": "seacaveinc.com/catalogue/yellow-tang",
+    "alt": "A Sea Cave species page on a phone"
+  },
+  "cover-guides": {
+    "src": "/images/case-studies/seacave/cover-guides.webp",
+    "url": "seacaveinc.com/guides",
+    "alt": "The Sea Cave build guides on a phone"
+  },
+  "catalogue-aisles": {
+    "src": "/images/case-studies/seacave/catalogue-aisles.webp",
+    "url": "seacaveinc.com/catalogue",
+    "alt": "The aisle tiles on the Sea Cave catalogue, each carrying a count",
+    "box": {
+      "x": 2.56,
+      "y": 24.26,
+      "w": 94.87,
+      "h": 30.33
+    },
+    "note": "Every tile carries its count"
+  },
+  "shop-instore": {
+    "src": "/images/case-studies/seacave/shop-instore.webp",
+    "url": "seacaveinc.com/shop",
+    "alt": "The line above the shop grid saying everything is sold in store",
+    "box": {
+      "x": 2.56,
+      "y": 24.32,
+      "w": 94.87,
+      "h": 13.74
+    },
+    "note": "Sold in store only"
+  },
+  "species-call": {
+    "src": "/images/case-studies/seacave/species-call.webp",
+    "url": "seacaveinc.com/catalogue/yellow-tang",
+    "alt": "The phone-number button in the buy slot on a species page",
+    "box": {
+      "x": 7.95,
+      "y": 33.24,
+      "w": 84.1,
+      "h": 6.64
+    },
+    "note": "Call, not add to cart"
+  },
+  "species-care": {
+    "src": "/images/case-studies/seacave/species-care.webp",
+    "url": "seacaveinc.com/catalogue/yellow-tang",
+    "alt": "The care-at-a-glance grid on a Sea Cave species page",
+    "box": {
+      "x": 2.56,
+      "y": 19.34,
+      "w": 94.87,
+      "h": 42.12
+    },
+    "note": "Care at a glance"
+  },
+  "species-grows": {
+    "src": "/images/case-studies/seacave/species-grows.webp",
+    "url": "seacaveinc.com/catalogue/yellow-tang",
+    "alt": "The card giving juvenile and adult tank sizes for a species",
+    "box": {
+      "x": 2.56,
+      "y": 29.23,
+      "w": 94.87,
+      "h": 13.74
+    },
+    "note": "Juvenile and adult gallons"
+  },
+  "species-tankmates": {
+    "src": "/images/case-studies/seacave/species-tankmates.webp",
+    "url": "seacaveinc.com/catalogue/yellow-tang",
+    "alt": "A suggested tankmate card with the reasoning for the pairing",
+    "box": {
+      "x": 2.56,
+      "y": 19.26,
+      "w": 94.87,
+      "h": 31.9
+    },
+    "note": "A pairing, with the reason"
+  },
+  "guide-cards": {
+    "src": "/images/case-studies/seacave/guide-cards.webp",
+    "url": "seacaveinc.com/guides",
+    "alt": "The chip on a build-guide card giving its water type and tank size",
+    "box": {
+      "x": 4.62,
+      "y": 23.31,
+      "w": 45.38,
+      "h": 5.57
+    },
+    "note": "Water type and tank size"
+  },
+  "guide-part": {
+    "src": "/images/case-studies/seacave/guide-part.webp",
+    "url": "seacaveinc.com/guides/first-saltwater-aquarium",
+    "alt": "A parts-list row with its price, its reason and a link to the product",
+    "box": {
+      "x": 2.82,
+      "y": 24.23,
+      "w": 94.36,
+      "h": 18.75
+    },
+    "note": "Part, price, and why"
+  },
+  "guide-estimate": {
+    "src": "/images/case-studies/seacave/guide-estimate.webp",
+    "url": "seacaveinc.com/guides/first-saltwater-aquarium",
+    "alt": "A parts-list row whose price is marked as an estimate",
+    "box": {
+      "x": 24.36,
+      "y": 24.26,
+      "w": 68.72,
+      "h": 16.14
+    },
+    "note": "Marked as an estimate"
+  },
+  "service-photo": {
+    "src": "/images/case-studies/seacave/service-photo.webp",
+    "url": "seacaveinc.com/services",
+    "alt": "The photograph opening the tank-servicing block, above its number and title",
+    "box": {
+      "x": 2.56,
+      "y": 29.31,
+      "w": 94.87,
+      "h": 29.7
+    },
+    "note": "The shop's own tank"
+  },
+  "service-covered": {
+    "src": "/images/case-studies/seacave/service-covered.webp",
+    "url": "seacaveinc.com/services",
+    "alt": "The list of jobs a tank-servicing visit covers",
+    "box": {
+      "x": 2.56,
+      "y": 19.26,
+      "w": 94.87,
+      "h": 46.5
+    },
+    "note": "What the service covers"
+  },
+  "service-call": {
+    "src": "/images/case-studies/seacave/service-call.webp",
+    "url": "seacaveinc.com/services",
+    "alt": "The phone-number button that closes a service block",
+    "box": {
+      "x": 2.56,
+      "y": 39.35,
+      "w": 58.79,
+      "h": 6.64
+    },
+    "note": "Every block ends here"
+  }
+}

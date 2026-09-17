@@ -1,7 +1,19 @@
 'use client';
 
-import { type ReactNode } from 'react';
-import { m, useReducedMotion } from 'framer-motion';
+import { useRef, type ReactNode } from 'react';
+import { m, useInView, useReducedMotion } from 'framer-motion';
+
+/* Reveals are driven by useInView, not the whileInView prop.
+   Lenis moves the page with a transform rather than native scroll, and the
+   prop form reads that as "never entered" on some blocks — the element sits
+   at its initial transform forever. The hook watches the intersection
+   directly, so it fires the same on a Lenis page as on a plain one.
+
+   Reduced motion is handled by starting at the visible state, NOT by
+   returning a different element. Swapping <m.div> for <div> when the
+   preference hook resolves unmounts the node the observer is watching, and
+   the replacement never gets observed — which shipped a Work grid that
+   painted at opacity 0 for anyone with reduce turned on. One element, always. */
 
 type Direction = 'up' | 'down' | 'left' | 'right';
 
@@ -26,6 +38,12 @@ const offsets: Record<Direction, { x: number; y: number }> = {
   right: { x: -1, y: 0 },
 };
 
+const SHOWN = { opacity: 1, x: 0, y: 0 };
+
+// Trigger a little before the block lands, so the move reads as arrival
+// rather than as a correction to something already on screen.
+const MARGIN = '0px 0px -50px 0px';
+
 export default function AnimateIn({
   children,
   direction = 'up',
@@ -37,23 +55,25 @@ export default function AnimateIn({
   once = true,
   id,
 }: AnimateInProps) {
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className} style={style} id={id}>{children}</div>;
-  }
+  const still = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once, margin: MARGIN });
 
   const offset = offsets[direction];
+  const hidden = still
+    ? SHOWN
+    : { opacity: 0, x: offset.x * distance, y: offset.y * distance };
 
   return (
     <m.div
+      ref={ref}
       className={className}
       style={style}
       id={id}
-      initial={{ opacity: 0, x: offset.x * distance, y: offset.y * distance }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once, margin: '-50px' }}
-      transition={{ duration, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      data-reveal=""
+      initial={hidden}
+      animate={inView || still ? SHOWN : hidden}
+      transition={still ? { duration: 0 } : { duration, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {children}
     </m.div>
@@ -72,21 +92,19 @@ export function StaggerContainer({
   staggerDelay?: number;
   once?: boolean;
 }) {
-  const prefersReducedMotion = useReducedMotion();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  const still = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once, margin: MARGIN });
 
   return (
     <m.div
+      ref={ref}
       className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, margin: '-50px' }}
+      initial={still ? 'visible' : 'hidden'}
+      animate={inView || still ? 'visible' : 'hidden'}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
+        visible: { transition: { staggerChildren: still ? 0 : staggerDelay } },
       }}
     >
       {children}
@@ -107,14 +125,16 @@ export function StaggerItem({
   distance?: number;
   duration?: number;
 }) {
+  const still = useReducedMotion();
   const offset = offsets[direction];
 
   return (
     <m.div
       className={className}
+      data-reveal=""
       variants={{
-        hidden: { opacity: 0, x: offset.x * distance, y: offset.y * distance },
-        visible: { opacity: 1, x: 0, y: 0, transition: { duration, ease: [0.25, 0.1, 0.25, 1] } },
+        hidden: still ? SHOWN : { opacity: 0, x: offset.x * distance, y: offset.y * distance },
+        visible: { ...SHOWN, transition: { duration: still ? 0 : duration, ease: [0.25, 0.1, 0.25, 1] } },
       }}
     >
       {children}

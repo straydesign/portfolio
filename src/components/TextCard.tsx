@@ -20,7 +20,9 @@ const PADDING_MAP: Record<Padding, string> = {
   lg: 'px-6 py-6 md:px-10 md:py-8',
 };
 
-// Static paper panel — keeps text legible over the brick wall.
+// Text block. The page ground is plain white, so there is no panel here —
+// only the padding that sets the rhythm. Pass a background via `style` for
+// the rare block that needs one.
 export default function TextCard({
   children,
   padding = 'md',
@@ -32,25 +34,12 @@ export default function TextCard({
     as,
     {
       'data-textcard': true,
-      className: `relative overflow-hidden ${PADDING_MAP[padding]} ${className}`,
+      className: `relative ${PADDING_MAP[padding]} ${className}`,
       style: {
-        backgroundColor: 'var(--paper)',
-        borderRadius: 0,
         color: 'var(--ink)',
-        border: '1px solid rgba(var(--hairline),0.08)',
-        boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)',
         ...style,
       },
     },
-    <>
-      <div
-        className="pointer-events-none absolute top-0 left-0 right-0 h-px"
-        style={{
-          background:
-            'linear-gradient(90deg, transparent, rgba(var(--hairline),0.06), transparent)',
-        }}
-      />
-      <div className="relative z-10">{children}</div>
-    </>
+    children
   );
 }

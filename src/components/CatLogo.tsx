@@ -1,9 +1,10 @@
-// Stray cat mark — single-line silhouette from the Stray brand (tag2.svg),
-// stroke inherits currentColor so it flips with the theme.
+// Stray cat mark — single-line silhouette from the Stray brand (tag2.svg).
+// viewBox is the measured path bbox plus half the stroke plus 2 units of air;
+// the old one started at x=24 and sliced the left sweep of the mark.
 export default function CatLogo({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="24 12 114 50"
+      viewBox="12 12 120 48"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}

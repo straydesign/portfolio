@@ -3,7 +3,6 @@
 import { type Page } from '@/data/projects';
 import Hero from './sections/Hero';
 import Work from './sections/Work';
-import LiveSites from './sections/LiveSites';
 import AboutSection from './sections/AboutSection';
 import KindWords from './sections/KindWords';
 import Contact from './sections/Contact';
@@ -17,7 +16,6 @@ export default function Home({ setCurrentPage }: HomeProps) {
     <div className="min-h-[calc(100vh-90px)] md:min-h-[calc(100vh-72px)]">
       <Hero onResume={() => setCurrentPage('resume')} />
       <Work onOpen={setCurrentPage} />
-      <LiveSites />
       <AboutSection />
       <KindWords />
       <Contact />

@@ -67,7 +67,7 @@ export default function KindWords() {
     <NavigableSection id="kind-words" label="Kind Words">
       <div className="px-4 md:px-8 py-12 md:py-16">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading kicker="// clients & professors, verbatim" title="KIND WORDS" className="mb-10 md:mb-14" />
+          <SectionHeading kicker="Clients & professors, verbatim" title="KIND WORDS" className="mb-10 md:mb-14" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {RECOMMENDATIONS.map((rec, i) => {

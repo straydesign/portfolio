@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect, type KeyboardEvent } from 'react';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, m } from 'framer-motion';
 import { type Page } from '@/data/projects';
@@ -15,18 +16,23 @@ interface HeaderProps {
   setCurrentPage: (page: Page) => void;
 }
 
+/* `href` is the real destination, not decoration. These were <button>s with
+   no type, which the browser resolves to type="submit" — so RESUME, which
+   goes to a route of its own, could not be cmd-clicked into a new tab, had no
+   "copy link address", and was invisible to a crawler. The click handler still
+   runs the in-page scroll; the href is what makes each one a link. */
 type NavItem = {
   readonly id: string;
   readonly label: string;
   readonly kind: 'anchor' | 'page';
+  readonly href: string;
 };
 
 const NAV_ITEMS: readonly NavItem[] = [
-  { id: 'work', label: 'WORK', kind: 'anchor' },
-  { id: 'sites', label: 'SITES', kind: 'anchor' },
-  { id: 'about', label: 'ABOUT', kind: 'anchor' },
-  { id: 'home-contact', label: 'CONTACT', kind: 'anchor' },
-  { id: 'resume', label: 'RESUME', kind: 'page' },
+  { id: 'work', label: 'WORK', kind: 'anchor', href: '/#work' },
+  { id: 'about', label: 'ABOUT', kind: 'anchor', href: '/#about' },
+  { id: 'home-contact', label: 'CONTACT', kind: 'anchor', href: '/#home-contact' },
+  { id: 'resume', label: 'RESUME', kind: 'page', href: '/resume' },
 ];
 
 // Sections that should light up the ABOUT link while scrolled through
@@ -179,30 +185,30 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
         <nav className="px-5 md:px-12 pt-3 md:pt-4 pb-8 md:pb-10" style={{ background: 'linear-gradient(to bottom, var(--paper) 0%, var(--paper) 55%, transparent 100%)' }}>
           <div className="max-w-7xl mx-auto flex items-center gap-4 md:gap-8">
             {/* Cat mark + wordmark — 44px minimum tap target */}
-            <button
-              type="button"
-              onClick={goHome}
+            <Link
+              href="/"
+              onClick={(e) => { e.preventDefault(); goHome(); }}
               aria-label="straydesign — home"
               className="flex items-center gap-2.5 min-h-11 min-w-11 outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)]"
               style={{ color: 'var(--ink)' }}
             >
               <CatLogo className="h-6 md:h-7 w-auto flex-shrink-0" />
               <span
-                className="text-[13px] md:text-sm tracking-wide leading-none translate-y-[1px]"
-                style={{ fontFamily: 'var(--font-family-bungee), sans-serif' }}
+                className="text-[13px] md:text-sm font-bold uppercase tracking-[0.14em] leading-none translate-y-[1px]"
               >
                 STRAYDESIGN
               </span>
-            </button>
+            </Link>
 
             {/* Desktop Nav — stays left of the lamp chain */}
             <div ref={navRef} className={`hidden md:flex items-center gap-1 lg:gap-3 relative w-fit${!menuSubNav && activeId === 'header-nav' ? ' marching-ants' : ''}`}>
               {NAV_ITEMS.map((item, i) => {
                 const active = isActive(item);
                 return (
-                  <button
+                  <Link
                     key={item.id}
-                    onClick={() => handleNavClick(item)}
+                    href={item.href}
+                    onClick={(e) => { e.preventDefault(); handleNavClick(item); }}
                     className={`px-3 py-1 text-sm font-semibold border-2${menuSubNav && menuSubNavIndex === i ? ' marching-ants' : ''}`}
                     style={{
                       borderColor: 'transparent',
@@ -214,7 +220,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                     }}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -264,9 +270,10 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
               <div className="px-4 py-3" style={{ backgroundColor: 'var(--paper)', border: '1px solid rgba(var(--hairline),0.08)', boxShadow: '0 1px 2px rgba(var(--hairline),0.04), 0 10px 30px rgba(var(--hairline),0.06)' }}>
                 <div className="flex flex-col gap-1.5">
                   {NAV_ITEMS.map((item, i) => (
-                    <button
+                    <Link
                       key={item.id}
-                      onClick={() => handleNavClick(item)}
+                      href={item.href}
+                      onClick={(e) => { e.preventDefault(); handleNavClick(item); }}
                       className={`px-3 py-1.5 border-2 text-left text-sm font-semibold${mobileMenuFocusIndex === i ? ' marching-ants' : ''}`}
                       style={{
                         borderColor: isActive(item) ? 'var(--ink)' : 'transparent',
@@ -275,7 +282,7 @@ export default function Header({ currentPage, setCurrentPage }: HeaderProps) {
                       }}
                     >
                       {item.label}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>

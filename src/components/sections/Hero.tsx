@@ -59,16 +59,16 @@ export default function Hero({ onResume }: { onResume: () => void }) {
         <div className="max-w-7xl mx-auto">
           <TextCard padding="lg" className="lg:max-w-3xl">
             <p
-              className="font-mono text-[11px] uppercase tracking-[0.18em] mb-4"
-              style={{ color: 'var(--ink-2)' }}
+              className="text-[15px] md:text-base italic mb-4"
+              style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-display)' }}
             >
-              {'// product designer'}
+              {'Product designer'}
             </p>
 
             <h1
               className="leading-[1.05] tracking-wide font-black mb-4"
               style={{
-                fontFamily: 'var(--font-family-bungee), sans-serif',
+                fontFamily: 'var(--font-display)',
                 color: 'var(--ink)',
                 fontSize: 'clamp(2.1rem, 5vw, 3.4rem)',
               }}
@@ -77,16 +77,11 @@ export default function Hero({ onResume }: { onResume: () => void }) {
             </h1>
 
             <p
-              className="text-xl md:text-2xl font-semibold mb-5"
+              className="text-xl md:text-2xl font-semibold mb-0"
               style={{ color: 'var(--ink)' }}
             >
-              I build what I wish existed, then ship it.
-            </p>
-
-            <p className="text-[15px] md:text-[17px] leading-relaxed max-w-2xl" style={{ color: 'var(--ink-2)' }}>
-              Every project below started as a problem from my own life. I hit them
-              driving for DoorDash, stocking beer coolers as a merchandiser, and
-              recording pitch videos. I designed and built each one from scratch.
+              Currently doing freelance web design. Looking for design positions,
+              contract or full time.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">

@@ -4,6 +4,7 @@
 // Every book, color, and interaction is preserved; only the wrapper changed.
 
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from 'react';
+import { createPortal } from 'react-dom';
 import TextCard from '../TextCard';
 import { NavigableSection } from '../NavigableSection';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
@@ -41,6 +42,16 @@ const ALL_BOOKS = [
   { title: 'Inspired', color: 'burgundy', description: 'Marty Cagan on how the best product companies work. Give teams problems, not feature specs. Let them discover the solution through continuous contact with users. Top-down roadmaps produce mediocre products.' },
   { title: 'Delivering Happiness', color: 'royalblue', description: 'Tony Hsieh built Zappos around one idea: make customers and employees happy first, and the business follows. Culture as strategy, not a poster on the wall.' },
   { title: 'American Icon', color: 'steelnavy', description: 'Alan Mulally walked into Ford when it was bleeding billions and turned it around with radical transparency and one weekly meeting where nobody could hide. No bailout needed.' },
+  { title: 'The Design of Everyday Things', color: 'mustard', description: 'Doors you push when they say pull are a design failure, not a user failure. Affordances, signifiers, feedback, mapping. Every bad interface I have critiqued traces back to one of those four.' },
+  { title: 'The Mom Test', color: 'wine', description: 'Never ask anyone whether they like your idea. Ask about their life and what they already do about the problem. Every user interview I have run since is about their past instead of my product.' },
+  { title: 'The Lean Startup', color: 'steelnavy', description: 'Build, measure, learn, and keep the loop short. Shipping early is how you find out you were wrong while being wrong is still cheap.' },
+  { title: 'UX Strategy', color: 'tan', description: 'Competitive research, then a value proposition, then a prototype you test on strangers. The part most portfolios skip is the part that decides whether the thing should exist at all.' },
+  { title: 'Never Split the Difference', color: 'oxblood', description: 'An FBI hostage negotiator\'s method, and most of it is listening. Label what the other person is feeling and let the silence do the work. The calibrated questions come up in almost every client call.' },
+  { title: 'The War of Art', color: 'charcoal', description: 'Pressfield calls the thing stopping you Resistance and treats it as a physical force. It gets loudest right before the work that matters. Naming it is most of beating it.' },
+  { title: 'Company of One', color: 'white', description: 'Growth is a choice rather than an obligation. Jarvis argues for staying small on purpose and optimising for autonomy over headcount. Closest thing I have read to a description of what I am building.' },
+  { title: '$100M Offers', color: 'plum', description: 'Price is downstream of the offer. Hormozi stacks guarantees, bonuses and risk reversal until saying no feels stupid. I rebuilt my own pricing around the guarantee after this one.' },
+  { title: '$100M Leads', color: 'royalblue', description: 'Four ways to get leads: warm outreach, content, cold outreach, paid ads. Pick one and run it until it works before adding a second. Most people run all four badly at once.' },
+  { title: '$100M Money Models', color: 'forest', description: 'How the money arrives matters as much as how much of it there is. Upfront cash, recurring, continuity — each one changes what the business can afford to do next. It reshaped how I set a build fee against a monthly.' },
 ];
 
 const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; side: string; top: string; text: string }> = {
@@ -58,23 +69,31 @@ const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; sid
   plum:       { bg: '#4A1A4A', light: '#652A65', edge: '#2E0E2E', side: '#3C143C', top: '#5A225A', text: 'rgba(255,255,255,0.92)' },
   teal:       { bg: '#0A4A4A', light: '#186565', edge: '#052E2E', side: '#0A3C3C', top: '#1A5858', text: 'rgba(255,255,255,0.92)' },
   charcoal:   { bg: '#2A2A2A', light: '#3E3E3E', edge: '#181818', side: '#222222', top: '#3A3A3A', text: 'rgba(255,255,255,0.92)' },
-  sage:       { bg: '#6B7A5A', light: '#82946E', edge: '#4A5640', side: '#5A684C', top: '#7A8C68', text: 'rgba(255,255,255,0.92)' },
+  sage:       { bg: '#6B7A5A', light: '#667456', edge: '#4A5640', side: '#5A684C', top: '#7A8C68', text: 'rgba(255,255,255,0.92)' },
   mustard:    { bg: '#9A7A1A', light: '#B8942A', edge: '#6E5810', side: '#846A14', top: '#AA8A22', text: 'rgba(30,20,5,0.9)' },
   oxblood:    { bg: '#4A0A0A', light: '#651818', edge: '#2E0505', side: '#3C0A0A', top: '#5A1212', text: 'rgba(255,255,255,0.92)' },
   forest:     { bg: '#1A3A1A', light: '#285028', edge: '#0E220E', side: '#142E14', top: '#224822', text: 'rgba(255,255,255,0.92)' },
   cobalt:     { bg: '#0A2A6B', light: '#1A3E8A', edge: '#051A45', side: '#0A2258', top: '#1E4A8A', text: 'rgba(255,255,255,0.92)' },
-  copper:     { bg: '#8A5030', light: '#A86840', edge: '#5C3520', side: '#704228', top: '#985A38', text: 'rgba(255,255,255,0.92)' },
+  copper:     { bg: '#8A5030', light: '#9C613C', edge: '#5C3520', side: '#704228', top: '#985A38', text: 'rgba(255,255,255,0.92)' },
   cream:      { bg: '#D8CDB0', light: '#E8DCC5', edge: '#B0A488', side: '#C0B498', top: '#DED4BA', text: 'rgba(30,25,15,0.9)' },
   wine:       { bg: '#5A0A2A', light: '#781838', edge: '#380518', side: '#480A22', top: '#6A1232', text: 'rgba(255,255,255,0.92)' },
   midnight:   { bg: '#101828', light: '#1A2840', edge: '#080E18', side: '#0C1420', top: '#1E3048', text: 'rgba(255,255,255,0.92)' },
-  terracotta: { bg: '#9A5A3A', light: '#B0704A', edge: '#6E3E28', side: '#844C32', top: '#A86242', text: 'rgba(255,255,255,0.92)' },
-  royalblue:  { bg: '#2563eb', light: '#3B7AF5', edge: '#1A4AB0', side: '#1E52C8', top: '#4888F0', text: 'rgba(255,255,255,0.92)' },
+  terracotta: { bg: '#9A5A3A', light: '#9A6241', edge: '#6E3E28', side: '#844C32', top: '#A86242', text: 'rgba(255,255,255,0.92)' },
+  royalblue:  { bg: '#2563eb', light: '#336AD5', edge: '#1A4AB0', side: '#1E52C8', top: '#4888F0', text: 'rgba(255,255,255,0.92)' },
   steelnavy:  { bg: '#1e3a5f', light: '#2A5080', edge: '#122440', side: '#18304E', top: '#2E5A85', text: 'rgba(255,255,255,0.92)' },
 };
 
-// Desktop: 2 rows of 16 | Mobile: 4 rows (10, 10, 10, 2)
-const DESKTOP_ROWS = [ALL_BOOKS.slice(0, 16), ALL_BOOKS.slice(16, 32)];
-const MOBILE_ROWS = [ALL_BOOKS.slice(0, 10), ALL_BOOKS.slice(10, 20), ALL_BOOKS.slice(20, 30), ALL_BOOKS.slice(30, 32)];
+// Split into even rows from the live count, and carry each row's starting index
+// with it. The offset is what maps a spine back to ALL_BOOKS, so deriving it
+// from the same arithmetic as the slice is the only way it cannot drift — a
+// hard-coded one silently opened the wrong book after the shelf grew to 42.
+const ROW = (n: number) =>
+  Array.from({ length: n }, (_, i) => {
+    const offset = Math.round((i * ALL_BOOKS.length) / n);
+    return { offset, books: ALL_BOOKS.slice(offset, Math.round(((i + 1) * ALL_BOOKS.length) / n)) };
+  });
+const DESKTOP_ROWS = ROW(2);
+const MOBILE_ROWS = ROW(4);
 
 function BookSpine({
   book,
@@ -108,7 +127,7 @@ function BookSpine({
 
   return (
     <div
-      className="relative flex-shrink-0 cursor-pointer"
+      className="relative flex-shrink-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--ink)] focus-visible:ring-offset-2"
       style={{
         width: `${totalW}px`,
         height: `${totalH}px`,
@@ -185,7 +204,7 @@ function BookSpine({
         <span
           className="absolute flex items-center justify-center text-[9px] md:text-[10px] font-semibold leading-none"
           style={{
-            fontFamily: 'var(--font-family-inter), sans-serif',
+            fontFamily: 'var(--font-family-body), sans-serif',
             left: 0,
             top: `${topDepth}px`,
             width: `${w}px`,
@@ -222,11 +241,39 @@ function ShelfRow({
   setActiveBookIndex: (index: number | null) => void;
   focusedShelfIndex: number | null;
 }) {
+  // Measured, not guessed: the row overflows at some widths and not others,
+  // and which ones depends on how many spines this particular shelf holds.
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [scrolls, setScrolls] = useState(false);
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    // `observe` delivers an initial observation of its own, so there is no
+    // separate first measurement to keep in step with this one.
+    const measure = () => setScrolls(el.scrollWidth > el.clientWidth + 1);
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div className="mb-4">
+      {/* `safe center` and a scrollable row. A centred flex row wider than the
+          viewport overflows equally on both sides, and `main` clips the x axis
+          rather than scrolling it — so at 390 two spines sat left of x 0 with
+          no way to reach them, still in the tab order. `safe` falls back to
+          flex-start the moment the row stops fitting. */}
+      {/* The row scrolls on a phone and macOS hides its scrollbar at rest, so
+          the only thing telling a reader there are more books is the last spine
+          running off the edge — and a spine cut by a hard edge reads as a
+          clipping bug, not as an invitation. The mask fades the last 28px, which
+          is the same cue a shelf gives you in a room. It only paints where the
+          row actually overflows: `shelf-row--scrolls` is set from scrollWidth,
+          not from a breakpoint, so a row that fits keeps a clean edge. */}
       <div
-        className="flex items-end justify-center"
-        style={{ paddingBottom: '14px', paddingTop: '8px' }}
+        ref={rowRef}
+        className={`flex items-end overflow-x-auto shelf-row${scrolls ? ' shelf-row--scrolls' : ''}`}
+        style={{ paddingBottom: '14px', paddingTop: '8px', justifyContent: 'safe center' }}
       >
         {books.map((book, i) => (
           <BookSpine
@@ -268,6 +315,9 @@ function BookDetailModal({
   onClose: () => void;
 }) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!book) return;
@@ -279,12 +329,17 @@ function BookDetailModal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [book, onClose]);
 
-  if (!book) return null;
+  if (!book || !mounted) return null;
 
-  return (
+  /* Portalled to <body>. A dialog anchored with position:fixed is only anchored
+     to the viewport while no ancestor is a containing block — one `filter`,
+     `transform` or `contain` anywhere up the tree silently re-parents it. Going
+     straight to the body means no future wrapper can move it. */
+  return createPortal(
     <div
       className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-lg px-4"
       role="dialog"
+      aria-modal="false"
       aria-label={book.title}
     >
       <div
@@ -311,7 +366,8 @@ function BookDetailModal({
           {book.description}
         </p>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -332,52 +388,41 @@ export default function Bookshelf() {
   }, [activeId]);
 
   const handleBookshelfKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
-    // Determine which row layout to use based on viewport
     const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
     const rows = isDesktop ? DESKTOP_ROWS : MOBILE_ROWS;
-    const rowSize = isDesktop ? 16 : 10;
+
+    // Rows are not all the same length once the shelf stops dividing evenly, so
+    // locate the row that actually contains this index rather than dividing by
+    // an assumed row size.
+    const rowOf = (i: number) => {
+      const r = rows.findIndex(row => i >= row.offset && i < row.offset + row.books.length);
+      return r === -1 ? 0 : r;
+    };
 
     if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      setFocusedShelfIndex(prev => {
-        const rowStart = Math.floor(prev / rowSize) * rowSize;
-        return prev > rowStart ? prev - 1 : prev;
-      });
+      setFocusedShelfIndex(prev => (prev > rows[rowOf(prev)].offset ? prev - 1 : prev));
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       setFocusedShelfIndex(prev => {
-        const rowStart = Math.floor(prev / rowSize) * rowSize;
-        const currentRow = rows[Math.floor(prev / rowSize)];
-        const rowEnd = rowStart + (currentRow?.length ?? rowSize) - 1;
-        return prev < rowEnd ? prev + 1 : prev;
+        const row = rows[rowOf(prev)];
+        return prev < row.offset + row.books.length - 1 ? prev + 1 : prev;
       });
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       setFocusedShelfIndex(prev => {
-        const currentRowIndex = Math.floor(prev / rowSize);
-        const posInRow = prev - currentRowIndex * rowSize;
-        if (currentRowIndex >= rows.length - 1) {
-          registryGoNext();
-          return prev;
-        }
-        const nextRowStart = (currentRowIndex + 1) * rowSize;
-        const nextRow = rows[currentRowIndex + 1];
-        const nextPos = Math.min(posInRow, (nextRow?.length ?? rowSize) - 1);
-        return nextRowStart + nextPos;
+        const r = rowOf(prev);
+        if (r >= rows.length - 1) { registryGoNext(); return prev; }
+        const next = rows[r + 1];
+        return next.offset + Math.min(prev - rows[r].offset, next.books.length - 1);
       });
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setFocusedShelfIndex(prev => {
-        const currentRowIndex = Math.floor(prev / rowSize);
-        const posInRow = prev - currentRowIndex * rowSize;
-        if (currentRowIndex <= 0) {
-          registryGoPrev();
-          return prev;
-        }
-        const prevRowStart = (currentRowIndex - 1) * rowSize;
-        const prevRow = rows[currentRowIndex - 1];
-        const prevPos = Math.min(posInRow, (prevRow?.length ?? rowSize) - 1);
-        return prevRowStart + prevPos;
+        const r = rowOf(prev);
+        if (r <= 0) { registryGoPrev(); return prev; }
+        const above = rows[r - 1];
+        return above.offset + Math.min(prev - rows[r].offset, above.books.length - 1);
       });
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -392,15 +437,15 @@ export default function Bookshelf() {
           <div className="max-w-7xl mx-auto">
             <TextCard padding="md" className="inline-block mb-8 md:mb-10">
               <p
-                className="font-mono text-[11px] uppercase tracking-[0.18em] mb-2"
-                style={{ color: 'var(--ink-2)' }}
+                className="text-[15px] md:text-base italic mb-2"
+                style={{ color: 'var(--ink-2)', fontFamily: 'var(--font-display)' }}
               >
-                {'// pull one off the shelf'}
+                {'Pull one off the shelf'}
               </p>
               <h3
                 className="leading-none tracking-wide font-black"
                 style={{
-                  fontFamily: 'var(--font-family-bungee), sans-serif',
+                  fontFamily: 'var(--font-display)',
                   color: 'var(--ink)',
                   fontSize: 'clamp(1.3rem, 2.6vw, 1.9rem)',
                 }}
@@ -412,11 +457,11 @@ export default function Bookshelf() {
 
           {/* Desktop: 2 shelves */}
           <div className="hidden lg:block max-w-7xl mx-auto">
-            {DESKTOP_ROWS.map((rowBooks, rowIndex) => (
+            {DESKTOP_ROWS.map((row, rowIndex) => (
               <ShelfRow
                 key={rowIndex}
-                books={rowBooks}
-                globalOffset={rowIndex * 16}
+                books={row.books}
+                globalOffset={row.offset}
                 activeBookIndex={activeBookIndex}
                 setActiveBookIndex={setActiveBookIndex}
                 focusedShelfIndex={activeId === 'bookshelf' ? focusedShelfIndex : null}
@@ -426,11 +471,11 @@ export default function Bookshelf() {
 
           {/* Mobile/Tablet: 4 shelves */}
           <div className="lg:hidden max-w-7xl mx-auto">
-            {MOBILE_ROWS.map((rowBooks, rowIndex) => (
+            {MOBILE_ROWS.map((row, rowIndex) => (
               <ShelfRow
                 key={rowIndex}
-                books={rowBooks}
-                globalOffset={rowIndex * 10}
+                books={row.books}
+                globalOffset={row.offset}
                 activeBookIndex={activeBookIndex}
                 setActiveBookIndex={setActiveBookIndex}
                 focusedShelfIndex={activeId === 'bookshelf' ? focusedShelfIndex : null}
@@ -457,7 +502,7 @@ export default function Bookshelf() {
             >
               <h3
                 className="text-[18px] md:text-[20px] leading-none tracking-wider font-black mb-2"
-                style={{ fontFamily: 'var(--font-family-bungee), sans-serif', color: 'var(--ink)' }}
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--ink)' }}
               >
                 SUGGEST A BOOK
               </h3>
@@ -539,8 +584,21 @@ export default function Bookshelf() {
                   {submitStatus === 'idle' && 'Submit'}
                   {submitStatus === 'sending' && 'Sending...'}
                   {submitStatus === 'sent' && 'Sent — thanks!'}
-                  {submitStatus === 'error' && 'Something went wrong'}
+                  {submitStatus === 'error' && 'Submit'}
                 </button>
+                {/* A failure used to replace the button's own label, which took
+                    the control away at the one moment the reader needs it and
+                    told them nothing they could act on. The button stays a
+                    button; the message goes beside it, with the way out in it. */}
+                {submitStatus === 'error' && (
+                  <p role="status" className="text-sm" style={{ color: 'var(--alert)' }}>
+                    That did not send. Try again, or email{' '}
+                    <a href="mailto:tom@straydesign.co" style={{ textDecoration: 'underline' }}>
+                      tom@straydesign.co
+                    </a>
+                    .
+                  </p>
+                )}
               </form>
             </div>
           </div>

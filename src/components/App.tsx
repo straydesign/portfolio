@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { LazyMotion, domAnimation, AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import Header from '@/components/Header';
@@ -12,13 +12,6 @@ import { SectionRegistryProvider } from '@/context/SectionRegistryContext';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useKeyboardNavigation } from '@/hooks/useKeyboardNavigation';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
-import { useTheme } from '@/context/ThemeContext';
-import { BeadChainPull } from '@/components/BeadChainPull';
-
-const BrickWallWrapper = dynamic(
-  () => import('@/components/three/BrickWallWrapper').then(mod => ({ default: mod.BrickWallWrapper })),
-  { ssr: false }
-);
 
 /** Activates scroll spy + keyboard nav + aria-live announcements */
 function SectionNavigationOrchestrator() {
@@ -51,22 +44,32 @@ function SectionNavigationOrchestrator() {
 
 // Lazy-load pages that aren't the default view
 const Resume = dynamic(() => import('@/components/Resume'));
-const MiddlemanCaseStudy = dynamic(() => import('@/components/MiddlemanCaseStudy'));
-const DayOneCaseStudy = dynamic(() => import('@/components/DayOneCaseStudy'));
-const DoorDashCaseStudy = dynamic(() => import('@/components/DoorDashCaseStudy'));
-const AutoPresenterBreakdown = dynamic(() => import('@/components/AutoPresenterBreakdown'));
+const CaseStudy = dynamic(() => import('@/components/CaseStudy'));
 
-function AppContent() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
+// Every study runs through one renderer. The page-to-slug map is the only
+// thing that differs between a client site and a product.
+const STUDY_SLUGS: Partial<Record<Page, string>> = {
+  'seacave-case-study': 'seacave',
+  'andys-case-study': 'andys',
+  'bullfrog-case-study': 'bullfrog',
+  'presqueisle-case-study': 'presqueisle',
+  'middleman-case-study': 'middleman',
+};
+
+function AppContent({ initialPage }: { initialPage: Page }) {
+  // Seeded by the server route, so the first HTML Next sends already carries
+  // the study a visitor asked for. It used to start on 'home' and correct
+  // itself in an effect, which meant /andys served the home page's markup,
+  // title and canonical to anything that does not run JavaScript — a crawler,
+  // a link preview, a reader with scripting off.
+  const [currentPage, setCurrentPage] = useState<Page>(initialPage);
   const [hydrated, setHydrated] = useState(false);
-  const [showBackground, setShowBackground] = useState(false);
   const lenis = useLenis();
   const reducedMotion = useReducedMotion();
-  const { theme } = useTheme();
 
-  // Mount effect — read URL, then mark hydrated
+  // The route already resolved the page, so this only flips the flag that lets
+  // the URL-sync effect below start running.
   useEffect(() => {
-    setCurrentPage(getPageFromPath(window.location.pathname));
     setHydrated(true);
   }, []);
 
@@ -88,23 +91,7 @@ function AppContent() {
     };
     // Wait out the URL-sync effect's initial scroll-to-top before jumping
     window.setTimeout(tryScroll, 250);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
-
-  // Delay Three.js background until after initial paint to prioritize content
-  useEffect(() => {
-    const hasIdleCallback = typeof requestIdleCallback === 'function';
-    const id = hasIdleCallback
-      ? requestIdleCallback(() => setShowBackground(true), { timeout: 3000 })
-      : window.setTimeout(() => setShowBackground(true), 1500);
-    return () => {
-      if (hasIdleCallback) {
-        cancelIdleCallback(id as number);
-      } else {
-        clearTimeout(id as number);
-      }
-    };
-  }, []);
 
   // URL sync effect — guard with hydrated flag to prevent race condition
   useEffect(() => {
@@ -131,35 +118,43 @@ function AppContent() {
     <SectionRegistryProvider currentPage={currentPage}>
       <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--paper)' }}>
         <a href="#main-content" className="skip-link">Skip to main content</a>
-        <BeadChainPull />
         <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        <main id="main-content" className="flex-1 relative overflow-hidden">
-          <div className="fixed inset-0 z-[2] pointer-events-none">
-            {showBackground && <BrickWallWrapper theme={theme} accentColor="#ffffff" />}
-          </div>
-          {/* Scrim overlay on project/resume pages to reduce background distraction */}
-          {(currentPage === 'resume' || currentPage === 'middleman-case-study' || currentPage === 'day-one-case-study' || currentPage === 'doordash-case-study' || currentPage === 'auto-presenter-tool') && (
-            <div className="fixed inset-0 z-[3] pointer-events-none" style={{ backgroundColor: 'rgba(var(--veil),0.9)' }} />
-          )}
+        {/* overflow-x-clip, not overflow-hidden: `hidden` makes this element the
+            sticky scroll container for everything inside it, which silently kills
+            every position:sticky on the page. Clipping one axis does not. */}
+        {/* tabIndex -1 so the skip link moves focus here rather than only
+            scrolling — without it the next Tab went back to the header nav,
+            which is the thing the link exists to skip. */}
+        <main id="main-content" tabIndex={-1} className="flex-1 relative overflow-x-clip">
           <div className="relative z-10">
             <SectionNavigationOrchestrator />
             {/* initial={false}: the first-loaded page paints at its visible
                 state immediately (keeps LCP ≈ FCP) — only page-to-page
                 navigations animate. */}
+            {/* No filter in this transition. `filter: blur(0px)` is not `none`, so
+                it makes this element the containing block for every fixed-position
+                descendant — the bookshelf dialog anchored to this box instead of the
+                viewport and drifted with the page. It also forces a full-page raster
+                on every navigation. Opacity and translate read the same and cost
+                nothing. */}
             <AnimatePresence mode="wait" initial={false}>
               <m.div
                 key={currentPage}
-                initial={{ opacity: 0, y: reducedMotion ? 0 : 8, filter: reducedMotion ? 'none' : 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: reducedMotion ? 0 : -8, filter: reducedMotion ? 'none' : 'blur(4px)' }}
+                initial={{ opacity: 0, y: reducedMotion ? 0 : 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
                 transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
               >
                 {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
                 {currentPage === 'resume' && <Resume />}
-                {currentPage === 'middleman-case-study' && <MiddlemanCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
-                {currentPage === 'day-one-case-study' && <DayOneCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
-                {currentPage === 'doordash-case-study' && <DoorDashCaseStudy onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
-                {currentPage === 'auto-presenter-tool' && <AutoPresenterBreakdown onBack={() => setCurrentPage('home')} onNavigate={setCurrentPage} />}
+                {STUDY_SLUGS[currentPage] && (
+                  <CaseStudy
+                    slug={STUDY_SLUGS[currentPage]!}
+                    projectId={currentPage}
+                    onBack={() => setCurrentPage('home')}
+                    onNavigate={setCurrentPage}
+                  />
+                )}
               </m.div>
             </AnimatePresence>
           </div>
@@ -170,11 +165,11 @@ function AppContent() {
   );
 }
 
-export default function App() {
+export default function App({ initialPage = 'home' }: { initialPage?: Page }) {
   return (
     <LazyMotion features={domAnimation} strict>
       <SmoothScroll>
-        <AppContent />
+        <AppContent initialPage={initialPage} />
       </SmoothScroll>
     </LazyMotion>
   );

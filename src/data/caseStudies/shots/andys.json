@@ -1,0 +1,166 @@
+{
+  "cover-home": {
+    "src": "/images/case-studies/andys/cover-home.webp",
+    "url": "andyspub.com",
+    "alt": "Andy's home page on a phone"
+  },
+  "cover-menu": {
+    "src": "/images/case-studies/andys/cover-menu.webp",
+    "url": "andyspub.com/menu",
+    "alt": "Andy's menu on a phone"
+  },
+  "cover-gallery": {
+    "src": "/images/case-studies/andys/cover-gallery.webp",
+    "url": "andyspub.com/gallery",
+    "alt": "Andy's gallery on a phone"
+  },
+  "today-card": {
+    "src": "/images/case-studies/andys/today-card.webp",
+    "url": "andyspub.com",
+    "alt": "Today's specials panel on Andy's home page",
+    "box": {
+      "x": 2.56,
+      "y": 29.25,
+      "w": 94.87,
+      "h": 34.12
+    },
+    "note": "Today's specials"
+  },
+  "day-tabs": {
+    "src": "/images/case-studies/andys/day-tabs.webp",
+    "url": "andyspub.com/menu",
+    "alt": "The seven day tabs on the menu page, today already selected",
+    "box": {
+      "x": 2.56,
+      "y": 35.32,
+      "w": 94.87,
+      "h": 4.98
+    },
+    "note": "Seven days, today selected"
+  },
+  "tonight": {
+    "src": "/images/case-studies/andys/tonight.webp",
+    "url": "andyspub.com/menu",
+    "alt": "Tonight's drink special with its serving window",
+    "box": {
+      "x": 2.56,
+      "y": 31.29,
+      "w": 94.87,
+      "h": 7.7
+    },
+    "note": "Tonight, with a time"
+  },
+  "menu-cats": {
+    "src": "/images/case-studies/andys/menu-cats.webp",
+    "url": "andyspub.com/menu",
+    "alt": "The food category grid on the menu page",
+    "box": {
+      "x": 2.56,
+      "y": 29.34,
+      "w": 94.87,
+      "h": 30.81
+    },
+    "note": "Twelve categories"
+  },
+  "menu-list": {
+    "src": "/images/case-studies/andys/menu-list.webp",
+    "url": "andyspub.com/menu",
+    "alt": "A dish row with its name, description and price",
+    "box": {
+      "x": 2.82,
+      "y": 29.34,
+      "w": 94.36,
+      "h": 11.85
+    },
+    "note": "Name, description, price"
+  },
+  "dish-hero": {
+    "src": "/images/case-studies/andys/dish-hero.webp",
+    "url": "andyspub.com/menu/club-melt",
+    "alt": "The dish name on its own page",
+    "box": {
+      "x": 2.56,
+      "y": 25.24,
+      "w": 94.87,
+      "h": 6.16
+    },
+    "note": "The dish name is the heading"
+  },
+  "dish-back": {
+    "src": "/images/case-studies/andys/dish-back.webp",
+    "url": "andyspub.com/menu/club-melt",
+    "alt": "The link back to the full menu",
+    "box": {
+      "x": 2.56,
+      "y": 13.27,
+      "w": 39.99,
+      "h": 3.32
+    },
+    "note": "One tap back"
+  },
+  "gallery-grid": {
+    "src": "/images/case-studies/andys/gallery-grid.webp",
+    "url": "andyspub.com/gallery",
+    "alt": "A single photograph in Andy's gallery grid",
+    "box": {
+      "x": 2.56,
+      "y": 29.27,
+      "w": 47.44,
+      "h": 21.92
+    },
+    "note": "One photo, one tile"
+  },
+  "gallery-upload": {
+    "src": "/images/case-studies/andys/gallery-upload.webp",
+    "url": "andyspub.com/gallery",
+    "alt": "The form a customer uses to send a photo in",
+    "box": {
+      "x": 0,
+      "y": 31.28,
+      "w": 100,
+      "h": 47.27
+    },
+    "note": "Anyone can add one"
+  },
+  "room-cards": {
+    "src": "/images/case-studies/andys/room-cards.webp",
+    "url": "andyspub.com",
+    "alt": "The photographed card describing the pool room",
+    "box": {
+      "x": 2.56,
+      "y": 29.27,
+      "w": 94.87,
+      "h": 33.23
+    },
+    "note": "One room, counted on the photo"
+  },
+  "menu-faq": {
+    "src": "/images/case-studies/andys/menu-faq.webp",
+    "url": "andyspub.com/menu",
+    "alt": "The common-questions list at the foot of the menu page",
+    "box": {
+      "x": 0,
+      "y": 25.31,
+      "w": 100,
+      "h": 64.57
+    },
+    "note": "The questions people call about"
+  },
+  "dish-pickup": {
+    "src": "/images/case-studies/andys/dish-pickup.webp",
+    "url": "andyspub.com/menu/club-melt",
+    "alt": "The pickup card on the Club Melt page — address, kitchen hours, phone, and the way back",
+    "box": {
+      "x": 2.56,
+      "y": 29.27,
+      "w": 94.87,
+      "h": 25.71
+    },
+    "note": "Address, hours, phone, menu"
+  },
+  "cover-dish": {
+    "src": "/images/case-studies/andys/cover-dish.webp",
+    "url": "andyspub.com/menu/club-melt",
+    "alt": "An Andy's dish page on a phone"
+  }
+}

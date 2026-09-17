@@ -53,7 +53,7 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
           <div className="flex items-center gap-4 md:gap-6">
             <h2
               className="text-[18px] md:text-[24px]"
-              style={{ fontFamily: "var(--font-family-bungee), sans-serif", fontWeight: 900, color: 'var(--ink)' }}
+              style={{ fontFamily: "var(--font-display)", fontWeight: 900, color: 'var(--ink)' }}
             >
               LET&apos;S WORK TOGETHER
             </h2>
@@ -70,12 +70,19 @@ export default function Footer({ setCurrentPage, currentPage }: FooterProps) {
                   className="transition-all hover:scale-110 inline-block"
                   style={{
                     color: 'var(--ink)',
-                    outline: isActive && focusedIndex === i ? '2px solid var(--ink)' : 'none',
+                    // `undefined`, not 'none': an inline `outline: none` beats
+                    // the global *:focus-visible rule, so a link reached by Tab
+                    // showed no ring at all.
+                    outline: isActive && focusedIndex === i ? '2px solid var(--ink)' : undefined,
                     outlineOffset: '4px',
                   }}
-                  tabIndex={-1}
+                  /* No roving tabindex here. The arrow-key section nav is an
+                     extra way in, not the only one, and taking these three out
+                     of the tab order made the phone number, the email and the
+                     LinkedIn profile unreachable from a keyboard — the three
+                     controls on a portfolio that most need to be. */
                 >
-                  <link.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+                  <link.icon className="w-6 h-6" aria-hidden="true" />
                 </a>
               ))}
             </div>

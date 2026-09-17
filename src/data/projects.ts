@@ -2,9 +2,10 @@ export type Page =
   | 'home'
   | 'resume'
   | 'middleman-case-study'
-  | 'day-one-case-study'
-  | 'doordash-case-study'
-  | 'auto-presenter-tool';
+  | 'seacave-case-study'
+  | 'andys-case-study'
+  | 'bullfrog-case-study'
+  | 'presqueisle-case-study';
 
 export type ProjectType = 'case-study' | 'project' | 'tool';
 
@@ -14,6 +15,10 @@ export interface Project {
   readonly description: string;
   readonly deliverable: string;
   readonly screenshot: string;
+  /** A real handset capture. Anywhere a project is shown inside a phone frame
+      the desktop `screenshot` would be object-cover cropped to a sliver of its
+      own hero, so a site that has a mobile capture must declare it here. */
+  readonly phoneScreenshot?: string;
   readonly screenshots?: readonly string[];
   readonly alt: string;
   readonly slug: string;
@@ -34,54 +39,18 @@ export interface Project {
 
 
 // Live client sites shown in the LIVE SITES section.
-export interface ShowcaseDemo {
-  readonly title: string;
-  readonly category: string;
-  readonly href: string;
-  readonly screenshot: string;
-  readonly alt: string;
-  readonly badge: string;
-}
-
-export const SHOWCASE_DEMOS: readonly ShowcaseDemo[] = [
-  {
-    title: "ANDY'S PUB",
-    category: 'Bar & grill — Erie, PA',
-    href: 'https://andyspub.com',
-    screenshot: '/images/sites/andys.png',
-    alt: "Andy's Pub website on a MacBook",
-    badge: 'Live client site',
-  },
-  {
-    title: 'BULLFROG',
-    category: 'Bar — Erie, PA',
-    href: 'https://bullfrogbarerie.com',
-    screenshot: '/images/sites/bullfrog.png',
-    alt: 'Bullfrog Bar website on a MacBook',
-    badge: 'Live client site',
-  },
-  {
-    title: 'SEA CAVE',
-    category: 'Saltwater aquarium store — Erie, PA',
-    href: 'https://seacaveinc.com',
-    screenshot: '/images/sites/seacave.png',
-    alt: 'Sea Cave website on a MacBook',
-    badge: 'Live client site',
-  },
-] as const;
-
 export const PROJECTS: readonly Project[] = [
   {
     id: 'middleman-case-study',
     title: 'MERCHANDISING SYSTEM',
     description: 'Bloomberg Terminal-inspired mobile app for beer merchandisers. Real-time POS data, auto-orders, shrinkage detection.',
     deliverable: 'Live prototype + Bloomberg Terminal design system',
-    screenshot: '/images/middleman/dashboard.png',
+    screenshot: '/images/middleman/dashboard.webp',
     screenshots: [
-      '/images/middleman/dashboard.png',
-      '/images/middleman/dashboard-scrolled.png',
-      '/images/middleman/dashboard-trends.png',
-      '/images/middleman/order-detail.png',
+      '/images/middleman/dashboard.webp',
+      '/images/middleman/dashboard-scrolled.webp',
+      '/images/middleman/dashboard-trends.webp',
+      '/images/middleman/order-detail.webp',
     ],
     alt: 'MIDDLEMAN dashboard — risk overview and quick actions',
     slug: 'middleman',
@@ -90,67 +59,95 @@ export const PROJECTS: readonly Project[] = [
     type: 'project',
     gradientFrom: '#888888',
     gradientTo: '#ffffff',
+    // The prototype is the highest-value link on the site and this row carried
+    // a "Live prototype" label with nothing behind it — the only way in was to
+    // open the case study first and find the link at the bottom.
+    liveUrl: 'https://middleman.quest',
     caseStudy: true,
   },
   {
-    id: 'day-one-case-study',
-    title: 'FIRSTDAY.LIFE',
-    description: 'AI-powered goal tracker with iterative weekly sprints. Designed, built, and shipped as a live product.',
-    deliverable: 'Live shipped product — design, engineering, AI planning',
-    screenshot: '/images/firstday/hero.png',
+    id: 'seacave-case-study',
+    title: 'SEA CAVE',
+    description: 'Aquatics retail in Erie since 1975. Shop, live catalogue, care guides and tank servicing — built so the shop runs it themselves.',
+    deliverable: 'Live client site — design, build, CMS, design system',
+    screenshot: '/images/case-studies/seacave/home-desktop.webp',
+    phoneScreenshot: '/images/case-studies/seacave/home-mobile.webp',
     screenshots: [
-      '/images/firstday/hero.png',
-      '/images/firstday/day-view.png',
-      '/images/firstday/goals-list.png',
-      '/images/firstday/calendar-view.png',
+      '/images/case-studies/seacave/home-desktop.webp',
+      '/images/case-studies/seacave/shop-desktop.webp',
+      '/images/case-studies/seacave/catalogue-category-saltwater-fish-desktop.webp',
+      '/images/case-studies/seacave/services-desktop.webp',
     ],
-    alt: 'FirstDay.Life app screenshot',
-    slug: 'dayone',
-    slugAliases: ['day-one', 'day-one-case-study'],
-    documentTitle: 'firstday.life Case Study | Tom Sesler',
-    type: 'project',
-    caseStudy: true,
-    liveUrl: 'https://firstday.life',
-  },
-  {
-    id: 'doordash-case-study',
-    title: 'DOORDASH DASHER APP UX CRITIQUE',
-    description: 'Heuristic evaluation of the Dasher app drawn from 1,000+ deliveries on the platform, with five redesign proposals.',
-    deliverable: 'Heuristic evaluation + 5 redesign concepts',
-    screenshot: '/images/doordash/slide6_Image_0.png',
-    screenshots: [
-      '/images/doordash/slide6_Image_0.png',
-      '/images/doordash/slide4_Image_0.png',
-      '/images/doordash/slide4_Image_1.png',
-      '/images/doordash/slide8_Image_0.png',
-    ],
-    alt: 'DoorDash Dasher app screenshot',
-    slug: 'doordash',
-    slugAliases: ['doordash-case-study'],
-    documentTitle: 'DoorDash UX Evaluation | Tom Sesler',
+    alt: 'Sea Cave home page — reef tank hero with numbered service tabs',
+    slug: 'seacave',
+    slugAliases: ['sea-cave', 'seacave-case-study'],
+    documentTitle: 'Sea Cave Case Study | Tom Sesler',
     type: 'case-study',
     caseStudy: true,
+    liveUrl: 'https://seacaveinc.com',
   },
   {
-    id: 'auto-presenter-tool',
-    title: 'AUTO-PRESENTER',
-    description: 'Desktop app that watches my slides and my script at the same time. Voice tracking advances the slide as I speak. Built because I hated switching between Keynote and a teleprompter while recording pitch videos.',
-    deliverable: 'Personal tool — Electron + Claude, open source',
-    screenshot: '/images/auto-presenter/setup.png',
+    id: 'presqueisle-case-study',
+    title: 'PRESQUE ISLE FISH & FARM',
+    description: "Erie's only fishery. Twelve counters, 234 products with a page each, and every price checked against the sticker on the shelf.",
+    deliverable: 'Live client site — design, build, CMS, design system',
+    screenshot: '/images/case-studies/presqueisle/home-desktop.webp',
+    phoneScreenshot: '/images/case-studies/presqueisle/home-mobile.webp',
     screenshots: [
-      '/images/auto-presenter/setup.png',
-      '/images/auto-presenter/presenter-active.png',
-      '/images/auto-presenter/slide-progression.png',
-      '/images/auto-presenter/teleprompter-closeup.png',
+      '/images/case-studies/presqueisle/home-desktop.webp',
+      '/images/case-studies/presqueisle/lake-erie-desktop.webp',
+      '/images/case-studies/presqueisle/item-walleye-desktop.webp',
+      '/images/case-studies/presqueisle/captain-desktop.webp',
     ],
-    alt: 'Auto-Presenter setup panel — load slides, script, voice-driven advance',
-    slug: 'auto-presenter',
-    slugAliases: [],
-    documentTitle: 'Auto-Presenter | Tom Sesler',
-    type: 'tool',
-    githubUrl: 'https://github.com/straydesign/auto-presenter',
-    liveUrl: 'https://github.com/straydesign/auto-presenter',
-    context: 'Built for me, shared as-is.',
+    alt: 'Presque Isle home page — sunset off the boat behind the headline',
+    slug: 'presqueisle',
+    slugAliases: ['presque-isle', 'presqueisle-case-study'],
+    documentTitle: 'Presque Isle Fish & Farm Case Study | Tom Sesler',
+    type: 'case-study',
+    caseStudy: true,
+    liveUrl: 'https://presqueislefishandfarm.com',
+  },
+  {
+    id: 'andys-case-study',
+    title: "ANDY'S ALE HOUSE",
+    description: 'Peach Street bar and grill since 1985. Daily specials that open on today, a page per dish, and two sister bars one tap away.',
+    deliverable: 'Live client site — design, build, CMS',
+    screenshot: '/images/case-studies/andys/home-desktop.webp',
+    phoneScreenshot: '/images/case-studies/andys/home-mobile.webp',
+    screenshots: [
+      '/images/case-studies/andys/home-desktop.webp',
+      '/images/case-studies/andys/menu-desktop.webp',
+      '/images/case-studies/andys/events-desktop.webp',
+      '/images/case-studies/andys/gallery-desktop.webp',
+    ],
+    alt: "Andy's home page — dark hero with today's specials panel",
+    slug: 'andys',
+    slugAliases: ['andys-pub', 'andys-case-study'],
+    documentTitle: "Andy's Ale House Case Study | Tom Sesler",
+    type: 'case-study',
+    caseStudy: true,
+    liveUrl: 'https://andyspub.com',
+  },
+  {
+    id: 'bullfrog-case-study',
+    title: 'BULLFROG BAR',
+    description: "The second bar in the same group. Same architecture as Andy's, restyled end to end — one system, three brands.",
+    deliverable: 'Live client site — reskin of a shared system',
+    screenshot: '/images/case-studies/bullfrog/home-desktop.webp',
+    phoneScreenshot: '/images/case-studies/bullfrog/home-mobile.webp',
+    screenshots: [
+      '/images/case-studies/bullfrog/home-desktop.webp',
+      '/images/case-studies/bullfrog/events-desktop.webp',
+      '/images/case-studies/bullfrog/menu-desktop.webp',
+      '/images/case-studies/bullfrog/gallery-desktop.webp',
+    ],
+    alt: 'Bullfrog home page — green and black with the next live show',
+    slug: 'bullfrog',
+    slugAliases: ['bullfrog-bar', 'bullfrog-case-study'],
+    documentTitle: 'Bullfrog Bar Case Study | Tom Sesler',
+    type: 'case-study',
+    caseStudy: true,
+    liveUrl: 'https://bullfrogbarerie.com',
   },
 ] as const;
 

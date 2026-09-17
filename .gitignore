@@ -16,7 +16,9 @@
 /test-results/
 /blob-report/
 
-# next.js
+# next.js — anchored patterns only match the repo root; a stray build under
+# src/ got committed once (313 files), so match .next anywhere.
+.next/
 /.next/
 /out/
 
@@ -48,3 +50,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design-audit pass marker (local only)
+.design-gate-pass

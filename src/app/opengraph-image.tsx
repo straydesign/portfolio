@@ -11,8 +11,8 @@ const CAT_PATH =
 
 export default async function OgImage() {
   // Bundled locally — never fetch fonts from gstatic at request time.
-  const bungeeFont = await readFile(
-    join(process.cwd(), "src/app/fonts/Bungee-Regular.ttf")
+  const displayFont = await readFile(
+    join(process.cwd(), "src/app/fonts/InstrumentSerif-Regular.ttf")
   );
 
   return new ImageResponse(
@@ -25,26 +25,26 @@ export default async function OgImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#0A0A0A",
+          background: "#FFFFFF",
           position: "relative",
-          fontFamily: "Bungee, sans-serif",
+          fontFamily: "Instrument Serif, Georgia, serif",
         }}
       >
         {/* The stray cat mark */}
         <svg
           width="152"
           height="67"
-          viewBox="24 12 114 50"
+          viewBox="12 12 120 48"
           fill="none"
           style={{ marginBottom: "40px" }}
         >
-          <path d={CAT_PATH} stroke="#FFFFFF" strokeWidth="3.4" />
+          <path d={CAT_PATH} stroke="#111111" strokeWidth="3.4" />
         </svg>
         <div
           style={{
-            fontSize: "64px",
+            fontSize: "72px",
             fontWeight: 400,
-            color: "#FFFFFF",
+            color: "#111111",
             lineHeight: 1.1,
             display: "flex",
           }}
@@ -55,7 +55,7 @@ export default async function OgImage() {
           style={{
             fontSize: "26px",
             fontWeight: 400,
-            color: "rgba(255,255,255,0.55)",
+            color: "#56565A",
             marginTop: "16px",
             display: "flex",
             fontFamily: "system-ui, sans-serif",
@@ -67,7 +67,7 @@ export default async function OgImage() {
           style={{
             fontSize: "18px",
             fontWeight: 400,
-            color: "rgba(255,255,255,0.85)",
+            color: "#111111",
             marginTop: "12px",
             display: "flex",
             fontFamily: "system-ui, sans-serif",
@@ -83,7 +83,7 @@ export default async function OgImage() {
             left: 0,
             right: 0,
             height: "6px",
-            background: "#FFFFFF",
+            background: "#111111",
             display: "flex",
           }}
         />
@@ -93,8 +93,8 @@ export default async function OgImage() {
       ...size,
       fonts: [
         {
-          name: "Bungee",
-          data: bungeeFont,
+          name: "Instrument Serif",
+          data: displayFont,
           weight: 400,
         },
       ],

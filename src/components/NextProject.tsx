@@ -56,8 +56,10 @@ export default function NextProject({ currentProjectId, onNavigate }: NextProjec
                 {project.title}
               </span>
               <div className="w-[200px] md:w-[240px]">
+                {/* A phone frame gets a phone capture. Falling back to the
+                    desktop shot crops it to a slice of its own hero. */}
                 <PhoneMockup
-                  screenshot={project.screenshot}
+                  screenshot={project.phoneScreenshot ?? project.screenshot}
                   gradientFrom={project.gradientFrom ?? '#888888'}
                   gradientTo={project.gradientTo ?? '#000000'}
                   alt={project.alt}
