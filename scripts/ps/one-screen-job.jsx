@@ -10,7 +10,7 @@
  * Job file, one value per line:
  *   psd | art png | out png | SO indices (comma separated, document order)
  *   | solo group index or -1 | trim margin px or -1 | keep background 1/0
- *   | keep screen gloss 1/0
+ *   | keep screen gloss 1/0 | extra layer names to hide, comma separated
  *
  * Smart objects are addressed by INDEX rather than by name: the kit has three
  * groups all called "iPhone Mockup", each containing a layer called
@@ -20,7 +20,7 @@ var jf = new File("/Users/tomsesler/Projects/portfolio/.ps-run/screen-job.txt");
 jf.open("r");
 var psdPath = jf.readln(), artPath = jf.readln(), outPath = jf.readln(),
     idxRaw = jf.readln(), soloRaw = jf.readln(), marginRaw = jf.readln(), bgRaw = jf.readln(),
-    glossRaw = jf.readln();
+    glossRaw = jf.readln(), hideRaw = jf.readln();
 jf.close();
 
 var wanted = idxRaw.split(",");
@@ -28,6 +28,7 @@ var solo = parseInt(soloRaw, 10);
 var margin = parseInt(marginRaw, 10);
 var keepBg = (bgRaw !== "0");
 var keepGloss = (glossRaw !== "0");
+var extraHide = (hideRaw && hideRaw !== "-") ? hideRaw.split(",") : [];
 
 function collectSOs(layers, out) {
   for (var i = 0; i < layers.length; i++) {
@@ -132,16 +133,32 @@ if (!keepBg) {
    reflection, but you can't really tell... it just looks like cloudy, like not
    good contrast."
 
-   So the two layers that cross the SCREEN come off and everything that
-   describes the DEVICE stays: `Frame Shine` and `Main Effect` are the bezel
-   and body, `Camera Effect` is the Dynamic Island, `Speaker` is the earpiece.
-   Losing those would leave a flat cutout rather than a photograph. */
+   Four layers cross the screen, and the first pass only found three. `Shine 1`
+   and `Shine 2` are the obvious diagonal highlights; the Effect clipped to the
+   smart object is a second wash over the UI. Killing those three left it still
+   milky, because `Main Effect` — 1007x2090, the exact device rectangle — is a
+   full-device lighting pass laid over everything including the glass. Rendered
+   four ways side by side, it is the one carrying the haze: with it off, a white
+   button in the capture comes back white instead of grey.
+
+   `Frame Shine` stays. It is the same size and reads like a sibling, but it is
+   the bezel's edge highlight — dropping it flattens the aluminium and costs
+   realism without buying any contrast. Also staying: `Camera Effect`, which is
+   the Dynamic Island, and `Speaker`, the earpiece. The device body itself sits
+   BELOW the smart object, so none of this is what makes the phone a phone. */
 if (!keepGloss) {
   var glare = [];
   findByName(doc.layers, "Shine 1", glare);
   findByName(doc.layers, "Shine 2", glare);
+  findByName(doc.layers, "Main Effect", glare);
   findInGroup(doc.layers, "Smart Object", "Effect", glare);
   for (var g2 = 0; g2 < glare.length; g2++) glare[g2].visible = false;
+}
+for (var e = 0; e < extraHide.length; e++) {
+  var name = extraHide[e].replace(/^\s+|\s+$/g, "");
+  if (!name.length) continue;
+  var more = []; findByName(doc.layers, name, more);
+  for (var m2 = 0; m2 < more.length; m2++) more[m2].visible = false;
 }
 
 var dup = doc.duplicate("export-tmp", true);
