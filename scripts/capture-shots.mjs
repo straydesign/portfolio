@@ -14,8 +14,13 @@
  * price, and a "today's specials" box that reached down into the food card
  * below the panel.
  *
- *   node scripts/capture-shots.mjs            # everything
- *   node scripts/capture-shots.mjs andys      # one study
+ *   node scripts/capture-shots.mjs                    # everything
+ *   node scripts/capture-shots.mjs andys              # one study
+ *   node scripts/capture-shots.mjs seacave manage-    # ids with that prefix
+ *
+ * The id filter re-shoots one spec without waiting on the other eighteen. It
+ * narrows what is CAPTURED, never what is kept: the sweep at the end of a
+ * study still drops any id the spec file no longer declares.
  */
 import { createRequire } from 'node:module';
 const require = createRequire('/opt/homebrew/lib/node_modules/');
@@ -158,6 +163,7 @@ const settle = async (page) => {
 };
 
 const only = process.argv[2];
+const onlyId = process.argv[3];
 fs.mkdirSync(OUT_DIR, { recursive: true });
 const load = (study) =>
   fs.existsSync(outFile(study)) ? JSON.parse(fs.readFileSync(outFile(study), 'utf8')) : {};
@@ -168,7 +174,6 @@ const written = [];
 for (const [study, specs] of Object.entries(SHOT_SPECS)) {
   if (only && study !== only) continue;
   const manifest = load(study);
-  const site = SITES[study];
   const dir = path.join('public/images/case-studies', study);
   fs.mkdirSync(dir, { recursive: true });
 
@@ -177,12 +182,37 @@ for (const [study, specs] of Object.entries(SHOT_SPECS)) {
   });
   const page = await ctx.newPage();
   let currentRoute = null;
+  const signedIn = new Set();
 
   for (const spec of specs) {
     const shotId = spec.id;
+    if (onlyId && !shotId.startsWith(onlyId)) continue;
     const id = `${study}/${shotId}`;
+    // A study is normally one origin, but an owner-only screen is not on the
+    // public site — Sea Cave's store editor sits behind a session cookie. A
+    // spec names its own `site` when it is not the study's, and the route key
+    // carries that name so switching origins forces a navigation even when the
+    // path happens to match the one already loaded.
+    const siteKey = spec.site ?? study;
+    const site = SITES[siteKey];
+    // Named and missing is a typo; the alternative is shooting the study's own
+    // origin and reporting "target not found" against a page that was never
+    // the one asked for.
+    if (!site) throw new Error(`${id} names site "${siteKey}", which is not in SITES`);
+    const routeKey = `${siteKey}${spec.route}`;
     try {
-      if (spec.route !== currentRoute) {
+      if (site.auth && !signedIn.has(siteKey)) {
+        // Posted through the context, so the session cookie it sets is the one
+        // the page navigations carry. The password never appears in the repo;
+        // it is read from the environment at capture time and the run fails
+        // loudly rather than silently shooting a login screen.
+        const secret = process.env[site.auth.secretEnv];
+        if (!secret) throw new Error(`${site.auth.secretEnv} is not set — cannot sign in to ${site.base}`);
+        const res = await ctx.request.post(site.base + site.auth.post, { data: { password: secret } });
+        if (!res.ok()) throw new Error(`sign-in to ${site.base} returned ${res.status()}`);
+        signedIn.add(siteKey);
+      }
+      if (routeKey !== currentRoute) {
         await page.goto(site.base + spec.route, { waitUntil: 'domcontentloaded', timeout: 45000 });
         await settle(page);
         // Collapse anything the site floats over its own content. Clicking the
@@ -199,7 +229,7 @@ for (const [study, specs] of Object.entries(SHOT_SPECS)) {
         }
         await page.addStyleTag({ content: FREEZE });
         await page.waitForTimeout(250);
-        currentRoute = spec.route;
+        currentRoute = routeKey;
       }
 
       // A control sometimes has to be put somewhere before the box is

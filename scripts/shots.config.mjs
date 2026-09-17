@@ -27,6 +27,29 @@ export const SITES = {
     dismiss: ['button[aria-label="Minimize hours"]'],
   },
   seacave: { base: 'https://seacaveinc.com', display: 'seacaveinc.com' },
+
+  /* The owner-only half of the same site. `/manage` is live on seacaveinc.com
+     and answers 307 to the login screen, so the domain drawn in the address
+     bar is the route a reader could type — but the capture is taken against
+     the local server, which reads the same production KV and therefore the
+     same 969 products, 884 of them live. Signing a headless browser into the
+     production dashboard to photograph it is not worth doing when the pixels
+     are identical.
+
+     `auth` posts the shop's password through the capture context so the
+     session cookie is the one the navigations carry. The password is read from
+     the environment at capture time and is not in this repo:
+
+       cd ~/Projects/portfolio
+       SEACAVE_MANAGE_PASSWORD=… npm run shots seacave
+
+     READS ONLY. The local dev server's KV is production's, so a Save on these
+     screens edits the live site. Nothing in the specs below clicks one. */
+  seacaveManage: {
+    base: 'http://127.0.0.1:5120',
+    display: 'seacaveinc.com',
+    auth: { post: '/api/manage-auth', secretEnv: 'SEACAVE_MANAGE_PASSWORD' },
+  },
   presqueisle: { base: 'https://presqueislefishandfarm.com', display: 'presqueislefishandfarm.com' },
   middleman: { base: 'https://middleman.quest', display: 'middleman.quest' },
 };

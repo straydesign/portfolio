@@ -94,4 +94,37 @@ export const SPECS = [
     { id: 'service-call', route: '/services', find: { text: 'Enquire — (814) 456-9445' }, pad: 0.4,
       must: ['Enquire — (814) 456-9445'], mustNot: ['Emergency service available'],
       alt: 'The phone-number button that closes a service block', note: 'Every block ends here' },
+
+    /* The store editor — the owner's half of the site, on `site:
+       'seacaveManage'`. See the note beside that entry in shots.config.mjs for
+       why the address bar reads seacaveinc.com and where the password comes
+       from.
+
+       Each of these three wants its own screen's heading in frame as well as
+       the element being annotated, so `pad` is set high enough to keep the
+       capture at scroll 0 rather than the default quarter-viewport lead-in. A
+       reader has to be able to tell which screen they are looking at.
+
+       No count goes in the copy beside these. 884 live and 85 off the site are
+       both true this morning and false the moment the shop turns something
+       off, which is the whole point of the screen. */
+    { id: 'manage-tasks', site: 'seacaveManage', route: '/manage', find: { text: 'Edit or Turn Off a Product', up: 2, maxH: 400 }, pad: 0.7,
+      must: ['Edit or Turn Off a Product', 'Change a price or photo'],
+      mustNot: ['Add a New Product', 'What would you like to do?'],
+      alt: 'A task card on the store editor naming the job it does', note: 'Named for the job' },
+    { id: 'manage-toggle', site: 'seacaveManage', route: '/manage/products', find: { css: 'button[role="switch"]', nth: 0, up: 5, maxH: 400 }, pad: 0.9,
+      must: ['On the site'],
+      mustNot: ['Off site', 'Your products'],
+      alt: 'A product card in the editor with the switch that takes it off the site', note: 'Off the site in one tap' },
+    /* The one of the three that does NOT open at scroll 0. The page's intro
+       paragraph is a wall of grey text that says what the two headings under
+       it already say, and it carries a glued "On the sitebreaks down" — a JSX
+       space eaten at compile, fixed in the shop's repo and waiting on a deploy.
+       Starting a quarter-viewport above the flags drops the paragraph off the
+       top and puts the "884 live · 4 worth a second look" summary in frame
+       instead, which is the context the annotation actually needs. */
+    { id: 'manage-check', site: 'seacaveManage', route: '/manage/not-live', find: { text: 'Live, but no photo', up: 4, maxH: 400 }, pad: 0.25,
+      must: ['Live, but no photo', 'Live, but no price'],
+      mustNot: ['WORTH A SECOND LOOK', 'Saltwater Fish'],
+      alt: 'The rows flagging listings that went live without a photo or a price', note: 'The site checks itself' },
 ];

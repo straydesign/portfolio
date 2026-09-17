@@ -194,5 +194,45 @@
     "note": "Every block ends here",
     "tintTop": "dark",
     "tintBottom": "dark"
+  },
+  "manage-tasks": {
+    "src": "/images/case-studies/seacave/manage-tasks.webp",
+    "url": "seacaveinc.com/manage",
+    "alt": "A task card on the store editor naming the job it does",
+    "box": {
+      "x": 4.62,
+      "y": 62.5,
+      "w": 90.77,
+      "h": 27.93
+    },
+    "note": "Named for the job",
+    "tintTop": "dark",
+    "tintBottom": "dark"
+  },
+  "manage-toggle": {
+    "src": "/images/case-studies/seacave/manage-toggle.webp",
+    "url": "seacaveinc.com/manage/products",
+    "alt": "A product card in the editor with the switch that takes it off the site",
+    "box": {
+      "x": 4.62,
+      "y": 48.68,
+      "w": 45.38,
+      "h": 36.92
+    },
+    "note": "Off the site in one tap",
+    "tintTop": "dark",
+    "tintBottom": "light"
+  },
+  "manage-check": {
+    "src": "/images/case-studies/seacave/manage-check.webp",
+    "url": "seacaveinc.com/manage/not-live",
+    "alt": "The rows flagging listings that went live without a photo or a price",
+    "box": {
+      "x": 9.74,
+      "y": 24.34,
+      "w": 80.51,
+      "h": 15.17
+    },
+    "note": "The site checks itself"
   }
 }

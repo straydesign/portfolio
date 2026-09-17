@@ -632,7 +632,18 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
      is fixed, so that is not a scroll position anybody can get out of. */
   .cs-rail {
     display: grid;
-    align-content: center;
+    /* `safe` is the whole point. Plain `center` overflows a too-tall rail
+       equally in both directions, and the top direction is under a fixed
+       header — which is not a scroll position anybody can get out of. Safe
+       alignment falls back to `start` the moment the content does not fit, so
+       the first entry cannot tuck under the nav at any section count. */
+    align-content: safe center;
+    /* And if it still does not fit — a study with twelve sections, a browser
+       at 200% text — the rail scrolls rather than clipping its last entries
+       off the bottom of the screen. Contained, so the page behind it does not
+       scroll with it. */
+    overflow-y: auto;
+    overscroll-behavior: contain;
     position: fixed;
     top: var(--cs-header);
     height: calc(100vh - var(--cs-header));
@@ -642,14 +653,44 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   }
 }
 
-/* A 13" laptop window is about 620px of viewport, and the tallest rail —
-   Presque Isle's, where three glosses wrap to two lines — measures 530px
-   against the 520px under the header. It is bought back from the row padding
-   rather than by dropping the rail, which is the half of the navigation that
-   says what each section covers. */
-@media (min-width: 1200px) and (max-height: 720px) {
-  .cs-rail__item { padding-top: 0.28rem; padding-bottom: 0.28rem; }
-  .cs-rail__gloss { margin-top: 0.05rem; }
+/* A 13" laptop window is about 620px of viewport, which leaves 520px under
+   the header. Sea Cave's rail is eight entries with three glosses wrapping to
+   two lines, and at full spacing it measures 529px.
+
+   The height comes out of the layout, not the type. Every entry is three
+   stacked lines — number, label, gloss — and the number is the one that
+   carries no words. Setting it inline with the label folds three lines into
+   two and returns about 13px an entry, which scales with the section count
+   instead of being a fixed allowance that the next section exhausts. That is
+   what the previous version of this rule was: 0.28rem of row padding, picked
+   against a seven-entry rail, and spent the day an eighth entry arrived.
+
+   Nothing is dropped, shrunk or truncated — the gloss is the half of the
+   navigation that says what a section covers, and 11px grey is already at the
+   contrast floor. */
+@media (min-width: 1200px) and (max-height: 780px) {
+  /* A two-column grid, not two inline spans. Inline put the number in the
+     label's own text flow, so "02 Two catalogues" wrapped to "02 Two" over
+     "catalogues" with the second line hard against the rule — the number
+     reading as a word in the label rather than beside it. A column for the
+     number gives the label a hanging indent, which is what a numbered list
+     wants.
+
+     The gloss spans both columns rather than sitting under the label: a
+     128px rail minus a number column leaves ~92px, and "maintenance and coral
+     farming" wraps to three lines in that, which spends the height this rule
+     just saved. */
+  .cs-rail__item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 0.45em;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+  .cs-rail__n { grid-area: 1 / 1; margin-bottom: 0; }
+  .cs-rail__label { grid-area: 1 / 2; }
+  .cs-rail__gloss { grid-area: 2 / 1 / 3 / -1; margin-top: 0.12rem; }
 }
 
 /* Topics — the engine. Three lines of copy pinned in place while their three

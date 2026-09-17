@@ -107,6 +107,36 @@ export const SEACAVE: CaseStudy = {
         },
       ],
     },
+    /* The owner's half of the site. The impact block has claimed "the shop
+       edits all of it" since the first version of this study and never showed
+       it, which made it the one line here a reader had to take on faith.
+
+       These three captures come off the store editor at /manage rather than
+       the public site — see `seacaveManage` in scripts/shots.config.mjs. No
+       count goes in the copy: 884 live and 85 off the site are true this
+       morning and false the next time somebody turns a tank over. */
+    {
+      label: 'Day to day',
+      gloss: 'what the shop changes itself',
+      lead: 'Sea Cave edits the site itself. Every screen in the editor is named for a job the shop already does, and the whole of it fits a phone.',
+      items: [
+        {
+          heading: 'A task card',
+          body: 'The front page is a stack of these. Each is named for the job, and the line under it says when to reach for it.',
+          shot: 'seacave/manage-tasks',
+        },
+        {
+          heading: 'A product card',
+          body: 'Photo, name, price and the switch that takes it off the site. Anything that sells out goes off in one tap.',
+          shot: 'seacave/manage-toggle',
+        },
+        {
+          heading: 'The second-look rows',
+          body: 'The editor checks its own catalogue. Anything live without a photo or without a price is listed here, so nobody goes looking for it.',
+          shot: 'seacave/manage-check',
+        },
+      ],
+    },
   ],
   impact: {
     lead: 'The shop edits all of it. Catalogue, shop page, guides and services. Fifty years in, this is the first website Sea Cave has ever had.',
