@@ -46,6 +46,18 @@ function findByName(layers, name, out) {
   }
 }
 
+/* extraHide has to be able to name a GROUP — the kit's lighting lives in
+   "Shadow Light & Effects", and cutting it whole is how you find out whether
+   the haze is in there at all. findByName deliberately skips LayerSets, so
+   this is a separate walk rather than a change to it. */
+function findAnyByName(layers, name, out) {
+  for (var i = 0; i < layers.length; i++) {
+    var L = layers[i];
+    if (L.name === name) out.push(L);
+    if (L.typename === "LayerSet") findAnyByName(L.layers, name, out);
+  }
+}
+
 function findInGroup(layers, groupName, layerName, out) {
   for (var i = 0; i < layers.length; i++) {
     var L = layers[i];
@@ -127,25 +139,18 @@ if (!keepBg) {
    not — with the background hidden, the merged duplicate already carries the
    handset and its shadow on transparency. */
 /* The kit lights the phone as a product shot: a broad diagonal highlight
-   across the glass plus a second one clipped to the screen itself. On a phone
-   photographed at an angle that reads as a reflection. On the straight-on
-   centre handset it reads as haze over the UI — Tom: "it looks like it's the
-   reflection, but you can't really tell... it just looks like cloudy, like not
-   good contrast."
+   across the glass plus a second one clipped to the smart object.
 
-   Four layers cross the screen, and the first pass only found three. `Shine 1`
-   and `Shine 2` are the obvious diagonal highlights; the Effect clipped to the
-   smart object is a second wash over the UI. Killing those three left it still
-   milky, because `Main Effect` — 1007x2090, the exact device rectangle — is a
-   full-device lighting pass laid over everything including the glass. Rendered
-   four ways side by side, it is the one carrying the haze: with it off, a white
-   button in the capture comes back white instead of grey.
+   These are NOT what made the screen look cloudy, and an earlier version of
+   this comment said they were. Measured: hiding the entire "Shadow Light &
+   Effects" group, and separately every layer named "Effect", left the screen
+   rectangle BYTE-IDENTICAL both times. The haze was the Adobe RGB working
+   space — see the note above the profile conversion at the end of this file.
 
-   `Frame Shine` stays. It is the same size and reads like a sibling, but it is
-   the bezel's edge highlight — dropping it flattens the aluminium and costs
-   realism without buying any contrast. Also staying: `Camera Effect`, which is
-   the Dynamic Island, and `Speaker`, the earpiece. The device body itself sits
-   BELOW the smart object, so none of this is what makes the phone a phone. */
+   They are kept off anyway, because Tom's instruction was about a phone shot
+   straight on: "it can have that reflection only if the phone is sitting at an
+   angle but not straight." What they cost is body realism, not contrast, so
+   turning them back on is a look decision and his to make, not a fix. */
 if (!keepGloss) {
   var glare = [];
   findByName(doc.layers, "Shine 1", glare);
@@ -157,7 +162,7 @@ if (!keepGloss) {
 for (var e = 0; e < extraHide.length; e++) {
   var name = extraHide[e].replace(/^\s+|\s+$/g, "");
   if (!name.length) continue;
-  var more = []; findByName(doc.layers, name, more);
+  var more = []; findAnyByName(doc.layers, name, more);
   for (var m2 = 0; m2 < more.length; m2++) more[m2].visible = false;
 }
 
@@ -168,6 +173,21 @@ if (cropBox && !isNaN(margin) && margin >= 0) {
   var x2 = Math.min(dup.width.as("px"), cropBox[2] + margin), y2 = Math.min(dup.height.as("px"), cropBox[3] + margin);
   dup.crop([x1, y1, x2, y2]);
 }
+/* The kit's working space is Adobe RGB (1998), so placing an sRGB capture
+   converts it INTO Adobe RGB, and saveAs writes those numbers with no profile
+   attached. Everything downstream — sharp, the browser — then reads Adobe RGB
+   numbers as sRGB, which lifts the blacks and washes the screen out.
+
+   The arithmetic matches what Tom saw exactly: sRGB has a linear toe near
+   black, so code 8 is linear 0.00242, and re-encoding that through Adobe RGB's
+   pure 2.2 gamma gives code 21. Measured black floor on the old renders: 18-21.
+   That is the whole of the "cloudy, not good contrast" complaint. No gloss
+   layer was ever involved — hiding the entire "Shadow Light & Effects" group
+   left the screen pixels byte-identical.
+
+   Converting the flattened duplicate back to sRGB before export is the whole
+   fix, and it corrects the aluminium as well as the glass. */
+dup.convertProfile("sRGB IEC61966-2.1", Intent.RELATIVECOLORIMETRIC, true, false);
 dup.saveAs(new File(outPath), new PNGSaveOptions(), true, Extension.LOWERCASE);
 dup.close(SaveOptions.DONOTSAVECHANGES);
 doc.close(SaveOptions.DONOTSAVECHANGES);
