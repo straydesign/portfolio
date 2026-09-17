@@ -20,39 +20,39 @@ export const MIDDLEMAN: CaseStudy = {
     'I ran a daily beer route at New Hampshire Distributors, restocking grocery and convenience stops at five in the morning and ordering with a pen on cardboard. Middleman is a prototype of that job done on a phone, with the shelf count, the pull list and the order in one pass.',
   topics: [
     {
-      label: 'The stop',
+      label: 'Stop',
       gloss: 'what moved since the last trip',
       lead: 'The first question in any store is which SKUs moved since the last trip. This screen answers it before you reach the aisle.',
       items: [
         {
-          heading: 'The three stock counts',
+          heading: 'Three stock counts',
           body: 'Critical, warning and healthy, each with its own number, and nothing else sharing the row with them.',
           shot: 'middleman/risk-row',
         },
         {
-          heading: 'The four action tiles',
+          heading: 'Four action tiles',
           body: 'Notes, pull, delivery and breakage, the delivery tile carrying its ETA. Those are the four things you actually do in a store.',
           shot: 'middleman/actions-row',
         },
         {
-          heading: 'The activity list',
+          heading: 'Activity list',
           body: 'Auto-orders, promos, delays, pulls and deliveries, with a name against anything a person did rather than the system.',
           shot: 'middleman/activity-feed',
         },
       ],
     },
     {
-      label: 'The shelf',
+      label: 'Shelf',
       gloss: 'the count, before you start',
       lead: 'Counting a store properly took two and a half hours. Most people hit it fast and missed cases instead. The count is on the screen before you start.',
       items: [
         {
-          heading: 'A stock row',
+          heading: 'Stock row',
           body: 'The SKU, two chips flagging backorder and critical, the shelf count against maximum, days of supply left, backstock and how full the facing is.',
           shot: 'middleman/stock-row',
         },
         {
-          heading: 'The three floor buttons',
+          heading: 'Three floor buttons',
           body: 'Pull list, breakage and shrinkage, because those are the three reasons you open this screen.',
           shot: 'middleman/stock-actions',
         },
@@ -64,22 +64,22 @@ export const MIDDLEMAN: CaseStudy = {
       ],
     },
     {
-      label: 'The order',
+      label: 'Order',
       gloss: 'what a paper order hid',
       lead: 'An order went in on paper and came back as a truck. Everything between those two moments was invisible.',
       items: [
         {
-          heading: 'The delivery tile',
+          heading: 'Delivery tile',
           body: 'The ETA with how far along the run it is, the case count, a note that reaches the driver and the full order behind it.',
           shot: 'middleman/order-enroute',
         },
         {
-          heading: 'The order in progress',
+          heading: 'Order in progress',
           body: 'Still building at a running case count, with the last change and the name on it, and the whole order one tap from editing.',
           shot: 'middleman/order-building',
         },
         {
-          heading: 'The line controls',
+          heading: 'Line controls',
           body: 'Every line on an open order takes a plus, a minus or a delete, for as long as the order stays open.',
           shot: 'middleman/order-edit',
         },
@@ -87,7 +87,7 @@ export const MIDDLEMAN: CaseStudy = {
     },
   ],
   flow: {
-    label: 'The route',
+    label: 'Route',
     gloss: 'seven steps, both ways',
     lead: 'Seven steps, every store, every day. Five of them ran on memory, and none of it was written down anywhere.',
     beforeLabel: 'Pen and cardboard',

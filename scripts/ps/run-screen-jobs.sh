@@ -11,7 +11,7 @@
 #      from Photoshop.
 #
 # Jobs file: one per line, pipe separated —
-#   psd|art.png|out.png|so indices|solo group|trim margin|keep background
+#   psd|art.png|out.png|so indices|solo group|trim margin|keep background|keep gloss
 ROOT=/Users/tomsesler/Projects/portfolio
 JOBS=${1:-$ROOT/.ps-run/screen-jobs.txt}
 LOG=$ROOT/.ps-run/screen-jobs.log
@@ -23,10 +23,10 @@ free_pct=$(memory_pressure | awk '/free percentage/ {gsub("%","");print $NF}')
 if [ "${free_pct:-0}" -lt 15 ]; then echo "ABORT: ${free_pct}% memory free, need 15" | tee -a $LOG; exit 1; fi
 echo "start: ${free_gb}Gi disk, ${free_pct}% memory free" | tee -a $LOG
 
-while IFS='|' read -r psd art out idx solo margin bg; do
+while IFS='|' read -r psd art out idx solo margin bg gloss; do
   [ -z "$psd" ] && continue
   case "$psd" in \#*) continue;; esac
-  printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' "$psd" "$art" "$out" "$idx" "${solo:--1}" "${margin:--1}" "${bg:-1}" \
+  printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n' "$psd" "$art" "$out" "$idx" "${solo:--1}" "${margin:--1}" "${bg:-1}" "${gloss:-1}" \
     > $ROOT/.ps-run/screen-job.txt
   echo "job: $(basename $out)" | tee -a $LOG
   res=$(osascript -e "tell application \"Adobe Photoshop 2026\"

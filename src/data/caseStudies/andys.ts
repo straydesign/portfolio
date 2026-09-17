@@ -23,7 +23,7 @@ export const ANDYS: CaseStudy = {
       lead: 'The specials change every day, and a drink price is useless without the hours it runs. The panel carries the day and the window.',
       items: [
         {
-          heading: 'The specials panel',
+          heading: 'Specials panel',
           body: 'A drink special and a lunch special, each with its price, the window the drink runs in, the month as a PDF and seven day tabs.',
           shot: 'andys/today-card',
         },
@@ -33,14 +33,14 @@ export const ANDYS: CaseStudy = {
           shot: 'andys/day-tabs',
         },
         {
-          heading: 'The serving window',
+          heading: 'Serving window',
           body: 'The drink special prints its own serving window, so nobody drives over an hour before the price starts.',
           shot: 'andys/tonight',
         },
       ],
     },
     {
-      label: 'The menu',
+      label: 'Menu',
       gloss: 'twelve categories, fifty-three dishes',
       lead: 'Twelve categories, a row per dish, and the questions people phone in about answered at the bottom. The kitchen edits all of it without calling me.',
       items: [
@@ -50,46 +50,46 @@ export const ANDYS: CaseStudy = {
           shot: 'andys/menu-cats',
         },
         {
-          heading: 'A menu row',
+          heading: 'Menu row',
           body: 'The name, what comes in the basket and the price, on the row itself, so nothing has to be opened to find out what it costs.',
           shot: 'andys/menu-list',
         },
         {
-          heading: 'The questions list',
+          heading: 'Questions list',
           body: "Address, closing time, pickup, specials, kids' menu, parking, parties. Answered under the menu instead of over the phone.",
           shot: 'andys/menu-faq',
         },
       ],
     },
     {
-      label: 'A dish',
+      label: 'Dish',
       gloss: 'a page for one plate',
       lead: "Fifty-three dishes have a page of their own. Each carries the photograph, the price and the way to order it, so a plate can turn up in a search on its own name.",
       items: [
         {
-          heading: 'The dish name as the heading',
+          heading: 'Dish name as the heading',
           body: "The plate's name is the heading, so it can turn up in search without the rest of the menu.",
           shot: 'andys/dish-hero',
         },
         {
-          heading: 'The pickup card',
+          heading: 'Pickup card',
           body: 'A pickup card with the address, the kitchen hours, a live phone number and the way back to the full menu.',
           shot: 'andys/dish-pickup',
         },
         {
-          heading: 'The back-to-menu link',
+          heading: 'Back-to-menu link',
           body: 'The link out reads BACK TO FULL MENU, so a dish page is never a dead end.',
           shot: 'andys/dish-back',
         },
       ],
     },
     {
-      label: 'The photographs',
+      label: 'Photographs',
       gloss: "Andy's own rooms and tables",
       lead: "The photography is all Andy's own — the room, the tables, the plates. Stock would have shown a bar nobody in Erie has ever been inside.",
       items: [
         {
-          heading: 'The room card',
+          heading: 'Room card',
           body: 'Twenty-six tables broken into regulation, bar and billiard, counted out over a photograph of the actual room, with the way in.',
           shot: 'andys/room-cards',
         },
@@ -99,7 +99,7 @@ export const ANDYS: CaseStudy = {
           shot: 'andys/gallery-grid',
         },
         {
-          heading: 'The photo upload',
+          heading: 'Photo upload',
           body: 'Customers send photos in from the page itself. Location data is stripped before anything is stored.',
           shot: 'andys/gallery-upload',
         },
@@ -124,7 +124,7 @@ export const ANDYS: CaseStudy = {
       body: 'A tab that opens on the current day removed the most common piece of work the page was asking for.',
     },
     {
-      heading: 'A page for every dish',
+      heading: 'One page per dish',
       body: 'One document is one search result. Fifty-three pages are fifty-three ways for a craving to find the kitchen.',
     },
     {

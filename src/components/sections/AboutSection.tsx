@@ -13,7 +13,7 @@ export default function AboutSection() {
       <NavigableSection id="about" label="About">
         <div className="px-4 md:px-8 pt-12 md:pt-16">
           <div className="max-w-7xl mx-auto">
-            <SectionHeading kicker="The person behind it" title="ABOUT" className="mb-10 md:mb-14" />
+            <SectionHeading kicker="Who's behind it" title="ABOUT" className="mb-10 md:mb-14" />
 
             <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-8 lg:gap-12 items-start">
               <AnimateIn direction="up">

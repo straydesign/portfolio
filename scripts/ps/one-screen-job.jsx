@@ -10,6 +10,7 @@
  * Job file, one value per line:
  *   psd | art png | out png | SO indices (comma separated, document order)
  *   | solo group index or -1 | trim margin px or -1 | keep background 1/0
+ *   | keep screen gloss 1/0
  *
  * Smart objects are addressed by INDEX rather than by name: the kit has three
  * groups all called "iPhone Mockup", each containing a layer called
@@ -18,19 +19,42 @@
 var jf = new File("/Users/tomsesler/Projects/portfolio/.ps-run/screen-job.txt");
 jf.open("r");
 var psdPath = jf.readln(), artPath = jf.readln(), outPath = jf.readln(),
-    idxRaw = jf.readln(), soloRaw = jf.readln(), marginRaw = jf.readln(), bgRaw = jf.readln();
+    idxRaw = jf.readln(), soloRaw = jf.readln(), marginRaw = jf.readln(), bgRaw = jf.readln(),
+    glossRaw = jf.readln();
 jf.close();
 
 var wanted = idxRaw.split(",");
 var solo = parseInt(soloRaw, 10);
 var margin = parseInt(marginRaw, 10);
 var keepBg = (bgRaw !== "0");
+var keepGloss = (glossRaw !== "0");
 
 function collectSOs(layers, out) {
   for (var i = 0; i < layers.length; i++) {
     var L = layers[i];
     if (L.typename === "LayerSet") collectSOs(L.layers, out);
     else { try { if (L.kind === LayerKind.SMARTOBJECT) out.push(L); } catch (e) {} }
+  }
+}
+
+function findByName(layers, name, out) {
+  for (var i = 0; i < layers.length; i++) {
+    var L = layers[i];
+    if (L.typename === "LayerSet") findByName(L.layers, name, out);
+    else if (L.name === name) out.push(L);
+  }
+}
+
+function findInGroup(layers, groupName, layerName, out) {
+  for (var i = 0; i < layers.length; i++) {
+    var L = layers[i];
+    if (L.typename !== "LayerSet") continue;
+    if (L.name === groupName) {
+      for (var j = 0; j < L.layers.length; j++) {
+        if (L.layers[j].typename !== "LayerSet" && L.layers[j].name === layerName) out.push(L.layers[j]);
+      }
+    }
+    findInGroup(L.layers, groupName, layerName, out);
   }
 }
 
@@ -56,14 +80,6 @@ if (!placed.length) { doc.close(SaveOptions.DONOTSAVECHANGES); throw new Error("
 /* Soloing a phone hides the other two groups AND their cast shadows, which
    live inside the same group — so the plinth is left clean rather than lit by
    a phone that is no longer there. */
-function findByName(layers, name, out) {
-  for (var i = 0; i < layers.length; i++) {
-    var L = layers[i];
-    if (L.typename === "LayerSet") findByName(L.layers, name, out);
-    else if (L.name === name) out.push(L);
-  }
-}
-
 var cropBox = null;
 if (!isNaN(solo) && solo >= 0) {
   var groups = [];
@@ -82,12 +98,21 @@ if (!isNaN(solo) && solo >= 0) {
 }
 
 /* The plinth is the kit's, not the portfolio's. Dropping it exports the
-   handset and its shadow on transparency, so the render sits on whatever
-   ground the page already has instead of carrying a lilac rectangle into it. */
+   handset on transparency, so the render sits on whatever ground the page
+   already has instead of carrying a lilac rectangle into it.
+
+   The cast shadow goes with it. It is 1967px wide against a 1007px handset,
+   so a crop tight enough to be a useful web asset slices straight through it
+   and leaves a hard grey edge under the phone — which is exactly what it did.
+   Widening the crop to contain it would mean a mostly-empty image. The page
+   draws its own contact shadow in CSS instead, from the alpha channel, so it
+   follows the silhouette rather than a rectangle. */
 if (!keepBg) {
   for (var bl = 0; bl < doc.layers.length; bl++) {
     if (doc.layers[bl].name.indexOf("Background") !== -1) doc.layers[bl].visible = false;
   }
+  var shadows = []; findByName(doc.layers, "Object Shadow", shadows);
+  for (var sh = 0; sh < shadows.length; sh++) shadows[sh].visible = false;
 }
 
 /* `duplicate(name, true)` is a MERGED duplicate — the copy arrives as a single
@@ -100,6 +125,25 @@ if (!keepBg) {
    which is right when the kit's plinth is in the shot and wrong when it is
    not — with the background hidden, the merged duplicate already carries the
    handset and its shadow on transparency. */
+/* The kit lights the phone as a product shot: a broad diagonal highlight
+   across the glass plus a second one clipped to the screen itself. On a phone
+   photographed at an angle that reads as a reflection. On the straight-on
+   centre handset it reads as haze over the UI — Tom: "it looks like it's the
+   reflection, but you can't really tell... it just looks like cloudy, like not
+   good contrast."
+
+   So the two layers that cross the SCREEN come off and everything that
+   describes the DEVICE stays: `Frame Shine` and `Main Effect` are the bezel
+   and body, `Camera Effect` is the Dynamic Island, `Speaker` is the earpiece.
+   Losing those would leave a flat cutout rather than a photograph. */
+if (!keepGloss) {
+  var glare = [];
+  findByName(doc.layers, "Shine 1", glare);
+  findByName(doc.layers, "Shine 2", glare);
+  findInGroup(doc.layers, "Smart Object", "Effect", glare);
+  for (var g2 = 0; g2 < glare.length; g2++) glare[g2].visible = false;
+}
+
 var dup = doc.duplicate("export-tmp", true);
 if (keepBg) dup.flatten();
 if (cropBox && !isNaN(margin) && margin >= 0) {

@@ -10,78 +10,129 @@ import { NavigableSection } from '../NavigableSection';
 import { useSectionRegistry } from '@/context/SectionRegistryContext';
 
 const ALL_BOOKS = [
-  { title: 'The Art of Innovation', color: 'red', description: 'IDEO treats creativity like a muscle, not a gift. Build a rough prototype, put it in front of someone, learn what breaks, rebuild. The companies that innovate fastest are the ones willing to look stupid early.' },
-  { title: 'Creative Confidence', color: 'cobalt', description: 'IDEO walks into organizations and finds creative people who don\'t think they\'re creative. Years of school and corporate life trained it out of them. Give someone permission to think like a designer and they surprise you.' },
-  { title: 'Articulating Design Decisions', color: 'brown', description: 'You can make the right design and still lose the room if you can\'t explain why it works. This book is about talking to stakeholders who think differently than you and getting them to see what you see. The rationale matters as much as the mockup.' },
-  { title: 'The Science of Scaling', color: 'tan', description: 'Most organizations plateau because they set goals they already know how to hit. Bigger goals force you to rethink the approach, which often makes execution simpler. Small thinking creates complicated workarounds.' },
-  { title: 'Creative Selection', color: 'cream', description: 'Written by an engineer who built Safari and the iPhone keyboard at Apple. Their process is obsessive: demo, tear apart, rebuild, simplify. Every feature starts bloated and gets carved down to the thing that matters.' },
-  { title: 'Indistractable', color: 'burgundy', description: 'We blame our phones, but the real problem is internal. You reach for a screen to escape boredom or discomfort. The fix is designing your environment so focus is the default, not something you have to white-knuckle through.' },
-  { title: 'Hooked', color: 'darkgreen', description: 'Products that stick follow a loop: trigger, action, reward, investment. Every time you open Instagram you\'re running this cycle. Useful for building products people return to, and for noticing when it\'s being used on you.' },
-  { title: 'How to Win Friends & Influence People', color: 'navy', description: 'Be curious about the other person. That\'s most of the book. People open up when they feel like you care about their answer, not your next talking point. In client work and user research, this changes the quality of everything you hear.' },
-  { title: 'The Power of When', color: 'teal', description: 'Your biology decides when you peak in energy and focus. Most people fight that rhythm instead of working with it. I figured out my chronotype, moved my schedule around, and stopped forcing output at hours my brain had already checked out.' },
-  { title: '48 Laws of Power', color: 'charcoal', description: 'Power dynamics run underneath every meeting, negotiation, and design review. The book teaches you to see the game happening around you. Not to play dirty, but to understand why decisions land the way they do.' },
-  { title: 'The Dichotomy of Leadership', color: 'olive', description: 'The sequel to Extreme Ownership, and the more honest book. Take too much ownership and you micromanage. Push too hard and you lose your team. Every leadership principle has a version that backfires.' },
-  { title: 'Start with Why', color: 'mustard', description: 'People buy why you do it, not what you do. Apple and Patagonia lead with purpose, not specs. If you can\'t explain why your product exists beyond what it does, you haven\'t found the thing that makes people care.' },
-  { title: 'Steal Like an Artist', color: 'plum', description: 'Nothing is original. Every creative person is a remix of their influences. The trick is pulling from enough different places that the combination feels like yours. Changed how I gather inspiration before starting a project.' },
-  { title: 'Storyworthy', color: 'rust', description: 'The best stories are small. Not the dramatic thing that happened, but the quiet moment where something shifted. A good story takes you from one state to another and makes the audience feel the turn. Case studies should work the same way.' },
-  { title: 'The Ten Faces of Innovation', color: 'blue', description: 'IDEO maps innovation to ten roles on a team: the Anthropologist, the Experimenter, the Cross-Pollinator, and others. No single person does it all. When I look at a team, I think about which roles are covered and which are empty.' },
-  { title: 'Influence', color: 'terracotta', description: 'Six principles of persuasion: reciprocity, commitment, social proof, authority, liking, scarcity. Not tricks. This is how people make decisions, and it\'s baked into every onboarding flow and pricing page you\'ve ever used.' },
-  { title: 'The 5 AM Club', color: 'sage', description: 'Do your most important work before the world starts asking things of you. The first hour sets the rest of the day. Most people give their best hours to email and meetings. Guard the morning.' },
-  { title: 'Deep Work', color: 'midnight', description: 'Focused, uninterrupted work is getting rarer while getting more valuable. Email, Slack, and meetings fill the calendar but don\'t move anything forward. The people producing the best output protect blocks of time where nobody can reach them.' },
-  { title: 'Building a StoryBrand', color: 'forest', description: 'Most companies make themselves the hero of their own story. Wrong move. The customer is the hero, you\'re the guide. This framework changed how I write copy for clients.' },
-  { title: 'Can\'t Hurt Me', color: 'oxblood', description: 'Goggins says when you think you\'re done, you\'re at 40%. Most limits are your brain keeping you comfortable, not your body or ability giving out. I think about this when a deadline feels impossible or a problem feels stuck.' },
-  { title: 'The Practice', color: 'white', description: 'Show up and do the work, especially when you don\'t feel like it. The people who produce great work over time aren\'t more talented. They\'re more consistent. Ship it imperfect, learn, come back tomorrow.' },
-  { title: 'The Goal', color: 'wine', description: 'Find the one bottleneck choking your entire system and fix that before you optimize anything else. In product work, this means figuring out the real blocker instead of spreading effort thin across ten things.' },
-  { title: 'Atomic Habits', color: 'copper', description: '1% better each day compounds into something unrecognizable over a year, but only if the habit sticks. Make it obvious, easy, and satisfying. I used this to rebuild my morning routine and reading habit from scratch.' },
-  { title: 'How to Talk to Anyone', color: 'slate', description: '92 conversation techniques, from first impressions to deep rapport. Good communicators practice patterns until they stop thinking about them. Small changes in how you listen shift the entire conversation, especially in user interviews.' },
-  { title: 'The Intelligent Investor', color: 'darkgreen', description: 'Graham\'s advice holds up: invest long-term, don\'t time the market, index funds for 90% of it. Separating emotion from financial decisions is the same discipline as separating taste from data in design.' },
-  { title: 'The Hero and the Outlaw', color: 'red', description: 'Twelve brand archetypes: the Hero, the Creator, the Explorer, the Sage. Brands that pick one and commit create stronger emotional connections because they tap into stories people already carry around. I use this when helping clients figure out positioning.' },
-  { title: 'Laws of UX', color: 'cream', description: 'Fitts\'s Law, Hick\'s Law, the Peak-End Rule, Jakob\'s Law. Not opinions about design. Research-backed patterns of how people behave on screens. I reference this more than any other design book.' },
-  { title: 'Emotional Design', color: 'cobalt', description: 'Design works on three levels: visceral, behavioral, and reflective. Most designers only think about behavioral (does it work?). But people fall in love with products that hit all three. A usable product nobody feels anything about still fails.' },
-  { title: 'Sprint', color: 'mustard', description: 'Problem to tested prototype in five days. Google Ventures built a process that forces decisions and puts real users at the table by Friday. You learn more in one sprint than in months of meetings about what to build.' },
-  { title: 'Inspired', color: 'burgundy', description: 'Marty Cagan on how the best product companies work. Give teams problems, not feature specs. Let them discover the solution through continuous contact with users. Top-down roadmaps produce mediocre products.' },
-  { title: 'Delivering Happiness', color: 'royalblue', description: 'Tony Hsieh built Zappos around one idea: make customers and employees happy first, and the business follows. Culture as strategy, not a poster on the wall.' },
-  { title: 'American Icon', color: 'steelnavy', description: 'Alan Mulally walked into Ford when it was bleeding billions and turned it around with radical transparency and one weekly meeting where nobody could hide. No bailout needed.' },
-  { title: 'The Design of Everyday Things', color: 'mustard', description: 'Doors you push when they say pull are a design failure, not a user failure. Affordances, signifiers, feedback, mapping. Every bad interface I have critiqued traces back to one of those four.' },
-  { title: 'The Mom Test', color: 'wine', description: 'Never ask anyone whether they like your idea. Ask about their life and what they already do about the problem. Every user interview I have run since is about their past instead of my product.' },
-  { title: 'The Lean Startup', color: 'steelnavy', description: 'Build, measure, learn, and keep the loop short. Shipping early is how you find out you were wrong while being wrong is still cheap.' },
-  { title: 'UX Strategy', color: 'tan', description: 'Competitive research, then a value proposition, then a prototype you test on strangers. The part most portfolios skip is the part that decides whether the thing should exist at all.' },
-  { title: 'Never Split the Difference', color: 'oxblood', description: 'An FBI hostage negotiator\'s method, and most of it is listening. Label what the other person is feeling and let the silence do the work. The calibrated questions come up in almost every client call.' },
-  { title: 'The War of Art', color: 'charcoal', description: 'Pressfield calls the thing stopping you Resistance and treats it as a physical force. It gets loudest right before the work that matters. Naming it is most of beating it.' },
-  { title: 'Company of One', color: 'white', description: 'Growth is a choice rather than an obligation. Jarvis argues for staying small on purpose and optimising for autonomy over headcount. Closest thing I have read to a description of what I am building.' },
-  { title: '$100M Offers', color: 'plum', description: 'Price is downstream of the offer. Hormozi stacks guarantees, bonuses and risk reversal until saying no feels stupid. I rebuilt my own pricing around the guarantee after this one.' },
-  { title: '$100M Leads', color: 'royalblue', description: 'Four ways to get leads: warm outreach, content, cold outreach, paid ads. Pick one and run it until it works before adding a second. Most people run all four badly at once.' },
-  { title: '$100M Money Models', color: 'forest', description: 'How the money arrives matters as much as how much of it there is. Upfront cash, recurring, continuity — each one changes what the business can afford to do next. It reshaped how I set a build fee against a monthly.' },
+  { title: 'The Art of Innovation', description: 'IDEO treats creativity like a muscle, not a gift. Build a rough prototype, put it in front of someone, learn what breaks, rebuild. The companies that innovate fastest are the ones willing to look stupid early.' },
+  { title: 'Creative Confidence', description: 'IDEO walks into organizations and finds creative people who don\'t think they\'re creative. Years of school and corporate life trained it out of them. Give someone permission to think like a designer and they surprise you.' },
+  { title: 'Articulating Design Decisions', description: 'You can make the right design and still lose the room if you can\'t explain why it works. This book is about talking to stakeholders who think differently than you and getting them to see what you see. The rationale matters as much as the mockup.' },
+  { title: 'The Science of Scaling', description: 'Most organizations plateau because they set goals they already know how to hit. Bigger goals force you to rethink the approach, which often makes execution simpler. Small thinking creates complicated workarounds.' },
+  { title: 'Creative Selection', description: 'Written by an engineer who built Safari and the iPhone keyboard at Apple. Their process is obsessive: demo, tear apart, rebuild, simplify. Every feature starts bloated and gets carved down to the thing that matters.' },
+  { title: 'Indistractable', description: 'We blame our phones, but the real problem is internal. You reach for a screen to escape boredom or discomfort. The fix is designing your environment so focus is the default, not something you have to white-knuckle through.' },
+  { title: 'Hooked', description: 'Products that stick follow a loop: trigger, action, reward, investment. Every time you open Instagram you\'re running this cycle. Useful for building products people return to, and for noticing when it\'s being used on you.' },
+  { title: 'How to Win Friends & Influence People', description: 'Be curious about the other person. That\'s most of the book. People open up when they feel like you care about their answer, not your next talking point. In client work and user research, this changes the quality of everything you hear.' },
+  { title: 'The Power of When', description: 'Your biology decides when you peak in energy and focus. Most people fight that rhythm instead of working with it. I figured out my chronotype, moved my schedule around, and stopped forcing output at hours my brain had already checked out.' },
+  { title: '48 Laws of Power', description: 'Power dynamics run underneath every meeting, negotiation, and design review. The book teaches you to see the game happening around you. Not to play dirty, but to understand why decisions land the way they do.' },
+  { title: 'The Dichotomy of Leadership', description: 'The sequel to Extreme Ownership, and the more honest book. Take too much ownership and you micromanage. Push too hard and you lose your team. Every leadership principle has a version that backfires.' },
+  { title: 'Start with Why', description: 'People buy why you do it, not what you do. Apple and Patagonia lead with purpose, not specs. If you can\'t explain why your product exists beyond what it does, you haven\'t found the thing that makes people care.' },
+  { title: 'Steal Like an Artist', description: 'Nothing is original. Every creative person is a remix of their influences. The trick is pulling from enough different places that the combination feels like yours. Changed how I gather inspiration before starting a project.' },
+  { title: 'Storyworthy', description: 'The best stories are small. Not the dramatic thing that happened, but the quiet moment where something shifted. A good story takes you from one state to another and makes the audience feel the turn. Case studies should work the same way.' },
+  { title: 'The Ten Faces of Innovation', description: 'IDEO maps innovation to ten roles on a team: the Anthropologist, the Experimenter, the Cross-Pollinator, and others. No single person does it all. When I look at a team, I think about which roles are covered and which are empty.' },
+  { title: 'Influence', description: 'Six principles of persuasion: reciprocity, commitment, social proof, authority, liking, scarcity. Not tricks. This is how people make decisions, and it\'s baked into every onboarding flow and pricing page you\'ve ever used.' },
+  { title: 'The 5 AM Club', description: 'Do your most important work before the world starts asking things of you. The first hour sets the rest of the day. Most people give their best hours to email and meetings. Guard the morning.' },
+  { title: 'Deep Work', description: 'Focused, uninterrupted work is getting rarer while getting more valuable. Email, Slack, and meetings fill the calendar but don\'t move anything forward. The people producing the best output protect blocks of time where nobody can reach them.' },
+  { title: 'Building a StoryBrand', description: 'Most companies make themselves the hero of their own story. Wrong move. The customer is the hero, you\'re the guide. This framework changed how I write copy for clients.' },
+  { title: 'Can\'t Hurt Me', description: 'Goggins says when you think you\'re done, you\'re at 40%. Most limits are your brain keeping you comfortable, not your body or ability giving out. I think about this when a deadline feels impossible or a problem feels stuck.' },
+  { title: 'The Practice', description: 'Show up and do the work, especially when you don\'t feel like it. The people who produce great work over time aren\'t more talented. They\'re more consistent. Ship it imperfect, learn, come back tomorrow.' },
+  { title: 'The Goal', description: 'Find the one bottleneck choking your entire system and fix that before you optimize anything else. In product work, this means figuring out the real blocker instead of spreading effort thin across ten things.' },
+  { title: 'Atomic Habits', description: '1% better each day compounds into something unrecognizable over a year, but only if the habit sticks. Make it obvious, easy, and satisfying. I used this to rebuild my morning routine and reading habit from scratch.' },
+  { title: 'How to Talk to Anyone', description: '92 conversation techniques, from first impressions to deep rapport. Good communicators practice patterns until they stop thinking about them. Small changes in how you listen shift the entire conversation, especially in user interviews.' },
+  { title: 'The Intelligent Investor', description: 'Graham\'s advice holds up: invest long-term, don\'t time the market, index funds for 90% of it. Separating emotion from financial decisions is the same discipline as separating taste from data in design.' },
+  { title: 'The Hero and the Outlaw', description: 'Twelve brand archetypes: the Hero, the Creator, the Explorer, the Sage. Brands that pick one and commit create stronger emotional connections because they tap into stories people already carry around. I use this when helping clients figure out positioning.' },
+  { title: 'Laws of UX', description: 'Fitts\'s Law, Hick\'s Law, the Peak-End Rule, Jakob\'s Law. Not opinions about design. Research-backed patterns of how people behave on screens. I reference this more than any other design book.' },
+  { title: 'Emotional Design', description: 'Design works on three levels: visceral, behavioral, and reflective. Most designers only think about behavioral (does it work?). But people fall in love with products that hit all three. A usable product nobody feels anything about still fails.' },
+  { title: 'Sprint', description: 'Problem to tested prototype in five days. Google Ventures built a process that forces decisions and puts real users at the table by Friday. You learn more in one sprint than in months of meetings about what to build.' },
+  { title: 'Inspired', description: 'Marty Cagan on how the best product companies work. Give teams problems, not feature specs. Let them discover the solution through continuous contact with users. Top-down roadmaps produce mediocre products.' },
+  { title: 'Delivering Happiness', description: 'Tony Hsieh built Zappos around one idea: make customers and employees happy first, and the business follows. Culture as strategy, not a poster on the wall.' },
+  { title: 'American Icon', description: 'Alan Mulally walked into Ford when it was bleeding billions and turned it around with radical transparency and one weekly meeting where nobody could hide. No bailout needed.' },
+  { title: 'The Design of Everyday Things', description: 'Doors you push when they say pull are a design failure, not a user failure. Affordances, signifiers, feedback, mapping. Every bad interface I have critiqued traces back to one of those four.' },
+  { title: 'The Mom Test', description: 'Never ask anyone whether they like your idea. Ask about their life and what they already do about the problem. Every user interview I have run since is about their past instead of my product.' },
+  { title: 'The Lean Startup', description: 'Build, measure, learn, and keep the loop short. Shipping early is how you find out you were wrong while being wrong is still cheap.' },
+  { title: 'UX Strategy', description: 'Competitive research, then a value proposition, then a prototype you test on strangers. The part most portfolios skip is the part that decides whether the thing should exist at all.' },
+  { title: 'Never Split the Difference', description: 'An FBI hostage negotiator\'s method, and most of it is listening. Label what the other person is feeling and let the silence do the work. The calibrated questions come up in almost every client call.' },
+  { title: 'The War of Art', description: 'Pressfield calls the thing stopping you Resistance and treats it as a physical force. It gets loudest right before the work that matters. Naming it is most of beating it.' },
+  { title: 'Company of One', description: 'Growth is a choice rather than an obligation. Jarvis argues for staying small on purpose and optimising for autonomy over headcount. Closest thing I have read to a description of what I am building.' },
+  { title: '$100M Offers', description: 'Price is downstream of the offer. Hormozi stacks guarantees, bonuses and risk reversal until saying no feels stupid. I rebuilt my own pricing around the guarantee after this one.' },
+  { title: '$100M Leads', description: 'Four ways to get leads: warm outreach, content, cold outreach, paid ads. Pick one and run it until it works before adding a second. Most people run all four badly at once.' },
+  { title: '$100M Money Models', description: 'How the money arrives matters as much as how much of it there is. Upfront cash, recurring, continuity — each one changes what the business can afford to do next. It reshaped how I set a build fee against a monthly.' },
 ];
 
-const BOOK_COLORS: Record<string, { bg: string; light: string; edge: string; side: string; top: string; text: string }> = {
-  red:        { bg: '#8B1A1A', light: '#A52A2A', edge: '#5C1010', side: '#6B1515', top: '#9A2020', text: 'rgba(255,255,255,0.92)' },
-  blue:       { bg: '#1B3A6B', light: '#2A5298', edge: '#0F2440', side: '#162E55', top: '#2E5A8A', text: 'rgba(255,255,255,0.92)' },
-  brown:      { bg: '#5C3A1E', light: '#7A4E2A', edge: '#3D2510', side: '#4A3018', top: '#6E4525', text: 'rgba(255,255,255,0.92)' },
-  tan:        { bg: '#B8A07A', light: '#CCBA98', edge: '#8C7858', side: '#9E8A68', top: '#C4AE8E', text: 'rgba(40,30,15,0.9)' },
-  white:      { bg: '#E8E4DC', light: '#F5F2EC', edge: '#C8C2B8', side: '#D5D0C6', top: '#EDE9E2', text: 'rgba(30,30,30,0.9)' },
-  darkgreen:  { bg: '#1A4A2A', light: '#2A6A3E', edge: '#0E2E18', side: '#153A22', top: '#285A35', text: 'rgba(255,255,255,0.92)' },
-  navy:       { bg: '#0F1F3D', light: '#1A3366', edge: '#080F20', side: '#0C1830', top: '#1E3A60', text: 'rgba(255,255,255,0.92)' },
-  burgundy:   { bg: '#5A1028', light: '#7A1838', edge: '#3A0818', side: '#4A0E20', top: '#6E1830', text: 'rgba(255,255,255,0.92)' },
-  olive:      { bg: '#4A4A1A', light: '#5E5E28', edge: '#2E2E0E', side: '#3C3C14', top: '#585822', text: 'rgba(255,255,255,0.92)' },
-  slate:      { bg: '#3A4550', light: '#4E5D6A', edge: '#252E35', side: '#303A42', top: '#506070', text: 'rgba(255,255,255,0.92)' },
-  rust:       { bg: '#8B3A0A', light: '#A84E18', edge: '#5C2505', side: '#6B300A', top: '#9A4515', text: 'rgba(255,255,255,0.92)' },
-  plum:       { bg: '#4A1A4A', light: '#652A65', edge: '#2E0E2E', side: '#3C143C', top: '#5A225A', text: 'rgba(255,255,255,0.92)' },
-  teal:       { bg: '#0A4A4A', light: '#186565', edge: '#052E2E', side: '#0A3C3C', top: '#1A5858', text: 'rgba(255,255,255,0.92)' },
-  charcoal:   { bg: '#2A2A2A', light: '#3E3E3E', edge: '#181818', side: '#222222', top: '#3A3A3A', text: 'rgba(255,255,255,0.92)' },
-  sage:       { bg: '#6B7A5A', light: '#667456', edge: '#4A5640', side: '#5A684C', top: '#7A8C68', text: 'rgba(255,255,255,0.92)' },
-  mustard:    { bg: '#9A7A1A', light: '#B8942A', edge: '#6E5810', side: '#846A14', top: '#AA8A22', text: 'rgba(30,20,5,0.9)' },
-  oxblood:    { bg: '#4A0A0A', light: '#651818', edge: '#2E0505', side: '#3C0A0A', top: '#5A1212', text: 'rgba(255,255,255,0.92)' },
-  forest:     { bg: '#1A3A1A', light: '#285028', edge: '#0E220E', side: '#142E14', top: '#224822', text: 'rgba(255,255,255,0.92)' },
-  cobalt:     { bg: '#0A2A6B', light: '#1A3E8A', edge: '#051A45', side: '#0A2258', top: '#1E4A8A', text: 'rgba(255,255,255,0.92)' },
-  copper:     { bg: '#8A5030', light: '#9C613C', edge: '#5C3520', side: '#704228', top: '#985A38', text: 'rgba(255,255,255,0.92)' },
-  cream:      { bg: '#D8CDB0', light: '#E8DCC5', edge: '#B0A488', side: '#C0B498', top: '#DED4BA', text: 'rgba(30,25,15,0.9)' },
-  wine:       { bg: '#5A0A2A', light: '#781838', edge: '#380518', side: '#480A22', top: '#6A1232', text: 'rgba(255,255,255,0.92)' },
-  midnight:   { bg: '#101828', light: '#1A2840', edge: '#080E18', side: '#0C1420', top: '#1E3048', text: 'rgba(255,255,255,0.92)' },
-  terracotta: { bg: '#9A5A3A', light: '#9A6241', edge: '#6E3E28', side: '#844C32', top: '#A86242', text: 'rgba(255,255,255,0.92)' },
-  royalblue:  { bg: '#2563eb', light: '#336AD5', edge: '#1A4AB0', side: '#1E52C8', top: '#4888F0', text: 'rgba(255,255,255,0.92)' },
-  steelnavy:  { bg: '#1e3a5f', light: '#2A5080', edge: '#122440', side: '#18304E', top: '#2E5A85', text: 'rgba(255,255,255,0.92)' },
+/* The spines run the POST-PALETTE rotation — the muted spectrum every social
+   post is built from, sampled off the Van Leeuwen shelf. Its order jumps
+   across the wheel rather than walking it, so neighbouring spines are never
+   near-identical; 42 books against 17 colours puts a repeat 17 spines away,
+   which on a 21-book row is the far end of it.
+
+   Source of truth: ~/Desktop/stray-social-assets/POST-PALETTE.md.
+
+   A spine needs five faces, not one. They are mixed in sRGB from the base —
+   toward black for the two shadowed edges, toward white for the lit centre —
+   which holds the hue and reproduces the depth the hand-picked set had.
+
+   The ink is MEASURED, not copied across. POST-PALETTE names an ink per
+   colour, but that rule is written for a flat post background, and a spine's
+   title sits on the lit face. White on terracotta clears 4.5:1 against
+   #AC6051 itself and fails against every lighter face of it, so the ink is
+   decided against the face the title actually crosses. */
+const ROTATION = [
+  '#AC6051', '#99C1BB', '#B288A5', '#A6C174', '#8F8BBA', '#C49A76',
+  '#97B9C0', '#BD7C97', '#B2D6BC', '#876BBF', '#D6BB83', '#7BA1BD',
+  '#CC8D9A', '#ABD3C2', '#B086CF', '#C9CC77', '#7B89C0',
+] as const;
+
+const channels = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const toHex = (c: readonly number[]) =>
+  '#' + c.map((v) => Math.round(Math.min(255, Math.max(0, v))).toString(16).padStart(2, '0')).join('');
+const mix = (base: string, toward: number, amount: number) =>
+  toHex(channels(base).map((v) => v + (toward - v) * amount));
+
+const luminance = (h: string) =>
+  channels(h)
+    .map((v) => {
+      const s = v / 255;
+      return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+    })
+    .reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+const contrast = (a: string, b: string) => {
+  const [hi, lo] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (hi + 0.05) / (lo + 0.05);
 };
+
+/* A title runs down the centre of its spine, which on the gradient below
+   spans `bg` at 18% through `light` at 45% and back to `bg` at 72%. So the
+   ink has to clear 4.5:1 against BOTH of those, not against the base alone.
+
+   Fifteen of the seventeen clear it in charcoal untouched. Terracotta
+   (#AC6051, 3.77 charcoal / 3.73 white) and purple (#876BBF, 4.05 / 3.48)
+   clear it in neither — they are the two mid-tones in the set, and a mid-tone
+   is the worst case for both inks at once. Rather than hand-pick a
+   replacement for those two, the base is lifted toward white in 2% steps
+   until one ink passes, and stops at the first step that does. Every other
+   colour is untouched at lift 0, so this is a correction where one is owed
+   and nowhere else. */
+const legible = (base: string) => {
+  for (let lift = 0; lift <= 0.4; lift += 0.02) {
+    const bg = mix(base, 255, lift);
+    const light = mix(bg, 255, 0.12);
+    for (const ink of ['#1A1A1A', '#FFFFFF']) {
+      if (Math.min(contrast(ink, bg), contrast(ink, light)) >= 4.5) {
+        return { bg, light, ink: ink === '#FFFFFF' ? 'rgba(255,255,255,0.94)' : 'rgba(26,26,26,0.92)' };
+      }
+    }
+  }
+  // Unreachable for this palette: white always wins by lift 0.4.
+  const bg = mix(base, 255, 0.4);
+  return { bg, light: mix(bg, 255, 0.12), ink: 'rgba(26,26,26,0.92)' };
+};
+
+const SPINES = ROTATION.map((base) => {
+  const { bg, light, ink } = legible(base);
+  return {
+    bg,
+    light,
+    edge: mix(bg, 0, 0.3),
+    side: mix(bg, 0, 0.16),
+    top: mix(bg, 255, 0.05),
+    text: ink,
+  };
+});
 
 // Split into even rows from the live count, and carry each row's starting index
 // with it. The offset is what maps a spine back to ALL_BOOKS, so deriving it
@@ -98,17 +149,23 @@ const MOBILE_ROWS = ROW(4);
 function BookSpine({
   book,
   index,
+  shelfIndex,
   isActive,
   isFocused,
   onToggle,
 }: {
   book: typeof ALL_BOOKS[0];
+  /** Position within its own row — this drives z-stacking, so each row
+      restarts and the spines overlap left over right. */
   index: number;
+  /** Position on the whole shelf, which is what the colour rotation walks.
+      Rows split differently at different widths; the shelf does not. */
+  shelfIndex: number;
   isActive: boolean;
   isFocused: boolean;
   onToggle: () => void;
 }) {
-  const c = BOOK_COLORS[book.color] || BOOK_COLORS.brown;
+  const c = SPINES[shelfIndex % SPINES.length];
   const baseH = 150;
   const h = baseH + Math.min(book.title.length * 2.5, 80);
   const w = 42 + (book.title.length % 4) * 3;
@@ -280,6 +337,7 @@ function ShelfRow({
             key={globalOffset + i}
             book={book}
             index={i}
+            shelfIndex={globalOffset + i}
             isActive={activeBookIndex === globalOffset + i}
             isFocused={focusedShelfIndex === globalOffset + i}
             onToggle={() => setActiveBookIndex(activeBookIndex === globalOffset + i ? null : globalOffset + i)}

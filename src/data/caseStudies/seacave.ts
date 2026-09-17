@@ -25,17 +25,17 @@ export const SEACAVE: CaseStudy = {
       lead: 'The shop keeps two lists. The catalogue is a reference for what is alive in its tanks, and the shop page is the hardware that carries prices.',
       items: [
         {
-          heading: 'The aisle tiles',
+          heading: 'Aisle tiles',
           body: 'One tile each for saltwater, freshwater, coral and invertebrates, one for all of them, and every tile carries its count.',
           shot: 'seacave/catalogue-aisles',
         },
         {
-          heading: 'The in-store notice',
+          heading: 'In-store notice',
           body: 'One notice: sold in store, live animals never shipped, special orders taken, and the number to call.',
           shot: 'seacave/shop-instore',
         },
         {
-          heading: 'The call button',
+          heading: 'Call button',
           body: 'A species page carries no basket. The button in the buy slot is the shop’s phone number.',
           shot: 'seacave/species-call',
         },
@@ -47,39 +47,39 @@ export const SEACAVE: CaseStudy = {
       lead: 'Every species the shop keeps has a page. Each is built to answer what would otherwise have to be asked out loud at the counter.',
       items: [
         {
-          heading: 'The care grid',
+          heading: 'Care grid',
           body: 'This one grid holds care level, temperament, community, adult size, minimum tank, diet and the scientific name.',
           shot: 'seacave/species-care',
         },
         {
-          heading: 'The adult-size card',
+          heading: 'Adult-size card',
           body: 'Sixteen species outgrow the tank they are bought for, and only those pages carry the juvenile gallons beside the adult gallons.',
           shot: 'seacave/species-grows',
         },
         {
-          heading: 'A tankmate card',
+          heading: 'Tankmate card',
           body: 'A tankmate the shop keeps gets its photograph, a link to its own page, and a paragraph on why the pairing works.',
           shot: 'seacave/species-tankmates',
         },
       ],
     },
     {
-      label: 'The builds',
+      label: 'Builds',
       gloss: 'eight guides, each priced',
       lead: "Eight of the guides walk a whole tank build. Each of those ends in a parts list, priced off the shop's own shelves.",
       items: [
         {
-          heading: 'The water-and-size chip',
+          heading: 'Water-and-size chip',
           body: 'One chip gives the water type and the tank size the build was written for.',
           shot: 'seacave/guide-cards',
         },
         {
-          heading: 'A parts-list row',
+          heading: 'Parts-list row',
           body: 'A row holds the photograph, the part, its price, one line on the job it does, and the link to the product.',
           shot: 'seacave/guide-part',
         },
         {
-          heading: 'An estimated price',
+          heading: 'Estimated price',
           body: 'An unconfirmed price carries a tilde and the word estimate, beside the part it belongs to and the line explaining it.',
           shot: 'seacave/guide-estimate',
         },
@@ -91,7 +91,7 @@ export const SEACAVE: CaseStudy = {
       lead: 'Servicing and coral farming have a page of their own. Numbered blocks rather than one long paragraph, so each service can be read and left on its own.',
       items: [
         {
-          heading: 'The service photograph',
+          heading: 'Service photograph',
           body: "Each photograph is one of the shop's own display tanks in Erie.",
           shot: 'seacave/service-photo',
         },
@@ -101,7 +101,7 @@ export const SEACAVE: CaseStudy = {
           shot: 'seacave/service-covered',
         },
         {
-          heading: 'The enquire button',
+          heading: 'Enquire button',
           body: 'The same phone number closes each service, so nobody has to scroll back up to find it.',
           shot: 'seacave/service-call',
         },
@@ -121,17 +121,17 @@ export const SEACAVE: CaseStudy = {
       lead: 'Sea Cave edits the site itself. Every screen in the editor is named for a job the shop already does, and the whole of it fits a phone.',
       items: [
         {
-          heading: 'A task card',
+          heading: 'Task card',
           body: 'The front page is a stack of these. Each is named for the job, and the line under it says when to reach for it.',
           shot: 'seacave/manage-tasks',
         },
         {
-          heading: 'A product card',
+          heading: 'Product card',
           body: 'Photo, name, price and the switch that takes it off the site. Anything that sells out goes off in one tap.',
           shot: 'seacave/manage-toggle',
         },
         {
-          heading: 'The second-look rows',
+          heading: 'Second-look rows',
           body: 'The editor checks its own catalogue. Anything live without a photo or without a price is listed here, so nobody goes looking for it.',
           shot: 'seacave/manage-check',
         },

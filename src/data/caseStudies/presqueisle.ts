@@ -27,83 +27,83 @@ export const PRESQUEISLE: CaseStudy = {
       lead: "The red is the shop's own and the photographs are the family's, taken on the boat and in the shop. Nothing here came out of a stock library.",
       items: [
         {
-          heading: 'The hero lines',
+          heading: 'Hero lines',
           body: 'Three lines of condensed display type over their own photograph of the lake, above everything else on the page.',
           shot: 'presqueisle/hero-line',
         },
         {
-          heading: 'The compass mark',
+          heading: 'Compass mark',
           body: "The colour was sampled off this compass mark, which is the shop's own logo and sits on every page.",
           shot: 'presqueisle/roundel',
         },
         {
-          heading: 'The captioned print',
+          heading: 'Captioned print',
           body: 'Rods off the stern, shot from the boat. The caption under the print says whose photograph it is.',
           shot: 'presqueisle/captain-print',
         },
       ],
     },
     {
-      label: 'The counters',
+      label: 'Counters',
       gloss: 'twelve counters, 283 products',
       lead: "Twelve counters, one page each, 283 products under them. Prices come off stickers at the counter, so the page carries the number to call for today's price.",
       items: [
         {
-          heading: 'A product tile',
+          heading: 'Product tile',
           body: 'This tile carries the photograph, the name, the price by the pound and a tag saying fresh, frozen or both.',
           shot: 'presqueisle/card-photo',
         },
         {
-          heading: 'The red name card',
+          heading: 'Red name card',
           body: 'Where there is no photograph the tile prints a red card with the name on it. A missing price says to ask at the counter.',
           shot: 'presqueisle/card-sign',
         },
         {
-          heading: 'The price note',
+          heading: 'Price note',
           body: 'The note says fresh prices change frequently and that the page may not always be perfectly accurate. The phone number for today’s is printed in it.',
           shot: 'presqueisle/price-note',
         },
       ],
     },
     {
-      label: 'A fish',
+      label: 'Fish',
       gloss: '234 products with a page',
       lead: '234 of those products open a page. Each answers what a customer standing at the counter would otherwise have to ask somebody.',
       items: [
         {
-          heading: 'The flavour note',
+          heading: 'Flavour note',
           body: 'A short note on the flavour and the flake, so somebody choosing between two of them never leaves to search.',
           shot: 'presqueisle/fish-taste',
         },
         {
-          heading: 'The call and directions buttons',
+          heading: 'Call and directions buttons',
           body: 'The real phone number is printed in the button, and directions sit right under it.',
           shot: 'presqueisle/fish-actions',
         },
         {
-          heading: 'The ON THE TABLE list',
+          heading: 'ON THE TABLE list',
           body: "Meal ideas in the shop's own words, under a heading that reads ON THE TABLE. Nothing here was lifted off a recipe site.",
           shot: 'presqueisle/fish-table',
         },
       ],
     },
     {
-      label: 'The week',
+      label: 'Week',
       gloss: 'Friday, Saturday and the boiler',
       lead: 'The shop stays open later on Friday and runs a standing offer on Saturday. Each gets a block of its own, printed with the hours or the price the day actually carries.',
       items: [
         {
-          heading: 'The Friday block',
+          heading: 'Friday block',
           body: 'The one day the doors stay open past the usual closing time, with the menu one tap away.',
           shot: 'presqueisle/friday',
         },
         {
-          heading: 'The Saturday block',
+          heading: 'Saturday block',
           body: 'Its own block, with the hours, the price and what is in the take-home kit written out.',
           shot: 'presqueisle/saturday',
         },
         {
-          heading: 'The boiler rental',
+          heading: 'Boiler rental',
           body: 'The day rate and the refundable deposit are printed. The call is to find out whether the one boiler is free that weekend.',
           shot: 'presqueisle/boiler',
         },
