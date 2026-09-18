@@ -15,7 +15,7 @@ import { SPECS as middleman } from './shots/middleman.mjs';
    the intro paragraph. Its own minimize button collapses it to the small HOURS
    pill, which is a real control a real visitor uses — so the capture stays a
    picture of the site as shipped rather than the site with a part removed. */
-export const SITES = {
+const DECLARED_SITES = {
   andys: {
     base: 'https://andyspub.com',
     display: 'andyspub.com',
@@ -53,5 +53,25 @@ export const SITES = {
   presqueisle: { base: 'https://presqueislefishandfarm.com', display: 'presqueislefishandfarm.com' },
   middleman: { base: 'https://middleman.quest', display: 'middleman.quest' },
 };
+
+/* A fix lands locally before it is deployed, and the shot OF that fix has to
+   come from the build that has it. `SHOT_BASE_<STUDY>` points one site at a
+   local server for a single run:
+
+     SHOT_BASE_PRESQUEISLE=http://localhost:5192 npm run shots -- presqueisle roundel
+
+   `display` is untouched, so the address bar still draws the production
+   domain — the same arrangement `seacaveManage` above already runs on. Nothing
+   is written back here, so the next run goes to production on its own.
+
+   This is for re-shooting a fix that is committed and waiting to deploy. A
+   shot taken from a local build of something NOT yet committed is a picture of
+   a site that does not exist. */
+export const SITES = Object.fromEntries(
+  Object.entries(DECLARED_SITES).map(([study, site]) => {
+    const base = process.env[`SHOT_BASE_${study.toUpperCase()}`];
+    return [study, base ? { ...site, base } : site];
+  }),
+);
 
 export const SHOT_SPECS = { andys, bullfrog, seacave, presqueisle, middleman };

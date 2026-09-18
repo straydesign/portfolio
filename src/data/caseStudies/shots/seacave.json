@@ -233,6 +233,8 @@
       "w": 80.51,
       "h": 15.17
     },
-    "note": "The site checks itself"
+    "note": "The site checks itself",
+    "tintTop": "dark",
+    "tintBottom": "dark"
   }
 }
