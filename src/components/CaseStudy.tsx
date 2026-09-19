@@ -29,7 +29,20 @@ function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
   // -1 until the observer claims one, which is what keeps all three lines at
   // full strength for a reader who never scrolls or has JS off.
   const [active, setActive] = useState(-1);
+  /* `active` drops back to -1 the moment the column of phones clears the
+     band, which on desktop just turns the highlight off. The bottom caption
+     under 1000px holds one sentence and nothing else, so -1 would empty the
+     bar for the whole length of its own slide-out. `shown` never goes
+     backwards to nothing — it keeps the last sentence it was given. */
+  const [shown, setShown] = useState(0);
   const [lead, setLead] = useState<string | null>(null);
+  /* Under 1000px the three lines become one caption pinned to the bottom of
+     the screen, and the other two are display:none. That is only safe while
+     something is actually swapping them — with JS off, or under reduce, all
+     three have to stay in the page. So the CSS that hides them is gated on
+     this class, which is only ever set from inside the effect that installs
+     the observers. No observers, no hiding. */
+  const [pinnable, setPinnable] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const shotsRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +58,10 @@ function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) setActive(els.indexOf(entry.target as HTMLElement));
+          if (!entry.isIntersecting) continue;
+          const i = els.indexOf(entry.target as HTMLElement);
+          setActive(i);
+          setShown(i);
         }
       },
       { rootMargin: '-48% 0px -48% 0px', threshold: 0 },
@@ -66,9 +82,20 @@ function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
     );
     out.observe(host);
 
+    /* Reduce means the caption does not take over the block — the reader
+       keeps the plain stack with all three lines in it, which is what ships
+       today and is already good. Watched rather than read once, so turning
+       the preference on mid-visit puts the lines back. */
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setPinnable(!still.matches);
+    sync();
+    still.addEventListener('change', sync);
+
     return () => {
       io.disconnect();
       out.disconnect();
+      still.removeEventListener('change', sync);
+      setPinnable(false);
     };
   }, [topic]);
 
@@ -139,7 +166,7 @@ function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
       id={id}
       data-cs-section=""
       aria-label={topic.label}
-      className={`cs-topic${active >= 0 ? ' cs-topic--live' : ''}`}
+      className={`cs-topic${active >= 0 ? ' cs-topic--live' : ''}${pinnable ? ' cs-topic--pinnable' : ''}`}
     >
       {lead && (
         <svg className="cs-lead" aria-hidden="true">
@@ -152,7 +179,10 @@ function TopicBlock({ topic, id }: { topic: Topic; id: string }) {
         <p className="cs-para">{topic.lead}</p>
         <div className="cs-items">
           {topic.items.map((item, i) => (
-            <div className={`cs-item${i === active ? ' is-active' : ''}`} key={item.shot}>
+            <div
+              className={`cs-item${i === active ? ' is-active' : ''}${i === shown ? ' is-shown' : ''}`}
+              key={item.shot}
+            >
               <h3 className="cs-item__heading">{item.heading}</h3>
               <p className="cs-item__body">{item.body}</p>
             </div>

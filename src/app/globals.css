@@ -1016,6 +1016,124 @@ body[data-keyboard-nav] [data-nav-active]:not(:has([data-textcard])):not(#header
   .cs-item__body { max-width: 46ch; }
 }
 
+/* The caption bar — the desktop engine, rotated for one column ---------
+   Desktop holds three lines still in a pinned column while three phones
+   scroll past them, and draws a line from the live one to its phone. Under
+   1000px there is no second column to pin in and no empty space to draw
+   through, so for a long time the whole thing simply switched off and a
+   phone got a plain stack: three sentences, then three screens, nothing
+   connecting them.
+
+   Same idea, turned ninety degrees. The live sentence rides the bottom edge
+   of the screen while its phone crosses the middle, and swaps when the next
+   one arrives. Text holds, product advances — which is what the block was
+   always doing.
+
+   The bottom edge rather than the top: a phone's top is where the shot wants
+   to be and where the eye lands first, and a line of type sitting on the
+   bottom rail reads as a caption for the thing above it rather than as a
+   second header.
+
+   Measured at 390x844: 756px under the header, the bar is ~120px, a handset
+   is 606px. It fits with 30px to spare, which is why the lead paragraph is
+   NOT in the bar — label and lead scroll normally at the top of the block
+   and introduce the topic once.
+
+   Everything here hangs off `--pinnable`, which CaseStudy.tsx only sets from
+   inside the effect that installs the observers, and never under reduce. No
+   JavaScript, or reduce turned on, and the block stays the plain stack above
+   with all three sentences in the page.
+
+   `min-height: 640px` because the bar costs the phone above it ~120px, and
+   under about 640 there is not enough screen left for a handset to be worth
+   looking at — a 844x390 landscape window has 188px of room for a 731px
+   render. Those get the plain stack, which is the right answer rather than a
+   consolation one: nothing is pinned, so nothing is covering anything. */
+@media (max-width: 1000px) and (min-height: 640px) {
+  /* The three sentences have to become a sibling of the phones to pin
+     against them; inside .cs-topic__text they can only stick within that
+     box, which ends before the first phone starts. `display: contents`
+     promotes label, lead and items to grid items without touching the DOM,
+     so the reading order and the desktop layout are both left alone. */
+  .cs-topic--pinnable .cs-topic__text { display: contents; }
+  .cs-topic--pinnable { row-gap: 0; }
+  .cs-topic--pinnable .cs-label {
+    order: 1;
+    margin: 0 0 0.35rem;
+    padding: 0 var(--cs-pad);
+  }
+  .cs-topic--pinnable .cs-para {
+    order: 2;
+    padding: 0 var(--cs-pad);
+  }
+  .cs-topic--pinnable .cs-topic__shots {
+    order: 3;
+    margin-top: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .cs-topic--pinnable .cs-items {
+    order: 4;
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    margin: 0;
+    padding: 0.85rem var(--cs-pad) calc(0.85rem + env(safe-area-inset-bottom, 0px));
+    background: var(--cs-ground);
+    border-top: 1px solid rgba(25, 25, 25, 0.12);
+    /* One cell, three sentences stacked in it, so the bar is the height of
+       the tallest and never resizes as the caption changes. A bar that grew
+       a line would push the phone above it mid-scroll. */
+    display: grid;
+    /* Out of the way until this topic owns the screen. Without this, the
+       next block's bar is already pasted across the bottom of the screen
+       while the reader is still on the last phone of this one. */
+    transform: translateY(101%);
+    opacity: 0;
+    transition: transform 0.32s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .cs-topic--pinnable.cs-topic--live .cs-items {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .cs-topic--pinnable .cs-item {
+    grid-area: 1 / 1;
+    margin-top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.26s ease;
+  }
+  /* `is-shown`, not `is-active` — the bar keeps the last sentence through its
+     own slide-out, where `is-active` has already been dropped. */
+  .cs-topic--pinnable .cs-item.is-shown {
+    opacity: 1;
+    visibility: visible;
+  }
+  /* The violet rule is the same accent as the marker drawn on the screen
+     above it, so the pairing the leader line used to make is still made. */
+  .cs-topic--pinnable .cs-item.is-shown { border-left-color: var(--cs-mark); }
+  .cs-topic--pinnable .cs-item__heading { color: var(--cs-ink); }
+
+  /* Room under the last phone, so it can reach the middle of the screen
+     instead of stopping behind the bar. */
+  .cs-topic--pinnable .cs-topic__shots { padding-bottom: 2rem; }
+}
+
+/* An SE is 667 tall: 458px of room under the header and the bar, for a
+   handset that renders at 584. The shot was 126px too tall and the bottom of
+   every screen sat behind the caption describing it. The bar gives back what
+   it can and the render takes the rest. Measured after: 434 into 484. */
+@media (max-width: 1000px) and (min-height: 640px) and (max-height: 740px) {
+  .cs-topic--pinnable .cs-items {
+    padding-top: 0.6rem;
+    padding-bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  }
+  .cs-topic--pinnable .cs-item__body { font-size: calc(var(--cs-body) * 0.68); }
+  .cs-topic--pinnable .cs-shot { width: min(55%, 250px); }
+}
+
 @media (max-width: 640px) {
   .cs-impact__grid,
   .cs-learnings__grid { grid-template-columns: minmax(0, 1fr); }

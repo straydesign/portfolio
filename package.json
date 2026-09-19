@@ -10,7 +10,8 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "check:budget": "node --experimental-strip-types --no-warnings scripts/check-case-study-budget.mjs",
-    "shots": "node scripts/capture-shots.mjs"
+    "shots": "node scripts/capture-shots.mjs",
+    "verify:caption": "node scripts/verify-topic-caption.mjs"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.42.0",
